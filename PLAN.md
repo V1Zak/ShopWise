@@ -38,7 +38,16 @@ A progressive web app (PWA) that helps people manage their weekly shopping effic
 - Permissions: **view-only** or **can edit**
 - Push notifications when a shared list is updated (PWA notification API)
 
-### 5. Smart Suggestions
+### 5. Product Catalog & Store Directory
+
+- **Community-built product database** — every barcode scan adds to a shared catalog so future users get instant results
+- **Store profiles** — each product is tagged with the store(s) where it's available (e.g. Tesco, Lidl, Aldi)
+- **Store-specific pricing** — the same product can have different prices at different stores
+- **Browse by store** — filter the catalog to see "What can I get at Aldi?" when planning a trip
+- **Product categories** — items are grouped (Produce, Dairy, Bakery, Household, etc.) both globally and per-store aisle mapping
+- **Search & discover** — search the catalog by name, barcode, or category without needing to scan
+
+### 6. Smart Suggestions
 
 - Based on purchase history, suggest items the user might have forgotten ("You usually buy milk on Saturdays")
 - Auto-categorize items (Produce, Dairy, Household, etc.) to help organize the trip by store aisle
@@ -84,8 +93,26 @@ A progressive web app (PWA) that helps people manage their weekly shopping effic
 User
   id, email, name, passwordHash, createdAt
 
+Store
+  id, name, logo, location (optional), createdBy -> User
+
+Category
+  id, name, icon                          # e.g. Produce, Dairy, Bakery, Household
+
+Product
+  id, barcode (unique, nullable), name,
+  categoryId -> Category, imageUrl,
+  createdBy -> User, verified (bool),     # verified = confirmed by multiple scans
+  createdAt
+
+StoreProduct                              # links a product to a store with pricing
+  id, storeId -> Store, productId -> Product,
+  price, lastUpdated, updatedBy -> User
+
 ShoppingList
-  id, ownerId -> User, title, isTemplate, createdAt, updatedAt
+  id, ownerId -> User, title, isTemplate,
+  storeId -> Store (nullable),            # optional: associate a list with a store
+  createdAt, updatedAt
 
 ListShare
   id, listId -> ShoppingList, userId -> User, permission (view | edit)
@@ -95,11 +122,9 @@ ListItem
   name, quantity, unit, estimatedPrice, actualPrice,
   isChecked, sortOrder
 
-Product
-  id, barcode (unique, nullable), name, category, defaultPrice, imageUrl
-
 PriceHistory
-  id, productId -> Product, userId -> User, price, store, recordedAt
+  id, productId -> Product, storeId -> Store,
+  userId -> User, price, recordedAt
 ```
 
 ---
@@ -149,12 +174,15 @@ ShopWise/
 - [ ] Basic responsive UI (mobile-first)
 - [ ] PWA manifest & service worker (installable, basic offline)
 
-### Phase 2 — Scanning & Recurring Lists
+### Phase 2 — Scanning, Product Catalog & Stores
 - [ ] Camera barcode scanner component (ZXing-js)
-- [ ] Product database lookup (Open Food Facts API or similar)
-- [ ] Save products to local DB after first scan
+- [ ] Product catalog DB seeded from Open Food Facts
+- [ ] Save new products from user scans into shared catalog
+- [ ] Store directory — CRUD stores, link products to stores with prices
+- [ ] Browse/search product catalog by name, barcode, category, or store
+- [ ] Store-specific pricing on list items
 - [ ] Template lists ("buy again" from previous list)
-- [ ] Price auto-suggestion from history
+- [ ] Price auto-suggestion from history (per store)
 
 ### Phase 3 — Sharing & Real-Time
 - [ ] Share link generation (unique tokens)
@@ -193,12 +221,16 @@ Open list → Tap "Share" → Choose permission (view/edit)
 
 ---
 
+## Decisions Made
+
+1. **Product data source** — Hybrid: seed from Open Food Facts for initial coverage, then grow the catalog organically from user scans. Every scan enriches the shared DB.
+2. **Store-specific pricing** — Yes. Products are linked to stores via `StoreProduct`, so the same item can have different prices at Tesco vs Aldi.
+
 ## Open Questions
 
-1. **Product data source** — Use Open Food Facts (free, community-driven) or build our own product DB over time from user scans?
-2. **Store-specific pricing** — Track prices per store, or keep it simple with one price per product?
-3. **Auth strategy** — Email/password only, or add social login (Google, Apple) from the start?
-4. **Monetization** — Free with ads? Freemium (free for X lists, paid for unlimited)? Fully free?
+1. **Auth strategy** — Email/password only, or add social login (Google, Apple) from the start?
+2. **Monetization** — Free with ads? Freemium (free for X lists, paid for unlimited)? Fully free?
+3. **Store location data** — Should we integrate a maps API to auto-detect nearby stores, or keep store selection manual?
 
 ---
 
