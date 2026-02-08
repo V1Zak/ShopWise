@@ -12,11 +12,34 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
   const getRunningTotal = useListsStore((s) => s.getRunningTotal);
   const items = useListsStore((s) => s.items);
   const user = useAuthStore((s) => s.user);
+  const saveAsTemplate = useListsStore((s) => s.saveAsTemplate);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
   const list = lists.find((l) => l.id === activeListId);
   const total = getRunningTotal(activeListId);
   const allItems = items.filter((i) => i.listId === activeListId);
   const collaboratorCount = list?.collaboratorCount ?? 0;
+
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSaveAsTemplate = async () => {
+    if (!list || saving) return;
+    setSaving(true);
+    setError(null);
+    try {
+      await saveAsTemplate(activeListId, `${list.title} (Template)`);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to save template';
+      setError(message);
+      setTimeout(() => setError(null), 4000);
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <>
@@ -41,6 +64,24 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
             </p>
           </div>
           <div className="flex items-end gap-3">
+            <button
+              onClick={handleSaveAsTemplate}
+              disabled={saving || saved}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                saved
+                  ? 'bg-primary/20 text-primary'
+                  : 'bg-accent-green text-white hover:bg-[#2d5c45]'
+              }`}
+              title="Save as Template"
+            >
+              <span className="material-symbols-outlined text-[18px]">
+                {saved ? 'bookmark_added' : 'bookmark'}
+              </span>
+              {saving ? 'Saving...' : saved ? 'Saved' : 'Save as Template'}
+            </button>
+            {error && (
+              <span className="text-red-400 text-sm font-medium">{error}</span>
+            )}
             <button onClick={() => setIsShareModalOpen(true)} className="relative flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors">
               <Icon name="share" size={18} />
               Share
