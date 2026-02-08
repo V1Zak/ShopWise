@@ -4,10 +4,24 @@ import { sharingService } from './sharing.service';
 
 export const listsService = {
   async getLists(): Promise<ShoppingList[]> {
-    const { data, error } = await supabase.from('shopping_lists')
+    // Try with joins first, fall back to simple query
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let data: any[] | null = null;
+    const { data: fullData, error } = await supabase.from('shopping_lists')
       .select('*, stores ( name ), list_items ( id )')
       .order('updated_at', { ascending: false });
-    if (error) throw error;
+
+    if (!error) {
+      data = fullData;
+    } else {
+      // Fallback: query without joins
+      console.warn('getLists: full query failed, retrying without joins:', error.message);
+      const { data: simpleData, error: simpleError } = await supabase.from('shopping_lists')
+        .select('*')
+        .order('updated_at', { ascending: false });
+      if (simpleError) throw simpleError;
+      data = simpleData;
+    }
 
     // Fetch share counts separately — may fail for non-owners due to RLS
     let shareCounts: Record<string, number> = {};
@@ -20,7 +34,7 @@ export const listsService = {
       }
     } catch { /* ignore RLS errors */ }
 
-    const ownedLists: ShoppingList[] = (data ?? []).map((row) => ({
+    const ownedLists: ShoppingList[] = (data ?? []).map((row: any) => ({
       id: row.id,
       ownerId: row.owner_id,
       title: row.title,
@@ -28,7 +42,7 @@ export const listsService = {
       storeName: row.stores?.name ?? undefined,
       isTemplate: row.is_template,
       budget: row.budget ? Number(row.budget) : null,
-      itemCount: row.list_items?.length ?? 0,
+      itemCount: Array.isArray(row.list_items) ? row.list_items.length : 0,
       estimatedTotal: 0,
       createdAt: row.created_at,
       updatedAt: row.updated_at,

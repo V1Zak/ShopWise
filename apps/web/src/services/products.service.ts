@@ -77,7 +77,15 @@ export const productsService = {
     }
 
     const { data, error } = await query;
-    if (error) throw error;
+    if (error) {
+      // Fallback: products without store prices
+      console.warn('getProducts: join query failed, retrying without joins:', error.message);
+      let fallback = supabase.from('products').select('*').order('name');
+      if (categoryId && categoryId !== 'all') fallback = fallback.eq('category_id', categoryId);
+      const { data: simpleData, error: simpleError } = await fallback;
+      if (simpleError) throw simpleError;
+      return ((simpleData ?? []) as unknown as DbProduct[]).map(toProduct);
+    }
 
     return (data as unknown as DbProduct[] ?? []).map(toProduct);
   },
@@ -101,7 +109,16 @@ export const productsService = {
     }
 
     const { data, error } = await q;
-    if (error) throw error;
+    if (error) {
+      console.warn('searchProducts: join query failed, retrying without joins:', error.message);
+      let fallback = supabase.from('products').select('*')
+        .or(`name.ilike.%${sanitizeQuery(query)}%,brand.ilike.%${sanitizeQuery(query)}%`)
+        .order('name');
+      if (categoryId && categoryId !== 'all') fallback = fallback.eq('category_id', categoryId);
+      const { data: simpleData, error: simpleError } = await fallback;
+      if (simpleError) throw simpleError;
+      return ((simpleData ?? []) as unknown as DbProduct[]).map(toProduct);
+    }
 
     return (data as unknown as DbProduct[] ?? []).map(toProduct);
   },

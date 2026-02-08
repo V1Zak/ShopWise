@@ -3,7 +3,9 @@ import type { ShoppingTrip, CategoryBreakdown, TripInsight } from '@shopwise/sha
 
 export const tripsService = {
   async getTrips(): Promise<ShoppingTrip[]> {
-    const { data, error } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let data: any[] | null = null;
+    const { data: fullData, error } = await supabase
       .from('shopping_trips')
       .select(`
         *,
@@ -11,7 +13,18 @@ export const tripsService = {
       `)
       .order('date', { ascending: false });
 
-    if (error) throw error;
+    if (!error) {
+      data = fullData;
+    } else {
+      // Fallback: query without stores join
+      console.warn('getTrips: full query failed, retrying without joins:', error.message);
+      const { data: simpleData, error: simpleError } = await supabase
+        .from('shopping_trips')
+        .select('*')
+        .order('date', { ascending: false });
+      if (simpleError) throw simpleError;
+      data = simpleData;
+    }
 
     return (data ?? []).map((row) => {
       const meta = (row.metadata ?? {}) as Record<string, unknown>;

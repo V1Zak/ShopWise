@@ -1,11 +1,42 @@
 import { StatCard } from '@/components/ui/StatCard';
+import { useTripsStore } from '@/store/trips-store';
 
 export function HistoryStats() {
+  const trips = useTripsStore((s) => s.trips);
+
+  const totalSpent = trips.reduce((sum, t) => sum + t.totalSpent, 0);
+  const totalSavings = trips.reduce((sum, t) => sum + (t.totalSaved ?? 0), 0);
+  const avgSavingsRate = totalSpent > 0 ? (totalSavings / totalSpent) * 100 : 0;
+
+  // Find top store by visit count
+  const storeCounts: Record<string, { name: string; count: number }> = {};
+  for (const t of trips) {
+    if (!storeCounts[t.storeId]) storeCounts[t.storeId] = { name: t.storeName, count: 0 };
+    storeCounts[t.storeId].count++;
+  }
+  const topStore = Object.values(storeCounts).sort((a, b) => b.count - a.count)[0];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <StatCard label="Total Spend YTD" value="$4,285.50" trend={2.5} icon="payments" iconColor="text-white" />
-      <StatCard label="Avg Savings" value="12.4%" trend={-1.1} icon="savings" iconColor="text-white" />
-      <StatCard label="Top Source" value="Whole Foods" trend={5} trendLabel="+5 visits" icon="storefront" iconColor="text-white" />
+      <StatCard
+        label="Total Spend YTD"
+        value={`$${totalSpent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+        icon="payments"
+        iconColor="text-white"
+      />
+      <StatCard
+        label="Avg Savings"
+        value={`${avgSavingsRate.toFixed(1)}%`}
+        icon="savings"
+        iconColor="text-white"
+      />
+      <StatCard
+        label="Top Source"
+        value={topStore ? topStore.name : 'N/A'}
+        trendLabel={topStore ? `${topStore.count} visits` : undefined}
+        icon="storefront"
+        iconColor="text-white"
+      />
     </div>
   );
 }

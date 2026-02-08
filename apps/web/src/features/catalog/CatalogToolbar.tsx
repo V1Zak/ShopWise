@@ -62,7 +62,7 @@ export function CatalogToolbar() {
           placeholder="Search by SKU, product name, or tag (e.g. 'Organic Milk')"
         />
       </div>
-      <div className="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+      <div className="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 scrollbar-none -mx-2 px-2">
         <button
           onClick={() => setViewMode('grid')}
           className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap ${

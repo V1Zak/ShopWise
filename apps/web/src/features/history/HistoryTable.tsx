@@ -34,12 +34,24 @@ export function HistoryTable() {
             </tr>
           </thead>
           <tbody className="text-sm divide-y divide-border-dark">
-            {pageTrips.map((trip) => (
-              <>
-                <TripRow key={trip.id} trip={trip} isExpanded={expandedTripId === trip.id} />
-                {expandedTripId === trip.id && <TripExpandedDetail key={`${trip.id}-detail`} trip={trip} />}
-              </>
-            ))}
+            {pageTrips.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="py-16 text-center">
+                  <div className="flex flex-col items-center gap-3">
+                    <span className="material-symbols-outlined text-4xl text-text-secondary/40">receipt_long</span>
+                    <p className="text-text-secondary font-medium">No shopping trips yet</p>
+                    <p className="text-text-secondary/70 text-xs max-w-xs">Complete your first shopping trip to start tracking your purchase history and savings.</p>
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              pageTrips.map((trip) => (
+                <>
+                  <TripRow key={trip.id} trip={trip} isExpanded={expandedTripId === trip.id} />
+                  {expandedTripId === trip.id && <TripExpandedDetail key={`${trip.id}-detail`} trip={trip} />}
+                </>
+              ))
+            )}
           </tbody>
         </table>
       </div>

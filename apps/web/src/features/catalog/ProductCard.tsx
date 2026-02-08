@@ -5,6 +5,21 @@ import { useProductsStore } from '@/store/products-store';
 import { useListsStore } from '@/store/lists-store';
 import { listsService } from '@/services/lists.service';
 
+function categoryIcon(categoryId: string): string {
+  const icons: Record<string, string> = {
+    produce: 'nutrition',
+    dairy: 'egg_alt',
+    meat: 'set_meal',
+    bakery: 'bakery_dining',
+    pantry: 'kitchen',
+    beverages: 'local_cafe',
+    frozen: 'ac_unit',
+    household: 'cleaning_services',
+    snacks: 'cookie',
+  };
+  return icons[categoryId] ?? 'shopping_bag';
+}
+
 interface Props {
   product: Product;
 }
@@ -66,8 +81,10 @@ export function ProductCard({ product }: Props) {
         {product.imageUrl ? (
           <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-accent-green/30">
-            <span className="material-symbols-outlined text-5xl text-text-secondary/30">image</span>
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent-green/20 to-accent-green/5">
+            <span className="material-symbols-outlined text-5xl text-primary/30">
+              {categoryIcon(product.categoryId)}
+            </span>
           </div>
         )}
         {product.badge && (
