@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuthStore } from '@/store/auth-store';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,11 +9,31 @@ export function SettingsPage() {
   const logout = useAuthStore((s) => s.logout);
   const navigate = useNavigate();
 
-  const [currency, setCurrency] = useState('USD ($)');
-  const [pushNotifications, setPushNotifications] = useState(true);
-  const [emailDigest, setEmailDigest] = useState(false);
-  const [priceAlerts, setPriceAlerts] = useState(true);
-  const [listReminders, setListReminders] = useState(true);
+  const [currency, setCurrency] = useState(() => {
+    try { return localStorage.getItem('sw_pref_currency') || 'USD ($)'; } catch { return 'USD ($)'; }
+  });
+  const [pushNotifications, setPushNotifications] = useState(() => {
+    try { return localStorage.getItem('sw_pref_pushNotifications') !== 'false'; } catch { return true; }
+  });
+  const [emailDigest, setEmailDigest] = useState(() => {
+    try { return localStorage.getItem('sw_pref_emailDigest') === 'true'; } catch { return false; }
+  });
+  const [priceAlerts, setPriceAlerts] = useState(() => {
+    try { return localStorage.getItem('sw_pref_priceAlerts') !== 'false'; } catch { return true; }
+  });
+  const [listReminders, setListReminders] = useState(() => {
+    try { return localStorage.getItem('sw_pref_listReminders') !== 'false'; } catch { return true; }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sw_pref_currency', currency);
+      localStorage.setItem('sw_pref_pushNotifications', String(pushNotifications));
+      localStorage.setItem('sw_pref_emailDigest', String(emailDigest));
+      localStorage.setItem('sw_pref_priceAlerts', String(priceAlerts));
+      localStorage.setItem('sw_pref_listReminders', String(listReminders));
+    } catch { /* localStorage unavailable */ }
+  }, [currency, pushNotifications, emailDigest, priceAlerts, listReminders]);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const displayName = user?.name || 'User';
@@ -24,6 +44,14 @@ export function SettingsPage() {
     .join('')
     .toUpperCase()
     .slice(0, 2);
+
+  const [editName, setEditName] = useState(displayName);
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
 
   const handleSignOut = async () => {
     await logout();
@@ -65,7 +93,8 @@ export function SettingsPage() {
                 </label>
                 <input
                   type="text"
-                  defaultValue={displayName}
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
                   className="w-full bg-surface-darker border border-border-dark rounded-lg px-4 py-2.5 text-white text-sm placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
                 />
               </div>
@@ -86,8 +115,11 @@ export function SettingsPage() {
             </div>
           </div>
           <div className="px-6 pb-6 flex justify-end">
-            <button className="bg-primary hover:bg-primary/90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors">
-              Save Changes
+            <button
+              onClick={handleSave}
+              className="bg-primary hover:bg-primary/90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors"
+            >
+              {saved ? 'Saved!' : 'Save Changes'}
             </button>
           </div>
         </section>
@@ -162,7 +194,11 @@ export function SettingsPage() {
                   Update your password to keep your account secure
                 </p>
               </div>
-              <button className="flex items-center gap-2 border border-border-dark hover:border-primary/50 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+              <button
+                disabled
+                title="Coming soon"
+                className="flex items-center gap-2 border border-border-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors opacity-50 cursor-not-allowed"
+              >
                 <span className="material-symbols-outlined text-[18px]">lock</span>
                 Update
               </button>
@@ -216,7 +252,11 @@ export function SettingsPage() {
                   >
                     Cancel
                   </button>
-                  <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+                  <button
+                    disabled
+                    title="Coming soon"
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors opacity-50 cursor-not-allowed"
+                  >
                     Confirm Delete
                   </button>
                 </div>
