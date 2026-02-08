@@ -1,15 +1,42 @@
 import { supabase } from '@/lib/supabase';
 import type { AnalyticsSummary } from '@shopwise/shared';
 
+export type AnalyticsPeriod = 'Weekly' | 'Monthly' | 'Quarterly' | 'YTD';
+
+function getDateRangeStart(period: AnalyticsPeriod): string {
+  const now = new Date();
+  let start: Date;
+
+  switch (period) {
+    case 'Weekly':
+      start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+      break;
+    case 'Monthly':
+      start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30);
+      break;
+    case 'Quarterly':
+      start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 90);
+      break;
+    case 'YTD':
+      start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 365);
+      break;
+  }
+
+  return start.toISOString().slice(0, 10);
+}
+
 export const analyticsService = {
-  async getAnalyticsSummary(): Promise<AnalyticsSummary> {
+  async getAnalyticsSummary(period: AnalyticsPeriod = 'Monthly'): Promise<AnalyticsSummary> {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('Not authenticated');
+
+    const rangeStart = getDateRangeStart(period);
 
     const { data: trips, error } = await supabase
       .from('shopping_trips')
       .select('*')
       .eq('user_id', user.id)
+      .gte('date', rangeStart)
       .order('date', { ascending: true });
 
     if (error) throw error;

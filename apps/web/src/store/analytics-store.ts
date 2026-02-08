@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import type { AnalyticsSummary } from '@shopwise/shared';
 import { analyticsService } from '@/services/analytics.service';
+import type { AnalyticsPeriod } from '@/services/analytics.service';
 
 const emptyAnalytics: AnalyticsSummary = {
   totalSpentYTD: 0,
@@ -16,21 +17,22 @@ const emptyAnalytics: AnalyticsSummary = {
 
 interface AnalyticsState {
   data: AnalyticsSummary;
-  period: 'Monthly' | 'Quarterly' | 'YTD';
+  period: AnalyticsPeriod;
   isLoading: boolean;
-  fetchAnalytics: () => Promise<void>;
-  setPeriod: (period: 'Monthly' | 'Quarterly' | 'YTD') => void;
+  fetchAnalytics: (period?: AnalyticsPeriod) => Promise<void>;
+  setPeriod: (period: AnalyticsPeriod) => void;
 }
 
-export const useAnalyticsStore = create<AnalyticsState>((set) => ({
+export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
   data: emptyAnalytics,
   period: 'Monthly',
   isLoading: false,
 
-  fetchAnalytics: async () => {
+  fetchAnalytics: async (period?: AnalyticsPeriod) => {
+    const activePeriod = period ?? get().period;
     set({ isLoading: true });
     try {
-      const data = await analyticsService.getAnalyticsSummary();
+      const data = await analyticsService.getAnalyticsSummary(activePeriod);
       set({ data, isLoading: false });
     } catch {
       set({ isLoading: false });
@@ -39,6 +41,6 @@ export const useAnalyticsStore = create<AnalyticsState>((set) => ({
 
   setPeriod: (period) => {
     set({ period });
-    // Re-fetch could be added here for server-side period filtering
+    get().fetchAnalytics(period);
   },
 }));
