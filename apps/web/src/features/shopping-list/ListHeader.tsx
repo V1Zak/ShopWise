@@ -18,16 +18,20 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
 
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSaveAsTemplate = async () => {
     if (!list || saving) return;
     setSaving(true);
+    setError(null);
     try {
       await saveAsTemplate(activeListId, `${list.title} (Template)`);
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
-    } catch {
-      // failed silently
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to save template';
+      setError(message);
+      setTimeout(() => setError(null), 4000);
     } finally {
       setSaving(false);
     }
@@ -65,6 +69,9 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
             </span>
             {saving ? 'Saving...' : saved ? 'Saved' : 'Save as Template'}
           </button>
+          {error && (
+            <span className="text-red-400 text-sm font-medium">{error}</span>
+          )}
           {onScanClick && (
             <button
               onClick={onScanClick}
