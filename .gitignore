@@ -17,3 +17,6 @@ dist/
 
 # Supabase local
 supabase/.temp/
+
+# E2E tests (local testing only)
+e2e-tests/

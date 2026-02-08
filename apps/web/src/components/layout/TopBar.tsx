@@ -59,7 +59,7 @@ export function TopBar() {
       await listsService.addItem({
         listId: targetList.id,
         name,
-        categoryId: 'general',
+        categoryId: 'other',
         estimatedPrice: price,
       });
       setQuickAdd('');
