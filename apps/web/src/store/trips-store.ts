@@ -11,6 +11,7 @@ export interface SpentRange {
 
 interface TripsState {
   trips: ShoppingTrip[];
+  currentTrip: ShoppingTrip | null;
   expandedTripId: string | null;
   searchQuery: string;
   isLoading: boolean;
@@ -18,6 +19,7 @@ interface TripsState {
   storeFilter: string | null;
   spentRange: SpentRange;
   fetchTrips: () => Promise<void>;
+  fetchTripById: (tripId: string) => Promise<void>;
   toggleExpand: (tripId: string) => void;
   setSearch: (query: string) => void;
   setDateRange: (range: DateRange) => void;
@@ -46,6 +48,7 @@ function getDateCutoff(range: DateRange): Date | null {
 
 export const useTripsStore = create<TripsState>((set, get) => ({
   trips: [],
+  currentTrip: null,
   expandedTripId: null,
   searchQuery: '',
   isLoading: false,
@@ -60,6 +63,21 @@ export const useTripsStore = create<TripsState>((set, get) => ({
       set({ trips, isLoading: false });
     } catch {
       set({ isLoading: false });
+    }
+  },
+
+  fetchTripById: async (tripId: string) => {
+    const existing = get().trips.find((t) => t.id === tripId);
+    if (existing) {
+      set({ currentTrip: existing });
+      return;
+    }
+    set({ isLoading: true });
+    try {
+      const trip = await tripsService.getTripById(tripId);
+      set({ currentTrip: trip, isLoading: false });
+    } catch {
+      set({ currentTrip: null, isLoading: false });
     }
   },
 
