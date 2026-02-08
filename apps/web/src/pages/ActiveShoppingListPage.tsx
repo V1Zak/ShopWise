@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ListHeader } from '@/features/shopping-list/ListHeader';
 import { ListTabs } from '@/features/shopping-list/ListTabs';
@@ -18,6 +18,7 @@ export function ActiveShoppingListPage() {
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState<ListItemStatus>('to_buy');
   const [selectedItem, setSelectedItem] = useState<ListItem | null>(null);
+  const selectedItemRef = useRef<ListItem | null>(null);
   const activeListId = useListsStore((s) => s.activeListId);
   const setActiveList = useListsStore((s) => s.setActiveList);
   const fetchListItems = useListsStore((s) => s.fetchListItems);
@@ -46,18 +47,35 @@ export function ActiveShoppingListPage() {
 
   // Keep selectedItem in sync with store (e.g., after status toggle or price update)
   useEffect(() => {
-    if (selectedItem) {
-      const updated = items.find((i) => i.id === selectedItem.id);
-      if (updated) {
-        setSelectedItem(updated);
-      } else {
-        setSelectedItem(null);
-      }
+    const currentId = selectedItemRef.current?.id;
+    if (!currentId) return;
+
+    const updated = items.find((i) => i.id === currentId);
+    if (!updated) {
+      selectedItemRef.current = null;
+      setSelectedItem(null);
+      return;
     }
-  }, [items, selectedItem?.id]);
+
+    const prev = selectedItemRef.current;
+    if (
+      prev &&
+      prev.status === updated.status &&
+      prev.actualPrice === updated.actualPrice &&
+      prev.quantity === updated.quantity &&
+      prev.name === updated.name
+    ) {
+      return;
+    }
+
+    selectedItemRef.current = updated;
+    setSelectedItem(updated);
+  }, [items]);
 
   const handleSelectItem = (item: ListItem) => {
-    setSelectedItem((prev) => (prev?.id === item.id ? null : item));
+    const next = selectedItemRef.current?.id === item.id ? null : item;
+    selectedItemRef.current = next;
+    setSelectedItem(next);
   };
 
   const handleAddScannedProduct = (product: Product) => {
