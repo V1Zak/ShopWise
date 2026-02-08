@@ -7,6 +7,7 @@ interface ListsState {
   activeListId: string;
   items: ListItem[];
   isLoading: boolean;
+  templates: ShoppingList[];
   fetchLists: () => Promise<void>;
   fetchListItems: (listId: string) => Promise<void>;
   setActiveList: (id: string) => void;
@@ -17,6 +18,9 @@ interface ListsState {
   updateItemPrice: (itemId: string, price: number) => void;
   addItem: (item: ListItem) => void;
   getRunningTotal: (listId: string) => number;
+  fetchTemplates: () => Promise<void>;
+  saveAsTemplate: (listId: string, title: string) => Promise<void>;
+  createFromTemplate: (templateId: string, newTitle: string) => Promise<ShoppingList | null>;
 }
 
 export const useListsStore = create<ListsState>((set, get) => ({
@@ -24,6 +28,7 @@ export const useListsStore = create<ListsState>((set, get) => ({
   activeListId: '',
   items: [],
   isLoading: false,
+  templates: [],
 
   fetchLists: async () => {
     set({ isLoading: true });
@@ -64,14 +69,12 @@ export const useListsStore = create<ListsState>((set, get) => ({
     const newStatus = item.status === 'to_buy' ? 'in_cart' : item.status === 'in_cart' ? 'to_buy' : item.status;
     const newActualPrice = item.status === 'to_buy' ? item.actualPrice ?? item.estimatedPrice : item.actualPrice;
 
-    // Optimistic update
     set((state) => ({
       items: state.items.map((i) =>
         i.id === itemId ? { ...i, status: newStatus as ListItemStatus, actualPrice: newActualPrice } : i,
       ),
     }));
 
-    // Sync to DB, rollback on error
     listsService.updateItem(itemId, { status: newStatus, actualPrice: newActualPrice ?? null }).catch(() => {
       set((state) => ({
         items: state.items.map((i) =>
@@ -85,7 +88,6 @@ export const useListsStore = create<ListsState>((set, get) => ({
     const item = get().items.find((i) => i.id === itemId);
     if (!item) return;
 
-    // Optimistic update
     set((state) => ({
       items: state.items.map((i) =>
         i.id === itemId ? { ...i, actualPrice: price } : i,
@@ -104,7 +106,6 @@ export const useListsStore = create<ListsState>((set, get) => ({
   addItem: (item) => {
     const tempId = item.id;
 
-    // Optimistic add
     set((state) => ({ items: [...state.items, item] }));
 
     listsService.addItem({
@@ -118,14 +119,12 @@ export const useListsStore = create<ListsState>((set, get) => ({
       tags: item.tags,
       sortOrder: item.sortOrder,
     }).then((row) => {
-      // Replace temp ID with real ID
       set((state) => ({
         items: state.items.map((i) =>
           i.id === tempId ? { ...i, id: row.id, listId: row.list_id } : i,
         ),
       }));
     }).catch(() => {
-      // Remove on failure
       set((state) => ({
         items: state.items.filter((i) => i.id !== tempId),
       }));
@@ -135,5 +134,33 @@ export const useListsStore = create<ListsState>((set, get) => ({
   getRunningTotal: (listId) => {
     const items = get().items.filter((i) => i.listId === listId && i.status === 'in_cart');
     return items.reduce((sum, item) => sum + (item.actualPrice ?? item.estimatedPrice), 0);
+  },
+
+  fetchTemplates: async () => {
+    try {
+      const templates = await listsService.getTemplates();
+      set({ templates });
+    } catch {
+      // silently fail
+    }
+  },
+
+  saveAsTemplate: async (listId, title) => {
+    try {
+      const template = await listsService.saveAsTemplate(listId, title);
+      set((state) => ({ templates: [template, ...state.templates] }));
+    } catch {
+      throw new Error('Failed to save template');
+    }
+  },
+
+  createFromTemplate: async (templateId, newTitle) => {
+    try {
+      const newList = await listsService.createFromTemplate(templateId, newTitle);
+      set((state) => ({ lists: [newList, ...state.lists] }));
+      return newList;
+    } catch {
+      return null;
+    }
   },
 }));
