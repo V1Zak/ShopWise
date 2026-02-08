@@ -1,8 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { registerSW } from 'virtual:pwa-register';
 import App from './App';
 import './index.css';
+
+// Register service worker with auto-update
+const updateSW = registerSW({
+  onNeedRefresh() {
+    // Auto-update when new content is available
+    updateSW(true);
+  },
+  onOfflineReady() {
+    console.log('ShopWise is ready to work offline');
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
