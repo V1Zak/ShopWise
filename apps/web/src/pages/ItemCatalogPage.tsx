@@ -28,13 +28,14 @@ export function ItemCatalogPage() {
   const handleRemoveFromComparison = useCallback(
     (productId: string) => {
       toggleCompare(productId);
-      // Close modal if fewer than 2 items remain after removal
-      const remaining = compareList.filter((id) => id !== productId);
+      // Use getState() to get the freshest compareList, avoiding stale closure
+      const freshCompareList = useProductsStore.getState().compareList;
+      const remaining = freshCompareList.filter((id) => id !== productId);
       if (remaining.length < 2) {
         setShowComparison(false);
       }
     },
-    [toggleCompare, compareList],
+    [toggleCompare],
   );
 
   return (
