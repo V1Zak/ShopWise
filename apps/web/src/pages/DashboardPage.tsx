@@ -5,6 +5,7 @@ import { RecentActivityFeed } from '@/features/dashboard/RecentActivityFeed';
 import { AttentionNeeded } from '@/features/dashboard/AttentionNeeded';
 import { SmartSuggestions } from '@/features/dashboard/SmartSuggestions';
 import { MiniCalendar } from '@/features/dashboard/MiniCalendar';
+import { TemplatePickerModal } from '@/components/TemplatePickerModal';
 import { NewListDialog } from '@/components/NewListDialog';
 import { NotificationPrompt } from '@/components/NotificationPrompt';
 import { Icon } from '@/components/ui/Icon';
@@ -12,6 +13,7 @@ import { useListsStore } from '@/store/lists-store';
 
 export function DashboardPage() {
   const fetchLists = useListsStore((s) => s.fetchLists);
+  const [templateModalOpen, setTemplateModalOpen] = useState(false);
   const [showNewList, setShowNewList] = useState(false);
 
   useEffect(() => { fetchLists(); }, [fetchLists]);
@@ -24,11 +26,20 @@ export function DashboardPage() {
             <h1 className="text-white text-2xl font-bold">Dashboard</h1>
             <p className="text-text-secondary text-sm mt-0.5">Your shopping overview</p>
           </div>
-          <button onClick={() => setShowNewList(true)}
-            className="flex items-center gap-2 bg-primary hover:bg-emerald-400 text-background-dark px-5 py-2.5 rounded-lg font-bold text-sm transition-colors shadow-[0_0_15px_rgba(19,236,128,0.3)]">
-            <Icon name="add" size={18} />
-            New List
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setTemplateModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors border border-border-dark"
+            >
+              <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
+              Create from Template
+            </button>
+            <button onClick={() => setShowNewList(true)}
+              className="flex items-center gap-2 bg-primary hover:bg-emerald-400 text-background-dark px-5 py-2.5 rounded-lg font-bold text-sm transition-colors shadow-[0_0_15px_rgba(19,236,128,0.3)]">
+              <Icon name="add" size={18} />
+              New List
+            </button>
+          </div>
         </div>
         <NotificationPrompt />
         <DashboardStats />
@@ -44,6 +55,10 @@ export function DashboardPage() {
           </div>
         </div>
       </div>
+      <TemplatePickerModal
+        open={templateModalOpen}
+        onClose={() => setTemplateModalOpen(false)}
+      />
       <NewListDialog open={showNewList} onClose={() => setShowNewList(false)} />
     </div>
   );
