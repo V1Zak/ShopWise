@@ -5,11 +5,10 @@ import { registerSW } from 'virtual:pwa-register';
 import App from './App';
 import './index.css';
 
-// Register service worker with auto-update
-const updateSW = registerSW({
+// Register service worker
+registerSW({
   onNeedRefresh() {
-    // Auto-update when new content is available
-    updateSW(true);
+    console.log('[PWA] New version available. Will update on next reload.');
   },
   onOfflineReady() {
     console.log('ShopWise is ready to work offline');
