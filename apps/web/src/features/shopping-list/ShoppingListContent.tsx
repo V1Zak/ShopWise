@@ -1,13 +1,15 @@
 import { useListsStore } from '@/store/lists-store';
 import { ShoppingListItem } from './ShoppingListItem';
 import { CATEGORY_MAP } from '@shopwise/shared';
-import type { ListItemStatus } from '@shopwise/shared';
+import type { ListItem, ListItemStatus } from '@shopwise/shared';
 
 interface Props {
   activeTab: ListItemStatus;
+  selectedItemId?: string | null;
+  onSelectItem?: (item: ListItem) => void;
 }
 
-export function ShoppingListContent({ activeTab }: Props) {
+export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }: Props) {
   const activeListId = useListsStore((s) => s.activeListId);
   const items = useListsStore((s) => s.items);
   const filteredItems = items.filter((i) => i.listId === activeListId && i.status === activeTab);
@@ -31,7 +33,12 @@ export function ShoppingListContent({ activeTab }: Props) {
               {category?.name || catId} {category?.aisle ? `(Aisle ${category.aisle})` : ''}
             </h3>
             {catItems.map((item) => (
-              <ShoppingListItem key={item.id} item={item} />
+              <ShoppingListItem
+                key={item.id}
+                item={item}
+                isSelected={selectedItemId === item.id}
+                onSelect={onSelectItem}
+              />
             ))}
           </div>
         );

@@ -10,13 +10,23 @@ import { NewListDialog } from '@/components/NewListDialog';
 import { NotificationPrompt } from '@/components/NotificationPrompt';
 import { Icon } from '@/components/ui/Icon';
 import { useListsStore } from '@/store/lists-store';
+import { useTripsStore } from '@/store/trips-store';
 
 export function DashboardPage() {
   const fetchLists = useListsStore((s) => s.fetchLists);
+  const listsLoaded = useListsStore((s) => s.lists.length > 0);
+  const fetchTrips = useTripsStore((s) => s.fetchTrips);
+  const tripsLoaded = useTripsStore((s) => s.trips.length > 0);
   const [templateModalOpen, setTemplateModalOpen] = useState(false);
   const [showNewList, setShowNewList] = useState(false);
 
-  useEffect(() => { fetchLists(); }, [fetchLists]);
+  useEffect(() => {
+    if (!listsLoaded) fetchLists();
+  }, [fetchLists, listsLoaded]);
+
+  useEffect(() => {
+    if (!tripsLoaded) fetchTrips();
+  }, [fetchTrips, tripsLoaded]);
 
   return (
     <div className="p-6 md:p-8">

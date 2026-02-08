@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ListHeader } from '@/features/shopping-list/ListHeader';
 import { ListTabs } from '@/features/shopping-list/ListTabs';
@@ -13,11 +13,13 @@ import { AddProductForm } from '@/components/AddProductForm';
 import { useListsStore } from '@/store/lists-store';
 import { useRealtimeList } from '@/hooks/useRealtimeList';
 import { useBarcodeScanner } from '@/hooks/useBarcodeScanner';
-import type { ListItemStatus, Product } from '@shopwise/shared';
+import type { ListItem, ListItemStatus, Product } from '@shopwise/shared';
 
 export function ActiveShoppingListPage() {
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState<ListItemStatus>('to_buy');
+  const [selectedItem, setSelectedItem] = useState<ListItem | null>(null);
+  const selectedItemRef = useRef<ListItem | null>(null);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const activeListId = useListsStore((s) => s.activeListId);
   const setActiveList = useListsStore((s) => s.setActiveList);
@@ -35,6 +37,7 @@ export function ActiveShoppingListPage() {
   }, [listId, setActiveList, fetchListItems]);
 
   useRealtimeList(listId);
+  const items = useListsStore((s) => s.items);
   const getItemsByStatus = useListsStore((s) => s.getItemsByStatus);
   const getItemsForList = useListsStore((s) => s.getItemsForList);
   const addItem = useListsStore((s) => s.addItem);
@@ -46,9 +49,45 @@ export function ActiveShoppingListPage() {
   const inCart = getItemsByStatus(activeListId, 'in_cart');
   const skipped = getItemsByStatus(activeListId, 'skipped');
 
+  // All items for the active list (for AisleNavigation)
+  const listItems = items.filter((i) => i.listId === activeListId);
+
+  // Keep selectedItem in sync with store (e.g., after status toggle or price update)
+  useEffect(() => {
+    const currentId = selectedItemRef.current?.id;
+    if (!currentId) return;
+
+    const updated = items.find((i) => i.id === currentId);
+    if (!updated) {
+      selectedItemRef.current = null;
+      setSelectedItem(null);
+      return;
+    }
+
+    const prev = selectedItemRef.current;
+    if (
+      prev &&
+      prev.status === updated.status &&
+      prev.actualPrice === updated.actualPrice &&
+      prev.quantity === updated.quantity &&
+      prev.name === updated.name
+    ) {
+      return;
+    }
+
+    selectedItemRef.current = updated;
+    setSelectedItem(updated);
+  }, [items]);
+
+  const handleSelectItem = (item: ListItem) => {
+    const next = selectedItemRef.current?.id === item.id ? null : item;
+    selectedItemRef.current = next;
+    setSelectedItem(next);
+  };
+
   const handleAddScannedProduct = (product: Product) => {
     addItem({
-      id: \`temp-\${Date.now()}\`,
+      id: `temp-${Date.now()}`,
       listId: activeListId,
       productId: product.id,
       name: product.name,
@@ -99,14 +138,18 @@ export function ActiveShoppingListPage() {
           onTabChange={setActiveTab}
           counts={{ to_buy: toBuy.length, in_cart: inCart.length, skipped: skipped.length }}
         />
-        <ShoppingListContent activeTab={activeTab} />
+        <ShoppingListContent
+          activeTab={activeTab}
+          selectedItemId={selectedItem?.id ?? null}
+          onSelectItem={handleSelectItem}
+        />
         <CompleteButton />
       </section>
 
       <section className="w-[450px] hidden xl:flex flex-col bg-surface-darker border-l border-border-dark">
         <div className="p-6 flex-1 flex flex-col gap-6 overflow-y-auto">
-          <AisleNavigation />
-          <ProductIntelligence />
+          <AisleNavigation items={listItems} />
+          <ProductIntelligence selectedItem={selectedItem} />
           <BudgetHealth
             budget={activeList?.budget}
             items={allItems}

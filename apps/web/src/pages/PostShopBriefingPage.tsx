@@ -18,11 +18,18 @@ export function PostShopBriefingPage() {
   const receiptRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (id) { fetchTripById(id); }
+    if (id) {
+      fetchTripById(id);
+    }
   }, [id, fetchTripById]);
 
-  const handleToggleEditing = useCallback(() => { setIsEditing((prev) => !prev); }, []);
-  const handleScrollToReceipt = useCallback(() => { receiptRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, []);
+  const handleToggleEditing = useCallback(() => {
+    setIsEditing((prev) => !prev);
+  }, []);
+
+  const handleScrollToReceipt = useCallback(() => {
+    receiptRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, []);
 
   if (isLoading && !currentTrip) {
     return (

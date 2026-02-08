@@ -3,9 +3,11 @@ import type { ListItem } from '@shopwise/shared';
 
 interface Props {
   item: ListItem;
+  isSelected?: boolean;
+  onSelect?: (item: ListItem) => void;
 }
 
-export function ShoppingListItem({ item }: Props) {
+export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
   const toggleItemStatus = useListsStore((s) => s.toggleItemStatus);
   const updateItemPrice = useListsStore((s) => s.updateItemPrice);
   const isChecked = item.status === 'in_cart';
@@ -17,8 +19,17 @@ export function ShoppingListItem({ item }: Props) {
   };
 
   return (
-    <div className={`group flex items-center gap-4 bg-surface-dark hover:bg-accent-green border border-transparent hover:border-[#32674d] rounded-lg p-3 transition-all duration-200 ${isChecked ? 'opacity-60' : ''}`}>
-      <label className="relative flex items-center p-2 rounded-full cursor-pointer">
+    <div
+      onClick={() => onSelect?.(item)}
+      className={`group flex items-center gap-4 bg-surface-dark hover:bg-accent-green border rounded-lg p-3 transition-all duration-200 cursor-pointer ${
+        isChecked ? 'opacity-60' : ''
+      } ${
+        isSelected
+          ? 'border-primary bg-primary/5'
+          : 'border-transparent hover:border-[#32674d]'
+      }`}
+    >
+      <label className="relative flex items-center p-2 rounded-full cursor-pointer" onClick={(e) => e.stopPropagation()}>
         <input
           type="checkbox"
           checked={isChecked}
@@ -44,7 +55,7 @@ export function ShoppingListItem({ item }: Props) {
           {item.quantity} {item.unit} &bull; Target: ${item.estimatedPrice.toFixed(2)}
         </div>
       </div>
-      <div className="flex flex-col items-end gap-1">
+      <div className="flex flex-col items-end gap-1" onClick={(e) => e.stopPropagation()}>
         <span className="text-[10px] text-text-secondary uppercase tracking-wide font-medium">Actual Price</span>
         <div className="relative w-24">
           <span className="absolute left-2 top-1/2 -translate-y-1/2 text-text-secondary text-sm">$</span>
