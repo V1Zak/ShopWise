@@ -38,7 +38,7 @@ export const useListsStore = create<ListsState>((set, get) => ({
 
   createList: async (list) => {
     const row = await listsService.createList(list);
-    get().fetchLists();
+    await get().fetchLists();
     return row.id;
   },
 

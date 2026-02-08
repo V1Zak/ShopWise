@@ -71,8 +71,9 @@ export function StoreSelector({ value, onChange }: StoreSelectorProps) {
 
   return (
     <div className="relative" ref={ref}>
-      <button type="button" onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-2 w-full rounded-lg border border-border-dark bg-surface-dark text-left transition-colors hover:border-primary/50 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none px-4 py-3 text-sm">
+      <div role="button" tabIndex={0} onClick={() => setOpen((o) => !o)}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen((o) => !o); } }}
+        className="flex items-center gap-2 w-full rounded-lg border border-border-dark bg-surface-dark text-left transition-colors hover:border-primary/50 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none px-4 py-3 text-sm cursor-pointer">
         {selectedStore ? (
           <>
             <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: selectedStore.color }} />
@@ -86,7 +87,7 @@ export function StoreSelector({ value, onChange }: StoreSelectorProps) {
           </>
         )}
         <Icon name={open ? 'expand_less' : 'expand_more'} className="text-text-secondary" size={18} />
-      </button>
+      </div>
 
       {open && (
         <div className="absolute top-full left-0 right-0 mt-1 z-50 rounded-xl border border-border-dark bg-surface-dark shadow-2xl overflow-hidden">
