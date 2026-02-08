@@ -13,6 +13,8 @@ interface ListsState {
   createList: (list: { title: string; storeId?: string }) => Promise<string>;
   setActiveList: (id: string) => void;
   getActiveList: () => ShoppingList | undefined;
+  getOwnedLists: () => ShoppingList[];
+  getSharedLists: () => ShoppingList[];
   getItemsForList: (listId: string) => ListItem[];
   getItemsByStatus: (listId: string, status: ListItemStatus) => ListItem[];
   toggleItemStatus: (itemId: string) => void;
@@ -60,6 +62,8 @@ export const useListsStore = create<ListsState>((set, get) => ({
 
   setActiveList: (id) => set({ activeListId: id }),
   getActiveList: () => { const state = get(); return state.lists.find((l) => l.id === state.activeListId); },
+  getOwnedLists: () => get().lists.filter((l) => !l.sharedPermission),
+  getSharedLists: () => get().lists.filter((l) => !!l.sharedPermission),
   getItemsForList: (listId) => get().items.filter((i) => i.listId === listId),
   getItemsByStatus: (listId, status) => get().items.filter((i) => i.listId === listId && i.status === status),
 
@@ -76,7 +80,9 @@ export const useListsStore = create<ListsState>((set, get) => ({
     }));
 
     listsService.updateItem(itemId, { status: newStatus, actualPrice: newActualPrice ?? null }).catch(() => {
-      set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i) }));
+      set((state) => ({
+        items: state.items.map((i) => i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i),
+      }));
     });
   },
 
@@ -120,7 +126,6 @@ export const useListsStore = create<ListsState>((set, get) => ({
       set((state) => ({
         items: state.items.filter((i) => i.id !== tempId),
       }));
-
     });
   },
 
