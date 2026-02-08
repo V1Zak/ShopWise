@@ -1,36 +1,51 @@
 import { StatCard } from '@/components/ui/StatCard';
 import { ProgressBar } from '@/components/ui/ProgressBar';
+import { useListsStore } from '@/store/lists-store';
+import { useProductsStore } from '@/store/products-store';
+import { useTripsStore } from '@/store/trips-store';
 
 export function DashboardStats() {
+  const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
+  const products = useProductsStore((s) => s.products);
+  const trips = useTripsStore((s) => s.trips);
+
+  // Compute real values
+  const totalItems = lists.reduce((sum, l) => sum + (l.itemCount ?? 0), 0);
+  const totalEstimated = lists.reduce((sum, l) => sum + (l.estimatedTotal ?? 0), 0);
+  const totalBudget = lists.reduce((sum, l) => sum + (l.budget ?? 0), 0);
+  const hasBudget = totalBudget > 0;
+  const budgetUsed = hasBudget ? Math.round((totalEstimated / totalBudget) * 100) : 0;
+
+  const totalSpent = trips.reduce((sum, t) => sum + t.totalSpent, 0);
+  const productCount = products.length;
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <StatCard label="Monthly Budget" value="$450.00" trend={5} icon="account_balance_wallet">
-        <ProgressBar value={65} className="mb-2" />
-        <p className="text-xs text-text-secondary text-right">65% used</p>
+      <StatCard
+        label={hasBudget ? 'Monthly Budget' : 'Estimated Total'}
+        value={hasBudget ? `$${totalBudget.toFixed(2)}` : `$${totalEstimated.toFixed(2)}`}
+        icon="account_balance_wallet"
+      >
+        {hasBudget ? (
+          <>
+            <ProgressBar value={Math.min(budgetUsed, 100)} className="mb-2" />
+            <p className="text-xs text-text-secondary text-right">{budgetUsed}% used</p>
+          </>
+        ) : (
+          <p className="text-xs text-text-secondary">{totalItems} items across {lists.length} {lists.length === 1 ? 'list' : 'lists'}</p>
+        )}
       </StatCard>
 
-      <StatCard label="Projected Spend" value="$385.20" trend={-2} icon="trending_up" iconColor="text-blue-400">
-        <div className="h-8 flex items-end gap-1 opacity-70">
-          <div className="w-1/6 bg-primary/30 h-1/3 rounded-t-sm" />
-          <div className="w-1/6 bg-primary/40 h-1/2 rounded-t-sm" />
-          <div className="w-1/6 bg-primary/50 h-2/3 rounded-t-sm" />
-          <div className="w-1/6 bg-primary/40 h-1/2 rounded-t-sm" />
-          <div className="w-1/6 bg-primary/60 h-3/4 rounded-t-sm" />
-          <div className="w-1/6 bg-primary h-full rounded-t-sm" />
-        </div>
+      <StatCard label="Total Spent" value={`$${totalSpent.toFixed(2)}`} icon="trending_up" iconColor="text-blue-400">
+        <p className="text-xs text-text-secondary">
+          {trips.length} shopping {trips.length === 1 ? 'trip' : 'trips'} recorded
+        </p>
       </StatCard>
 
-      <StatCard label="Items Tracked" value="142" trend={12} trendLabel="+12 New" icon="inventory" iconColor="text-purple-400">
-        <div className="flex gap-2 mt-2">
-          <div className="flex items-center gap-1.5 px-2 py-1 bg-background-dark rounded text-xs text-text-secondary">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-            3 Low Stock
-          </div>
-          <div className="flex items-center gap-1.5 px-2 py-1 bg-background-dark rounded text-xs text-text-secondary">
-            <span className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-            5 Expiring
-          </div>
-        </div>
+      <StatCard label="Products Tracked" value={String(productCount)} icon="inventory" iconColor="text-purple-400">
+        <p className="text-xs text-text-secondary">
+          {totalItems} items in your lists
+        </p>
       </StatCard>
     </div>
   );

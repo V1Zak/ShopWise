@@ -1,6 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 import { useListsStore } from '@/store/lists-store';
+import { useAuthStore } from '@/store/auth-store';
 import { listsService } from '@/services/lists.service';
+
+function getGreeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return 'Good morning';
+  if (h < 17) return 'Good afternoon';
+  return 'Good evening';
+}
 
 export function TopBar() {
   const [quickAdd, setQuickAdd] = useState('');
@@ -8,6 +16,8 @@ export function TopBar() {
   const [showNotifications, setShowNotifications] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
   const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
+  const user = useAuthStore((s) => s.user);
+  const firstName = user?.name?.split(' ')[0] || user?.email?.split('@')[0] || 'there';
 
   // Close notification panel on click outside
   useEffect(() => {
@@ -80,9 +90,9 @@ export function TopBar() {
     <header className="w-full border-b border-border-dark bg-background-dark/95 backdrop-blur z-20 sticky top-0">
       <div className="max-w-[1600px] mx-auto px-6 py-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col">
-          <h2 className="text-white text-xl font-bold">Good evening, Alex.</h2>
+          <h2 className="text-white text-xl font-bold">{getGreeting()}, {firstName}.</h2>
           <p className="text-text-secondary text-sm">
-            You are <span className="text-primary font-medium">$15 under budget</span> for this month.
+            You have <span className="text-primary font-medium">{lists.length} active {lists.length === 1 ? 'list' : 'lists'}</span> this month.
           </p>
         </div>
 
