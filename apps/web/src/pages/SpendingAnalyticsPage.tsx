@@ -5,6 +5,7 @@ import { CategoryDonut } from '@/features/analytics/CategoryDonut';
 import { PriceGuardingTable } from '@/features/analytics/PriceGuardingTable';
 import { ToggleGroup } from '@/components/ui/ToggleGroup';
 import { useAnalyticsStore } from '@/store/analytics-store';
+import type { AnalyticsPeriod } from '@/services/analytics.service';
 import { exportAnalyticsReport } from '@/utils/export';
 
 export function SpendingAnalyticsPage() {
@@ -32,9 +33,9 @@ export function SpendingAnalyticsPage() {
         <div className="flex items-center gap-3">
           <div className="hidden sm:block">
             <ToggleGroup
-              options={['Monthly', 'Quarterly', 'YTD']}
+              options={['Weekly', 'Monthly', 'Quarterly', 'YTD']}
               value={period}
-              onChange={(v) => setPeriod(v as 'Monthly' | 'Quarterly' | 'YTD')}
+              onChange={(v) => setPeriod(v as AnalyticsPeriod)}
             />
           </div>
           <button
