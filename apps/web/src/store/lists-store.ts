@@ -9,9 +9,10 @@ interface ListsState {
   isLoading: boolean;
   fetchLists: () => Promise<void>;
   fetchListItems: (listId: string) => Promise<void>;
-  createList: (list: { title: string; storeId?: string }) => Promise<string>;
   setActiveList: (id: string) => void;
   getActiveList: () => ShoppingList | undefined;
+  getOwnedLists: () => ShoppingList[];
+  getSharedLists: () => ShoppingList[];
   getItemsForList: (listId: string) => ListItem[];
   getItemsByStatus: (listId: string, status: ListItemStatus) => ListItem[];
   toggleItemStatus: (itemId: string) => void;
@@ -28,32 +29,20 @@ export const useListsStore = create<ListsState>((set, get) => ({
 
   fetchLists: async () => {
     set({ isLoading: true });
-    try {
-      const lists = await listsService.getLists();
-      set({ lists, isLoading: false });
-    } catch {
-      set({ isLoading: false });
-    }
-  },
-
-  createList: async (list) => {
-    const row = await listsService.createList(list);
-    get().fetchLists();
-    return row.id;
+    try { const lists = await listsService.getLists(); set({ lists, isLoading: false }); }
+    catch { set({ isLoading: false }); }
   },
 
   fetchListItems: async (listId) => {
     set({ isLoading: true });
-    try {
-      const items = await listsService.getListItems(listId);
-      set({ items, isLoading: false });
-    } catch {
-      set({ isLoading: false });
-    }
+    try { const items = await listsService.getListItems(listId); set({ items, isLoading: false }); }
+    catch { set({ isLoading: false }); }
   },
 
   setActiveList: (id) => set({ activeListId: id }),
   getActiveList: () => { const state = get(); return state.lists.find((l) => l.id === state.activeListId); },
+  getOwnedLists: () => get().lists.filter((l) => !l.sharedPermission),
+  getSharedLists: () => get().lists.filter((l) => !!l.sharedPermission),
   getItemsForList: (listId) => get().items.filter((i) => i.listId === listId),
   getItemsByStatus: (listId, status) => get().items.filter((i) => i.listId === listId && i.status === status),
 
@@ -62,9 +51,13 @@ export const useListsStore = create<ListsState>((set, get) => ({
     if (!item) return;
     const newStatus = item.status === 'to_buy' ? 'in_cart' : item.status === 'in_cart' ? 'to_buy' : item.status;
     const newActualPrice = item.status === 'to_buy' ? item.actualPrice ?? item.estimatedPrice : item.actualPrice;
-    set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, status: newStatus as ListItemStatus, actualPrice: newActualPrice } : i) }));
+    set((state) => ({
+      items: state.items.map((i) => i.id === itemId ? { ...i, status: newStatus as ListItemStatus, actualPrice: newActualPrice } : i),
+    }));
     listsService.updateItem(itemId, { status: newStatus, actualPrice: newActualPrice ?? null }).catch(() => {
-      set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i) }));
+      set((state) => ({
+        items: state.items.map((i) => i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i),
+      }));
     });
   },
 
@@ -80,7 +73,10 @@ export const useListsStore = create<ListsState>((set, get) => ({
   addItem: (item) => {
     const tempId = item.id;
     set((state) => ({ items: [...state.items, item] }));
-    listsService.addItem({ listId: item.listId, name: item.name, categoryId: item.categoryId, quantity: item.quantity, unit: item.unit, estimatedPrice: item.estimatedPrice, productId: item.productId, tags: item.tags, sortOrder: item.sortOrder }).then((row) => {
+    listsService.addItem({
+      listId: item.listId, name: item.name, categoryId: item.categoryId, quantity: item.quantity,
+      unit: item.unit, estimatedPrice: item.estimatedPrice, productId: item.productId, tags: item.tags, sortOrder: item.sortOrder,
+    }).then((row) => {
       set((state) => ({ items: state.items.map((i) => i.id === tempId ? { ...i, id: row.id, listId: row.list_id } : i) }));
     }).catch(() => {
       set((state) => ({ items: state.items.filter((i) => i.id !== tempId) }));
