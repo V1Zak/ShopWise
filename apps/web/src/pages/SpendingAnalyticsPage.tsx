@@ -1,19 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { AnalyticsKPIs } from '@/features/analytics/AnalyticsKPIs';
 import { MonthlyBarChart } from '@/features/analytics/MonthlyBarChart';
 import { CategoryDonut } from '@/features/analytics/CategoryDonut';
 import { PriceGuardingTable } from '@/features/analytics/PriceGuardingTable';
 import { ToggleGroup } from '@/components/ui/ToggleGroup';
 import { useAnalyticsStore } from '@/store/analytics-store';
+import type { AnalyticsPeriod } from '@/services/analytics.service';
+import { exportAnalyticsReport } from '@/utils/export';
 
 export function SpendingAnalyticsPage() {
   const period = useAnalyticsStore((s) => s.period);
   const setPeriod = useAnalyticsStore((s) => s.setPeriod);
   const fetchAnalytics = useAnalyticsStore((s) => s.fetchAnalytics);
+  const analyticsData = useAnalyticsStore((s) => s.data);
 
   useEffect(() => {
     fetchAnalytics();
   }, [fetchAnalytics]);
+
+  const handleExportReport = useCallback(() => {
+    exportAnalyticsReport(analyticsData, period);
+  }, [analyticsData, period]);
 
   return (
     <div className="flex flex-col h-full overflow-y-auto">
@@ -26,12 +33,15 @@ export function SpendingAnalyticsPage() {
         <div className="flex items-center gap-3">
           <div className="hidden sm:block">
             <ToggleGroup
-              options={['Monthly', 'Quarterly', 'YTD']}
+              options={['Weekly', 'Monthly', 'Quarterly', 'YTD']}
               value={period}
-              onChange={(v) => setPeriod(v as 'Monthly' | 'Quarterly' | 'YTD')}
+              onChange={(v) => setPeriod(v as AnalyticsPeriod)}
             />
           </div>
-          <button className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-background-dark px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+          <button
+            onClick={handleExportReport}
+            className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-background-dark px-4 py-2 rounded-lg text-sm font-bold transition-colors"
+          >
             <span className="material-symbols-outlined text-[18px]">download</span>
             <span className="hidden sm:inline">Export Report</span>
           </button>

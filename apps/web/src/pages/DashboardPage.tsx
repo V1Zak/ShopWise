@@ -6,6 +6,7 @@ import { AttentionNeeded } from '@/features/dashboard/AttentionNeeded';
 import { SmartSuggestions } from '@/features/dashboard/SmartSuggestions';
 import { MiniCalendar } from '@/features/dashboard/MiniCalendar';
 import { NewListDialog } from '@/components/NewListDialog';
+import { NotificationPrompt } from '@/components/NotificationPrompt';
 import { Icon } from '@/components/ui/Icon';
 import { useListsStore } from '@/store/lists-store';
 
@@ -29,6 +30,7 @@ export function DashboardPage() {
             New List
           </button>
         </div>
+        <NotificationPrompt />
         <DashboardStats />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 flex flex-col gap-8">

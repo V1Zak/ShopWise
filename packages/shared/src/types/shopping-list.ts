@@ -5,6 +5,7 @@ export interface ShoppingList {
   storeId?: string;
   storeName?: string;
   isTemplate: boolean;
+  budget?: number | null;
   itemCount: number;
   estimatedTotal: number;
   createdAt: string;
