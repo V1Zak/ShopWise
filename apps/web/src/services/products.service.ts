@@ -1,6 +1,18 @@
 import { supabase } from '@/lib/supabase';
 import type { Product, CategoryId } from '@shopwise/shared';
 
+const ALLOWED_UNITS = ['each', 'kg', 'g', 'lb', 'oz', 'L', 'ml', 'pack', 'box', 'bag'] as const;
+
+/** Escape special PostgREST characters to prevent query injection */
+function sanitizeQuery(input: string): string {
+  return input
+    .replace(/\\/g, '')
+    .replace(/,/g, '')
+    .replace(/\./g, '')
+    .replace(/\(/g, '')
+    .replace(/\)/g, '');
+}
+
 interface DbProduct {
   id: string;
   barcode: string | null;
@@ -50,14 +62,14 @@ export const productsService = {
   async getProducts(categoryId?: CategoryId | 'all'): Promise<Product[]> {
     let query = supabase
       .from('products')
-      .select(`
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
+      \`)
       .order('name');
 
     if (categoryId && categoryId !== 'all') {
@@ -73,15 +85,15 @@ export const productsService = {
   async searchProducts(query: string, categoryId?: CategoryId | 'all'): Promise<Product[]> {
     let q = supabase
       .from('products')
-      .select(`
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
-      .or(`name.ilike.%${query}%,brand.ilike.%${query}%`)
+      \`)
+      .or(\`name.ilike.%\${sanitizeQuery(query)}%,brand.ilike.%\${sanitizeQuery(query)}%\`)
       .order('name');
 
     if (categoryId && categoryId !== 'all') {
@@ -94,17 +106,65 @@ export const productsService = {
     return (data as unknown as DbProduct[] ?? []).map(toProduct);
   },
 
-  async findByBarcode(barcode: string): Promise<Product | null> {
+  async createProduct(product: {
+    barcode?: string;
+    name: string;
+    brand?: string;
+    categoryId: CategoryId;
+    unit: string;
+    averagePrice: number;
+  }): Promise<Product> {
+    // Input validation
+    const trimmedName = product.name.trim();
+    if (!trimmedName || trimmedName.length > 200) {
+      throw new Error('Product name must be between 1 and 200 characters.');
+    }
+    if (!Number.isFinite(product.averagePrice) || product.averagePrice <= 0) {
+      throw new Error('Price must be a finite positive number.');
+    }
+    if (!ALLOWED_UNITS.includes(product.unit as (typeof ALLOWED_UNITS)[number])) {
+      throw new Error(\`Invalid unit "\${product.unit}". Allowed: \${ALLOWED_UNITS.join(', ')}.\`);
+    }
+
     const { data, error } = await supabase
       .from('products')
-      .select(`
+      .insert({
+        barcode: product.barcode ?? null,
+        name: product.name,
+        brand: product.brand ?? null,
+        description: null,
+        category_id: product.categoryId,
+        image_url: null,
+        unit: product.unit,
+        average_price: product.averagePrice,
+        verified: false,
+      })
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
+      \`)
+      .single();
+
+    if (error) throw error;
+
+    return toProduct(data as unknown as DbProduct);
+  },
+
+  async findByBarcode(barcode: string): Promise<Product | null> {
+    const { data, error } = await supabase
+      .from('products')
+      .select(\`
+        *,
+        store_products (
+          price,
+          last_updated,
+          stores ( id, name, color )
+        )
+      \`)
       .eq('barcode', barcode)
       .maybeSingle();
 
