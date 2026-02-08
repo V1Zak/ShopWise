@@ -14,7 +14,11 @@ function downloadFile(filename: string, content: string, mimeType = 'text/csv') 
 
 function escapeCSV(value: string | number | undefined | null): string {
   if (value === undefined || value === null) return '';
-  const str = String(value);
+  let str = String(value);
+  // Prevent CSV formula injection
+  if (/^[=+\-@\t\r]/.test(str)) {
+    str = "'" + str;
+  }
   if (str.includes(',') || str.includes('"') || str.includes('\n')) {
     return `"${str.replace(/"/g, '""')}"`;
   }
@@ -50,12 +54,12 @@ export function exportAnalyticsReport(analytics: AnalyticsSummary, period: strin
   sections.push(`Generated,${escapeCSV(new Date().toLocaleString())}`);
   sections.push('');
   sections.push('--- Key Performance Indicators ---');
-  sections.push(`Total Spent (YTD),${escapeCSV(analytics.totalSpentYTD.toFixed(2))}`);
-  sections.push(`YTD Change %,${escapeCSV(analytics.totalSpentChange.toFixed(1))}`);
-  sections.push(`Monthly Average,${escapeCSV(analytics.monthlyAverage.toFixed(2))}`);
-  sections.push(`Monthly Average Change %,${escapeCSV(analytics.monthlyAverageChange.toFixed(1))}`);
-  sections.push(`Total Savings,${escapeCSV(analytics.totalSavings.toFixed(2))}`);
-  sections.push(`Savings Rate %,${escapeCSV(analytics.savingsRate.toFixed(1))}`);
+  sections.push(`Total Spent (YTD),${escapeCSV((analytics.totalSpentYTD ?? 0).toFixed(2))}`);
+  sections.push(`YTD Change %,${escapeCSV((analytics.totalSpentChange ?? 0).toFixed(1))}`);
+  sections.push(`Monthly Average,${escapeCSV((analytics.monthlyAverage ?? 0).toFixed(2))}`);
+  sections.push(`Monthly Average Change %,${escapeCSV((analytics.monthlyAverageChange ?? 0).toFixed(1))}`);
+  sections.push(`Total Savings,${escapeCSV((analytics.totalSavings ?? 0).toFixed(2))}`);
+  sections.push(`Savings Rate %,${escapeCSV((analytics.savingsRate ?? 0).toFixed(1))}`);
   sections.push('');
   sections.push('--- Monthly Spending ---');
   sections.push('Month,Amount');
