@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { tripsService } from '@/services/trips.service';
 
 interface ReceiptUploadZoneProps {
@@ -12,12 +12,21 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
 
+  // Cleanup object URL on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
+
   const handleFile = useCallback(
     async (file: File) => {
       if (!file.type.startsWith('image/')) {
         setUploadError('Please upload an image file (JPG, PNG, etc.)');
         return;
       }
+      // Revoke previous object URL before creating a new one
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
       const objectUrl = URL.createObjectURL(file);
       setPreviewUrl(objectUrl);
       setUploadError(null);
@@ -30,7 +39,7 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
         setIsUploading(false);
       }
     },
-    [tripId],
+    [tripId, previewUrl],
   );
 
   const handleClick = useCallback(() => { fileInputRef.current?.click(); }, []);

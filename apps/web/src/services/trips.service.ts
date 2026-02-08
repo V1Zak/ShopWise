@@ -84,7 +84,19 @@ export const tripsService = {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('Not authenticated');
 
-    const fileExt = file.name.split('.').pop();
+    const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'heic'];
+    const MIME_TO_EXT: Record<string, string> = {
+      'image/jpeg': 'jpg',
+      'image/png': 'png',
+      'image/webp': 'webp',
+      'image/heic': 'heic',
+    };
+
+    let fileExt = (file.name.split('.').pop() ?? '').toLowerCase();
+    if (!ALLOWED_EXTENSIONS.includes(fileExt)) {
+      fileExt = MIME_TO_EXT[file.type] ?? 'jpg';
+    }
+
     const filePath = `${user.id}/${tripId}/receipt.${fileExt}`;
 
     const { error } = await supabase.storage
