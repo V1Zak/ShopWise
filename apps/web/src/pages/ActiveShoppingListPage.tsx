@@ -12,11 +12,12 @@ import { ScanResultBanner } from '@/components/ScanResultBanner';
 import { useListsStore } from '@/store/lists-store';
 import { useRealtimeList } from '@/hooks/useRealtimeList';
 import { useBarcodeScanner } from '@/hooks/useBarcodeScanner';
-import type { ListItemStatus, Product } from '@shopwise/shared';
+import type { ListItem, ListItemStatus, Product } from '@shopwise/shared';
 
 export function ActiveShoppingListPage() {
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState<ListItemStatus>('to_buy');
+  const [selectedItem, setSelectedItem] = useState<ListItem | null>(null);
   const activeListId = useListsStore((s) => s.activeListId);
   const setActiveList = useListsStore((s) => s.setActiveList);
   const fetchListItems = useListsStore((s) => s.fetchListItems);
@@ -31,6 +32,7 @@ export function ActiveShoppingListPage() {
   }, [listId, setActiveList, fetchListItems]);
 
   useRealtimeList(listId);
+  const items = useListsStore((s) => s.items);
   const getItemsByStatus = useListsStore((s) => s.getItemsByStatus);
   const addItem = useListsStore((s) => s.addItem);
   const { isOpen, openScanner, closeScanner, handleScan, scannedProduct, notFound, lastBarcode, clearResult } = useBarcodeScanner();
@@ -38,6 +40,25 @@ export function ActiveShoppingListPage() {
   const toBuy = getItemsByStatus(activeListId, 'to_buy');
   const inCart = getItemsByStatus(activeListId, 'in_cart');
   const skipped = getItemsByStatus(activeListId, 'skipped');
+
+  // All items for the active list (for AisleNavigation)
+  const listItems = items.filter((i) => i.listId === activeListId);
+
+  // Keep selectedItem in sync with store (e.g., after status toggle or price update)
+  useEffect(() => {
+    if (selectedItem) {
+      const updated = items.find((i) => i.id === selectedItem.id);
+      if (updated) {
+        setSelectedItem(updated);
+      } else {
+        setSelectedItem(null);
+      }
+    }
+  }, [items, selectedItem?.id]);
+
+  const handleSelectItem = (item: ListItem) => {
+    setSelectedItem((prev) => (prev?.id === item.id ? null : item));
+  };
 
   const handleAddScannedProduct = (product: Product) => {
     addItem({
@@ -74,15 +95,19 @@ export function ActiveShoppingListPage() {
           onTabChange={setActiveTab}
           counts={{ to_buy: toBuy.length, in_cart: inCart.length, skipped: skipped.length }}
         />
-        <ShoppingListContent activeTab={activeTab} />
+        <ShoppingListContent
+          activeTab={activeTab}
+          selectedItemId={selectedItem?.id ?? null}
+          onSelectItem={handleSelectItem}
+        />
         <CompleteButton />
       </section>
 
       {/* Right Pane: Context */}
       <section className="w-[450px] hidden xl:flex flex-col bg-surface-darker border-l border-border-dark">
         <div className="p-6 flex-1 flex flex-col gap-6 overflow-y-auto">
-          <AisleNavigation />
-          <ProductIntelligence />
+          <AisleNavigation items={listItems} />
+          <ProductIntelligence selectedItem={selectedItem} />
           <BudgetHealth />
         </div>
       </section>
