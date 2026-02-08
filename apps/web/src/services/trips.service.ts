@@ -93,11 +93,13 @@ export const tripsService = {
 
     if (error) throw error;
 
-    const { data: urlData } = supabase.storage
+    const { data: urlData, error: signedUrlError } = await supabase.storage
       .from('receipts')
-      .getPublicUrl(filePath);
+      .createSignedUrl(filePath, 3600);
 
-    return urlData?.publicUrl ?? null;
+    if (signedUrlError) throw signedUrlError;
+
+    return urlData?.signedUrl ?? null;
   },
 
   async createTrip(trip: {
