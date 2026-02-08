@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { PriceHistoryEntry } from '@shopwise/shared';
 
 interface PriceHistoryChartProps {
@@ -28,6 +29,8 @@ export function PriceHistoryChart({
   height = 140,
   className = '',
 }: PriceHistoryChartProps) {
+  const gradientId = useId();
+
   if (entries.length < 2) {
     return (
       <div className={`flex items-center justify-center text-text-secondary text-sm ${className}`} style={{ height }}>
@@ -87,7 +90,7 @@ export function PriceHistoryChart({
 
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="overflow-visible">
         <defs>
-          <linearGradient id="priceAreaGradient" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#13ec80" stopOpacity="0.2" />
             <stop offset="100%" stopColor="#13ec80" stopOpacity="0" />
           </linearGradient>
@@ -105,7 +108,7 @@ export function PriceHistoryChart({
           );
         })}
 
-        <path d={areaPath} fill="url(#priceAreaGradient)" />
+        <path d={areaPath} fill={`url(#${gradientId})`} />
         <path d={linePath} fill="none" stroke="#13ec80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
 
         {points.map((p, i) => (

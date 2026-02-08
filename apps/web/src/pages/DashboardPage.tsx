@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DashboardStats } from '@/features/dashboard/DashboardStats';
 import { ActiveListWidget } from '@/features/dashboard/ActiveListWidget';
 import { RecentActivityFeed } from '@/features/dashboard/RecentActivityFeed';
@@ -12,18 +12,24 @@ import { useTripsStore } from '@/store/trips-store';
 
 export function DashboardPage() {
   const fetchLists = useListsStore((s) => s.fetchLists);
-  const listsLoaded = useListsStore((s) => s.lists.length > 0);
   const fetchTrips = useTripsStore((s) => s.fetchTrips);
-  const tripsLoaded = useTripsStore((s) => s.trips.length > 0);
   const [showNewList, setShowNewList] = useState(false);
+  const hasFetchedLists = useRef(false);
+  const hasFetchedTrips = useRef(false);
 
   useEffect(() => {
-    if (!listsLoaded) fetchLists();
-  }, [fetchLists, listsLoaded]);
+    if (!hasFetchedLists.current) {
+      hasFetchedLists.current = true;
+      fetchLists();
+    }
+  }, [fetchLists]);
 
   useEffect(() => {
-    if (!tripsLoaded) fetchTrips();
-  }, [fetchTrips, tripsLoaded]);
+    if (!hasFetchedTrips.current) {
+      hasFetchedTrips.current = true;
+      fetchTrips();
+    }
+  }, [fetchTrips]);
 
   return (
     <div className="p-6 md:p-8">
