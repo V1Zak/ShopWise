@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useListsStore } from '@/store/lists-store';
 import { StoreSelector } from '@/components/StoreSelector';
@@ -15,6 +15,27 @@ export function NewListDialog({ open, onClose }: NewListDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const createList = useListsStore((s) => s.createList);
   const navigate = useNavigate();
+
+  // Reset form state when dialog opens
+  useEffect(() => {
+    if (open) {
+      setTitle('');
+      setStoreId(null);
+      setIsSubmitting(false);
+    }
+  }, [open]);
+
+  // Escape key handler
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') onClose();
+  }, [onClose]);
+
+  useEffect(() => {
+    if (open) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [open, handleKeyDown]);
 
   if (!open) return null;
 
@@ -37,11 +58,11 @@ export function NewListDialog({ open, onClose }: NewListDialogProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
-      <div className="w-full max-w-md mx-4 rounded-2xl border border-border-dark bg-surface-dark shadow-2xl">
+      <div role="dialog" aria-modal="true" aria-labelledby="new-list-dialog-title" className="w-full max-w-md mx-4 rounded-2xl border border-border-dark bg-surface-dark shadow-2xl">
         <div className="flex items-center justify-between p-5 border-b border-border-dark">
           <div className="flex items-center gap-3">
             <div className="bg-primary/20 p-2 rounded-lg text-primary"><Icon name="playlist_add" size={22} /></div>
-            <h2 className="text-white text-lg font-bold">New Shopping List</h2>
+            <h2 id="new-list-dialog-title" className="text-white text-lg font-bold">New Shopping List</h2>
           </div>
           <button type="button" onClick={onClose} className="text-text-secondary hover:text-white p-1 rounded-lg hover:bg-background-dark transition-colors"><Icon name="close" size={20} /></button>
         </div>

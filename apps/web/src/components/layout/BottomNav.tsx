@@ -6,6 +6,7 @@ const tabs = [
   { to: '/catalog', icon: 'inventory_2', label: 'Catalog' },
   { to: '/history', icon: 'history', label: 'History' },
   { to: '/analytics', icon: 'bar_chart', label: 'Stats' },
+  { to: '/settings', icon: 'settings', label: 'Settings' },
 ];
 
 export function BottomNav() {

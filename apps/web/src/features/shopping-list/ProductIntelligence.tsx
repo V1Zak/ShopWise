@@ -1,140 +1,123 @@
-import { useEffect, useState } from 'react';
-import type { ListItem, PriceHistoryEntry } from '@shopwise/shared';
-import { productsService } from '@/services/products.service';
-import { PriceHistoryChart } from '@/components/PriceHistoryChart';
-import { useListsStore } from '@/store/lists-store';
+import { CATEGORY_MAP } from '@shopwise/shared';
+import type { ListItem } from '@shopwise/shared';
 
 interface Props {
-  item?: ListItem;
+  selectedItem: ListItem | null;
 }
 
-export function ProductIntelligence({ item }: Props) {
-  const [priceHistory, setPriceHistory] = useState<PriceHistoryEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const activeListId = useListsStore((s) => s.activeListId);
-  const items = useListsStore((s) => s.items);
-
-  const selectedItem = item ?? items.find(
-    (i) => i.listId === activeListId && i.status === 'to_buy' && i.productId,
-  );
-
-  useEffect(() => {
-    if (!selectedItem?.productId) {
-      setPriceHistory([]);
-      return;
-    }
-
-    let cancelled = false;
-    setIsLoading(true);
-
-    productsService.getPriceHistory(selectedItem.productId).then((entries) => {
-      if (!cancelled) {
-        setPriceHistory(entries);
-        setIsLoading(false);
-      }
-    }).catch(() => {
-      if (!cancelled) {
-        setPriceHistory([]);
-        setIsLoading(false);
-      }
-    });
-
-    return () => { cancelled = true; };
-  }, [selectedItem?.productId]);
-
-  const avgPrice = priceHistory.length > 0
-    ? priceHistory.reduce((sum, e) => sum + e.price, 0) / priceHistory.length
-    : selectedItem?.estimatedPrice ?? 0;
-
-  const storeMap = new Map<string, { name: string; total: number; count: number }>();
-  for (const entry of priceHistory) {
-    const existing = storeMap.get(entry.storeId);
-    if (existing) {
-      existing.total += entry.price;
-      existing.count += 1;
-    } else {
-      storeMap.set(entry.storeId, { name: entry.storeName, total: entry.price, count: 1 });
-    }
-  }
-  const storeAverages = Array.from(storeMap.entries())
-    .map(([id, s]) => ({ storeId: id, storeName: s.name, avgPrice: s.total / s.count }))
-    .sort((a, b) => a.avgPrice - b.avgPrice);
-
-  const cheapestStore = storeAverages[0];
-
-  const priceDiff = selectedItem?.actualPrice && avgPrice > 0
-    ? selectedItem.actualPrice - avgPrice
-    : null;
-
+export function ProductIntelligence({ selectedItem }: Props) {
   if (!selectedItem) {
     return (
       <div className="bg-background-dark rounded-xl p-5 border border-border-dark">
-        <div className="flex items-center gap-3 text-text-secondary">
-          <span className="material-symbols-outlined text-2xl">insights</span>
-          <div>
-            <h3 className="text-white font-bold text-lg">Product Intelligence</h3>
-            <p className="text-sm mt-1">Add items with linked products to see price insights</p>
-          </div>
+        <div className="flex flex-col items-center justify-center py-6 text-center">
+          <span className="material-symbols-outlined text-3xl text-text-secondary mb-3">touch_app</span>
+          <p className="text-text-secondary text-sm">Tap an item for details</p>
+          <p className="text-[#517d66] text-xs mt-1">
+            See pricing tips, purchase history, and product info
+          </p>
         </div>
       </div>
     );
   }
 
+  const category = CATEGORY_MAP[selectedItem.categoryId];
+  const hasActualPrice = selectedItem.actualPrice != null && selectedItem.actualPrice > 0;
+  const priceDiff = hasActualPrice
+    ? selectedItem.actualPrice! - selectedItem.estimatedPrice
+    : null;
+
+  const hasBestPriceTip = hasActualPrice && priceDiff !== null && priceDiff > 0;
+
   return (
     <div className="bg-background-dark rounded-xl p-5 border border-border-dark">
       <div className="flex items-start gap-4 mb-4">
         <div className="h-16 w-16 bg-white/5 rounded-lg flex items-center justify-center border border-border-dark">
-          <span className="material-symbols-outlined text-3xl text-text-secondary">nutrition</span>
+          <span className="material-symbols-outlined text-3xl text-text-secondary">
+            {category?.icon || 'category'}
+          </span>
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-white font-bold text-lg truncate">{selectedItem.name}</h3>
-          {priceDiff !== null && (
-            <div className={`text-sm font-medium ${priceDiff < 0 ? 'text-primary' : priceDiff > 0 ? 'text-red-400' : 'text-text-secondary'}`}>
-              {priceDiff < 0 ? `On Sale (-$${Math.abs(priceDiff).toFixed(2)})` : priceDiff > 0 ? `Above Avg (+$${priceDiff.toFixed(2)})` : 'At Average'}
-            </div>
-          )}
+          <div className="flex items-center gap-2 mt-0.5">
+            <span className="text-text-secondary text-sm">
+              {category?.name || selectedItem.categoryId}
+            </span>
+            {selectedItem.tags?.map((tag) => (
+              <span
+                key={tag}
+                className={`text-xs px-1.5 py-0.5 rounded ${
+                  tag === 'On Sale'
+                    ? 'text-primary bg-primary/10'
+                    : 'text-text-secondary bg-surface-dark'
+                }`}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div className="bg-surface-dark p-3 rounded-lg">
-          <div className="text-text-secondary text-xs uppercase mb-1">Avg Price</div>
-          <div className="text-white font-semibold">
-            {avgPrice > 0 ? `$${avgPrice.toFixed(2)}` : '--'}
+          <div className="text-text-secondary text-xs uppercase mb-1">Estimated</div>
+          <div className="text-white font-semibold">${selectedItem.estimatedPrice.toFixed(2)}</div>
+        </div>
+        <div className="bg-surface-dark p-3 rounded-lg">
+          <div className="text-text-secondary text-xs uppercase mb-1">Actual</div>
+          <div className={`font-semibold ${hasActualPrice ? (priceDiff! > 0 ? 'text-red-400' : 'text-primary') : 'text-text-secondary'}`}>
+            {hasActualPrice ? `$${selectedItem.actualPrice!.toFixed(2)}` : '--'}
           </div>
         </div>
         <div className="bg-surface-dark p-3 rounded-lg">
-          <div className="text-text-secondary text-xs uppercase mb-1">Best Store</div>
-          <div className="text-white font-semibold truncate">
-            {cheapestStore ? `${cheapestStore.storeName} ($${cheapestStore.avgPrice.toFixed(2)})` : '--'}
+          <div className="text-text-secondary text-xs uppercase mb-1">Quantity</div>
+          <div className="text-white font-semibold">
+            {selectedItem.quantity} {selectedItem.unit}
+          </div>
+        </div>
+        <div className="bg-surface-dark p-3 rounded-lg">
+          <div className="text-text-secondary text-xs uppercase mb-1">Status</div>
+          <div className={`font-semibold ${
+            selectedItem.status === 'in_cart'
+              ? 'text-primary'
+              : selectedItem.status === 'skipped'
+                ? 'text-orange-400'
+                : 'text-white'
+          }`}>
+            {selectedItem.status === 'to_buy' ? 'To Buy' : selectedItem.status === 'in_cart' ? 'In Cart' : 'Skipped'}
           </div>
         </div>
       </div>
 
-      {isLoading ? (
-        <div className="flex items-center justify-center py-6 text-text-secondary text-sm">
-          <span className="material-symbols-outlined animate-spin mr-2 text-base">progress_activity</span>
-          Loading price history...
-        </div>
-      ) : priceHistory.length >= 2 ? (
-        <div className="mb-4">
-          <PriceHistoryChart entries={priceHistory} width={370} height={150} />
-        </div>
-      ) : (
-        <div className="text-text-secondary text-xs leading-relaxed mb-4 bg-surface-dark rounded-lg p-3">
-          <span className="material-symbols-outlined text-sm align-middle mr-1">info</span>
-          Not enough price data yet. Prices are recorded as you shop.
+      {hasBestPriceTip && (
+        <div className="bg-red-400/10 border border-red-400/20 rounded-lg p-3 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-red-400 text-sm">trending_up</span>
+            <span className="text-red-400 text-xs font-medium">
+              ${priceDiff!.toFixed(2)} above estimated price
+            </span>
+          </div>
+          <p className="text-text-secondary text-xs mt-1">
+            Your estimated price was ${selectedItem.estimatedPrice.toFixed(2)}. Check for alternatives or store brands.
+          </p>
         </div>
       )}
 
-      {storeAverages.length > 1 && (
+      {hasActualPrice && priceDiff !== null && priceDiff < 0 && (
+        <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-primary text-sm">savings</span>
+            <span className="text-primary text-xs font-medium">
+              Saving ${Math.abs(priceDiff).toFixed(2)} vs estimate
+            </span>
+          </div>
+        </div>
+      )}
+
+      {selectedItem.tags?.includes('On Sale') && (
         <div className="text-text-secondary text-xs leading-relaxed">
-          <span className="text-primary font-medium">Tip:</span>{' '}
-          {cheapestStore.storeName} is typically the cheapest for this item
-          {storeAverages.length > 1 && storeAverages[storeAverages.length - 1].avgPrice > cheapestStore.avgPrice
-            ? `, saving you $${(storeAverages[storeAverages.length - 1].avgPrice - cheapestStore.avgPrice).toFixed(2)} vs ${storeAverages[storeAverages.length - 1].storeName}`
-            : ''}.
+          <span className="material-symbols-outlined text-primary text-xs align-middle mr-1">local_offer</span>
+          This item is currently on sale. Great time to stock up!
         </div>
       )}
     </div>

@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import type { AnalyticsSummary } from '@shopwise/shared';
 import { analyticsService } from '@/services/analytics.service';
+import type { AnalyticsPeriod } from '@/services/analytics.service';
 
 const emptyAnalytics: AnalyticsSummary = {
   totalSpentYTD: 0,
@@ -16,29 +17,37 @@ const emptyAnalytics: AnalyticsSummary = {
 
 interface AnalyticsState {
   data: AnalyticsSummary;
-  period: 'Monthly' | 'Quarterly' | 'YTD';
+  period: AnalyticsPeriod;
   isLoading: boolean;
-  fetchAnalytics: () => Promise<void>;
-  setPeriod: (period: 'Monthly' | 'Quarterly' | 'YTD') => void;
+  fetchAnalytics: (period?: AnalyticsPeriod) => Promise<void>;
+  setPeriod: (period: AnalyticsPeriod) => void;
 }
 
-export const useAnalyticsStore = create<AnalyticsState>((set) => ({
+let latestRequestId = 0;
+
+export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
   data: emptyAnalytics,
   period: 'Monthly',
   isLoading: false,
 
-  fetchAnalytics: async () => {
+  fetchAnalytics: async (period?: AnalyticsPeriod) => {
+    const activePeriod = period ?? get().period;
+    const requestId = ++latestRequestId;
     set({ isLoading: true });
     try {
-      const data = await analyticsService.getAnalyticsSummary();
-      set({ data, isLoading: false });
+      const data = await analyticsService.getAnalyticsSummary(activePeriod);
+      if (requestId === latestRequestId) {
+        set({ data, isLoading: false });
+      }
     } catch {
-      set({ isLoading: false });
+      if (requestId === latestRequestId) {
+        set({ isLoading: false });
+      }
     }
   },
 
   setPeriod: (period) => {
     set({ period });
-    // Re-fetch could be added here for server-side period filtering
+    get().fetchAnalytics(period);
   },
 }));

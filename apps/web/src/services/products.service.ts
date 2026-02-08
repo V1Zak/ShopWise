@@ -1,5 +1,17 @@
 import { supabase } from '@/lib/supabase';
-import type { Product, CategoryId, PriceHistoryEntry } from '@shopwise/shared';
+import type { Product, CategoryId } from '@shopwise/shared';
+
+const ALLOWED_UNITS = ['each', 'kg', 'g', 'lb', 'oz', 'L', 'ml', 'pack', 'box', 'bag'] as const;
+
+/** Escape special PostgREST characters to prevent query injection */
+function sanitizeQuery(input: string): string {
+  return input
+    .replace(/\\/g, '')
+    .replace(/,/g, '')
+    .replace(/\./g, '')
+    .replace(/\(/g, '')
+    .replace(/\)/g, '');
+}
 
 interface DbProduct {
   id: string;
@@ -50,14 +62,14 @@ export const productsService = {
   async getProducts(categoryId?: CategoryId | 'all'): Promise<Product[]> {
     let query = supabase
       .from('products')
-      .select(`
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
+      \`)
       .order('name');
 
     if (categoryId && categoryId !== 'all') {
@@ -73,15 +85,15 @@ export const productsService = {
   async searchProducts(query: string, categoryId?: CategoryId | 'all'): Promise<Product[]> {
     let q = supabase
       .from('products')
-      .select(`
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
-      .or(`name.ilike.%${query}%,brand.ilike.%${query}%`)
+      \`)
+      .or(\`name.ilike.%\${sanitizeQuery(query)}%,brand.ilike.%\${sanitizeQuery(query)}%\`)
       .order('name');
 
     if (categoryId && categoryId !== 'all') {
@@ -102,6 +114,18 @@ export const productsService = {
     unit: string;
     averagePrice: number;
   }): Promise<Product> {
+    // Input validation
+    const trimmedName = product.name.trim();
+    if (!trimmedName || trimmedName.length > 200) {
+      throw new Error('Product name must be between 1 and 200 characters.');
+    }
+    if (!Number.isFinite(product.averagePrice) || product.averagePrice <= 0) {
+      throw new Error('Price must be a finite positive number.');
+    }
+    if (!ALLOWED_UNITS.includes(product.unit as (typeof ALLOWED_UNITS)[number])) {
+      throw new Error(\`Invalid unit "\${product.unit}". Allowed: \${ALLOWED_UNITS.join(', ')}.\`);
+    }
+
     const { data, error } = await supabase
       .from('products')
       .insert({
@@ -115,14 +139,14 @@ export const productsService = {
         average_price: product.averagePrice,
         verified: false,
       })
-      .select(`
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
+      \`)
       .single();
 
     if (error) throw error;
@@ -133,14 +157,14 @@ export const productsService = {
   async findByBarcode(barcode: string): Promise<Product | null> {
     const { data, error } = await supabase
       .from('products')
-      .select(`
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
+      \`)
       .eq('barcode', barcode)
       .maybeSingle();
 
@@ -148,51 +172,5 @@ export const productsService = {
     if (!data) return null;
 
     return toProduct(data as unknown as DbProduct);
-  },
-
-  async getPriceHistory(productId: string): Promise<PriceHistoryEntry[]> {
-    const { data, error } = await supabase
-      .from('price_history')
-      .select(`
-        id,
-        product_id,
-        store_id,
-        price,
-        recorded_at,
-        stores ( name )
-      `)
-      .eq('product_id', productId)
-      .order('recorded_at', { ascending: false })
-      .limit(50);
-
-    if (error) throw error;
-
-    return (data ?? []).map((row: Record<string, unknown>) => ({
-      id: row.id as string,
-      productId: row.product_id as string,
-      storeId: row.store_id as string,
-      storeName: (row.stores as { name: string } | null)?.name ?? 'Unknown',
-      price: Number(row.price),
-      recordedAt: row.recorded_at as string,
-    }));
-  },
-
-  async recordPrice(productId: string, storeId: string, price: number): Promise<void> {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    const { error } = await supabase
-      .from('price_history')
-      .insert({
-        product_id: productId,
-        store_id: storeId,
-        user_id: user.id,
-        price,
-        recorded_at: new Date().toISOString(),
-      });
-
-    if (error) {
-      console.error('Failed to record price:', error);
-    }
   },
 };

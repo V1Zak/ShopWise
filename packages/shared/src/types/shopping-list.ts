@@ -1,3 +1,16 @@
+export type SharePermission = 'view' | 'edit';
+
+export interface ListShare {
+  id: string;
+  listId: string;
+  userId: string;
+  permission: SharePermission;
+  createdAt: string;
+  userEmail?: string;
+  userName?: string;
+  userAvatarUrl?: string;
+}
+
 export interface ShoppingList {
   id: string;
   ownerId: string;
@@ -5,8 +18,11 @@ export interface ShoppingList {
   storeId?: string;
   storeName?: string;
   isTemplate: boolean;
+  budget?: number | null;
   itemCount: number;
   estimatedTotal: number;
   createdAt: string;
   updatedAt: string;
+  sharedPermission?: SharePermission;
+  collaboratorCount?: number;
 }

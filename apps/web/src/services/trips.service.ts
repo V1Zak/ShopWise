@@ -41,6 +41,79 @@ export const tripsService = {
     });
   },
 
+  async getTripById(tripId: string): Promise<ShoppingTrip | null> {
+    const { data, error } = await supabase
+      .from('shopping_trips')
+      .select(`
+        *,
+        stores ( id, name, color, logo )
+      `)
+      .eq('id', tripId)
+      .single();
+
+    if (error) return null;
+    if (!data) return null;
+
+    const meta = (data.metadata ?? {}) as Record<string, unknown>;
+    return {
+      id: data.id,
+      userId: data.user_id,
+      listId: data.list_id ?? '',
+      storeId: data.store_id,
+      storeName: data.stores?.name ?? '',
+      storeLogo: data.stores?.logo ?? undefined,
+      date: new Date(data.date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }),
+      itemCount: data.item_count,
+      totalSpent: Number(data.total_spent),
+      totalSaved: Number(data.total_saved),
+      efficiencyScore: data.efficiency_score ?? undefined,
+      topCategory: (meta.topCategory as string) ?? undefined,
+      topCategoryPercentage: (meta.topCategoryPercentage as number) ?? undefined,
+      variance: (meta.variance as string) ?? undefined,
+      categoryBreakdown: (meta.categoryBreakdown as CategoryBreakdown[]) ?? [],
+      insights: (meta.insights as TripInsight[]) ?? [],
+      tags: (meta.tags as string[]) ?? undefined,
+    };
+  },
+
+  async uploadReceipt(tripId: string, file: File): Promise<string | null> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('Not authenticated');
+
+    const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'heic'];
+    const MIME_TO_EXT: Record<string, string> = {
+      'image/jpeg': 'jpg',
+      'image/png': 'png',
+      'image/webp': 'webp',
+      'image/heic': 'heic',
+    };
+
+    let fileExt = (file.name.split('.').pop() ?? '').toLowerCase();
+    if (!ALLOWED_EXTENSIONS.includes(fileExt)) {
+      fileExt = MIME_TO_EXT[file.type] ?? 'jpg';
+    }
+
+    const filePath = `${user.id}/${tripId}/receipt.${fileExt}`;
+
+    const { error } = await supabase.storage
+      .from('receipts')
+      .upload(filePath, file, { upsert: true });
+
+    if (error) throw error;
+
+    const { data: urlData, error: signedUrlError } = await supabase.storage
+      .from('receipts')
+      .createSignedUrl(filePath, 3600);
+
+    if (signedUrlError) throw signedUrlError;
+
+    return urlData?.signedUrl ?? null;
+  },
+
   async createTrip(trip: {
     storeId: string;
     listId?: string;

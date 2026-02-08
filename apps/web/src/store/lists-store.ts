@@ -1,23 +1,30 @@
 import { create } from 'zustand';
 import type { ShoppingList, ListItem, ListItemStatus } from '@shopwise/shared';
 import { listsService } from '@/services/lists.service';
-import { productsService } from '@/services/products.service';
 
 interface ListsState {
   lists: ShoppingList[];
   activeListId: string;
   items: ListItem[];
   isLoading: boolean;
+  templates: ShoppingList[];
   fetchLists: () => Promise<void>;
   fetchListItems: (listId: string) => Promise<void>;
+  createList: (list: { title: string; storeId?: string }) => Promise<string>;
   setActiveList: (id: string) => void;
   getActiveList: () => ShoppingList | undefined;
+  getOwnedLists: () => ShoppingList[];
+  getSharedLists: () => ShoppingList[];
   getItemsForList: (listId: string) => ListItem[];
   getItemsByStatus: (listId: string, status: ListItemStatus) => ListItem[];
   toggleItemStatus: (itemId: string) => void;
   updateItemPrice: (itemId: string, price: number) => void;
   addItem: (item: ListItem) => void;
   getRunningTotal: (listId: string) => number;
+  fetchTemplates: () => Promise<void>;
+  saveAsTemplate: (listId: string, title: string) => Promise<void>;
+  createFromTemplate: (templateId: string, newTitle: string) => Promise<ShoppingList | null>;
+  setListBudget: (listId: string, budget: number | null) => void;
 }
 
 export const useListsStore = create<ListsState>((set, get) => ({
@@ -25,6 +32,7 @@ export const useListsStore = create<ListsState>((set, get) => ({
   activeListId: '',
   items: [],
   isLoading: false,
+  templates: [],
 
   fetchLists: async () => {
     set({ isLoading: true });
@@ -34,6 +42,12 @@ export const useListsStore = create<ListsState>((set, get) => ({
     } catch {
       set({ isLoading: false });
     }
+  },
+
+  createList: async (list) => {
+    const row = await listsService.createList(list);
+    await get().fetchLists();
+    return row.id;
   },
 
   fetchListItems: async (listId) => {
@@ -47,21 +61,15 @@ export const useListsStore = create<ListsState>((set, get) => ({
   },
 
   setActiveList: (id) => set({ activeListId: id }),
-
-  getActiveList: () => {
-    const state = get();
-    return state.lists.find((l) => l.id === state.activeListId);
-  },
-
+  getActiveList: () => { const state = get(); return state.lists.find((l) => l.id === state.activeListId); },
+  getOwnedLists: () => get().lists.filter((l) => !l.sharedPermission),
+  getSharedLists: () => get().lists.filter((l) => !!l.sharedPermission),
   getItemsForList: (listId) => get().items.filter((i) => i.listId === listId),
-
-  getItemsByStatus: (listId, status) =>
-    get().items.filter((i) => i.listId === listId && i.status === status),
+  getItemsByStatus: (listId, status) => get().items.filter((i) => i.listId === listId && i.status === status),
 
   toggleItemStatus: (itemId) => {
     const item = get().items.find((i) => i.id === itemId);
     if (!item) return;
-
     const newStatus = item.status === 'to_buy' ? 'in_cart' : item.status === 'in_cart' ? 'to_buy' : item.status;
     const newActualPrice = item.status === 'to_buy' ? item.actualPrice ?? item.estimatedPrice : item.actualPrice;
 
@@ -73,19 +81,9 @@ export const useListsStore = create<ListsState>((set, get) => ({
 
     listsService.updateItem(itemId, { status: newStatus, actualPrice: newActualPrice ?? null }).catch(() => {
       set((state) => ({
-        items: state.items.map((i) =>
-          i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i,
-        ),
+        items: state.items.map((i) => i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i),
       }));
     });
-
-    // Record price when item moves to cart
-    if (newStatus === 'in_cart' && newActualPrice && item.productId) {
-      const activeList = get().lists.find((l) => l.id === get().activeListId);
-      if (activeList?.storeId) {
-        productsService.recordPrice(item.productId, activeList.storeId, newActualPrice).catch(() => {});
-      }
-    }
   },
 
   updateItemPrice: (itemId, price) => {
@@ -99,24 +97,13 @@ export const useListsStore = create<ListsState>((set, get) => ({
     }));
 
     listsService.updateItem(itemId, { actualPrice: price }).catch(() => {
-      set((state) => ({
-        items: state.items.map((i) =>
-          i.id === itemId ? { ...i, actualPrice: item.actualPrice } : i,
-        ),
-      }));
+      set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, actualPrice: item.actualPrice } : i) }));
     });
-
-    // Record price point if item has a linked product
-    if (price > 0 && item.productId) {
-      const activeList = get().lists.find((l) => l.id === get().activeListId);
-      if (activeList?.storeId) {
-        productsService.recordPrice(item.productId, activeList.storeId, price).catch(() => {});
-      }
-    }
   },
 
   addItem: (item) => {
     const tempId = item.id;
+
     set((state) => ({ items: [...state.items, item] }));
 
     listsService.addItem({
@@ -145,5 +132,54 @@ export const useListsStore = create<ListsState>((set, get) => ({
   getRunningTotal: (listId) => {
     const items = get().items.filter((i) => i.listId === listId && i.status === 'in_cart');
     return items.reduce((sum, item) => sum + (item.actualPrice ?? item.estimatedPrice), 0);
+  },
+
+  fetchTemplates: async () => {
+    try {
+      const templates = await listsService.getTemplates();
+      set({ templates });
+    } catch {
+      // silently fail
+    }
+  },
+
+  saveAsTemplate: async (listId, title) => {
+    try {
+      const template = await listsService.saveAsTemplate(listId, title);
+      set((state) => ({ templates: [template, ...state.templates] }));
+    } catch {
+      throw new Error('Failed to save template');
+    }
+  },
+
+  createFromTemplate: async (templateId, newTitle) => {
+    try {
+      const newList = await listsService.createFromTemplate(templateId, newTitle);
+      set((state) => ({ lists: [newList, ...state.lists] }));
+      return newList;
+    } catch {
+      return null;
+    }
+  },
+
+  setListBudget: (listId, budget) => {
+    const list = get().lists.find((l) => l.id === listId);
+    if (!list) return;
+
+    const prevBudget = list.budget;
+
+    set((state) => ({
+      lists: state.lists.map((l) =>
+        l.id === listId ? { ...l, budget } : l,
+      ),
+    }));
+
+    listsService.updateListBudget(listId, budget).catch(() => {
+      set((state) => ({
+        lists: state.lists.map((l) =>
+          l.id === listId ? { ...l, budget: prevBudget } : l,
+        ),
+      }));
+    });
   },
 }));
