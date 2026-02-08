@@ -11,3 +11,9 @@ dist/
 .claude/settings.local.json
 .claude/projects/
 .claude/plans/
+
+# Vercel
+.vercel
+
+# Supabase local
+supabase/.temp/
