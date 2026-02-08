@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FreshTrack - Auth &amp; Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102219",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', "Noto Sans", sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-slate-900 dark:text-white">
+<!-- Main Container -->
+<div class="flex flex-col lg:flex-row min-h-screen w-full overflow-hidden">
+<!-- Left Side: Visual Hero (Hidden on mobile/tablet if needed, but keeping for desktop focus) -->
+<div class="relative hidden lg:flex lg:w-1/2 xl:w-7/12 flex-col justify-between p-12 bg-[#1a2e24] overflow-hidden">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-background-dark/40 to-transparent z-10"></div>
+<img alt="Fresh vegetables and fruits market display" class="h-full w-full object-cover opacity-80" data-alt="Vibrant fresh produce market display" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9VCh_fEG94Km5QmlN6GNTee8m_0adfF24ZGCsJRZrpLLcVbxL99M77XzXk0v48M0CweeZWrtCZEEVrZLFOICW-9S7gNV8lrpdelDYhUKS4btLMillZS6yz34JSUHkr96g1HxPUu0DKRXODJ0iOFo42_GCnGfTM57FemiKeHQjZ8j9Kt46YbmzrUiZKe5K1FHblZWQAwCKwgmdakg9FWJ8DtKSQpRtavaTCW9aH_7KZ0c_uvFVx-J-kUAm8GDjaFSeyTlQGsaJ1SU9"/>
+</div>
+<!-- Logo Area -->
+<div class="relative z-20 flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/20 backdrop-blur-sm text-primary">
+<span class="material-symbols-outlined text-[28px]">nutrition</span>
+</div>
+<h2 class="text-white text-xl font-bold tracking-tight">FreshTrack</h2>
+</div>
+<!-- Quote/Testimonial Area -->
+<div class="relative z-20 max-w-lg">
+<blockquote class="space-y-4">
+<p class="text-2xl font-medium leading-relaxed text-white">
+                        "The most efficient way to track market prices and manage household inventory. We've cut our waste by 30%."
+                    </p>
+<footer class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl">person</span>
+</div>
+<div>
+<div class="font-semibold text-white">Alex Chen</div>
+<div class="text-sm text-gray-400">Head Chef &amp; Home Economist</div>
+</div>
+</footer>
+</blockquote>
+</div>
+</div>
+<!-- Right Side: Auth Form -->
+<div class="flex w-full lg:w-1/2 xl:w-5/12 flex-col items-center justify-center px-6 py-12 lg:px-12 bg-background-light dark:bg-background-dark">
+<div class="w-full max-w-[440px] flex flex-col gap-8">
+<!-- Mobile Logo (Visible only on smaller screens) -->
+<div class="lg:hidden flex items-center gap-2 mb-4 self-center">
+<span class="material-symbols-outlined text-primary text-3xl">nutrition</span>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold">FreshTrack</h2>
+</div>
+<!-- Header -->
+<div class="text-center lg:text-left">
+<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">Create an account</h1>
+<p class="text-slate-500 dark:text-slate-400">
+                        Start tracking prices and optimizing your grocery spending today.
+                    </p>
+</div>
+<!-- Social Login Buttons -->
+<div class="flex flex-col gap-3">
+<button class="relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1a2e24] px-4 py-2 text-sm font-medium text-slate-900 dark:text-white transition-colors hover:bg-slate-50 dark:hover:bg-[#234836] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark">
+<span class="material-symbols-outlined text-[20px]">public</span>
+                        Continue with Google
+                    </button>
+<button class="relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1a2e24] px-4 py-2 text-sm font-medium text-slate-900 dark:text-white transition-colors hover:bg-slate-50 dark:hover:bg-[#234836] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark">
+<span class="material-symbols-outlined text-[20px]">smartphone</span>
+                        Continue with Apple
+                    </button>
+</div>
+<!-- Divider -->
+<div class="relative">
+<div class="absolute inset-0 flex items-center">
+<span class="w-full border-t border-slate-200 dark:border-slate-700"></span>
+</div>
+<div class="relative flex justify-center text-xs uppercase">
+<span class="bg-background-light dark:bg-background-dark px-2 text-slate-500 dark:text-slate-400">Or continue with email</span>
+</div>
+</div>
+<!-- Form -->
+<form class="flex flex-col gap-4">
+<div class="space-y-1">
+<label class="text-sm font-medium text-slate-900 dark:text-white" for="email">Email address</label>
+<input class="flex h-11 w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-[#1a2e24] px-3 py-2 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="email" placeholder="name@example.com" type="email"/>
+</div>
+<div class="space-y-1">
+<label class="text-sm font-medium text-slate-900 dark:text-white" for="password">Password</label>
+<div class="relative">
+<input class="flex h-11 w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-[#1a2e24] px-3 py-2 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all pr-10" id="password" placeholder="Create a password" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            Must be at least 8 characters long.
+                        </p>
+</div>
+<button class="mt-2 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-slate-900 transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark shadow-[0_0_15px_rgba(19,236,128,0.3)]">
+                        Create Account
+                    </button>
+</form>
+<!-- Footer Terms -->
+<p class="text-center text-sm text-slate-500 dark:text-slate-400">
+                    By clicking continue, you agree to our 
+                    <a class="underline underline-offset-4 hover:text-primary transition-colors" href="#">Terms of Service</a> 
+                    and 
+                    <a class="underline underline-offset-4 hover:text-primary transition-colors" href="#">Privacy Policy</a>.
+                </p>
+<!-- Login Link -->
+<div class="text-center text-sm">
+<span class="text-slate-600 dark:text-slate-300">Already have an account?</span>
+<a class="font-semibold text-primary hover:text-primary/80 ml-1" href="#">Sign in</a>
+</div>
+</div>
+</div>
+</div>
+</body></html>
