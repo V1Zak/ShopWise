@@ -14,22 +14,28 @@ export function useNotifications() {
   useEffect(() => {
     if (!('permissions' in navigator)) return;
 
-    let cleanup: (() => void) | undefined;
+    let mounted = true;
+    let permStatus: PermissionStatus | undefined;
 
     navigator.permissions
       .query({ name: 'notifications' as PermissionName })
       .then((status) => {
+        if (!mounted) return;
+        permStatus = status as unknown as PermissionStatus;
         const handler = () => {
-          setPermissionStatus(notificationsService.getPermissionStatus());
+          if (mounted) {
+            setPermissionStatus(notificationsService.getPermissionStatus());
+          }
         };
         status.addEventListener('change', handler);
-        cleanup = () => status.removeEventListener('change', handler);
       })
       .catch(() => {
         // Permissions API not available for notifications
       });
 
-    return () => cleanup?.();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const requestPermission = useCallback(async () => {

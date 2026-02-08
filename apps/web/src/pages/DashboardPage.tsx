@@ -6,13 +6,11 @@ import { AttentionNeeded } from '@/features/dashboard/AttentionNeeded';
 import { SmartSuggestions } from '@/features/dashboard/SmartSuggestions';
 import { MiniCalendar } from '@/features/dashboard/MiniCalendar';
 import { NotificationPrompt } from '@/components/NotificationPrompt';
-import { useRealtimeNotifications } from '@/hooks/useRealtimeNotifications';
 import { useListsStore } from '@/store/lists-store';
 
 export function DashboardPage() {
   const fetchLists = useListsStore((s) => s.fetchLists);
 
-  useRealtimeNotifications();
 
   useEffect(() => {
     fetchLists();
