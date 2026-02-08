@@ -21,6 +21,7 @@ export const listsService = {
       storeId: row.store_id ?? undefined,
       storeName: row.stores?.name ?? undefined,
       isTemplate: row.is_template,
+      budget: row.budget ? Number(row.budget) : null,
       itemCount: row.list_items?.length ?? 0,
       estimatedTotal: 0,
       createdAt: row.created_at,
@@ -72,14 +73,25 @@ export const listsService = {
     return data;
   },
 
-  async updateList(id: string, updates: { title?: string; storeId?: string }) {
+  async updateList(id: string, updates: { title?: string; storeId?: string; budget?: number | null }) {
+    const mapped: Record<string, unknown> = {};
+    if (updates.title) mapped.title = updates.title;
+    if (updates.storeId !== undefined) mapped.store_id = updates.storeId;
+    if (updates.budget !== undefined) mapped.budget = updates.budget;
+
     const { error } = await supabase
       .from('shopping_lists')
-      .update({
-        ...(updates.title && { title: updates.title }),
-        ...(updates.storeId !== undefined && { store_id: updates.storeId }),
-      })
+      .update(mapped)
       .eq('id', id);
+
+    if (error) throw error;
+  },
+
+  async updateListBudget(listId: string, budget: number | null) {
+    const { error } = await supabase
+      .from('shopping_lists')
+      .update({ budget })
+      .eq('id', listId);
 
     if (error) throw error;
   },
