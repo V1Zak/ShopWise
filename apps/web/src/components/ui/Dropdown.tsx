@@ -24,9 +24,19 @@ export function Dropdown({ trigger, children, align = 'left' }: DropdownProps) {
 
   return (
     <div className="relative" ref={ref}>
-      <div onClick={() => setOpen((o) => !o)}>{trigger}</div>
+      <div
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-haspopup="true"
+      >
+        {trigger}
+      </div>
       {open && (
         <div
+          role="menu"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') setOpen(false);
+          }}
           className={`absolute top-full mt-2 z-50 min-w-[200px] rounded-xl border border-border-dark bg-surface-dark shadow-2xl py-1 ${
             align === 'right' ? 'right-0' : 'left-0'
           }`}
@@ -48,6 +58,7 @@ interface DropdownItemProps {
 export function DropdownItem({ label, active, onClick, icon }: DropdownItemProps) {
   return (
     <button
+      role="menuitem"
       onClick={onClick}
       className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left transition-colors ${
         active
