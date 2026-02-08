@@ -1,6 +1,10 @@
 import { useListsStore } from '@/store/lists-store';
 
-export function ListHeader() {
+interface ListHeaderProps {
+  onScanClick?: () => void;
+}
+
+export function ListHeader({ onScanClick }: ListHeaderProps) {
   const activeListId = useListsStore((s) => s.activeListId);
   const lists = useListsStore((s) => s.lists);
   const getRunningTotal = useListsStore((s) => s.getRunningTotal);
@@ -26,9 +30,20 @@ export function ListHeader() {
             Target: {list?.title} &bull; {allItems.length} Items
           </p>
         </div>
-        <div className="text-right">
-          <div className="text-sm text-text-secondary font-medium mb-1">Running Total</div>
-          <div className="text-3xl font-bold text-primary tabular-nums">${total.toFixed(2)}</div>
+        <div className="flex items-end gap-4">
+          {onScanClick && (
+            <button
+              onClick={onScanClick}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">qr_code_scanner</span>
+              Scan
+            </button>
+          )}
+          <div className="text-right">
+            <div className="text-sm text-text-secondary font-medium mb-1">Running Total</div>
+            <div className="text-3xl font-bold text-primary tabular-nums">${total.toFixed(2)}</div>
+          </div>
         </div>
       </div>
     </div>
