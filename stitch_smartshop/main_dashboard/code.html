@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GroceryPro Dashboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#11221a", 
+                        "surface-dark": "#1a332a",
+                        "accent-green": "#234836",
+                        "text-secondary": "#92c9ad",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #11221a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #234836; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2f5e46; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-hidden">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="hidden md:flex flex-col w-64 h-full border-r border-[#234836] bg-[#11221a] flex-shrink-0">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 relative overflow-hidden bg-emerald-900 ring-2 ring-primary/20">
+<img alt="Grocery store aisle abstract" class="object-cover w-full h-full" data-alt="Grocery shopping cart icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7rHs14zNlzTfkClxYit-adkifwlLsp_MnAJvP9RbXrOQBs5ewBW367CCrSYGokrx-8Mi2TgkPc7EsuGQAoJviF4WNSvT7LiYlBlIYCkry0NhvzEF_vTdSST0v5A0TomOYIhbmzrzpab5nhfdQMVYVYWLFbRuvNM6LBKFssIzV0S6DFsDY93afKHgwdYYoRX7SK3yLwRb0iizhgxduBBPBLhZf1YK-WPDuAUY-F9-LzgVRLModBUp7L2Xka7kGcDwZXDj_dsFiVt7O"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-white text-lg font-bold tracking-tight">GroceryPro</h1>
+<p class="text-text-secondary text-xs font-medium">v2.4 Premium</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#234836] text-white group transition-colors" href="#">
+<span class="material-symbols-outlined text-primary">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-[#1a332a] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">inventory_2</span>
+<span class="text-sm font-medium">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-[#1a332a] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">list_alt</span>
+<span class="text-sm font-medium">Lists</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-[#1a332a] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">bar_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-[#1a332a] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-[#234836]">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#1a332a] cursor-pointer transition-colors">
+<div class="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center text-[#11221a] font-bold text-xs">
+                        AL
+                    </div>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-white">Alex L.</span>
+<span class="text-xs text-text-secondary">Pro Plan</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header & Quick Add -->
+<header class="w-full border-b border-[#234836] bg-[#11221a]/95 backdrop-blur z-20 sticky top-0">
+<div class="max-w-[1600px] mx-auto px-6 py-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+<div class="flex flex-col">
+<h2 class="text-white text-xl font-bold">Good evening, Alex.</h2>
+<p class="text-text-secondary text-sm">You are <span class="text-primary font-medium">$15 under budget</span> for this month.</p>
+</div>
+<!-- Quick Add Bar -->
+<div class="flex-1 max-w-2xl w-full mx-auto md:mx-0 md:ml-12 relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-secondary group-focus-within:text-primary transition-colors">add_circle</span>
+</div>
+<input class="w-full bg-[#1a332a] text-white border border-[#234836] rounded-lg py-3 pl-10 pr-24 focus:ring-2 focus:ring-primary focus:border-transparent placeholder:text-text-secondary/70 transition-all shadow-sm" placeholder="Add item to list or track price (e.g. 'Milk $4.50')..." type="text"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-2">
+<kbd class="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded border border-[#234836] bg-[#11221a] text-xs font-sans text-text-secondary">
+<span class="text-[10px]">⌘</span> K
+                            </kbd>
+<button class="ml-2 bg-primary hover:bg-emerald-400 text-[#11221a] text-xs font-bold px-3 py-1.5 rounded transition-colors">
+                                Add
+                            </button>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-4 pl-4">
+<button class="p-2 text-text-secondary hover:text-white hover:bg-[#234836] rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary ring-2 ring-[#11221a]"></span>
+</button>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-6 md:p-8">
+<div class="max-w-[1600px] mx-auto flex flex-col gap-8">
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Budget Card -->
+<div class="bg-[#1a332a] rounded-xl p-5 border border-[#234836] shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">account_balance_wallet</span>
+</div>
+<div class="relative z-10">
+<p class="text-text-secondary text-sm font-medium mb-1">Monthly Budget</p>
+<div class="flex items-baseline gap-2 mb-2">
+<h3 class="text-3xl font-bold text-white">$450.00</h3>
+<span class="text-primary bg-primary/10 px-1.5 py-0.5 rounded text-xs font-medium">+5%</span>
+</div>
+<div class="w-full bg-[#11221a] rounded-full h-1.5 mb-2 overflow-hidden">
+<div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+<p class="text-xs text-text-secondary text-right">65% used</p>
+</div>
+</div>
+<!-- Projected Spend Card -->
+<div class="bg-[#1a332a] rounded-xl p-5 border border-[#234836] shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-blue-400">trending_up</span>
+</div>
+<div class="relative z-10">
+<p class="text-text-secondary text-sm font-medium mb-1">Projected Spend</p>
+<div class="flex items-baseline gap-2 mb-2">
+<h3 class="text-3xl font-bold text-white">$385.20</h3>
+<span class="text-[#fa5538] bg-[#fa5538]/10 px-1.5 py-0.5 rounded text-xs font-medium">-2%</span>
+</div>
+<!-- Simple Sparkline Representation -->
+<div class="h-8 flex items-end gap-1 opacity-70">
+<div class="w-1/6 bg-primary/30 h-1/3 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary/40 h-1/2 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary/50 h-2/3 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary/40 h-1/2 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary/60 h-3/4 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary h-full rounded-t-sm"></div>
+</div>
+</div>
+</div>
+<!-- Items Tracked Card -->
+<div class="bg-[#1a332a] rounded-xl p-5 border border-[#234836] shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-purple-400">inventory</span>
+</div>
+<div class="relative z-10">
+<p class="text-text-secondary text-sm font-medium mb-1">Items Tracked</p>
+<div class="flex items-baseline gap-2 mb-2">
+<h3 class="text-3xl font-bold text-white">142</h3>
+<span class="text-primary bg-primary/10 px-1.5 py-0.5 rounded text-xs font-medium">+12 New</span>
+</div>
+<div class="flex gap-2 mt-4">
+<div class="flex items-center gap-1.5 px-2 py-1 bg-[#11221a] rounded text-xs text-text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
+                                        3 Low Stock
+                                    </div>
+<div class="flex items-center gap-1.5 px-2 py-1 bg-[#11221a] rounded text-xs text-text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-yellow-400"></span>
+                                        5 Expiring
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Dashboard Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column (2/3 width) -->
+<div class="lg:col-span-2 flex flex-col gap-8">
+<!-- Active Shopping List Widget -->
+<section class="bg-[#1a332a] rounded-xl border border-[#234836] overflow-hidden">
+<div class="p-5 border-b border-[#234836] flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<div>
+<h3 class="text-white font-bold text-lg">Trader Joe's Run</h3>
+<p class="text-text-secondary text-xs">12 items • Estimated $45.00</p>
+</div>
+</div>
+<button class="bg-primary hover:bg-emerald-400 text-[#11221a] px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-2">
+<span>Start Shopping</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="p-2">
+<!-- List Items -->
+<div class="flex flex-col">
+<div class="group flex items-center justify-between p-3 hover:bg-[#234836]/50 rounded-lg transition-colors cursor-pointer border-b border-[#234836]/50 last:border-0">
+<div class="flex items-center gap-3">
+<div class="h-5 w-5 rounded border border-text-secondary/50 group-hover:border-primary flex items-center justify-center transition-colors">
+<div class="h-3 w-3 bg-primary rounded-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-white font-medium">Organic Whole Milk</span>
+<span class="text-xs text-text-secondary bg-[#11221a] px-2 py-0.5 rounded">Dairy</span>
+</div>
+<span class="text-text-secondary font-mono text-sm">$4.99</span>
+</div>
+<div class="group flex items-center justify-between p-3 hover:bg-[#234836]/50 rounded-lg transition-colors cursor-pointer border-b border-[#234836]/50 last:border-0">
+<div class="flex items-center gap-3">
+<div class="h-5 w-5 rounded border border-text-secondary/50 group-hover:border-primary flex items-center justify-center transition-colors"></div>
+<span class="text-white font-medium">Sourdough Bread</span>
+<span class="text-xs text-text-secondary bg-[#11221a] px-2 py-0.5 rounded">Bakery</span>
+</div>
+<span class="text-text-secondary font-mono text-sm">$3.49</span>
+</div>
+<div class="group flex items-center justify-between p-3 hover:bg-[#234836]/50 rounded-lg transition-colors cursor-pointer border-b border-[#234836]/50 last:border-0">
+<div class="flex items-center gap-3">
+<div class="h-5 w-5 rounded border border-text-secondary/50 group-hover:border-primary flex items-center justify-center transition-colors"></div>
+<span class="text-white font-medium">Avocados (4ct)</span>
+<span class="text-xs text-text-secondary bg-[#11221a] px-2 py-0.5 rounded">Produce</span>
+</div>
+<span class="text-text-secondary font-mono text-sm">$5.99</span>
+</div>
+<div class="group flex items-center justify-between p-3 hover:bg-[#234836]/50 rounded-lg transition-colors cursor-pointer border-b border-[#234836]/50 last:border-0">
+<div class="flex items-center gap-3">
+<div class="h-5 w-5 rounded border border-text-secondary/50 group-hover:border-primary flex items-center justify-center transition-colors"></div>
+<span class="text-white font-medium">Chicken Breast</span>
+<span class="text-xs text-text-secondary bg-[#11221a] px-2 py-0.5 rounded">Meat</span>
+</div>
+<span class="text-text-secondary font-mono text-sm">$12.50</span>
+</div>
+<div class="group flex items-center justify-between p-3 hover:bg-[#234836]/50 rounded-lg transition-colors cursor-pointer border-b border-[#234836]/50 last:border-0">
+<div class="flex items-center gap-3">
+<div class="h-5 w-5 rounded border border-text-secondary/50 group-hover:border-primary flex items-center justify-center transition-colors"></div>
+<span class="text-white font-medium">Greek Yogurt</span>
+<span class="text-xs text-text-secondary bg-[#11221a] px-2 py-0.5 rounded">Dairy</span>
+</div>
+<span class="text-text-secondary font-mono text-sm">$5.29</span>
+</div>
+</div>
+</div>
+<div class="p-3 bg-[#11221a]/50 text-center border-t border-[#234836]">
+<button class="text-primary text-sm font-medium hover:text-emerald-300 transition-colors">View all 12 items</button>
+</div>
+</section>
+<!-- Recent Activity Feed -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-white font-bold text-lg">Recent Activity</h3>
+<button class="text-text-secondary text-sm hover:text-white transition-colors">View All</button>
+</div>
+<div class="bg-[#1a332a] rounded-xl border border-[#234836] p-1">
+<div class="divide-y divide-[#234836]">
+<!-- Activity Item -->
+<div class="flex items-start gap-4 p-4 hover:bg-[#234836]/30 transition-colors rounded-lg">
+<div class="bg-blue-500/20 text-blue-400 p-2 rounded-lg mt-0.5">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-white">Bought <span class="font-bold text-white">Almond Milk</span> at Whole Foods</p>
+<div class="flex items-center gap-2 mt-1 text-xs">
+<span class="text-text-secondary">2 hours ago</span>
+<span class="w-1 h-1 rounded-full bg-text-secondary"></span>
+<span class="font-mono text-white">$3.99</span>
+<span class="text-primary bg-primary/10 px-1 rounded font-medium">+$0.20 vs avg</span>
+</div>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="flex items-start gap-4 p-4 hover:bg-[#234836]/30 transition-colors rounded-lg">
+<div class="bg-primary/20 text-primary p-2 rounded-lg mt-0.5">
+<span class="material-symbols-outlined text-[20px]">add_task</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-white">Added <span class="font-bold text-white">Sourdough Starter</span> to 'Weekend' list</p>
+<div class="flex items-center gap-2 mt-1 text-xs">
+<span class="text-text-secondary">5 hours ago</span>
+</div>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="flex items-start gap-4 p-4 hover:bg-[#234836]/30 transition-colors rounded-lg">
+<div class="bg-yellow-500/20 text-yellow-400 p-2 rounded-lg mt-0.5">
+<span class="material-symbols-outlined text-[20px]">price_check</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-white">Price Alert: <span class="font-bold text-white">Ribeye Steak</span> dropped at Costco</p>
+<div class="flex items-center gap-2 mt-1 text-xs">
+<span class="text-text-secondary">Yesterday</span>
+<span class="w-1 h-1 rounded-full bg-text-secondary"></span>
+<span class="font-mono text-white">$12.99/lb</span>
+<span class="text-[#fa5538] bg-[#fa5538]/10 px-1 rounded font-medium">-15% drop</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (1/3 width) - Context & Reminders -->
+<div class="flex flex-col gap-6">
+<!-- Reminders Widget -->
+<div class="bg-[#1a332a] rounded-xl border border-[#234836] p-5">
+<h3 class="text-white font-bold text-base mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-yellow-400">warning</span>
+                                    Attention Needed
+                                </h3>
+<div class="space-y-3">
+<div class="flex items-start gap-3 bg-[#11221a] p-3 rounded-lg border border-[#234836]/50">
+<div class="h-2 w-2 rounded-full bg-red-500 mt-1.5 flex-shrink-0"></div>
+<div>
+<p class="text-sm text-white font-medium">Milk expires soon</p>
+<p class="text-xs text-text-secondary">2 days remaining</p>
+</div>
+</div>
+<div class="flex items-start gap-3 bg-[#11221a] p-3 rounded-lg border border-[#234836]/50">
+<div class="h-2 w-2 rounded-full bg-yellow-500 mt-1.5 flex-shrink-0"></div>
+<div>
+<p class="text-sm text-white font-medium">Coffee beans low stock</p>
+<p class="text-xs text-text-secondary">~3 servings left</p>
+</div>
+</div>
+<div class="flex items-start gap-3 bg-[#11221a] p-3 rounded-lg border border-[#234836]/50">
+<div class="h-2 w-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></div>
+<div>
+<p class="text-sm text-white font-medium">Review monthly recurring</p>
+<p class="text-xs text-text-secondary">Due tomorrow</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Visualization / Ads / Feature Highlight -->
+<div class="bg-gradient-to-br from-[#234836] to-[#11221a] rounded-xl border border-[#234836] p-5 relative overflow-hidden">
+<div class="absolute right-0 top-0 w-32 h-32 bg-primary/20 blur-[50px] rounded-full -mr-10 -mt-10"></div>
+<h3 class="text-white font-bold text-base mb-2 relative z-10">Smart Suggestions</h3>
+<p class="text-text-secondary text-sm mb-4 relative z-10">Based on your Friday habits, you usually buy:</p>
+<div class="flex flex-wrap gap-2 relative z-10">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-[#11221a] hover:bg-[#1a332a] border border-[#234836] rounded-lg text-xs text-white transition-colors">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                                        Pizza Dough
+                                    </button>
+<button class="flex items-center gap-2 px-3 py-1.5 bg-[#11221a] hover:bg-[#1a332a] border border-[#234836] rounded-lg text-xs text-white transition-colors">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                                        Mozzarella
+                                    </button>
+<button class="flex items-center gap-2 px-3 py-1.5 bg-[#11221a] hover:bg-[#1a332a] border border-[#234836] rounded-lg text-xs text-white transition-colors">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                                        Beer
+                                    </button>
+</div>
+</div>
+<!-- Mini Calendar/Schedule -->
+<div class="bg-[#1a332a] rounded-xl border border-[#234836] p-5">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-white font-bold text-base">Schedule</h3>
+<span class="text-xs font-mono text-text-secondary">OCT 2023</span>
+</div>
+<div class="flex justify-between text-center mb-2 text-xs text-text-secondary">
+<div class="w-8">Mon</div>
+<div class="w-8">Tue</div>
+<div class="w-8">Wed</div>
+<div class="w-8 text-white font-bold">Thu</div>
+<div class="w-8">Fri</div>
+<div class="w-8">Sat</div>
+<div class="w-8">Sun</div>
+</div>
+<div class="flex justify-between text-center text-sm font-medium text-white">
+<div class="w-8 py-1 rounded hover:bg-[#234836]">23</div>
+<div class="w-8 py-1 rounded hover:bg-[#234836]">24</div>
+<div class="w-8 py-1 rounded hover:bg-[#234836]">25</div>
+<div class="w-8 py-1 rounded bg-primary text-[#11221a] font-bold">26</div>
+<div class="w-8 py-1 rounded hover:bg-[#234836] relative">
+                                        27
+                                        <div class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full"></div>
+</div>
+<div class="w-8 py-1 rounded hover:bg-[#234836]">28</div>
+<div class="w-8 py-1 rounded hover:bg-[#234836]">29</div>
+</div>
+<div class="mt-4 pt-3 border-t border-[#234836]">
+<div class="flex items-center gap-3">
+<div class="w-1 h-8 rounded-full bg-primary"></div>
+<div>
+<p class="text-sm text-white font-medium">Costco Trip</p>
+<p class="text-xs text-text-secondary">Tomorrow • 5:00 PM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Spacer -->
+<div class="h-10"></div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,10 @@
+{
+  "name": "ShopWise",
+  "short_name": "ShopWise",
+  "description": "Smart grocery shopping assistant",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#11221a",
+  "theme_color": "#13ec80",
+  "icons": []
+}

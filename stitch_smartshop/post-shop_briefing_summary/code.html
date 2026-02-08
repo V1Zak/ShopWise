@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Post-Shop Briefing - GrocerOps</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "primary-dark": "#0bda46",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#11221a",
+                        "surface-dark": "#1a3326",
+                        "surface-darker": "#152b20",
+                        "accent-warning": "#ff9f1c",
+                        "accent-danger": "#ff5a5f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"],
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-white font-display antialiased min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<div class="w-full border-b border-[#234836] bg-background-dark">
+<div class="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">shopping_cart_checkout</span>
+</div>
+<h2 class="text-white text-xl font-bold tracking-tight">GrocerOps</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-gray-300 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-white text-sm font-medium border-b-2 border-primary pb-5 mt-5" href="#">Briefing</a>
+<a class="text-gray-300 hover:text-primary text-sm font-medium transition-colors" href="#">Procurement</a>
+<a class="text-gray-300 hover:text-primary text-sm font-medium transition-colors" href="#">Analytics</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center justify-center gap-2 h-9 px-4 rounded-lg bg-surface-dark border border-[#234836] text-primary text-sm font-bold hover:bg-[#234836] transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="truncate">New Trip</span>
+</button>
+<div class="size-9 rounded-full bg-surface-dark bg-center bg-cover border border-[#234836]" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAUpjfmsRy8Aa0l1qL1cOePI97490q0_7fkhiYb0OjcznvUyUnDN3HAryU80m0OzkDQADdDSAxMv0GVG0ZJdi9WdHxAhL97C-x74TPsXwY2B0AagiRKOmdw-VbYaXHzW_gor6j9oVyE2lu-O5u7TiW3-QIV5ijj5x5h6oWboZ4iga9EY1AOfi_JAZEMwxAABfWBQCcTf_eHXOhVSUAmchSpj_IqMu3ud7JcK_kwpqEoE4k3OQqv6ID7RkrT-EWtiCj8QCX-jKEmoRG_");'></div>
+</div>
+</div>
+</div>
+<!-- Main Content Area -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-6 py-8">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-primary text-sm font-bold uppercase tracking-wider mb-1">
+<span class="material-symbols-outlined text-sm">verified</span>
+                    Mission Complete
+                </div>
+<h1 class="text-4xl md:text-5xl font-black text-white tracking-tight">Post-Shop Briefing</h1>
+<p class="text-gray-400 text-lg mt-1 flex items-center gap-2">
+                    Whole Foods Market <span class="size-1 bg-gray-600 rounded-full"></span> Oct 24, 2023 <span class="size-1 bg-gray-600 rounded-full"></span> 14 Items
+                </p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center h-10 px-5 rounded-lg bg-[#234836] hover:bg-[#2c5842] text-white text-sm font-medium transition-colors">
+                    Edit Prices
+                </button>
+<button class="flex items-center justify-center h-10 px-5 rounded-lg bg-[#234836] hover:bg-[#2c5842] text-white text-sm font-medium transition-colors">
+                    Share Summary
+                </button>
+<button class="flex items-center justify-center h-10 px-5 rounded-lg bg-primary hover:bg-primary-dark text-background-dark text-sm font-bold transition-colors shadow-[0_0_15px_rgba(19,236,128,0.3)]">
+<span class="material-symbols-outlined text-[20px] mr-2">upload_file</span>
+                    Verify Receipt
+                </button>
+</div>
+</header>
+<!-- KPI Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<!-- Total Spent -->
+<div class="relative overflow-hidden rounded-xl bg-surface-dark border border-[#234836] p-6 group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-white">payments</span>
+</div>
+<p class="text-gray-400 text-sm font-medium uppercase tracking-wider mb-2">Total Spent</p>
+<div class="flex items-baseline gap-2">
+<p class="text-white text-4xl font-bold tracking-tighter font-mono">$142.50</p>
+<span class="text-primary-dark text-sm font-bold bg-[#13ec80]/10 px-2 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+                        0.5%
+                    </span>
+</div>
+<p class="text-gray-500 text-xs mt-3">vs. 30-day average for similar basket size</p>
+</div>
+<!-- Total Saved -->
+<div class="relative overflow-hidden rounded-xl bg-surface-dark border border-primary/30 p-6 group shadow-[0_0_30px_-10px_rgba(19,236,128,0.15)]">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
+<div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-30 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">savings</span>
+</div>
+<p class="text-primary text-sm font-bold uppercase tracking-wider mb-2">Total Saved</p>
+<div class="flex items-baseline gap-2">
+<p class="text-primary text-4xl font-bold tracking-tighter font-mono">$24.10</p>
+<span class="text-primary text-sm font-bold bg-primary/20 px-2 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">arrow_upward</span>
+                        15.2%
+                    </span>
+</div>
+<p class="text-primary/70 text-xs mt-3">High performance: You beat the market average.</p>
+</div>
+<!-- Efficiency Score -->
+<div class="relative overflow-hidden rounded-xl bg-surface-dark border border-[#234836] p-6 group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-white">speed</span>
+</div>
+<p class="text-gray-400 text-sm font-medium uppercase tracking-wider mb-2">Efficiency Score</p>
+<div class="flex items-baseline gap-2">
+<p class="text-white text-4xl font-bold tracking-tighter font-mono">92/100</p>
+<span class="text-primary-dark text-sm font-bold bg-[#13ec80]/10 px-2 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">add</span>
+                        12 pts
+                    </span>
+</div>
+<div class="w-full bg-gray-700 h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 92%"></div>
+</div>
+</div>
+</div>
+<!-- Dashboard Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Spend Velocity (Graph) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Main Graph Card -->
+<div class="rounded-xl bg-surface-dark border border-[#234836] p-6 flex-1 min-h-[400px]">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-white text-lg font-bold">Spend Velocity</h3>
+<p class="text-gray-400 text-sm">Comparison against 30-day moving average</p>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/20">Current Trip</span>
+<span class="px-3 py-1 rounded text-xs font-medium bg-gray-700/50 text-gray-400 border border-gray-700">Average</span>
+</div>
+</div>
+<!-- Chart Container -->
+<div class="w-full h-64 relative mt-8">
+<!-- SVG Chart Mockup -->
+<svg class="w-full h-full overflow-visible" viewbox="0 0 800 250">
+<!-- Grid lines -->
+<line stroke="#234836" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="800" y1="0" y2="0"></line>
+<line stroke="#234836" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="800" y1="62.5" y2="62.5"></line>
+<line stroke="#234836" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="800" y1="125" y2="125"></line>
+<line stroke="#234836" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="800" y1="187.5" y2="187.5"></line>
+<line stroke="#234836" stroke-width="1" x1="0" x2="800" y1="250" y2="250"></line>
+<!-- Average Line (Gray, dashed) -->
+<path d="M0,180 C100,170 200,190 300,160 C400,130 500,150 600,140 C700,130 800,120" fill="none" stroke="#4b5563" stroke-dasharray="5,5" stroke-width="2"></path>
+<!-- Gradient Fill for Current Trip -->
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#13ec80" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#13ec80" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Current Trip Line (Primary Green) -->
+<path d="M0,200 C100,180 200,210 300,150 C400,100 500,120 600,80 C700,90 800,50" fill="url(#chartGradient)" stroke="#13ec80" stroke-width="3"></path>
+<!-- Data Points -->
+<circle cx="0" cy="200" fill="#13ec80" r="4"></circle>
+<circle cx="300" cy="150" fill="#13ec80" r="4"></circle>
+<circle cx="600" cy="80" fill="#13ec80" r="4"></circle>
+<circle cx="800" cy="50" fill="#11221a" r="6" stroke="#13ec80" stroke-width="3"></circle>
+</svg>
+<!-- X Axis Labels -->
+<div class="flex justify-between mt-4 text-xs text-gray-400 font-mono">
+<span>Start</span>
+<span>Produce</span>
+<span>Pantry</span>
+<span>Frozen</span>
+<span>Checkout</span>
+</div>
+</div>
+</div>
+<!-- Receipt Upload Zone (Horizontal in main column for better space usage) -->
+<div class="rounded-xl bg-surface-darker border-2 border-dashed border-[#234836] p-8 flex flex-col items-center justify-center text-center gap-3 hover:border-primary/50 hover:bg-surface-dark transition-all cursor-pointer group">
+<div class="size-12 rounded-full bg-[#234836] group-hover:bg-primary/20 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-2xl text-gray-400 group-hover:text-primary transition-colors">receipt_long</span>
+</div>
+<div>
+<p class="text-white font-bold text-lg">Verification Required</p>
+<p class="text-gray-400 text-sm">Drag and drop your receipt here, or click to browse.</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Alerts & Stats -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Price Spikes Card -->
+<div class="rounded-xl bg-surface-dark border border-[#234836] flex flex-col overflow-hidden">
+<div class="p-4 border-b border-[#234836] flex justify-between items-center bg-[#1a2e24]">
+<h3 class="text-white font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-warning">warning</span>
+                            Price Spike Alerts
+                        </h3>
+<span class="bg-accent-warning/20 text-accent-warning text-xs font-bold px-2 py-0.5 rounded">3 Items</span>
+</div>
+<div class="divide-y divide-[#234836]">
+<!-- Item 1 -->
+<div class="p-4 hover:bg-[#234836]/50 transition-colors flex justify-between items-center group">
+<div class="flex gap-3">
+<div class="size-10 rounded bg-background-dark border border-[#234836] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gray-500">egg</span>
+</div>
+<div>
+<p class="text-gray-200 text-sm font-medium">Org. Brown Eggs</p>
+<p class="text-gray-500 text-xs">Dozen • Vital Farms</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-white font-mono font-bold">$8.99</p>
+<p class="text-accent-danger text-xs font-bold flex items-center justify-end gap-0.5">
+<span class="material-symbols-outlined text-[10px]">arrow_upward</span>
+                                    $1.50
+                                </p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-4 hover:bg-[#234836]/50 transition-colors flex justify-between items-center group">
+<div class="flex gap-3">
+<div class="size-10 rounded bg-background-dark border border-[#234836] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gray-500">nutrition</span>
+</div>
+<div>
+<p class="text-gray-200 text-sm font-medium">Avocados (4ct)</p>
+<p class="text-gray-500 text-xs">Bag • Organic</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-white font-mono font-bold">$6.49</p>
+<p class="text-accent-danger text-xs font-bold flex items-center justify-end gap-0.5">
+<span class="material-symbols-outlined text-[10px]">arrow_upward</span>
+                                    $0.50
+                                </p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-4 hover:bg-[#234836]/50 transition-colors flex justify-between items-center group">
+<div class="flex gap-3">
+<div class="size-10 rounded bg-background-dark border border-[#234836] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gray-500">local_cafe</span>
+</div>
+<div>
+<p class="text-gray-200 text-sm font-medium">Cold Brew</p>
+<p class="text-gray-500 text-xs">48oz • Stok</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-white font-mono font-bold">$5.99</p>
+<p class="text-accent-danger text-xs font-bold flex items-center justify-end gap-0.5">
+<span class="material-symbols-outlined text-[10px]">arrow_upward</span>
+                                    $0.30
+                                </p>
+</div>
+</div>
+</div>
+<div class="p-3 bg-[#1a2e24] border-t border-[#234836]">
+<button class="w-full text-xs text-gray-400 hover:text-white font-medium text-center transition-colors">View all items</button>
+</div>
+</div>
+<!-- Category Breakdown (Mini) -->
+<div class="rounded-xl bg-surface-dark border border-[#234836] p-5">
+<h3 class="text-white font-bold text-sm mb-4">Spend by Category</h3>
+<div class="space-y-4">
+<!-- Row 1 -->
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="text-gray-300">Produce</span>
+<span class="text-white font-mono">45%</span>
+</div>
+<div class="w-full bg-gray-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="text-gray-300">Protein</span>
+<span class="text-white font-mono">30%</span>
+</div>
+<div class="w-full bg-gray-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-[#2c9f65] h-full rounded-full" style="width: 30%"></div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="text-gray-300">Pantry</span>
+<span class="text-white font-mono">15%</span>
+</div>
+<div class="w-full bg-gray-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-[#1f5c3f] h-full rounded-full" style="width: 15%"></div>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="text-gray-300">Beverages</span>
+<span class="text-white font-mono">10%</span>
+</div>
+<div class="w-full bg-gray-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-[#1a3d2c] h-full rounded-full" style="width: 10%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-[#234836] bg-background-dark mt-auto py-8">
+<div class="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-gray-500 text-sm">© 2023 GrocerOps Inc. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-gray-500 hover:text-gray-300 text-sm" href="#">Privacy Policy</a>
+<a class="text-gray-500 hover:text-gray-300 text-sm" href="#">Terms of Service</a>
+<a class="text-gray-500 hover:text-gray-300 text-sm" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>
