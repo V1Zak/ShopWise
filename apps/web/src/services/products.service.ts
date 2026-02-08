@@ -50,14 +50,14 @@ export const productsService = {
   async getProducts(categoryId?: CategoryId | 'all'): Promise<Product[]> {
     let query = supabase
       .from('products')
-      .select(`
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
+      \`)
       .order('name');
 
     if (categoryId && categoryId !== 'all') {
@@ -73,15 +73,15 @@ export const productsService = {
   async searchProducts(query: string, categoryId?: CategoryId | 'all'): Promise<Product[]> {
     let q = supabase
       .from('products')
-      .select(`
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
-      .or(`name.ilike.%${query}%,brand.ilike.%${query}%`)
+      \`)
+      .or(\`name.ilike.%\${query}%,brand.ilike.%\${query}%\`)
       .order('name');
 
     if (categoryId && categoryId !== 'all') {
@@ -94,17 +94,53 @@ export const productsService = {
     return (data as unknown as DbProduct[] ?? []).map(toProduct);
   },
 
-  async findByBarcode(barcode: string): Promise<Product | null> {
+  async createProduct(product: {
+    barcode?: string;
+    name: string;
+    brand?: string;
+    categoryId: CategoryId;
+    unit: string;
+    averagePrice: number;
+  }): Promise<Product> {
     const { data, error } = await supabase
       .from('products')
-      .select(`
+      .insert({
+        barcode: product.barcode ?? null,
+        name: product.name,
+        brand: product.brand ?? null,
+        description: null,
+        category_id: product.categoryId,
+        image_url: null,
+        unit: product.unit,
+        average_price: product.averagePrice,
+        verified: false,
+      })
+      .select(\`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      `)
+      \`)
+      .single();
+
+    if (error) throw error;
+
+    return toProduct(data as unknown as DbProduct);
+  },
+
+  async findByBarcode(barcode: string): Promise<Product | null> {
+    const { data, error } = await supabase
+      .from('products')
+      .select(\`
+        *,
+        store_products (
+          price,
+          last_updated,
+          stores ( id, name, color )
+        )
+      \`)
       .eq('barcode', barcode)
       .maybeSingle();
 

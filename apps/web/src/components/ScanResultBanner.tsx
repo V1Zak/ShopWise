@@ -5,10 +5,11 @@ interface ScanResultBannerProps {
   notFound: boolean;
   barcode: string | null;
   onAddToList?: (product: Product) => void;
+  onAddNewProduct?: () => void;
   onDismiss: () => void;
 }
 
-export function ScanResultBanner({ product, notFound, barcode, onAddToList, onDismiss }: ScanResultBannerProps) {
+export function ScanResultBanner({ product, notFound, barcode, onAddToList, onAddNewProduct, onDismiss }: ScanResultBannerProps) {
   if (!product && !notFound) return null;
 
   return (
@@ -51,6 +52,15 @@ export function ScanResultBanner({ product, notFound, barcode, onAddToList, onDi
             >
               <span className="material-symbols-outlined text-[16px]">add</span>
               Add
+            </button>
+          )}
+          {notFound && onAddNewProduct && (
+            <button
+              onClick={onAddNewProduct}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-background-dark text-sm font-bold hover:bg-primary/90 transition-colors"
+            >
+              <span className="material-symbols-outlined text-[16px]">add_circle</span>
+              Add Product
             </button>
           )}
           <button onClick={onDismiss} className="text-text-secondary hover:text-white transition-colors">
