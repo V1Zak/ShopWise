@@ -40,7 +40,8 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
       });
       onProductCreated(product);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create product');
+      console.error('[AddProductForm] Failed to create product:', err);
+      setError('Failed to add product. Please try again.');
       setSubmitting(false);
     }
   }

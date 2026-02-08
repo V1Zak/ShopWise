@@ -1,6 +1,18 @@
 import { supabase } from '@/lib/supabase';
 import type { Product, CategoryId } from '@shopwise/shared';
 
+const ALLOWED_UNITS = ['each', 'kg', 'g', 'lb', 'oz', 'L', 'ml', 'pack', 'box', 'bag'] as const;
+
+/** Escape special PostgREST characters to prevent query injection */
+function sanitizeQuery(input: string): string {
+  return input
+    .replace(/\\/g, '')
+    .replace(/,/g, '')
+    .replace(/\./g, '')
+    .replace(/\(/g, '')
+    .replace(/\)/g, '');
+}
+
 interface DbProduct {
   id: string;
   barcode: string | null;
@@ -81,7 +93,7 @@ export const productsService = {
           stores ( id, name, color )
         )
       \`)
-      .or(\`name.ilike.%\${query}%,brand.ilike.%\${query}%\`)
+      .or(\`name.ilike.%\${sanitizeQuery(query)}%,brand.ilike.%\${sanitizeQuery(query)}%\`)
       .order('name');
 
     if (categoryId && categoryId !== 'all') {
@@ -102,6 +114,18 @@ export const productsService = {
     unit: string;
     averagePrice: number;
   }): Promise<Product> {
+    // Input validation
+    const trimmedName = product.name.trim();
+    if (!trimmedName || trimmedName.length > 200) {
+      throw new Error('Product name must be between 1 and 200 characters.');
+    }
+    if (!Number.isFinite(product.averagePrice) || product.averagePrice <= 0) {
+      throw new Error('Price must be a finite positive number.');
+    }
+    if (!ALLOWED_UNITS.includes(product.unit as (typeof ALLOWED_UNITS)[number])) {
+      throw new Error(\`Invalid unit "\${product.unit}". Allowed: \${ALLOWED_UNITS.join(', ')}.\`);
+    }
+
     const { data, error } = await supabase
       .from('products')
       .insert({
