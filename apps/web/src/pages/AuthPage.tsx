@@ -7,18 +7,33 @@ export function AuthPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
-  const { login, loginWithGoogle } = useAuthStore();
+  const { login, signUp, loginWithGoogle, error, clearError } = useAuthStore();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    login(email, password);
-    navigate('/');
+    setSubmitting(true);
+    try {
+      if (isSignUp) {
+        await signUp(email, password);
+      } else {
+        await login(email, password);
+      }
+      navigate('/');
+    } catch {
+      // error is set in the store
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleSocialLogin = () => {
-    loginWithGoogle();
-    navigate('/');
+  const handleSocialLogin = async () => {
+    try {
+      await loginWithGoogle();
+    } catch {
+      // error is set in the store
+    }
   };
 
   return (
@@ -103,6 +118,17 @@ export function AuthPage() {
             </div>
           </div>
 
+          {/* Error */}
+          {error && (
+            <div className="flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+              <span className="material-symbols-outlined text-[18px]">error</span>
+              <span>{error}</span>
+              <button onClick={clearError} className="ml-auto text-red-400 hover:text-red-300">
+                <span className="material-symbols-outlined text-[18px]">close</span>
+              </button>
+            </div>
+          )}
+
           {/* Form */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="space-y-1">
@@ -143,9 +169,10 @@ export function AuthPage() {
             </div>
             <button
               type="submit"
-              className="mt-2 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-background-dark transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-dark shadow-[0_0_15px_rgba(19,236,128,0.3)]"
+              disabled={submitting}
+              className="mt-2 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-background-dark transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-dark shadow-[0_0_15px_rgba(19,236,128,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSignUp ? 'Create Account' : 'Sign In'}
+              {submitting ? 'Please wait...' : isSignUp ? 'Create Account' : 'Sign In'}
             </button>
           </form>
 
