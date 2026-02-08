@@ -21,6 +21,7 @@ export const listsService = {
       storeId: row.store_id ?? undefined,
       storeName: row.stores?.name ?? undefined,
       isTemplate: row.is_template,
+      budget: row.budget ? Number(row.budget) : null,
       itemCount: row.list_items?.length ?? 0,
       estimatedTotal: 0,
       createdAt: row.created_at,
@@ -72,14 +73,25 @@ export const listsService = {
     return data;
   },
 
-  async updateList(id: string, updates: { title?: string; storeId?: string }) {
+  async updateList(id: string, updates: { title?: string; storeId?: string; budget?: number | null }) {
+    const mapped: Record<string, unknown> = {};
+    if (updates.title) mapped.title = updates.title;
+    if (updates.storeId !== undefined) mapped.store_id = updates.storeId;
+    if (updates.budget !== undefined) mapped.budget = updates.budget;
+
     const { error } = await supabase
       .from('shopping_lists')
-      .update({
-        ...(updates.title && { title: updates.title }),
-        ...(updates.storeId !== undefined && { store_id: updates.storeId }),
-      })
+      .update(mapped)
       .eq('id', id);
+
+    if (error) throw error;
+  },
+
+  async updateListBudget(listId: string, budget: number | null) {
+    const { error } = await supabase
+      .from('shopping_lists')
+      .update({ budget })
+      .eq('id', listId);
 
     if (error) throw error;
   },
@@ -153,5 +165,132 @@ export const listsService = {
       .eq('id', id);
 
     if (error) throw error;
+  },
+
+  async getTemplates(): Promise<ShoppingList[]> {
+    const { data, error } = await supabase
+      .from('shopping_lists')
+      .select(`
+        *,
+        stores ( name ),
+        list_items ( id )
+      `)
+      .eq('is_template', true)
+      .order('updated_at', { ascending: false });
+
+    if (error) throw error;
+
+    return (data ?? []).map((row) => ({
+      id: row.id,
+      ownerId: row.owner_id,
+      title: row.title,
+      storeId: row.store_id ?? undefined,
+      storeName: row.stores?.name ?? undefined,
+      isTemplate: row.is_template,
+      itemCount: row.list_items?.length ?? 0,
+      estimatedTotal: 0,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
+    }));
+  },
+
+  async saveAsTemplate(listId: string, title: string): Promise<ShoppingList> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('Not authenticated');
+
+    const { data: templateRow, error: listError } = await supabase
+      .from('shopping_lists')
+      .insert({ owner_id: user.id, title, is_template: true })
+      .select()
+      .single();
+
+    if (listError) throw listError;
+
+    const { data: sourceItems, error: itemsError } = await supabase
+      .from('list_items')
+      .select('*')
+      .eq('list_id', listId);
+
+    if (itemsError) throw itemsError;
+
+    if (sourceItems && sourceItems.length > 0) {
+      const copies = sourceItems.map((item) => ({
+        list_id: templateRow.id,
+        name: item.name,
+        category_id: item.category_id,
+        quantity: item.quantity,
+        unit: item.unit,
+        estimated_price: item.estimated_price,
+        product_id: item.product_id,
+        tags: item.tags,
+        sort_order: item.sort_order,
+        status: 'to_buy',
+      }));
+
+      const { error: copyError } = await supabase.from('list_items').insert(copies);
+      if (copyError) throw copyError;
+    }
+
+    return {
+      id: templateRow.id,
+      ownerId: templateRow.owner_id,
+      title: templateRow.title,
+      storeId: templateRow.store_id ?? undefined,
+      isTemplate: true,
+      itemCount: sourceItems?.length ?? 0,
+      estimatedTotal: 0,
+      createdAt: templateRow.created_at,
+      updatedAt: templateRow.updated_at,
+    };
+  },
+
+  async createFromTemplate(templateId: string, newTitle: string): Promise<ShoppingList> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('Not authenticated');
+
+    const { data: newRow, error: listError } = await supabase
+      .from('shopping_lists')
+      .insert({ owner_id: user.id, title: newTitle, is_template: false })
+      .select()
+      .single();
+
+    if (listError) throw listError;
+
+    const { data: templateItems, error: itemsError } = await supabase
+      .from('list_items')
+      .select('*')
+      .eq('list_id', templateId);
+
+    if (itemsError) throw itemsError;
+
+    if (templateItems && templateItems.length > 0) {
+      const copies = templateItems.map((item) => ({
+        list_id: newRow.id,
+        name: item.name,
+        category_id: item.category_id,
+        quantity: item.quantity,
+        unit: item.unit,
+        estimated_price: item.estimated_price,
+        product_id: item.product_id,
+        tags: item.tags,
+        sort_order: item.sort_order,
+        status: 'to_buy',
+      }));
+
+      const { error: copyError } = await supabase.from('list_items').insert(copies);
+      if (copyError) throw copyError;
+    }
+
+    return {
+      id: newRow.id,
+      ownerId: newRow.owner_id,
+      title: newRow.title,
+      storeId: newRow.store_id ?? undefined,
+      isTemplate: false,
+      itemCount: templateItems?.length ?? 0,
+      estimatedTotal: 0,
+      createdAt: newRow.created_at,
+      updatedAt: newRow.updated_at,
+    };
   },
 };
