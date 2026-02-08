@@ -1,9 +1,12 @@
 import { Outlet } from 'react-router-dom';
+import { useRealtimeNotifications } from '@/hooks/useRealtimeNotifications';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import { BottomNav } from './BottomNav';
 
 export function AppShell() {
+  useRealtimeNotifications();
+
   return (
     <div className="flex h-screen w-full overflow-hidden">
       <Sidebar />
