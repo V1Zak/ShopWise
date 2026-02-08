@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import type { Product, CategoryId } from '@shopwise/shared';
+import type { Product, CategoryId, PriceHistoryEntry } from '@shopwise/shared';
 
 interface DbProduct {
   id: string;
@@ -94,6 +94,42 @@ export const productsService = {
     return (data as unknown as DbProduct[] ?? []).map(toProduct);
   },
 
+  async createProduct(product: {
+    barcode?: string;
+    name: string;
+    brand?: string;
+    categoryId: CategoryId;
+    unit: string;
+    averagePrice: number;
+  }): Promise<Product> {
+    const { data, error } = await supabase
+      .from('products')
+      .insert({
+        barcode: product.barcode ?? null,
+        name: product.name,
+        brand: product.brand ?? null,
+        description: null,
+        category_id: product.categoryId,
+        image_url: null,
+        unit: product.unit,
+        average_price: product.averagePrice,
+        verified: false,
+      })
+      .select(`
+        *,
+        store_products (
+          price,
+          last_updated,
+          stores ( id, name, color )
+        )
+      `)
+      .single();
+
+    if (error) throw error;
+
+    return toProduct(data as unknown as DbProduct);
+  },
+
   async findByBarcode(barcode: string): Promise<Product | null> {
     const { data, error } = await supabase
       .from('products')
@@ -112,5 +148,51 @@ export const productsService = {
     if (!data) return null;
 
     return toProduct(data as unknown as DbProduct);
+  },
+
+  async getPriceHistory(productId: string): Promise<PriceHistoryEntry[]> {
+    const { data, error } = await supabase
+      .from('price_history')
+      .select(`
+        id,
+        product_id,
+        store_id,
+        price,
+        recorded_at,
+        stores ( name )
+      `)
+      .eq('product_id', productId)
+      .order('recorded_at', { ascending: false })
+      .limit(50);
+
+    if (error) throw error;
+
+    return (data ?? []).map((row: Record<string, unknown>) => ({
+      id: row.id as string,
+      productId: row.product_id as string,
+      storeId: row.store_id as string,
+      storeName: (row.stores as { name: string } | null)?.name ?? 'Unknown',
+      price: Number(row.price),
+      recordedAt: row.recorded_at as string,
+    }));
+  },
+
+  async recordPrice(productId: string, storeId: string, price: number): Promise<void> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { error } = await supabase
+      .from('price_history')
+      .insert({
+        product_id: productId,
+        store_id: storeId,
+        user_id: user.id,
+        price,
+        recorded_at: new Date().toISOString(),
+      });
+
+    if (error) {
+      console.error('Failed to record price:', error);
+    }
   },
 };

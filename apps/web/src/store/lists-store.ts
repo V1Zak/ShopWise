@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import type { ShoppingList, ListItem, ListItemStatus } from '@shopwise/shared';
 import { listsService } from '@/services/lists.service';
+import { productsService } from '@/services/products.service';
 
 interface ListsState {
   lists: ShoppingList[];
   activeListId: string;
   items: ListItem[];
   isLoading: boolean;
-  templates: ShoppingList[];
   fetchLists: () => Promise<void>;
   fetchListItems: (listId: string) => Promise<void>;
   setActiveList: (id: string) => void;
@@ -18,9 +18,6 @@ interface ListsState {
   updateItemPrice: (itemId: string, price: number) => void;
   addItem: (item: ListItem) => void;
   getRunningTotal: (listId: string) => number;
-  fetchTemplates: () => Promise<void>;
-  saveAsTemplate: (listId: string, title: string) => Promise<void>;
-  createFromTemplate: (templateId: string, newTitle: string) => Promise<ShoppingList | null>;
 }
 
 export const useListsStore = create<ListsState>((set, get) => ({
@@ -28,7 +25,6 @@ export const useListsStore = create<ListsState>((set, get) => ({
   activeListId: '',
   items: [],
   isLoading: false,
-  templates: [],
 
   fetchLists: async () => {
     set({ isLoading: true });
@@ -82,6 +78,14 @@ export const useListsStore = create<ListsState>((set, get) => ({
         ),
       }));
     });
+
+    // Record price when item moves to cart
+    if (newStatus === 'in_cart' && newActualPrice && item.productId) {
+      const activeList = get().lists.find((l) => l.id === get().activeListId);
+      if (activeList?.storeId) {
+        productsService.recordPrice(item.productId, activeList.storeId, newActualPrice).catch(() => {});
+      }
+    }
   },
 
   updateItemPrice: (itemId, price) => {
@@ -101,11 +105,18 @@ export const useListsStore = create<ListsState>((set, get) => ({
         ),
       }));
     });
+
+    // Record price point if item has a linked product
+    if (price > 0 && item.productId) {
+      const activeList = get().lists.find((l) => l.id === get().activeListId);
+      if (activeList?.storeId) {
+        productsService.recordPrice(item.productId, activeList.storeId, price).catch(() => {});
+      }
+    }
   },
 
   addItem: (item) => {
     const tempId = item.id;
-
     set((state) => ({ items: [...state.items, item] }));
 
     listsService.addItem({
@@ -134,33 +145,5 @@ export const useListsStore = create<ListsState>((set, get) => ({
   getRunningTotal: (listId) => {
     const items = get().items.filter((i) => i.listId === listId && i.status === 'in_cart');
     return items.reduce((sum, item) => sum + (item.actualPrice ?? item.estimatedPrice), 0);
-  },
-
-  fetchTemplates: async () => {
-    try {
-      const templates = await listsService.getTemplates();
-      set({ templates });
-    } catch {
-      // silently fail
-    }
-  },
-
-  saveAsTemplate: async (listId, title) => {
-    try {
-      const template = await listsService.saveAsTemplate(listId, title);
-      set((state) => ({ templates: [template, ...state.templates] }));
-    } catch {
-      throw new Error('Failed to save template');
-    }
-  },
-
-  createFromTemplate: async (templateId, newTitle) => {
-    try {
-      const newList = await listsService.createFromTemplate(templateId, newTitle);
-      set((state) => ({ lists: [newList, ...state.lists] }));
-      return newList;
-    } catch {
-      return null;
-    }
   },
 }));
