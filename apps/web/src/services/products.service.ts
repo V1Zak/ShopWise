@@ -62,14 +62,14 @@ export const productsService = {
   async getProducts(categoryId?: CategoryId | 'all'): Promise<Product[]> {
     let query = supabase
       .from('products')
-      .select(\`
+      .select(`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      \`)
+      `)
       .order('name');
 
     if (categoryId && categoryId !== 'all') {
@@ -85,15 +85,15 @@ export const productsService = {
   async searchProducts(query: string, categoryId?: CategoryId | 'all'): Promise<Product[]> {
     let q = supabase
       .from('products')
-      .select(\`
+      .select(`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      \`)
-      .or(\`name.ilike.%\${sanitizeQuery(query)}%,brand.ilike.%\${sanitizeQuery(query)}%\`)
+      `)
+      .or(`name.ilike.%${sanitizeQuery(query)}%,brand.ilike.%${sanitizeQuery(query)}%`)
       .order('name');
 
     if (categoryId && categoryId !== 'all') {
@@ -123,7 +123,7 @@ export const productsService = {
       throw new Error('Price must be a finite positive number.');
     }
     if (!ALLOWED_UNITS.includes(product.unit as (typeof ALLOWED_UNITS)[number])) {
-      throw new Error(\`Invalid unit "\${product.unit}". Allowed: \${ALLOWED_UNITS.join(', ')}.\`);
+      throw new Error(`Invalid unit "${product.unit}". Allowed: ${ALLOWED_UNITS.join(', ')}.`);
     }
 
     const { data, error } = await supabase
@@ -139,14 +139,14 @@ export const productsService = {
         average_price: product.averagePrice,
         verified: false,
       })
-      .select(\`
+      .select(`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      \`)
+      `)
       .single();
 
     if (error) throw error;
@@ -157,14 +157,14 @@ export const productsService = {
   async findByBarcode(barcode: string): Promise<Product | null> {
     const { data, error } = await supabase
       .from('products')
-      .select(\`
+      .select(`
         *,
         store_products (
           price,
           last_updated,
           stores ( id, name, color )
         )
-      \`)
+      `)
       .eq('barcode', barcode)
       .maybeSingle();
 

@@ -166,7 +166,7 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="0.00"
-                className={\`\${inputClasses} pl-7\`}
+                className={`${inputClasses} pl-7`}
               />
             </div>
           </div>
