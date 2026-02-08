@@ -9,6 +9,7 @@ interface ListsState {
   isLoading: boolean;
   fetchLists: () => Promise<void>;
   fetchListItems: (listId: string) => Promise<void>;
+  createList: (list: { title: string; storeId?: string }) => Promise<string>;
   setActiveList: (id: string) => void;
   getActiveList: () => ShoppingList | undefined;
   getItemsForList: (listId: string) => ListItem[];
@@ -36,6 +37,12 @@ export const useListsStore = create<ListsState>((set, get) => ({
     }
   },
 
+  createList: async (list) => {
+    const row = await listsService.createList(list);
+    await get().fetchLists();
+    return row.id;
+  },
+
   fetchListItems: async (listId) => {
     set({ isLoading: true });
     try {
@@ -47,21 +54,13 @@ export const useListsStore = create<ListsState>((set, get) => ({
   },
 
   setActiveList: (id) => set({ activeListId: id }),
-
-  getActiveList: () => {
-    const state = get();
-    return state.lists.find((l) => l.id === state.activeListId);
-  },
-
+  getActiveList: () => { const state = get(); return state.lists.find((l) => l.id === state.activeListId); },
   getItemsForList: (listId) => get().items.filter((i) => i.listId === listId),
-
-  getItemsByStatus: (listId, status) =>
-    get().items.filter((i) => i.listId === listId && i.status === status),
+  getItemsByStatus: (listId, status) => get().items.filter((i) => i.listId === listId && i.status === status),
 
   toggleItemStatus: (itemId) => {
     const item = get().items.find((i) => i.id === itemId);
     if (!item) return;
-
     const newStatus = item.status === 'to_buy' ? 'in_cart' : item.status === 'in_cart' ? 'to_buy' : item.status;
     const newActualPrice = item.status === 'to_buy' ? item.actualPrice ?? item.estimatedPrice : item.actualPrice;
 
@@ -72,11 +71,7 @@ export const useListsStore = create<ListsState>((set, get) => ({
     }));
 
     listsService.updateItem(itemId, { status: newStatus, actualPrice: newActualPrice ?? null }).catch(() => {
-      set((state) => ({
-        items: state.items.map((i) =>
-          i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i,
-        ),
-      }));
+      set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i) }));
     });
   },
 
@@ -91,11 +86,7 @@ export const useListsStore = create<ListsState>((set, get) => ({
     }));
 
     listsService.updateItem(itemId, { actualPrice: price }).catch(() => {
-      set((state) => ({
-        items: state.items.map((i) =>
-          i.id === itemId ? { ...i, actualPrice: item.actualPrice } : i,
-        ),
-      }));
+      set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, actualPrice: item.actualPrice } : i) }));
     });
   },
 
@@ -124,6 +115,7 @@ export const useListsStore = create<ListsState>((set, get) => ({
       set((state) => ({
         items: state.items.filter((i) => i.id !== tempId),
       }));
+
     });
   },
 
