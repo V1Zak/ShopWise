@@ -31,6 +31,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const savingRef = useRef(false);
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -49,11 +50,14 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
   };
 
   const handleSave = () => {
+    if (savingRef.current) return;
+    savingRef.current = true;
     const parsed = parseFloat(inputValue);
     if (!isNaN(parsed) && parsed > 0) {
       onSetBudget(parsed);
     }
     setIsEditing(false);
+    savingRef.current = false;
   };
 
   const handleClear = () => {
@@ -66,7 +70,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
     if (e.key === 'Escape') setIsEditing(false);
   };
 
-  if (!budget) {
+  if (budget == null) {
     return (
       <div className="bg-gradient-to-br from-background-dark to-surface-dark rounded-xl p-5 border border-border-dark">
         <div className="flex items-center gap-2 mb-4">
@@ -118,7 +122,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
   }
 
   const remaining = budget - spent;
-  const percent = Math.min(100, (spent / budget) * 100);
+  const percent = budget > 0 ? Math.min(100, (spent / budget) * 100) : 0;
   const overBudget = spent > budget;
   const color = getBudgetColor(percent);
   const label = getBudgetLabel(percent);
