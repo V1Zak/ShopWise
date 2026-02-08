@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { AnalyticsKPIs } from '@/features/analytics/AnalyticsKPIs';
 import { MonthlyBarChart } from '@/features/analytics/MonthlyBarChart';
 import { CategoryDonut } from '@/features/analytics/CategoryDonut';
@@ -8,6 +9,11 @@ import { useAnalyticsStore } from '@/store/analytics-store';
 export function SpendingAnalyticsPage() {
   const period = useAnalyticsStore((s) => s.period);
   const setPeriod = useAnalyticsStore((s) => s.setPeriod);
+  const fetchAnalytics = useAnalyticsStore((s) => s.fetchAnalytics);
+
+  useEffect(() => {
+    fetchAnalytics();
+  }, [fetchAnalytics]);
 
   return (
     <div className="flex flex-col h-full overflow-y-auto">

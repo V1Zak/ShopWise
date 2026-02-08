@@ -1,8 +1,15 @@
+import { useEffect } from 'react';
 import { HistoryStats } from '@/features/history/HistoryStats';
 import { HistoryFilters } from '@/features/history/HistoryFilters';
 import { HistoryTable } from '@/features/history/HistoryTable';
+import { useTripsStore } from '@/store/trips-store';
 
 export function ShoppingHistoryPage() {
+  const fetchTrips = useTripsStore((s) => s.fetchTrips);
+
+  useEffect(() => {
+    fetchTrips();
+  }, [fetchTrips]);
   return (
     <div className="p-6 md:p-8 lg:px-16">
       <div className="max-w-[1200px] mx-auto flex flex-col gap-8">

@@ -1,12 +1,14 @@
 import { create } from 'zustand';
 import type { ShoppingList, ListItem, ListItemStatus } from '@shopwise/shared';
-import { mockShoppingLists } from '@/data/mock-shopping-lists';
-import { mockListItems } from '@/data/mock-list-items';
+import { listsService } from '@/services/lists.service';
 
 interface ListsState {
   lists: ShoppingList[];
   activeListId: string;
   items: ListItem[];
+  isLoading: boolean;
+  fetchLists: () => Promise<void>;
+  fetchListItems: (listId: string) => Promise<void>;
   setActiveList: (id: string) => void;
   getActiveList: () => ShoppingList | undefined;
   getItemsForList: (listId: string) => ListItem[];
@@ -18,9 +20,30 @@ interface ListsState {
 }
 
 export const useListsStore = create<ListsState>((set, get) => ({
-  lists: mockShoppingLists,
-  activeListId: 'list2',
-  items: mockListItems,
+  lists: [],
+  activeListId: '',
+  items: [],
+  isLoading: false,
+
+  fetchLists: async () => {
+    set({ isLoading: true });
+    try {
+      const lists = await listsService.getLists();
+      set({ lists, isLoading: false });
+    } catch {
+      set({ isLoading: false });
+    }
+  },
+
+  fetchListItems: async (listId) => {
+    set({ isLoading: true });
+    try {
+      const items = await listsService.getListItems(listId);
+      set({ items, isLoading: false });
+    } catch {
+      set({ isLoading: false });
+    }
+  },
 
   setActiveList: (id) => set({ activeListId: id }),
 
@@ -34,27 +57,80 @@ export const useListsStore = create<ListsState>((set, get) => ({
   getItemsByStatus: (listId, status) =>
     get().items.filter((i) => i.listId === listId && i.status === status),
 
-  toggleItemStatus: (itemId) =>
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.id === itemId
-          ? {
-              ...item,
-              status: item.status === 'to_buy' ? 'in_cart' : item.status === 'in_cart' ? 'to_buy' : item.status,
-              actualPrice: item.status === 'to_buy' ? item.actualPrice ?? item.estimatedPrice : item.actualPrice,
-            }
-          : item,
-      ),
-    })),
+  toggleItemStatus: (itemId) => {
+    const item = get().items.find((i) => i.id === itemId);
+    if (!item) return;
 
-  updateItemPrice: (itemId, price) =>
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.id === itemId ? { ...item, actualPrice: price } : item,
-      ),
-    })),
+    const newStatus = item.status === 'to_buy' ? 'in_cart' : item.status === 'in_cart' ? 'to_buy' : item.status;
+    const newActualPrice = item.status === 'to_buy' ? item.actualPrice ?? item.estimatedPrice : item.actualPrice;
 
-  addItem: (item) => set((state) => ({ items: [...state.items, item] })),
+    // Optimistic update
+    set((state) => ({
+      items: state.items.map((i) =>
+        i.id === itemId ? { ...i, status: newStatus as ListItemStatus, actualPrice: newActualPrice } : i,
+      ),
+    }));
+
+    // Sync to DB, rollback on error
+    listsService.updateItem(itemId, { status: newStatus, actualPrice: newActualPrice ?? null }).catch(() => {
+      set((state) => ({
+        items: state.items.map((i) =>
+          i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i,
+        ),
+      }));
+    });
+  },
+
+  updateItemPrice: (itemId, price) => {
+    const item = get().items.find((i) => i.id === itemId);
+    if (!item) return;
+
+    // Optimistic update
+    set((state) => ({
+      items: state.items.map((i) =>
+        i.id === itemId ? { ...i, actualPrice: price } : i,
+      ),
+    }));
+
+    listsService.updateItem(itemId, { actualPrice: price }).catch(() => {
+      set((state) => ({
+        items: state.items.map((i) =>
+          i.id === itemId ? { ...i, actualPrice: item.actualPrice } : i,
+        ),
+      }));
+    });
+  },
+
+  addItem: (item) => {
+    const tempId = item.id;
+
+    // Optimistic add
+    set((state) => ({ items: [...state.items, item] }));
+
+    listsService.addItem({
+      listId: item.listId,
+      name: item.name,
+      categoryId: item.categoryId,
+      quantity: item.quantity,
+      unit: item.unit,
+      estimatedPrice: item.estimatedPrice,
+      productId: item.productId,
+      tags: item.tags,
+      sortOrder: item.sortOrder,
+    }).then((row) => {
+      // Replace temp ID with real ID
+      set((state) => ({
+        items: state.items.map((i) =>
+          i.id === tempId ? { ...i, id: row.id, listId: row.list_id } : i,
+        ),
+      }));
+    }).catch(() => {
+      // Remove on failure
+      set((state) => ({
+        items: state.items.filter((i) => i.id !== tempId),
+      }));
+    });
+  },
 
   getRunningTotal: (listId) => {
     const items = get().items.filter((i) => i.listId === listId && i.status === 'in_cart');
