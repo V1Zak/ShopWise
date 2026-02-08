@@ -9,6 +9,7 @@ interface ListsState {
   isLoading: boolean;
   fetchLists: () => Promise<void>;
   fetchListItems: (listId: string) => Promise<void>;
+  createList: (list: { title: string; storeId?: string }) => Promise<string>;
   setActiveList: (id: string) => void;
   getActiveList: () => ShoppingList | undefined;
   getItemsForList: (listId: string) => ListItem[];
@@ -35,6 +36,12 @@ export const useListsStore = create<ListsState>((set, get) => ({
     }
   },
 
+  createList: async (list) => {
+    const row = await listsService.createList(list);
+    get().fetchLists();
+    return row.id;
+  },
+
   fetchListItems: async (listId) => {
     set({ isLoading: true });
     try {
@@ -46,89 +53,37 @@ export const useListsStore = create<ListsState>((set, get) => ({
   },
 
   setActiveList: (id) => set({ activeListId: id }),
-
-  getActiveList: () => {
-    const state = get();
-    return state.lists.find((l) => l.id === state.activeListId);
-  },
-
+  getActiveList: () => { const state = get(); return state.lists.find((l) => l.id === state.activeListId); },
   getItemsForList: (listId) => get().items.filter((i) => i.listId === listId),
-
-  getItemsByStatus: (listId, status) =>
-    get().items.filter((i) => i.listId === listId && i.status === status),
+  getItemsByStatus: (listId, status) => get().items.filter((i) => i.listId === listId && i.status === status),
 
   toggleItemStatus: (itemId) => {
     const item = get().items.find((i) => i.id === itemId);
     if (!item) return;
-
     const newStatus = item.status === 'to_buy' ? 'in_cart' : item.status === 'in_cart' ? 'to_buy' : item.status;
     const newActualPrice = item.status === 'to_buy' ? item.actualPrice ?? item.estimatedPrice : item.actualPrice;
-
-    // Optimistic update
-    set((state) => ({
-      items: state.items.map((i) =>
-        i.id === itemId ? { ...i, status: newStatus as ListItemStatus, actualPrice: newActualPrice } : i,
-      ),
-    }));
-
-    // Sync to DB, rollback on error
+    set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, status: newStatus as ListItemStatus, actualPrice: newActualPrice } : i) }));
     listsService.updateItem(itemId, { status: newStatus, actualPrice: newActualPrice ?? null }).catch(() => {
-      set((state) => ({
-        items: state.items.map((i) =>
-          i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i,
-        ),
-      }));
+      set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, status: item.status, actualPrice: item.actualPrice } : i) }));
     });
   },
 
   updateItemPrice: (itemId, price) => {
     const item = get().items.find((i) => i.id === itemId);
     if (!item) return;
-
-    // Optimistic update
-    set((state) => ({
-      items: state.items.map((i) =>
-        i.id === itemId ? { ...i, actualPrice: price } : i,
-      ),
-    }));
-
+    set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, actualPrice: price } : i) }));
     listsService.updateItem(itemId, { actualPrice: price }).catch(() => {
-      set((state) => ({
-        items: state.items.map((i) =>
-          i.id === itemId ? { ...i, actualPrice: item.actualPrice } : i,
-        ),
-      }));
+      set((state) => ({ items: state.items.map((i) => i.id === itemId ? { ...i, actualPrice: item.actualPrice } : i) }));
     });
   },
 
   addItem: (item) => {
     const tempId = item.id;
-
-    // Optimistic add
     set((state) => ({ items: [...state.items, item] }));
-
-    listsService.addItem({
-      listId: item.listId,
-      name: item.name,
-      categoryId: item.categoryId,
-      quantity: item.quantity,
-      unit: item.unit,
-      estimatedPrice: item.estimatedPrice,
-      productId: item.productId,
-      tags: item.tags,
-      sortOrder: item.sortOrder,
-    }).then((row) => {
-      // Replace temp ID with real ID
-      set((state) => ({
-        items: state.items.map((i) =>
-          i.id === tempId ? { ...i, id: row.id, listId: row.list_id } : i,
-        ),
-      }));
+    listsService.addItem({ listId: item.listId, name: item.name, categoryId: item.categoryId, quantity: item.quantity, unit: item.unit, estimatedPrice: item.estimatedPrice, productId: item.productId, tags: item.tags, sortOrder: item.sortOrder }).then((row) => {
+      set((state) => ({ items: state.items.map((i) => i.id === tempId ? { ...i, id: row.id, listId: row.list_id } : i) }));
     }).catch(() => {
-      // Remove on failure
-      set((state) => ({
-        items: state.items.filter((i) => i.id !== tempId),
-      }));
+      set((state) => ({ items: state.items.filter((i) => i.id !== tempId) }));
     });
   },
 
