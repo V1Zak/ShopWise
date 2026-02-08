@@ -8,6 +8,7 @@ export function AuthPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [policyModal, setPolicyModal] = useState<'terms' | 'privacy' | null>(null);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { login, signUp, loginWithGoogle, loginWithApple, error, clearError } = useAuthStore();
@@ -196,9 +197,9 @@ export function AuthPage() {
           {/* Terms */}
           <p className="text-center text-sm text-slate-400">
             By clicking continue, you agree to our{' '}
-            <a className="underline underline-offset-4 hover:text-primary transition-colors" href="#">Terms of Service</a>
+            <button onClick={() => setPolicyModal('terms')} className="underline underline-offset-4 hover:text-primary transition-colors">Terms of Service</button>
             {' '}and{' '}
-            <a className="underline underline-offset-4 hover:text-primary transition-colors" href="#">Privacy Policy</a>.
+            <button onClick={() => setPolicyModal('privacy')} className="underline underline-offset-4 hover:text-primary transition-colors">Privacy Policy</button>.
           </p>
 
           {/* Toggle */}
@@ -213,6 +214,42 @@ export function AuthPage() {
               {isSignUp ? 'Sign in' : 'Create account'}
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* Policy Modal */}
+      {policyModal && (
+        <PolicyModal
+          type={policyModal}
+          onClose={() => setPolicyModal(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+function PolicyModal({ type, onClose }: { type: 'terms' | 'privacy'; onClose: () => void }) {
+  const title = type === 'terms' ? 'Terms of Service' : 'Privacy Policy';
+  const content = type === 'terms'
+    ? 'By using ShopWise, you agree to use the service responsibly. We provide the platform "as is" without warranty. You retain ownership of your data and can delete your account at any time. We reserve the right to modify these terms with reasonable notice. For questions, contact us through the app.'
+    : 'ShopWise collects only the data necessary to provide our service: your email, shopping lists, and product data. We do not sell your personal information to third parties. Your data is stored securely using industry-standard encryption. You can export or delete your data at any time from Settings. We use cookies only for authentication purposes.';
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="w-full max-w-md mx-4 rounded-xl border border-border-dark bg-background-dark shadow-2xl">
+        <div className="flex items-center justify-between border-b border-border-dark px-5 py-4">
+          <h2 className="text-lg font-bold text-white">{title}</h2>
+          <button onClick={onClose} className="rounded-full p-1 text-text-secondary hover:bg-accent-green hover:text-white transition-colors">
+            <span className="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+        <div className="p-5">
+          <p className="text-sm text-slate-300 leading-relaxed">{content}</p>
+        </div>
+        <div className="px-5 pb-5 flex justify-end">
+          <button onClick={onClose} className="bg-primary hover:bg-primary/90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors">
+            Close
+          </button>
         </div>
       </div>
     </div>

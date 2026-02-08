@@ -5,9 +5,21 @@ import { sharingService } from './sharing.service';
 export const listsService = {
   async getLists(): Promise<ShoppingList[]> {
     const { data, error } = await supabase.from('shopping_lists')
-      .select('*, stores ( name ), list_items ( id ), list_shares ( id )')
+      .select('*, stores ( name ), list_items ( id )')
       .order('updated_at', { ascending: false });
     if (error) throw error;
+
+    // Fetch share counts separately — may fail for non-owners due to RLS
+    let shareCounts: Record<string, number> = {};
+    try {
+      const { data: shares } = await supabase.from('list_shares').select('list_id');
+      if (shares) {
+        for (const s of shares) {
+          shareCounts[s.list_id] = (shareCounts[s.list_id] ?? 0) + 1;
+        }
+      }
+    } catch { /* ignore RLS errors */ }
+
     const ownedLists: ShoppingList[] = (data ?? []).map((row) => ({
       id: row.id,
       ownerId: row.owner_id,
@@ -20,7 +32,7 @@ export const listsService = {
       estimatedTotal: 0,
       createdAt: row.created_at,
       updatedAt: row.updated_at,
-      collaboratorCount: row.list_shares?.length ?? 0,
+      collaboratorCount: shareCounts[row.id] ?? 0,
     }));
     let sharedLists: ShoppingList[] = [];
     try {

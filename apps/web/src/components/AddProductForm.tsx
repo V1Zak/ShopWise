@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { CATEGORIES } from '@shopwise/shared';
 import type { CategoryId, Product } from '@shopwise/shared';
 import { productsService } from '@/services/products.service';
+import { storageService } from '@/services/storage.service';
 import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
 
@@ -20,7 +21,19 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Image state
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
   const isValid = name.trim().length > 0 && price.trim().length > 0 && Number(price) > 0;
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -38,6 +51,22 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
         unit,
         averagePrice: Number(price),
       });
+
+      // Upload image after product creation if one was selected
+      if (imageFile) {
+        try {
+          const url = await storageService.uploadProductImage(product.id, imageFile);
+          await storageService.updateProductImageUrl(product.id, url);
+          // Also add to product_images table
+          await storageService.addProductImage(product.id, imageFile).catch(() => {
+            // Table may not exist yet, silently skip
+          });
+          product.imageUrl = url;
+        } catch (imgErr) {
+          console.warn('[AddProductForm] Image upload failed (product still created):', imgErr);
+        }
+      }
+
       onProductCreated(product);
     } catch (err) {
       console.error('[AddProductForm] Failed to create product:', err);
@@ -51,9 +80,9 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="w-full max-w-md mx-4 rounded-xl border border-border-dark bg-background-dark shadow-2xl">
+      <div className="w-full max-w-md mx-4 rounded-xl border border-border-dark bg-background-dark shadow-2xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border-dark px-5 py-4">
+        <div className="flex items-center justify-between border-b border-border-dark px-5 py-4 sticky top-0 bg-background-dark z-10">
           <div className="flex items-center gap-2">
             <Icon name="add_circle" className="text-primary" size={22} />
             <h2 className="text-lg font-bold text-white">Add New Product</h2>
@@ -75,6 +104,37 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
               <Icon name="barcode" className="text-text-secondary" size={18} />
               <span className="text-sm text-text-secondary font-mono">{barcode}</span>
             </div>
+          </div>
+
+          {/* Photo */}
+          <div>
+            <label className="mb-1 block text-xs font-medium text-text-secondary">Photo (optional)</label>
+            <div
+              onClick={() => fileRef.current?.click()}
+              className="relative group cursor-pointer w-full h-32 rounded-lg border-2 border-dashed border-border-dark hover:border-primary/50 transition-colors bg-surface-dark overflow-hidden flex items-center justify-center"
+            >
+              {imagePreview ? (
+                <>
+                  <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="material-symbols-outlined text-white text-[28px]">photo_camera</span>
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col items-center gap-1 text-text-secondary">
+                  <span className="material-symbols-outlined text-[28px]">add_a_photo</span>
+                  <span className="text-xs font-medium">Tap to add photo</span>
+                </div>
+              )}
+            </div>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onChange={handleImageSelect}
+              className="hidden"
+            />
           </div>
 
           {/* Name */}

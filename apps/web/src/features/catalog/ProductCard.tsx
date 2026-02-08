@@ -1,6 +1,9 @@
+import { useState, useRef, useEffect } from 'react';
 import type { Product } from '@shopwise/shared';
 import { Sparkline } from '@/components/ui/Sparkline';
 import { useProductsStore } from '@/store/products-store';
+import { useListsStore } from '@/store/lists-store';
+import { listsService } from '@/services/lists.service';
 
 interface Props {
   product: Product;
@@ -10,18 +13,63 @@ export function ProductCard({ product }: Props) {
   const toggleCompare = useProductsStore((s) => s.toggleCompare);
   const compareList = useProductsStore((s) => s.compareList);
   const isComparing = compareList.includes(product.id);
+  const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
+  const [showListPicker, setShowListPicker] = useState(false);
+  const [addingToList, setAddingToList] = useState<string | null>(null);
+  const [addedToList, setAddedToList] = useState<string | null>(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
   const volatilityColor =
     product.volatility === 'high' ? '#ef4444' : product.volatility === 'low' ? '#13ec80' : '#92c9ad';
   const volatilityBg =
     product.volatility === 'high' ? 'text-red-400 bg-red-400/10' : product.volatility === 'low' ? 'text-primary bg-primary/10' : 'text-text-secondary bg-white/5';
 
+  // Close picker on click outside
+  useEffect(() => {
+    if (!showListPicker) return;
+    const handler = (e: MouseEvent) => {
+      if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) {
+        setShowListPicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [showListPicker]);
+
+  const handleAddToList = async (listId: string) => {
+    setAddingToList(listId);
+    try {
+      await listsService.addItem({
+        listId,
+        name: product.name,
+        categoryId: product.categoryId,
+        quantity: 1,
+        unit: product.unit,
+        estimatedPrice: product.averagePrice,
+        productId: product.id,
+      });
+      setAddedToList(listId);
+      setTimeout(() => {
+        setShowListPicker(false);
+        setAddedToList(null);
+      }, 800);
+    } catch (err) {
+      console.error('Failed to add item to list:', err);
+    } finally {
+      setAddingToList(null);
+    }
+  };
+
   return (
     <div className="group bg-surface-dark border border-border-dark rounded-xl overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col">
-      {/* Image placeholder */}
+      {/* Image */}
       <div className="relative h-48 w-full overflow-hidden bg-white/5">
-        <div className="w-full h-full flex items-center justify-center bg-accent-green/30">
-          <span className="material-symbols-outlined text-5xl text-text-secondary/30">image</span>
-        </div>
+        {product.imageUrl ? (
+          <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-accent-green/30">
+            <span className="material-symbols-outlined text-5xl text-text-secondary/30">image</span>
+          </div>
+        )}
         {product.badge && (
           <div className={`absolute top-3 left-3 ${product.badgeColor} text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider shadow-sm`}>
             {product.badge}
@@ -75,11 +123,14 @@ export function ProductCard({ product }: Props) {
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: sp.storeColor }} />
                   <span className="text-sm text-gray-300">{sp.storeName}</span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 relative">
                   <span className={`text-sm font-mono ${isCheapest ? 'text-primary font-bold' : 'text-gray-400'}`}>
                     ${sp.price.toFixed(2)}
                   </span>
-                  <button className="text-text-secondary hover:text-white hover:bg-accent-green p-1 rounded transition-colors">
+                  <button
+                    onClick={() => setShowListPicker(true)}
+                    className="text-text-secondary hover:text-white hover:bg-accent-green p-1 rounded transition-colors"
+                  >
                     <span className="material-symbols-outlined text-[18px]">add_shopping_cart</span>
                   </button>
                 </div>
@@ -87,6 +138,34 @@ export function ProductCard({ product }: Props) {
             );
           })}
         </div>
+
+        {/* List Picker Popover */}
+        {showListPicker && (
+          <div ref={pickerRef} className="mt-3 rounded-lg border border-border-dark bg-background-dark shadow-xl p-3 space-y-1">
+            <p className="text-xs font-semibold text-text-secondary mb-2">Add to list:</p>
+            {lists.length === 0 ? (
+              <p className="text-xs text-text-secondary">No lists yet. Create one first.</p>
+            ) : (
+              lists.map((list) => (
+                <button
+                  key={list.id}
+                  onClick={() => handleAddToList(list.id)}
+                  disabled={addingToList === list.id}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm text-white hover:bg-accent-green transition-colors disabled:opacity-50"
+                >
+                  <span className="truncate">{list.title}</span>
+                  {addedToList === list.id ? (
+                    <span className="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+                  ) : addingToList === list.id ? (
+                    <span className="material-symbols-outlined text-text-secondary text-[16px] animate-spin">progress_activity</span>
+                  ) : (
+                    <span className="material-symbols-outlined text-text-secondary text-[16px]">add</span>
+                  )}
+                </button>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -18,7 +18,13 @@ export const realtimeService = {
         },
         () => onChange(),
       )
-      .subscribe();
+      .subscribe((status, err) => {
+        if (status === 'CHANNEL_ERROR') {
+          console.error(`[Realtime] Channel error for list ${listId}:`, err?.message ?? 'unknown');
+        } else if (status === 'TIMED_OUT') {
+          console.warn(`[Realtime] Subscription timed out for list ${listId}`);
+        }
+      });
   },
 
   unsubscribe(channel: RealtimeChannel) {

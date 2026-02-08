@@ -26,3 +26,12 @@ export interface Product {
   badgeColor?: string;
   createdAt: string;
 }
+
+export interface ProductImage {
+  id: string;
+  productId: string;
+  url: string;
+  isPrimary: boolean;
+  sortOrder: number;
+  createdAt: string;
+}

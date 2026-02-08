@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuthStore } from '@/store/auth-store';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/lib/supabase';
 
 const currencies = ['USD ($)', 'EUR (€)', 'GBP (£)', 'CAD (C$)', 'AUD (A$)'];
 
@@ -35,6 +36,7 @@ export function SettingsPage() {
     } catch { /* localStorage unavailable */ }
   }, [currency, pushNotifications, emailDigest, priceAlerts, listReminders]);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   const displayName = user?.name || 'User';
   const displayEmail = user?.email || 'user@example.com';
@@ -47,10 +49,72 @@ export function SettingsPage() {
 
   const [editName, setEditName] = useState(displayName);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
 
-  const handleSave = () => {
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  // Avatar
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+  const [avatarUrl, setAvatarUrl] = useState(user?.avatarUrl ?? null);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+
+  // Delete
+  const [deleting, setDeleting] = useState(false);
+
+  const handleSave = async () => {
+    if (!user) return;
+    setSaving(true);
+    try {
+      const { error } = await supabase.from('profiles').update({ name: editName.trim() }).eq('id', user.id);
+      if (error) throw error;
+      useAuthStore.setState({ user: { ...user, name: editName.trim() } });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (err) {
+      console.error('Failed to save profile:', err);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+    if (!file.type.startsWith('image/')) return;
+
+    setUploadingAvatar(true);
+    try {
+      const ext = file.name.split('.').pop() ?? 'jpg';
+      const path = `${user.id}/${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage.from('avatars').upload(path, file, { upsert: true });
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage.from('avatars').getPublicUrl(path);
+      const newUrl = data.publicUrl;
+
+      const { error: updateError } = await supabase.from('profiles').update({ avatar_url: newUrl }).eq('id', user.id);
+      if (updateError) throw updateError;
+
+      setAvatarUrl(newUrl);
+      useAuthStore.setState({ user: { ...user, avatarUrl: newUrl } });
+    } catch (err) {
+      console.error('Failed to upload avatar:', err);
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!user) return;
+    setDeleting(true);
+    try {
+      // Delete user data (lists, items, etc. cascade via FK)
+      await supabase.from('shopping_lists').delete().eq('owner_id', user.id);
+      await supabase.from('profiles').delete().eq('id', user.id);
+      await logout();
+      navigate('/auth');
+    } catch (err) {
+      console.error('Failed to delete account:', err);
+      setDeleting(false);
+    }
   };
 
   const handleSignOut = async () => {
@@ -77,12 +141,31 @@ export function SettingsPage() {
           <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-6">
             {/* Avatar */}
             <div className="relative group">
-              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center text-background-dark font-bold text-xl flex-shrink-0">
-                {initials}
+              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center text-background-dark font-bold text-xl flex-shrink-0 overflow-hidden">
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  initials
+                )}
               </div>
-              <button className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                <span className="material-symbols-outlined text-white text-xl">photo_camera</span>
+              <button
+                onClick={() => avatarInputRef.current?.click()}
+                disabled={uploadingAvatar}
+                className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity"
+              >
+                {uploadingAvatar ? (
+                  <span className="material-symbols-outlined text-white text-xl animate-spin">progress_activity</span>
+                ) : (
+                  <span className="material-symbols-outlined text-white text-xl">photo_camera</span>
+                )}
               </button>
+              <input
+                ref={avatarInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarUpload}
+                className="hidden"
+              />
             </div>
 
             {/* Name & Email */}
@@ -117,9 +200,10 @@ export function SettingsPage() {
           <div className="px-6 pb-6 flex justify-end">
             <button
               onClick={handleSave}
-              className="bg-primary hover:bg-primary/90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors"
+              disabled={saving}
+              className="bg-primary hover:bg-primary/90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
             >
-              {saved ? 'Saved!' : 'Save Changes'}
+              {saved ? 'Saved!' : saving ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
         </section>
@@ -195,9 +279,8 @@ export function SettingsPage() {
                 </p>
               </div>
               <button
-                disabled
-                title="Coming soon"
-                className="flex items-center gap-2 border border-border-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors opacity-50 cursor-not-allowed"
+                onClick={() => setShowPasswordModal(true)}
+                className="flex items-center gap-2 border border-border-dark hover:border-primary/50 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
                 <span className="material-symbols-outlined text-[18px]">lock</span>
                 Update
@@ -253,17 +336,112 @@ export function SettingsPage() {
                     Cancel
                   </button>
                   <button
-                    disabled
-                    title="Coming soon"
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors opacity-50 cursor-not-allowed"
+                    onClick={handleDeleteAccount}
+                    disabled={deleting}
+                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
                   >
-                    Confirm Delete
+                    {deleting ? 'Deleting...' : 'Confirm Delete'}
                   </button>
                 </div>
               )}
             </div>
           </div>
         </section>
+      </div>
+
+      {/* Change Password Modal */}
+      {showPasswordModal && (
+        <ChangePasswordModal onClose={() => setShowPasswordModal(false)} />
+      )}
+    </div>
+  );
+}
+
+/* ---- Change Password Modal ---- */
+
+function ChangePasswordModal({ onClose }: { onClose: () => void }) {
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (newPassword.length < 8) {
+      setError('Password must be at least 8 characters.');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const { error: updateError } = await supabase.auth.updateUser({ password: newPassword });
+      if (updateError) throw updateError;
+      setSuccess(true);
+      setTimeout(onClose, 1500);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="w-full max-w-sm mx-4 rounded-xl border border-border-dark bg-background-dark shadow-2xl">
+        <div className="flex items-center justify-between border-b border-border-dark px-5 py-4">
+          <h2 className="text-lg font-bold text-white">Change Password</h2>
+          <button onClick={onClose} className="rounded-full p-1 text-text-secondary hover:bg-accent-green hover:text-white transition-colors">
+            <span className="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+          <div>
+            <label className="mb-1 block text-xs font-medium text-text-secondary">New Password</label>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="w-full rounded-lg border border-border-dark bg-surface-dark px-3 py-2 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50"
+              placeholder="At least 8 characters"
+              autoFocus
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-text-secondary">Confirm Password</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full rounded-lg border border-border-dark bg-surface-dark px-3 py-2 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50"
+              placeholder="Repeat your password"
+            />
+          </div>
+          {error && (
+            <p className="text-sm text-red-400">{error}</p>
+          )}
+          {success && (
+            <p className="text-sm text-primary">Password updated successfully!</p>
+          )}
+          <div className="flex justify-end gap-3 pt-2">
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-text-secondary hover:text-white transition-colors">
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={saving || success}
+              className="bg-primary hover:bg-primary/90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
+            >
+              {saving ? 'Updating...' : 'Update Password'}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
