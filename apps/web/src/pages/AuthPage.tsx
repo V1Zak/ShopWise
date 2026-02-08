@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuthStore } from '@/store/auth-store';
 
 export function AuthPage() {
@@ -9,7 +9,16 @@ export function AuthPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
-  const { login, signUp, loginWithGoogle, error, clearError } = useAuthStore();
+  const [searchParams] = useSearchParams();
+  const { login, signUp, loginWithGoogle, loginWithApple, error, clearError } = useAuthStore();
+
+  // Handle OAuth error params in URL (e.g. ?error=access_denied&error_description=...)
+  useEffect(() => {
+    const errorParam = searchParams.get('error_description') || searchParams.get('error');
+    if (errorParam) {
+      useAuthStore.setState({ error: decodeURIComponent(errorParam) });
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,9 +37,17 @@ export function AuthPage() {
     }
   };
 
-  const handleSocialLogin = async () => {
+  const handleGoogleLogin = async () => {
     try {
       await loginWithGoogle();
+    } catch {
+      // error is set in the store
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    try {
+      await loginWithApple();
     } catch {
       // error is set in the store
     }
@@ -93,14 +110,14 @@ export function AuthPage() {
           {/* Social Login */}
           <div className="flex flex-col gap-3">
             <button
-              onClick={handleSocialLogin}
+              onClick={handleGoogleLogin}
               className="relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-slate-700 bg-surface-dark px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-green focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-dark"
             >
               <span className="material-symbols-outlined text-[20px]">public</span>
               Continue with Google
             </button>
             <button
-              onClick={handleSocialLogin}
+              onClick={handleAppleLogin}
               className="relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-slate-700 bg-surface-dark px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-green focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-dark"
             >
               <span className="material-symbols-outlined text-[20px]">smartphone</span>
