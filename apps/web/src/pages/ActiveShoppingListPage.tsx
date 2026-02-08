@@ -7,9 +7,12 @@ import { CompleteButton } from '@/features/shopping-list/CompleteButton';
 import { AisleNavigation } from '@/features/shopping-list/AisleNavigation';
 import { ProductIntelligence } from '@/features/shopping-list/ProductIntelligence';
 import { BudgetHealth } from '@/features/shopping-list/BudgetHealth';
+import { BarcodeScanner } from '@/components/BarcodeScanner';
+import { ScanResultBanner } from '@/components/ScanResultBanner';
 import { useListsStore } from '@/store/lists-store';
 import { useRealtimeList } from '@/hooks/useRealtimeList';
-import type { ListItemStatus } from '@shopwise/shared';
+import { useBarcodeScanner } from '@/hooks/useBarcodeScanner';
+import type { ListItemStatus, Product } from '@shopwise/shared';
 
 export function ActiveShoppingListPage() {
   const { id } = useParams<{ id: string }>();
@@ -29,16 +32,43 @@ export function ActiveShoppingListPage() {
 
   useRealtimeList(listId);
   const getItemsByStatus = useListsStore((s) => s.getItemsByStatus);
+  const addItem = useListsStore((s) => s.addItem);
+  const { isOpen, openScanner, closeScanner, handleScan, scannedProduct, notFound, lastBarcode, clearResult } = useBarcodeScanner();
 
   const toBuy = getItemsByStatus(activeListId, 'to_buy');
   const inCart = getItemsByStatus(activeListId, 'in_cart');
   const skipped = getItemsByStatus(activeListId, 'skipped');
 
+  const handleAddScannedProduct = (product: Product) => {
+    addItem({
+      id: `temp-${Date.now()}`,
+      listId: activeListId,
+      productId: product.id,
+      name: product.name,
+      categoryId: product.categoryId,
+      quantity: 1,
+      unit: product.unit,
+      estimatedPrice: product.averagePrice,
+      status: 'to_buy',
+      sortOrder: toBuy.length + 1,
+    });
+    clearResult();
+  };
+
   return (
     <div className="flex h-full overflow-hidden">
+      {isOpen && <BarcodeScanner onScan={handleScan} onClose={closeScanner} />}
+
       {/* Left Pane: Shopping List */}
       <section className="flex-1 flex flex-col h-full border-r border-border-dark bg-background-dark min-w-0 overflow-hidden">
-        <ListHeader />
+        <ListHeader onScanClick={openScanner} />
+        <ScanResultBanner
+          product={scannedProduct}
+          notFound={notFound}
+          barcode={lastBarcode}
+          onAddToList={handleAddScannedProduct}
+          onDismiss={clearResult}
+        />
         <ListTabs
           activeTab={activeTab}
           onTabChange={setActiveTab}
