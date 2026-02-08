@@ -23,6 +23,8 @@ interface AnalyticsState {
   setPeriod: (period: AnalyticsPeriod) => void;
 }
 
+let latestRequestId = 0;
+
 export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
   data: emptyAnalytics,
   period: 'Monthly',
@@ -30,12 +32,17 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
 
   fetchAnalytics: async (period?: AnalyticsPeriod) => {
     const activePeriod = period ?? get().period;
+    const requestId = ++latestRequestId;
     set({ isLoading: true });
     try {
       const data = await analyticsService.getAnalyticsSummary(activePeriod);
-      set({ data, isLoading: false });
+      if (requestId === latestRequestId) {
+        set({ data, isLoading: false });
+      }
     } catch {
-      set({ isLoading: false });
+      if (requestId === latestRequestId) {
+        set({ isLoading: false });
+      }
     }
   },
 

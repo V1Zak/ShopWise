@@ -18,7 +18,7 @@ function getDateRangeStart(period: AnalyticsPeriod): string {
       start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 90);
       break;
     case 'YTD':
-      start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 365);
+      start = new Date(now.getFullYear(), 0, 1);
       break;
   }
 
