@@ -95,19 +95,17 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
 
   return (
     <>
-      <div className="p-6 pb-2 border-b border-border-dark">
-        <div className="flex flex-wrap gap-2 mb-4">
+      <div className="p-4 sm:p-6 pb-2 border-b border-border-dark">
+        <div className="hidden sm:flex flex-wrap gap-2 mb-4">
           <span className="text-text-secondary text-xs font-medium uppercase tracking-wider">Home</span>
           <span className="text-text-secondary text-xs font-medium">/</span>
           <span className="text-text-secondary text-xs font-medium uppercase tracking-wider">{list?.storeName}</span>
           <span className="text-text-secondary text-xs font-medium">/</span>
           <span className="text-primary text-xs font-medium uppercase tracking-wider">Active List</span>
         </div>
-        <div className="flex justify-between items-end mb-6">
-          <div>
-            <h1 className="text-white text-3xl font-bold leading-tight mb-1">Active Shopping Trip</h1>
-            <p className="text-text-secondary text-sm">
-              Target:{' '}
+        <div className="flex justify-between items-start sm:items-end gap-3 mb-3 sm:mb-6">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-white text-xl sm:text-3xl font-bold leading-tight mb-1">
               {isEditingTitle ? (
                 <input
                   ref={titleInputRef}
@@ -116,19 +114,22 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
                   onChange={(e) => setEditTitle(e.target.value)}
                   onBlur={handleSaveTitle}
                   onKeyDown={handleTitleKeyDown}
-                  className="inline-block bg-background-dark border border-primary rounded px-2 py-0.5 text-white text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary min-w-[120px]"
+                  className="w-full bg-background-dark border border-primary rounded px-2 py-1 text-white text-xl sm:text-3xl font-bold focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               ) : (
                 <button
                   onClick={handleStartEditTitle}
-                  className="inline-flex items-center gap-1 text-white hover:text-primary transition-colors group"
+                  className="inline-flex items-center gap-1 text-white hover:text-primary transition-colors group text-left"
                   title="Click to edit list title"
                 >
-                  <span className="font-medium">{list?.title}</span>
-                  <span className="material-symbols-outlined text-[14px] text-text-secondary group-hover:text-primary transition-colors">edit</span>
+                  <span className="truncate">{list?.title || 'Shopping List'}</span>
+                  <span className="material-symbols-outlined text-[16px] text-text-secondary group-hover:text-primary transition-colors flex-shrink-0">edit</span>
                 </button>
               )}
-              {' '}&bull; {allItems.length} Items
+            </h1>
+            <p className="text-text-secondary text-sm truncate">
+              {allItems.length} Items
+              {list?.storeName && <> &bull; {list.storeName}</>}
               {list?.sharedPermission && (
                 <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-400/10 text-blue-400 border border-blue-400/20">
                   Shared ({list.sharedPermission})
@@ -136,7 +137,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
               )}
             </p>
           </div>
-          <div className="flex items-end gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <Dropdown
               align="right"
               trigger={
@@ -159,22 +160,25 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
             {error && (
               <span className="text-red-400 text-sm font-medium">{error}</span>
             )}
-            <button onClick={() => setIsShareModalOpen(true)} className="relative flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors">
+            <button onClick={() => setIsShareModalOpen(true)} className="relative flex items-center justify-center w-9 h-9 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors">
               <Icon name="share" size={18} />
-              Share
+              <span className="hidden sm:inline">Share</span>
               {collaboratorCount > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-primary text-background-dark text-[10px] font-bold px-1">{collaboratorCount}</span>
               )}
             </button>
             {onScanClick && (
-              <button onClick={onScanClick} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors">
+              <button onClick={onScanClick} className="flex items-center justify-center w-9 h-9 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors">
                 <span className="material-symbols-outlined text-[18px]">qr_code_scanner</span>
-                Scan
+                <span className="hidden sm:inline">Scan</span>
               </button>
             )}
-            <div className="text-right">
+            <div className="text-right hidden sm:block">
               <div className="text-sm text-text-secondary font-medium mb-1">Running Total</div>
               <div className="text-3xl font-bold text-primary tabular-nums">${total.toFixed(2)}</div>
+            </div>
+            <div className="text-right sm:hidden">
+              <div className="text-xl font-bold text-primary tabular-nums">${total.toFixed(2)}</div>
             </div>
           </div>
         </div>

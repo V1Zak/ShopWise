@@ -83,7 +83,7 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
   return (
     <div
       onClick={() => onSelect?.(item)}
-      className={`group flex items-center gap-4 bg-surface-dark hover:bg-accent-green border rounded-lg p-3 transition-all duration-200 cursor-pointer ${
+      className={`group flex items-center gap-2 sm:gap-4 bg-surface-dark hover:bg-accent-green border rounded-lg p-2 sm:p-3 transition-all duration-200 cursor-pointer ${
         isChecked || isSkipped ? 'opacity-60' : ''
       } ${
         isSelected
@@ -152,9 +152,9 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
           <span className="text-text-secondary text-sm">&bull; Target: ${item.estimatedPrice.toFixed(2)}</span>
         </div>
       </div>
-      <div className="flex flex-col items-end gap-1" onClick={(e) => e.stopPropagation()}>
-        <span className="text-[10px] text-text-secondary uppercase tracking-wide font-medium">Actual Price</span>
-        <div className="relative w-24">
+      <div className="flex flex-col items-end gap-1 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
+        <span className="text-[10px] text-text-secondary uppercase tracking-wide font-medium hidden sm:block">Actual Price</span>
+        <div className="relative w-20 sm:w-24">
           <span className="absolute left-2 top-1/2 -translate-y-1/2 text-text-secondary text-sm">$</span>
           <input
             type="number"
@@ -166,7 +166,7 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.stopPropagation()}>
+      <div className="flex flex-col gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex-shrink-0" onClick={(e) => e.stopPropagation()}>
         <button
           onClick={handleSkip}
           title={isSkipped ? 'Unskip item' : 'Skip item'}

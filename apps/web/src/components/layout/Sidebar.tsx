@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
+import { useAuthStore } from '@/store/auth-store';
 
 const navItems = [
   { to: '/', icon: 'dashboard', label: 'Dashboard' },
-  { to: '/list/active', icon: 'list_alt', label: 'Lists' },
   { to: '/catalog', icon: 'inventory_2', label: 'Catalog' },
   { to: '/history', icon: 'history', label: 'History' },
   { to: '/analytics', icon: 'bar_chart', label: 'Analytics' },
@@ -10,6 +10,12 @@ const navItems = [
 ];
 
 export function Sidebar() {
+  const user = useAuthStore((s) => s.user);
+  const initials = user?.name
+    ? user.name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
+    : user?.email?.[0]?.toUpperCase() || '?';
+  const displayName = user?.name || user?.email?.split('@')[0] || 'User';
+
   return (
     <aside className="hidden md:flex flex-col w-64 h-full border-r border-border-dark bg-background-dark flex-shrink-0">
       <div className="p-6">
@@ -60,11 +66,11 @@ export function Sidebar() {
       <div className="mt-auto p-6 border-t border-border-dark">
         <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-dark cursor-pointer transition-colors">
           <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center text-background-dark font-bold text-xs">
-            AL
+            {initials}
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-white">Alex L.</span>
-            <span className="text-xs text-text-secondary">Pro Plan</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-sm font-medium text-white truncate">{displayName}</span>
+            <span className="text-xs text-text-secondary truncate">{user?.email || ''}</span>
           </div>
         </div>
       </div>
