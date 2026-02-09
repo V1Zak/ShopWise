@@ -20,6 +20,16 @@ interface TripsState {
   spentRange: SpentRange;
   fetchTrips: () => Promise<void>;
   fetchTripById: (tripId: string) => Promise<void>;
+  createTrip: (trip: {
+    storeId: string;
+    listId?: string;
+    date?: string;
+    itemCount: number;
+    totalSpent: number;
+    totalSaved: number;
+    efficiencyScore?: number;
+    metadata?: Record<string, unknown>;
+  }) => Promise<string>;
   toggleExpand: (tripId: string) => void;
   setSearch: (query: string) => void;
   setDateRange: (range: DateRange) => void;
@@ -79,6 +89,33 @@ export const useTripsStore = create<TripsState>((set, get) => ({
     } catch {
       set({ currentTrip: null, isLoading: false });
     }
+  },
+
+  createTrip: async (trip) => {
+    const row = await tripsService.createTrip(trip);
+    const newTrip: ShoppingTrip = {
+      id: row.id,
+      userId: row.user_id,
+      listId: row.list_id ?? '',
+      storeId: row.store_id,
+      storeName: '',
+      date: new Date(row.date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }),
+      itemCount: row.item_count,
+      totalSpent: Number(row.total_spent),
+      totalSaved: Number(row.total_saved),
+      efficiencyScore: row.efficiency_score ?? undefined,
+      categoryBreakdown: [],
+      insights: [],
+    };
+    set((state) => ({
+      trips: [newTrip, ...state.trips],
+      currentTrip: newTrip,
+    }));
+    return row.id;
   },
 
   toggleExpand: (tripId) =>

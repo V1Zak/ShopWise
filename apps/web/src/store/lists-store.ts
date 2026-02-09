@@ -11,6 +11,8 @@ interface ListsState {
   fetchLists: () => Promise<void>;
   fetchListItems: (listId: string) => Promise<void>;
   createList: (list: { title: string; storeId?: string }) => Promise<string>;
+  deleteList: (listId: string) => Promise<void>;
+  updateList: (listId: string, updates: { title?: string; storeId?: string }) => Promise<void>;
   setActiveList: (id: string) => void;
   getActiveList: () => ShoppingList | undefined;
   getOwnedLists: () => ShoppingList[];
@@ -20,6 +22,10 @@ interface ListsState {
   toggleItemStatus: (itemId: string) => void;
   updateItemPrice: (itemId: string, price: number) => void;
   addItem: (item: ListItem) => void;
+  deleteItem: (itemId: string) => void;
+  updateItemName: (itemId: string, name: string) => void;
+  updateItemQuantity: (itemId: string, quantity: number) => void;
+  skipItem: (itemId: string) => void;
   getRunningTotal: (listId: string) => number;
   fetchTemplates: () => Promise<void>;
   saveAsTemplate: (listId: string, title: string) => Promise<void>;
@@ -48,6 +54,49 @@ export const useListsStore = create<ListsState>((set, get) => ({
     const row = await listsService.createList(list);
     await get().fetchLists();
     return row.id;
+  },
+
+  deleteList: async (listId) => {
+    const prevLists = get().lists;
+    const prevActiveListId = get().activeListId;
+
+    set((state) => ({
+      lists: state.lists.filter((l) => l.id !== listId),
+      activeListId: state.activeListId === listId ? '' : state.activeListId,
+    }));
+
+    try {
+      await listsService.deleteList(listId);
+    } catch {
+      set({ lists: prevLists, activeListId: prevActiveListId });
+      throw new Error('Failed to delete list');
+    }
+  },
+
+  updateList: async (listId, updates) => {
+    const list = get().lists.find((l) => l.id === listId);
+    if (!list) return;
+
+    const prevTitle = list.title;
+    const prevStoreId = list.storeId;
+
+    set((state) => ({
+      lists: state.lists.map((l) =>
+        l.id === listId
+          ? { ...l, ...(updates.title !== undefined && { title: updates.title }), ...(updates.storeId !== undefined && { storeId: updates.storeId }) }
+          : l,
+      ),
+    }));
+
+    try {
+      await listsService.updateList(listId, updates);
+    } catch {
+      set((state) => ({
+        lists: state.lists.map((l) =>
+          l.id === listId ? { ...l, title: prevTitle, storeId: prevStoreId } : l,
+        ),
+      }));
+    }
   },
 
   fetchListItems: async (listId) => {
@@ -125,6 +174,82 @@ export const useListsStore = create<ListsState>((set, get) => ({
     }).catch(() => {
       set((state) => ({
         items: state.items.filter((i) => i.id !== tempId),
+      }));
+    });
+  },
+
+  deleteItem: (itemId) => {
+    const item = get().items.find((i) => i.id === itemId);
+    if (!item) return;
+
+    set((state) => ({
+      items: state.items.filter((i) => i.id !== itemId),
+    }));
+
+    listsService.deleteItem(itemId).catch(() => {
+      set((state) => ({
+        items: [...state.items, item],
+      }));
+    });
+  },
+
+  updateItemName: (itemId, name) => {
+    const item = get().items.find((i) => i.id === itemId);
+    if (!item) return;
+    const prevName = item.name;
+
+    set((state) => ({
+      items: state.items.map((i) =>
+        i.id === itemId ? { ...i, name } : i,
+      ),
+    }));
+
+    listsService.updateItem(itemId, { name }).catch(() => {
+      set((state) => ({
+        items: state.items.map((i) =>
+          i.id === itemId ? { ...i, name: prevName } : i,
+        ),
+      }));
+    });
+  },
+
+  updateItemQuantity: (itemId, quantity) => {
+    const item = get().items.find((i) => i.id === itemId);
+    if (!item) return;
+    const prevQuantity = item.quantity;
+
+    set((state) => ({
+      items: state.items.map((i) =>
+        i.id === itemId ? { ...i, quantity } : i,
+      ),
+    }));
+
+    listsService.updateItem(itemId, { quantity }).catch(() => {
+      set((state) => ({
+        items: state.items.map((i) =>
+          i.id === itemId ? { ...i, quantity: prevQuantity } : i,
+        ),
+      }));
+    });
+  },
+
+  skipItem: (itemId) => {
+    const item = get().items.find((i) => i.id === itemId);
+    if (!item) return;
+    const prevStatus = item.status;
+    const newStatus: ListItemStatus = prevStatus === 'skipped' ? 'to_buy' : 'skipped';
+
+    set((state) => ({
+      items: state.items.map((i) =>
+        i.id === itemId ? { ...i, status: newStatus } : i,
+      ),
+    }));
+
+    listsService.updateItem(itemId, { status: newStatus }).catch(() => {
+      set((state) => ({
+        items: state.items.map((i) =>
+          i.id === itemId ? { ...i, status: prevStatus } : i,
+        ),
       }));
     });
   },
