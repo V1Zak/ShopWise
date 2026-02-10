@@ -16,21 +16,27 @@ interface ProductsState {
   products: Product[];
   searchQuery: string;
   activeCategory: CategoryId | 'all';
+  activeStoreId: string | 'all';
   compareList: string[];
   viewMode: 'grid' | 'list';
   isLoading: boolean;
   sortBy: SortBy;
   sortDirection: SortDirection;
   priceRange: PriceRange;
+  editingProductId: string | null;
   fetchProducts: () => Promise<void>;
   setSearch: (query: string) => void;
   setCategory: (category: CategoryId | 'all') => void;
+  setStore: (storeId: string | 'all') => void;
   toggleCompare: (productId: string) => void;
   setViewMode: (mode: 'grid' | 'list') => void;
   setSort: (sortBy: SortBy, direction: SortDirection) => void;
   setPriceFilter: (min: number | null, max: number | null) => void;
   clearPriceFilter: () => void;
   getFilteredProducts: () => Product[];
+  setEditingProduct: (id: string | null) => void;
+  updateProduct: (id: string, updates: Partial<Pick<Product, 'name' | 'brand' | 'categoryId' | 'unit' | 'averagePrice'>>) => Promise<void>;
+  deleteProduct: (id: string) => Promise<void>;
 }
 
 const VOLATILITY_ORDER: Record<string, number> = {
@@ -43,12 +49,14 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
   products: [],
   searchQuery: '',
   activeCategory: 'all',
+  activeStoreId: 'all' as string | 'all',
   compareList: [],
   viewMode: 'grid',
   isLoading: false,
   sortBy: 'name',
   sortDirection: 'asc',
   priceRange: { min: null, max: null },
+  editingProductId: null,
 
   fetchProducts: async () => {
     set({ isLoading: true });
@@ -104,23 +112,45 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
         : [...state.compareList, productId],
     })),
 
+  setStore: (storeId) => set({ activeStoreId: storeId }),
+
   setViewMode: (mode) => set({ viewMode: mode }),
   setSort: (sortBy, direction) => set({ sortBy, sortDirection: direction }),
   setPriceFilter: (min, max) => set({ priceRange: { min, max } }),
   clearPriceFilter: () => set({ priceRange: { min: null, max: null } }),
 
+  setEditingProduct: (id) => set({ editingProductId: id }),
+
+  updateProduct: async (id, updates) => {
+    const product = await productsService.updateProduct(id, updates);
+    set((state) => ({
+      products: state.products.map((p) => (p.id === id ? product : p)),
+      editingProductId: null,
+    }));
+  },
+
+  deleteProduct: async (id) => {
+    await productsService.deleteProduct(id);
+    set((state) => ({
+      products: state.products.filter((p) => p.id !== id),
+      editingProductId: null,
+      compareList: state.compareList.filter((cid) => cid !== id),
+    }));
+  },
+
   getFilteredProducts: () => {
-    const { products, searchQuery, activeCategory, sortBy, sortDirection, priceRange } = get();
+    const { products, searchQuery, activeCategory, activeStoreId, sortBy, sortDirection, priceRange } = get();
     let filtered = products.filter((p) => {
       const matchesSearch =
         !searchQuery ||
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.brand?.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = activeCategory === 'all' || p.categoryId === activeCategory;
+      const matchesStore = activeStoreId === 'all' || p.storePrices.some((sp) => sp.storeId === activeStoreId);
       const matchesPrice =
         (priceRange.min === null || p.averagePrice >= priceRange.min) &&
         (priceRange.max === null || p.averagePrice <= priceRange.max);
-      return matchesSearch && matchesCategory && matchesPrice;
+      return matchesSearch && matchesCategory && matchesStore && matchesPrice;
     });
     filtered = [...filtered].sort((a, b) => {
       let cmp = 0;

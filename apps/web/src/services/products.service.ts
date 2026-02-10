@@ -171,6 +171,104 @@ export const productsService = {
     return toProduct(data as unknown as DbProduct);
   },
 
+  async updateProduct(
+    id: string,
+    updates: {
+      name?: string;
+      brand?: string;
+      categoryId?: CategoryId;
+      unit?: string;
+      averagePrice?: number;
+    },
+  ): Promise<Product> {
+    const patch: Record<string, unknown> = {};
+    if (updates.name !== undefined) {
+      const trimmed = updates.name.trim();
+      if (!trimmed || trimmed.length > 200) {
+        throw new Error('Product name must be between 1 and 200 characters.');
+      }
+      patch.name = trimmed;
+    }
+    if (updates.brand !== undefined) patch.brand = updates.brand.trim() || null;
+    if (updates.categoryId !== undefined) patch.category_id = updates.categoryId;
+    if (updates.unit !== undefined) {
+      if (!ALLOWED_UNITS.includes(updates.unit as (typeof ALLOWED_UNITS)[number])) {
+        throw new Error(`Invalid unit "${updates.unit}". Allowed: ${ALLOWED_UNITS.join(', ')}.`);
+      }
+      patch.unit = updates.unit;
+    }
+    if (updates.averagePrice !== undefined) {
+      if (!Number.isFinite(updates.averagePrice) || updates.averagePrice <= 0) {
+        throw new Error('Price must be a finite positive number.');
+      }
+      patch.average_price = updates.averagePrice;
+    }
+
+    const { data, error } = await supabase
+      .from('products')
+      .update(patch)
+      .eq('id', id)
+      .select(`
+        *,
+        store_products (
+          price,
+          last_updated,
+          stores ( id, name, color )
+        )
+      `)
+      .single();
+
+    if (error) throw error;
+    return toProduct(data as unknown as DbProduct);
+  },
+
+  async deleteProduct(id: string): Promise<void> {
+    // store_products cascade via FK, but delete explicitly in case
+    await supabase.from('store_products').delete().eq('product_id', id);
+    const { error } = await supabase.from('products').delete().eq('id', id);
+    if (error) throw error;
+  },
+
+  async upsertStorePrice(
+    productId: string,
+    storeId: string,
+    price: number,
+  ): Promise<void> {
+    if (!Number.isFinite(price) || price <= 0) {
+      throw new Error('Price must be a finite positive number.');
+    }
+    const { error } = await supabase
+      .from('store_products')
+      .upsert(
+        { product_id: productId, store_id: storeId, price, last_updated: new Date().toISOString() },
+        { onConflict: 'product_id,store_id' },
+      );
+    if (error) throw error;
+    await this.recalcAveragePrice(productId);
+  },
+
+  async removeStorePrice(productId: string, storeId: string): Promise<void> {
+    const { error } = await supabase
+      .from('store_products')
+      .delete()
+      .eq('product_id', productId)
+      .eq('store_id', storeId);
+    if (error) throw error;
+    await this.recalcAveragePrice(productId);
+  },
+
+  async recalcAveragePrice(productId: string): Promise<void> {
+    const { data } = await supabase
+      .from('store_products')
+      .select('price')
+      .eq('product_id', productId);
+    const prices = (data ?? []).map((r) => Number(r.price));
+    const avg = prices.length > 0 ? prices.reduce((a, b) => a + b, 0) / prices.length : 0;
+    if (avg > 0) {
+      await supabase.from('products').update({ average_price: avg }).eq('id', productId);
+    }
+  },
+
   async findByBarcode(barcode: string): Promise<Product | null> {
     const { data, error } = await supabase
       .from('products')

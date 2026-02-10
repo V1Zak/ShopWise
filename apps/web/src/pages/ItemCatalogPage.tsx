@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CatalogToolbar } from '@/features/catalog/CatalogToolbar';
 import { CategoryPills } from '@/features/catalog/CategoryPills';
+import { StorePills } from '@/features/catalog/StorePills';
 import { ProductGrid } from '@/features/catalog/ProductGrid';
 import { CompareFloatingBar } from '@/features/catalog/CompareFloatingBar';
 import { ProductComparisonModal } from '@/components/ProductComparisonModal';
@@ -42,6 +43,7 @@ export function ItemCatalogPage() {
     <div className="flex flex-col h-full">
       <CatalogToolbar />
       <CategoryPills />
+      <StorePills />
       <div className="flex-1 overflow-y-auto p-6 lg:p-10">
         <ProductGrid />
       </div>

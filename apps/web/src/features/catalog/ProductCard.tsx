@@ -27,6 +27,8 @@ interface Props {
 export function ProductCard({ product }: Props) {
   const toggleCompare = useProductsStore((s) => s.toggleCompare);
   const compareList = useProductsStore((s) => s.compareList);
+  const activeStoreId = useProductsStore((s) => s.activeStoreId);
+  const setEditingProduct = useProductsStore((s) => s.setEditingProduct);
   const isComparing = compareList.includes(product.id);
   const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
   const [showListPicker, setShowListPicker] = useState(false);
@@ -92,16 +94,24 @@ export function ProductCard({ product }: Props) {
             {product.badge}
           </div>
         )}
-        <button
-          onClick={() => toggleCompare(product.id)}
-          className={`absolute top-3 right-3 h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors ${
-            isComparing
-              ? 'bg-primary text-black'
-              : 'bg-black/50 hover:bg-primary hover:text-black text-white'
-          }`}
-        >
-          <span className="material-symbols-outlined text-[18px]">compare_arrows</span>
-        </button>
+        <div className="absolute top-3 right-3 flex gap-1.5">
+          <button
+            onClick={() => setEditingProduct(product.id)}
+            className="h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm bg-black/50 hover:bg-primary hover:text-black text-white transition-colors opacity-0 group-hover:opacity-100"
+          >
+            <span className="material-symbols-outlined text-[18px]">edit</span>
+          </button>
+          <button
+            onClick={() => toggleCompare(product.id)}
+            className={`h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors ${
+              isComparing
+                ? 'bg-primary text-black'
+                : 'bg-black/50 hover:bg-primary hover:text-black text-white'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[18px]">compare_arrows</span>
+          </button>
+        </div>
       </div>
 
       <div className="p-4 flex flex-col flex-1">
@@ -132,16 +142,25 @@ export function ProductCard({ product }: Props) {
 
         {/* Store Prices */}
         <div className="mt-auto space-y-2 border-t border-border-dark pt-3">
-          {product.storePrices.map((sp, i) => {
-            const isCheapest = i === 0 || sp.price <= Math.min(...product.storePrices.map((s) => s.price));
+          {[...product.storePrices]
+            .sort((a, b) => {
+              if (activeStoreId === 'all') return 0;
+              if (a.storeId === activeStoreId) return -1;
+              if (b.storeId === activeStoreId) return 1;
+              return 0;
+            })
+            .map((sp) => {
+            const isCheapest = sp.price <= Math.min(...product.storePrices.map((s) => s.price));
+            const isSelected = activeStoreId !== 'all' && sp.storeId === activeStoreId;
+            const isDimmed = activeStoreId !== 'all' && sp.storeId !== activeStoreId;
             return (
-              <div key={sp.storeId} className="flex items-center justify-between">
+              <div key={sp.storeId} className={`flex items-center justify-between ${isDimmed ? 'opacity-40' : ''} transition-opacity`}>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: sp.storeColor }} />
-                  <span className="text-sm text-gray-300">{sp.storeName}</span>
+                  <span className={`text-sm ${isSelected ? 'text-white font-medium' : 'text-gray-300'}`}>{sp.storeName}</span>
                 </div>
                 <div className="flex items-center gap-3 relative">
-                  <span className={`text-sm font-mono ${isCheapest ? 'text-primary font-bold' : 'text-gray-400'}`}>
+                  <span className={`text-sm font-mono ${isSelected ? 'text-primary font-bold' : isCheapest ? 'text-primary font-bold' : 'text-gray-400'}`}>
                     ${sp.price.toFixed(2)}
                   </span>
                   <button
