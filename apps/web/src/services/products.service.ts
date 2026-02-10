@@ -176,6 +176,7 @@ export const productsService = {
     updates: {
       name?: string;
       brand?: string;
+      barcode?: string;
       categoryId?: CategoryId;
       unit?: string;
       averagePrice?: number;
@@ -190,6 +191,7 @@ export const productsService = {
       patch.name = trimmed;
     }
     if (updates.brand !== undefined) patch.brand = updates.brand.trim() || null;
+    if (updates.barcode !== undefined) patch.barcode = updates.barcode.trim() || null;
     if (updates.categoryId !== undefined) patch.category_id = updates.categoryId;
     if (updates.unit !== undefined) {
       if (!ALLOWED_UNITS.includes(updates.unit as (typeof ALLOWED_UNITS)[number])) {

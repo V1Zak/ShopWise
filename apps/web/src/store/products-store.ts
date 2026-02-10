@@ -35,7 +35,7 @@ interface ProductsState {
   clearPriceFilter: () => void;
   getFilteredProducts: () => Product[];
   setEditingProduct: (id: string | null) => void;
-  updateProduct: (id: string, updates: Partial<Pick<Product, 'name' | 'brand' | 'categoryId' | 'unit' | 'averagePrice'>>) => Promise<void>;
+  updateProduct: (id: string, updates: Partial<Pick<Product, 'name' | 'brand' | 'barcode' | 'categoryId' | 'unit' | 'averagePrice'>>) => Promise<void>;
   deleteProduct: (id: string) => Promise<void>;
 }
 

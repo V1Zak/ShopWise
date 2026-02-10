@@ -9,6 +9,7 @@ import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
 import { ProductImageGallery } from '@/components/ProductImageGallery';
 import { ConfirmDeleteModal } from '@/components/ConfirmDeleteModal';
+import { BarcodeScanner } from '@/components/BarcodeScanner';
 
 interface ProductFormProps {
   mode: 'create' | 'edit';
@@ -33,6 +34,11 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  // Barcode state — editable in edit mode or create mode without barcode prop
+  const barcodeEditable = mode === 'edit' || (mode === 'create' && !barcode);
+  const [barcodeValue, setBarcodeValue] = useState(product?.barcode ?? barcode ?? '');
+  const [showScanner, setShowScanner] = useState(false);
 
   // Store prices (edit mode only)
   const [storePrices, setStorePrices] = useState<StorePriceEdit[]>(() =>
@@ -113,7 +119,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
     try {
       if (mode === 'create') {
         const created = await productsService.createProduct({
-          barcode: barcode ?? undefined,
+          barcode: (barcodeEditable ? barcodeValue.trim() : barcode) || undefined,
           name: name.trim(),
           brand: brand.trim() || undefined,
           categoryId,
@@ -138,6 +144,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
         await updateProduct(product.id, {
           name: name.trim(),
           brand: brand.trim() || undefined,
+          barcode: barcodeValue.trim() || undefined,
           categoryId,
           unit,
           averagePrice: price ? Number(price) : undefined,
@@ -215,8 +222,8 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
-          {/* Barcode (create mode only) */}
-          {mode === 'create' && barcode && (
+          {/* Barcode */}
+          {mode === 'create' && barcode && !barcodeEditable ? (
             <div>
               <label className="mb-1 block text-xs font-medium text-text-secondary">Barcode</label>
               <div className="flex items-center gap-2 rounded-lg border border-border-dark bg-surface-dark/50 px-3 py-2">
@@ -224,7 +231,42 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                 <span className="text-sm text-text-secondary font-mono">{barcode}</span>
               </div>
             </div>
-          )}
+          ) : barcodeEditable ? (
+            <div>
+              <label htmlFor="product-barcode" className="mb-1 block text-xs font-medium text-text-secondary">Barcode</label>
+              <div className="flex items-center gap-2">
+                <div className="relative flex-1">
+                  <Icon name="barcode" className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary" size={18} />
+                  <input
+                    id="product-barcode"
+                    type="text"
+                    value={barcodeValue}
+                    onChange={(e) => setBarcodeValue(e.target.value)}
+                    placeholder="Enter barcode or scan"
+                    className={`${inputClasses} pl-9 font-mono`}
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowScanner(true)}
+                  className="flex items-center justify-center rounded-lg border border-border-dark bg-surface-dark px-3 py-2 text-text-secondary hover:border-primary hover:text-primary transition-colors"
+                  title="Scan barcode"
+                >
+                  <Icon name="qr_code_scanner" size={20} />
+                </button>
+                {barcodeValue && (
+                  <button
+                    type="button"
+                    onClick={() => setBarcodeValue('')}
+                    className="flex items-center justify-center rounded-lg border border-border-dark bg-surface-dark px-2 py-2 text-text-secondary hover:border-red-400 hover:text-red-400 transition-colors"
+                    title="Clear barcode"
+                  >
+                    <Icon name="close" size={20} />
+                  </button>
+                )}
+              </div>
+            </div>
+          ) : null}
 
           {/* Photo (create mode) / Image Gallery (edit mode) */}
           {mode === 'create' ? (
@@ -493,6 +535,17 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
         onConfirm={handleDelete}
         onCancel={() => setShowDeleteConfirm(false)}
       />
+
+      {/* Barcode scanner overlay */}
+      {showScanner && (
+        <BarcodeScanner
+          onScan={(code) => {
+            setBarcodeValue(code);
+            setShowScanner(false);
+          }}
+          onClose={() => setShowScanner(false)}
+        />
+      )}
     </div>
   );
 }
