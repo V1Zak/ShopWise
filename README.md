@@ -57,6 +57,16 @@ A progressive web app (PWA) for managing weekly shopping efficiently. Scan items
 
 ---
 
+## Screenshots
+
+### Product Catalog
+![Product Catalog](docs/screenshots/catalog.png)
+
+### Edit Product Form (with Barcode Input)
+![Edit Product Form](docs/screenshots/edit-product-form.png)
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
