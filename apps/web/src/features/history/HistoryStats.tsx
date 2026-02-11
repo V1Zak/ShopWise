@@ -1,8 +1,10 @@
 import { StatCard } from '@/components/ui/StatCard';
 import { useTripsStore } from '@/store/trips-store';
+import { useCurrency } from '@/hooks/useCurrency';
 
 export function HistoryStats() {
   const trips = useTripsStore((s) => s.trips);
+  const { formatPrice } = useCurrency();
 
   const totalSpent = trips.reduce((sum, t) => sum + t.totalSpent, 0);
   const totalSavings = trips.reduce((sum, t) => sum + (t.totalSaved ?? 0), 0);
@@ -20,7 +22,7 @@ export function HistoryStats() {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <StatCard
         label="Total Spend YTD"
-        value={`$${totalSpent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+        value={formatPrice(totalSpent)}
         icon="payments"
         iconColor="text-text"
       />

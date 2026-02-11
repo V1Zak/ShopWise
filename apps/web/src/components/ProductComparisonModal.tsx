@@ -1,5 +1,6 @@
 import type { Product } from '@shopwise/shared';
 import { Icon } from '@/components/ui/Icon';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface ProductComparisonModalProps {
   products: Product[];
@@ -8,6 +9,8 @@ interface ProductComparisonModalProps {
 }
 
 export function ProductComparisonModal({ products, onClose, onRemove }: ProductComparisonModalProps) {
+  const { formatPrice } = useCurrency();
+
   if (products.length === 0) return null;
 
   const globalMinPrice = Math.min(...products.map((p) => p.averagePrice));
@@ -96,7 +99,7 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
 
                     <div className="flex items-baseline gap-2 mb-1">
                       <span className={`font-mono font-bold text-xl ${isCheapestOverall ? 'text-primary' : 'text-text'}`}>
-                        ${product.averagePrice.toFixed(2)}
+                        {formatPrice(product.averagePrice)}
                       </span>
                       <span className="text-text-muted text-[10px]">avg</span>
                     </div>
@@ -130,7 +133,7 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
                                   isCheapestStore ? 'text-primary font-bold' : 'text-text-muted'
                                 }`}
                               >
-                                ${sp.price.toFixed(2)}
+                                {formatPrice(sp.price)}
                               </span>
                             </div>
                           );
@@ -182,7 +185,7 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
                                       : 'text-text-muted'
                                   }`}
                                 >
-                                  ${price.toFixed(2)}
+                                  {formatPrice(price)}
                                 </span>
                               ) : (
                                 <span className="text-text-muted/50">&mdash;</span>

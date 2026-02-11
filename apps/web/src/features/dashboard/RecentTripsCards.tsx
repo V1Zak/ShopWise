@@ -1,5 +1,6 @@
 import { useTripsStore } from '@/store/trips-store';
 import { useNavigate } from 'react-router-dom';
+import { useCurrency } from '@/hooks/useCurrency';
 
 function formatDate(dateStr: string): string {
   const d = new Date(dateStr);
@@ -9,6 +10,7 @@ function formatDate(dateStr: string): string {
 export function RecentTripsCards() {
   const trips = useTripsStore((s) => s.trips);
   const navigate = useNavigate();
+  const { formatPrice } = useCurrency();
 
   const recentTrips = [...trips]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -57,12 +59,12 @@ export function RecentTripsCards() {
             {/* Stats */}
             <div className="p-4 flex items-center justify-between">
               <div>
-                <p className="text-2xl font-bold text-text font-mono">${trip.totalSpent.toFixed(2)}</p>
+                <p className="text-2xl font-bold text-text font-mono">{formatPrice(trip.totalSpent)}</p>
                 <p className="text-text-muted text-xs">{trip.itemCount} items</p>
               </div>
               {trip.totalSaved > 0 && (
                 <div className="text-right">
-                  <span className="text-primary text-sm font-bold">-${trip.totalSaved.toFixed(2)}</span>
+                  <span className="text-primary text-sm font-bold">-{formatPrice(trip.totalSaved)}</span>
                   <p className="text-text-muted text-[10px]">saved</p>
                 </div>
               )}

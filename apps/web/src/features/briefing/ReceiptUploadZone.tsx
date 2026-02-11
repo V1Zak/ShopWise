@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createWorker, OEM } from 'tesseract.js';
 import { tripsService } from '@/services/trips.service';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface ReceiptUploadZoneProps {
   tripId: string;
@@ -41,6 +42,7 @@ function parseReceiptLines(text: string): ExtractedItem[] {
 }
 
 export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
+  const { formatPrice } = useCurrency();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -209,14 +211,14 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
                     <li key={i} className="flex justify-between items-center text-sm py-1 border-b border-border/50 last:border-0">
                       <span className="text-text truncate mr-2">{item.text}</span>
                       {item.amount !== null && (
-                        <span className="text-text-muted font-mono whitespace-nowrap">${item.amount.toFixed(2)}</span>
+                        <span className="text-text-muted font-mono whitespace-nowrap">{formatPrice(item.amount)}</span>
                       )}
                     </li>
                   ))}
                 </ul>
                 <div className="mt-3 pt-2 border-t border-border flex justify-between items-center">
                   <span className="text-text-muted text-xs">{extractedItems.length} items found</span>
-                  <span className="text-text font-bold text-sm font-mono">${extractedTotal.toFixed(2)}</span>
+                  <span className="text-text font-bold text-sm font-mono">{formatPrice(extractedTotal)}</span>
                 </div>
                 <button
                   onClick={() => setShowRawText((v) => !v)}

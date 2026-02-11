@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useListsStore } from '@/store/lists-store';
 import { useProductsStore } from '@/store/products-store';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface StoreColumn {
   storeId: string;
@@ -21,6 +22,7 @@ export function StoreComparisonTable() {
   const items = useListsStore((s) => s.items).filter((i) => i.listId === activeListId && i.status === 'to_buy');
   const products = useProductsStore((s) => s.products);
   const [expanded, setExpanded] = useState(true);
+  const { formatPrice } = useCurrency();
 
   const { stores, rows, bestStoreId, projectedSavings } = useMemo(() => {
     // Collect all stores from product store prices
@@ -108,7 +110,7 @@ export function StoreComparisonTable() {
         <div className="flex items-center gap-3">
           {projectedSavings > 0 && (
             <span className="bg-primary/10 text-primary text-xs font-bold px-2.5 py-1 rounded-full">
-              Save up to ${projectedSavings.toFixed(2)}
+              Save up to {formatPrice(projectedSavings)}
             </span>
           )}
           <span className={`material-symbols-outlined text-text-muted transition-transform ${expanded ? 'rotate-180' : ''}`}>
@@ -146,7 +148,7 @@ export function StoreComparisonTable() {
                       <td key={store.storeId} className={`px-5 py-3 text-right font-mono ${
                         isCheapest ? 'text-primary font-bold' : price !== null ? 'text-text' : 'text-text-muted'
                       }`}>
-                        {price !== null ? `$${price.toFixed(2)}` : '—'}
+                        {price !== null ? formatPrice(price) : '—'}
                       </td>
                     );
                   })}
@@ -160,7 +162,7 @@ export function StoreComparisonTable() {
                   <td key={store.storeId} className={`px-5 py-3 text-right font-mono font-bold ${
                     store.storeId === bestStoreId ? 'text-primary' : 'text-text'
                   }`}>
-                    ${store.total.toFixed(2)}
+                    {formatPrice(store.total)}
                     {store.storeId === bestStoreId && (
                       <span className="block text-[10px] text-primary font-medium">Best Value</span>
                     )}

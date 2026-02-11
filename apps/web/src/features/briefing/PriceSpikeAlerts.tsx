@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useAnalyticsStore } from '@/store/analytics-store';
+import { useCurrency } from '@/hooks/useCurrency';
 
 export function PriceSpikeAlerts() {
   const navigate = useNavigate();
   const priceAlerts = useAnalyticsStore((s) => s.data.priceAlerts);
+  const { formatPrice } = useCurrency();
 
   const spikes = priceAlerts.filter((a) => a.priceChangePercent > 0);
 
@@ -40,7 +42,7 @@ export function PriceSpikeAlerts() {
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-text font-mono font-bold">${item.currentPrice.toFixed(2)}</p>
+                <p className="text-text font-mono font-bold">{formatPrice(item.currentPrice)}</p>
                 <p className="text-danger text-xs font-bold flex items-center justify-end gap-0.5">
                   <span className="material-symbols-outlined text-[10px]">arrow_upward</span>
                   {item.priceChange}

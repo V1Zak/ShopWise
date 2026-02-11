@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface BriefingHeaderProps {
   storeName: string;
@@ -29,14 +30,16 @@ export function BriefingHeader({
   onToggleEditing,
   onScrollToReceipt,
 }: BriefingHeaderProps) {
+  const { formatPrice } = useCurrency();
+
   const handleShare = useCallback(async () => {
     const summaryText = [
       'ShopWise Post-Shop Briefing',
       `Store: ${storeName}`,
       `Date: ${date}`,
       `Items: ${itemCount}`,
-      `Total Spent: $${totalSpent.toFixed(2)}`,
-      `Total Saved: $${totalSaved.toFixed(2)}`,
+      `Total Spent: ${formatPrice(totalSpent)}`,
+      `Total Saved: ${formatPrice(totalSaved)}`,
     ].join('\n');
 
     if (navigator.share) {
@@ -53,7 +56,7 @@ export function BriefingHeader({
     } else {
       await copyToClipboard(summaryText);
     }
-  }, [storeName, date, itemCount, totalSpent, totalSaved]);
+  }, [storeName, date, itemCount, totalSpent, totalSaved, formatPrice]);
 
   return (
     <header className="mb-8">
@@ -66,7 +69,7 @@ export function BriefingHeader({
             </div>
             <div>
               <p className="text-text-muted text-sm">You saved today</p>
-              <p className="text-primary text-3xl font-black">${totalSaved.toFixed(2)}</p>
+              <p className="text-primary text-3xl font-black">{formatPrice(totalSaved)}</p>
             </div>
           </div>
           <button

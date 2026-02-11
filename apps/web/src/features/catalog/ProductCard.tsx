@@ -4,6 +4,7 @@ import { Sparkline } from '@/components/ui/Sparkline';
 import { useProductsStore } from '@/store/products-store';
 import { useListsStore } from '@/store/lists-store';
 import { listsService } from '@/services/lists.service';
+import { useCurrency } from '@/hooks/useCurrency';
 
 function categoryIcon(categoryId: string): string {
   const icons: Record<string, string> = {
@@ -31,6 +32,7 @@ export function ProductCard({ product }: Props) {
   const setEditingProduct = useProductsStore((s) => s.setEditingProduct);
   const isComparing = compareList.includes(product.id);
   const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
+  const { formatPrice } = useCurrency();
   const [showListPicker, setShowListPicker] = useState(false);
   const [addingToList, setAddingToList] = useState<string | null>(null);
   const [addedToList, setAddedToList] = useState<string | null>(null);
@@ -121,7 +123,7 @@ export function ProductCard({ product }: Props) {
             <p className="text-text-muted text-xs">{product.unit} {product.brand ? `• ${product.brand}` : ''}</p>
           </div>
           <div className="text-right">
-            <p className="text-text font-mono font-bold">${product.averagePrice.toFixed(2)}</p>
+            <p className="text-text font-mono font-bold">{formatPrice(product.averagePrice)}</p>
             <p className="text-text-muted text-[10px]">Avg Price</p>
           </div>
         </div>
@@ -161,7 +163,7 @@ export function ProductCard({ product }: Props) {
                 </div>
                 <div className="flex items-center gap-3 relative">
                   <span className={`text-sm font-mono ${isSelected ? 'text-primary font-bold' : isCheapest ? 'text-primary font-bold' : 'text-text-muted'}`}>
-                    ${sp.price.toFixed(2)}
+                    {formatPrice(sp.price)}
                   </span>
                   <button
                     onClick={() => setShowListPicker(true)}

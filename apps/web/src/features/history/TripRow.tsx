@@ -1,5 +1,6 @@
 import type { ShoppingTrip } from '@shopwise/shared';
 import { useTripsStore } from '@/store/trips-store';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface Props {
   trip: ShoppingTrip;
@@ -9,6 +10,7 @@ interface Props {
 export function TripRow({ trip, isExpanded }: Props) {
   const toggleExpand = useTripsStore((s) => s.toggleExpand);
   const savingsPositive = trip.totalSaved >= 0;
+  const { formatPrice } = useCurrency();
 
   return (
     <tr
@@ -30,10 +32,10 @@ export function TripRow({ trip, isExpanded }: Props) {
         </div>
       </td>
       <td className="py-4 px-6 text-text-muted text-center">{trip.itemCount}</td>
-      <td className="py-4 px-6 text-text font-bold text-right font-mono">${trip.totalSpent.toFixed(2)}</td>
+      <td className="py-4 px-6 text-text font-bold text-right font-mono">{formatPrice(trip.totalSpent)}</td>
       <td className={`py-4 px-6 font-bold text-right font-mono ${savingsPositive ? 'text-primary' : 'text-red-400'}`}>
         <span className={`${savingsPositive ? 'bg-primary/10' : 'bg-red-400/10'} px-2 py-1 rounded`}>
-          {savingsPositive ? '-' : '+'}${Math.abs(trip.totalSaved).toFixed(2)}
+          {savingsPositive ? '-' : '+'}{formatPrice(Math.abs(trip.totalSaved))}
         </span>
       </td>
       <td className="py-4 px-6 text-right">

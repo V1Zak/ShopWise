@@ -3,19 +3,17 @@ import { useAuthStore } from '@/store/auth-store';
 import { useUIStore } from '@/store/ui-store';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
-
-const currencies = ['USD ($)', 'EUR (€)', 'GBP (£)', 'CAD (C$)', 'AUD (A$)'];
+import { SUPPORTED_CURRENCIES } from '@/utils/currency';
 
 export function SettingsPage() {
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
   const theme = useUIStore((s) => s.theme);
   const setTheme = useUIStore((s) => s.setTheme);
+  const currency = useUIStore((s) => s.currency);
+  const setCurrency = useUIStore((s) => s.setCurrency);
   const navigate = useNavigate();
 
-  const [currency, setCurrency] = useState(() => {
-    try { return localStorage.getItem('sw_pref_currency') || 'USD ($)'; } catch { return 'USD ($)'; }
-  });
   const [pushNotifications, setPushNotifications] = useState(() => {
     try { return localStorage.getItem('sw_pref_pushNotifications') !== 'false'; } catch { return true; }
   });
@@ -31,13 +29,12 @@ export function SettingsPage() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('sw_pref_currency', currency);
       localStorage.setItem('sw_pref_pushNotifications', String(pushNotifications));
       localStorage.setItem('sw_pref_emailDigest', String(emailDigest));
       localStorage.setItem('sw_pref_priceAlerts', String(priceAlerts));
       localStorage.setItem('sw_pref_listReminders', String(listReminders));
     } catch { /* localStorage unavailable */ }
-  }, [currency, pushNotifications, emailDigest, priceAlerts, listReminders]);
+  }, [pushNotifications, emailDigest, priceAlerts, listReminders]);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
 
@@ -227,9 +224,9 @@ export function SettingsPage() {
                 onChange={(e) => setCurrency(e.target.value)}
                 className="w-full sm:w-64 bg-surface-alt border border-border rounded-lg px-4 py-2.5 text-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors appearance-none cursor-pointer"
               >
-                {currencies.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
+                {SUPPORTED_CURRENCIES.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    {c.code} ({c.symbol})
                   </option>
                 ))}
               </select>

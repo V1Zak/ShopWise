@@ -3,6 +3,7 @@ import { ProgressBar } from '@/components/ui/ProgressBar';
 import { useListsStore } from '@/store/lists-store';
 import { useProductsStore } from '@/store/products-store';
 import { useTripsStore } from '@/store/trips-store';
+import { useCurrency } from '@/hooks/useCurrency';
 
 export function DashboardStats() {
   const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
@@ -19,12 +20,13 @@ export function DashboardStats() {
 
   const totalSpent = trips.reduce((sum, t) => sum + t.totalSpent, 0);
   const productCount = products.length;
+  const { formatPrice } = useCurrency();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <StatCard
         label={hasBudget ? 'Monthly Budget' : 'Estimated Total'}
-        value={hasBudget ? `$${totalBudget.toFixed(2)}` : `$${totalEstimated.toFixed(2)}`}
+        value={hasBudget ? formatPrice(totalBudget) : formatPrice(totalEstimated)}
         icon="account_balance_wallet"
       >
         {hasBudget ? (
@@ -37,7 +39,7 @@ export function DashboardStats() {
         )}
       </StatCard>
 
-      <StatCard label="Total Spent" value={`$${totalSpent.toFixed(2)}`} icon="trending_up" iconColor="text-blue-400">
+      <StatCard label="Total Spent" value={formatPrice(totalSpent)} icon="trending_up" iconColor="text-blue-400">
         <p className="text-xs text-text-muted">
           {trips.length} shopping {trips.length === 1 ? 'trip' : 'trips'} recorded
         </p>
