@@ -2,6 +2,7 @@ import { StatCard } from '@/components/ui/StatCard';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { useTripsStore } from '@/store/trips-store';
 import type { ShoppingTrip } from '@shopwise/shared';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface Props {
   trip: ShoppingTrip;
@@ -9,6 +10,7 @@ interface Props {
 
 export function BriefingKPIs({ trip }: Props) {
   const trips = useTripsStore((s) => s.trips);
+  const { formatPrice } = useCurrency();
 
   // Compute 30-day average from other trips for comparison
   const otherTrips = trips.filter((t) => t.id !== trip.id);
@@ -29,7 +31,7 @@ export function BriefingKPIs({ trip }: Props) {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <StatCard
         label="Total Spent"
-        value={`$${trip.totalSpent.toFixed(2)}`}
+        value={formatPrice(trip.totalSpent)}
         trend={-Math.round(spentTrend * 10) / 10}
         trendLabel={`${Math.abs(Math.round(spentTrend * 10) / 10)}%`}
         icon="payments"
@@ -37,13 +39,13 @@ export function BriefingKPIs({ trip }: Props) {
       >
         <p className="text-text-muted text-xs mt-1">
           {avgSpent > 0
-            ? `vs. $${avgSpent.toFixed(2)} average across ${otherTrips.length} trip${otherTrips.length !== 1 ? 's' : ''}`
+            ? `vs. ${formatPrice(avgSpent)} average across ${otherTrips.length} trip${otherTrips.length !== 1 ? 's' : ''}`
             : 'First trip — no comparison data yet'}
         </p>
       </StatCard>
       <StatCard
         label="Total Saved"
-        value={`$${trip.totalSaved.toFixed(2)}`}
+        value={formatPrice(trip.totalSaved)}
         trend={savingsRate}
         trendLabel={`${Math.round(savingsRate)}%`}
         icon="savings"

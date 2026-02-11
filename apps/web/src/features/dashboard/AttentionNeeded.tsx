@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useListsStore } from '@/store/lists-store';
 import { useTripsStore } from '@/store/trips-store';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface Alert {
   color: string;
@@ -13,6 +14,7 @@ const STALE_DAYS = 14; // Lists not updated in 14+ days are flagged
 export function AttentionNeeded() {
   const lists = useListsStore((s) => s.lists);
   const trips = useTripsStore((s) => s.trips);
+  const { formatPrice } = useCurrency();
 
   const alerts = useMemo<Alert[]>(() => {
     const result: Alert[] = [];
@@ -57,13 +59,13 @@ export function AttentionNeeded() {
         result.push({
           color: 'bg-blue-500',
           title: `Large list: "${list.title}"`,
-          sub: `${list.itemCount} items, ~$${list.estimatedTotal.toFixed(0)} estimated`,
+          sub: `${list.itemCount} items, ~${formatPrice(list.estimatedTotal)} estimated`,
         });
       }
     }
 
     return result.slice(0, 5);
-  }, [lists, trips]);
+  }, [lists, trips, formatPrice]);
 
   return (
     <div className="bg-surface rounded-xl border border-border p-5">

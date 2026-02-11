@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAnalyticsStore } from '@/store/analytics-store';
+import { useCurrency } from '@/hooks/useCurrency';
 
 type Tab = 'watchlist' | 'history';
 
@@ -7,6 +8,7 @@ export function PriceGuardingTable() {
   const data = useAnalyticsStore((s) => s.data);
   const [activeTab, setActiveTab] = useState<Tab>('watchlist');
   const [mutedIds, setMutedIds] = useState<Set<string>>(new Set());
+  const { formatPrice } = useCurrency();
 
   const toggleMuted = (id: string) => {
     setMutedIds((prev) => {
@@ -92,7 +94,7 @@ export function PriceGuardingTable() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <p className="text-sm font-medium text-text">${alert.currentPrice.toFixed(2)}</p>
+                      <p className="text-sm font-medium text-text">{formatPrice(alert.currentPrice)}</p>
                       <p className={`text-[10px] ${isDown ? 'text-primary' : 'text-danger'}`}>{alert.priceChange}</p>
                     </td>
                     <td className="px-6 py-4">

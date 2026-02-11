@@ -1,4 +1,5 @@
 import type { Product } from '@shopwise/shared';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface ScanResultBannerProps {
   product: Product | null;
@@ -10,6 +11,8 @@ interface ScanResultBannerProps {
 }
 
 export function ScanResultBanner({ product, notFound, barcode, onAddToList, onAddNewProduct, onDismiss }: ScanResultBannerProps) {
+  const { formatPrice } = useCurrency();
+
   if (!product && !notFound) return null;
 
   return (
@@ -31,7 +34,7 @@ export function ScanResultBanner({ product, notFound, barcode, onAddToList, onAd
                 <p className="text-text font-medium">{product.name}</p>
                 <p className="text-text-muted text-sm">
                   {product.brand && `${product.brand} · `}
-                  {product.unit} · Avg ${product.averagePrice.toFixed(2)}
+                  {product.unit} · Avg {formatPrice(product.averagePrice)}
                 </p>
               </>
             ) : (

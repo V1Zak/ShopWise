@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useListsStore } from '@/store/lists-store';
 import type { ListItem } from '@shopwise/shared';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface Props {
   item: ListItem;
@@ -18,6 +19,7 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
 
   const isChecked = item.status === 'in_cart';
   const isSkipped = item.status === 'skipped';
+  const { formatPrice, symbol } = useCurrency();
 
   const [isEditingName, setIsEditingName] = useState(false);
   const [editName, setEditName] = useState(item.name);
@@ -149,13 +151,13 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
               <span className="material-symbols-outlined text-[14px]">add</span>
             </button>
           </div>
-          <span className="text-text-muted text-sm">&bull; Target: ${(item.estimatedPrice * (item.quantity || 1)).toFixed(2)}</span>
+          <span className="text-text-muted text-sm">&bull; Target: {formatPrice(item.estimatedPrice * (item.quantity || 1))}</span>
         </div>
       </div>
       <div className="flex flex-col items-end gap-1 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
         <span className="text-[10px] text-text-muted uppercase tracking-wide font-medium hidden sm:block">Actual Price</span>
         <div className="relative w-20 sm:w-24">
-          <span className="absolute left-2 top-1/2 -translate-y-1/2 text-text-muted text-sm">$</span>
+          <span className="absolute left-2 top-1/2 -translate-y-1/2 text-text-muted text-sm">{symbol}</span>
           <input
             type="number"
             step="0.01"

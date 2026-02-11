@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useListsStore } from '@/store/lists-store';
 import { useTripsStore } from '@/store/trips-store';
+import { useCurrency } from '@/hooks/useCurrency';
 
 const COLLAPSED_COUNT = 6;
 
@@ -40,6 +41,7 @@ export function RecentActivityFeed() {
   const trips = useTripsStore((s) => s.trips);
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
+  const { formatPrice } = useCurrency();
 
   const activity = useMemo<ActivityItem[]>(() => {
     const result: ActivityItem[] = [];
@@ -91,7 +93,7 @@ export function RecentActivityFeed() {
         text: 'Shopped at',
         boldText: trip.storeName,
         time: trip.date,
-        price: `$${trip.totalSpent.toFixed(2)}`,
+        price: formatPrice(trip.totalSpent),
         detail: `${trip.itemCount} items`,
         link: '/history',
       });
@@ -102,7 +104,7 @@ export function RecentActivityFeed() {
       (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime(),
     );
     return result;
-  }, [lists, items, trips]);
+  }, [lists, items, trips, formatPrice]);
 
   const visibleActivity = expanded ? activity : activity.slice(0, COLLAPSED_COUNT);
   const hasMore = activity.length > COLLAPSED_COUNT;

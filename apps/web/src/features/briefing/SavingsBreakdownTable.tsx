@@ -1,3 +1,5 @@
+import { useCurrency } from '@/hooks/useCurrency';
+
 interface SavingsItem {
   name: string;
   originalPrice: number;
@@ -10,6 +12,8 @@ interface Props {
 }
 
 export function SavingsBreakdownTable({ items }: Props) {
+  const { formatPrice } = useCurrency();
+
   if (items.length === 0) return null;
 
   const totalOriginal = items.reduce((sum, i) => sum + i.originalPrice, 0);
@@ -36,10 +40,10 @@ export function SavingsBreakdownTable({ items }: Props) {
             {items.map((item, i) => (
               <tr key={i} className="hover:bg-surface-active/20">
                 <td className="px-5 py-3 text-text font-medium">{item.name}</td>
-                <td className="px-5 py-3 text-right text-text-muted font-mono line-through">${item.originalPrice.toFixed(2)}</td>
-                <td className="px-5 py-3 text-right text-text font-mono font-bold">${item.paidPrice.toFixed(2)}</td>
+                <td className="px-5 py-3 text-right text-text-muted font-mono line-through">{formatPrice(item.originalPrice)}</td>
+                <td className="px-5 py-3 text-right text-text font-mono font-bold">{formatPrice(item.paidPrice)}</td>
                 <td className="px-5 py-3 text-right text-primary font-mono font-bold">
-                  {item.saved > 0 ? `-$${item.saved.toFixed(2)}` : '—'}
+                  {item.saved > 0 ? `-${formatPrice(item.saved)}` : '—'}
                 </td>
               </tr>
             ))}
@@ -47,9 +51,9 @@ export function SavingsBreakdownTable({ items }: Props) {
           <tfoot>
             <tr className="border-t-2 border-border bg-surface-alt">
               <td className="px-5 py-3 text-text font-bold">Total</td>
-              <td className="px-5 py-3 text-right text-text-muted font-mono">${totalOriginal.toFixed(2)}</td>
-              <td className="px-5 py-3 text-right text-text font-mono font-bold">${totalPaid.toFixed(2)}</td>
-              <td className="px-5 py-3 text-right text-primary font-mono font-bold">-${totalSaved.toFixed(2)}</td>
+              <td className="px-5 py-3 text-right text-text-muted font-mono">{formatPrice(totalOriginal)}</td>
+              <td className="px-5 py-3 text-right text-text font-mono font-bold">{formatPrice(totalPaid)}</td>
+              <td className="px-5 py-3 text-right text-primary font-mono font-bold">-{formatPrice(totalSaved)}</td>
             </tr>
           </tfoot>
         </table>

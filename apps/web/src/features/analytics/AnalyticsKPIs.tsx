@@ -1,9 +1,11 @@
 import { StatCard } from '@/components/ui/StatCard';
 import { useAnalyticsStore } from '@/store/analytics-store';
+import { useCurrency } from '@/hooks/useCurrency';
 
 export function AnalyticsKPIs() {
   const data = useAnalyticsStore((s) => s.data);
   const isLoading = useAnalyticsStore((s) => s.isLoading);
+  const { formatPrice } = useCurrency();
   const isEmpty = !isLoading && data.totalSpentYTD === 0 && data.monthlyAverage === 0 && data.totalSavings === 0;
 
   if (isEmpty) {
@@ -22,21 +24,21 @@ export function AnalyticsKPIs() {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <StatCard
         label="Total Spent (YTD)"
-        value={`$${data.totalSpentYTD.toLocaleString()}`}
+        value={formatPrice(data.totalSpentYTD)}
         trend={data.totalSpentChange}
         trendLabel={`${data.totalSpentChange}%`}
         icon="payments"
       />
       <StatCard
         label="Monthly Average"
-        value={`$${data.monthlyAverage.toLocaleString()}`}
+        value={formatPrice(data.monthlyAverage)}
         trend={-data.monthlyAverageChange}
         trendLabel={`${data.monthlyAverageChange}%`}
         icon="calendar_month"
       />
       <StatCard
         label="Total Savings"
-        value={`$${data.totalSavings.toFixed(2)}`}
+        value={formatPrice(data.totalSavings)}
         trend={data.savingsRate}
         trendLabel={`${data.savingsRate}%`}
         icon="savings"

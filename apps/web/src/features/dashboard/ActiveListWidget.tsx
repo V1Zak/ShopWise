@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useListsStore } from '@/store/lists-store';
 import { Dropdown, DropdownItem } from '@/components/ui/Dropdown';
 import { ConfirmDeleteModal } from '@/components/ConfirmDeleteModal';
+import { useCurrency } from '@/hooks/useCurrency';
 
 export function ActiveListWidget() {
   const lists = useListsStore((s) => s.lists);
@@ -11,6 +12,7 @@ export function ActiveListWidget() {
   const activeList = lists[0]; // Trader Joe's Run
   const listItems = items.filter((i) => i.listId === activeList?.id).slice(0, 5);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+  const { formatPrice } = useCurrency();
 
   if (!activeList) return null;
 
@@ -35,7 +37,7 @@ export function ActiveListWidget() {
             <div>
               <h3 className="text-text font-bold text-lg">{activeList.title}</h3>
               <p className="text-text-muted text-xs">
-                {activeList.itemCount} items &bull; Estimated ${activeList.estimatedTotal.toFixed(2)}
+                {activeList.itemCount} items &bull; Estimated {formatPrice(activeList.estimatedTotal)}
               </p>
             </div>
           </div>
@@ -80,7 +82,7 @@ export function ActiveListWidget() {
                   )}
                 </div>
                 <span className="text-text-muted font-mono text-sm">
-                  ${item.estimatedPrice.toFixed(2)}
+                  {formatPrice(item.estimatedPrice)}
                 </span>
               </div>
             ))}

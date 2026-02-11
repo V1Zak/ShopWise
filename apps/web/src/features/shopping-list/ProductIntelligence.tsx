@@ -1,11 +1,14 @@
 import { CATEGORY_MAP } from '@shopwise/shared';
 import type { ListItem } from '@shopwise/shared';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface Props {
   selectedItem: ListItem | null;
 }
 
 export function ProductIntelligence({ selectedItem }: Props) {
+  const { formatPrice } = useCurrency();
+
   if (!selectedItem) {
     return (
       <div className="bg-bg rounded-xl p-5 border border-border">
@@ -61,12 +64,12 @@ export function ProductIntelligence({ selectedItem }: Props) {
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div className="bg-surface p-3 rounded-lg">
           <div className="text-text-muted text-xs uppercase mb-1">Estimated</div>
-          <div className="text-text font-semibold">${selectedItem.estimatedPrice.toFixed(2)}</div>
+          <div className="text-text font-semibold">{formatPrice(selectedItem.estimatedPrice)}</div>
         </div>
         <div className="bg-surface p-3 rounded-lg">
           <div className="text-text-muted text-xs uppercase mb-1">Actual</div>
           <div className={`font-semibold ${hasActualPrice ? (priceDiff! > 0 ? 'text-red-400' : 'text-primary') : 'text-text-muted'}`}>
-            {hasActualPrice ? `$${selectedItem.actualPrice!.toFixed(2)}` : '--'}
+            {hasActualPrice ? formatPrice(selectedItem.actualPrice!) : '--'}
           </div>
         </div>
         <div className="bg-surface p-3 rounded-lg">
@@ -94,11 +97,11 @@ export function ProductIntelligence({ selectedItem }: Props) {
           <div className="flex items-center gap-2">
             <span className="material-symbols-outlined text-red-400 text-sm">trending_up</span>
             <span className="text-red-400 text-xs font-medium">
-              ${priceDiff!.toFixed(2)} above estimated price
+              {formatPrice(priceDiff!)} above estimated price
             </span>
           </div>
           <p className="text-text-muted text-xs mt-1">
-            Your estimated price was ${selectedItem.estimatedPrice.toFixed(2)}. Check for alternatives or store brands.
+            Your estimated price was {formatPrice(selectedItem.estimatedPrice)}. Check for alternatives or store brands.
           </p>
         </div>
       )}
@@ -108,7 +111,7 @@ export function ProductIntelligence({ selectedItem }: Props) {
           <div className="flex items-center gap-2">
             <span className="material-symbols-outlined text-primary text-sm">savings</span>
             <span className="text-primary text-xs font-medium">
-              Saving ${Math.abs(priceDiff).toFixed(2)} vs estimate
+              Saving {formatPrice(Math.abs(priceDiff))} vs estimate
             </span>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useTripsStore } from '@/store/trips-store';
 import type { ShoppingTrip } from '@shopwise/shared';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface Props {
   trip: ShoppingTrip;
@@ -8,6 +9,7 @@ interface Props {
 
 export function SpendVelocityChart({ trip }: Props) {
   const allTrips = useTripsStore((s) => s.trips);
+  const { formatPrice } = useCurrency();
 
   const { points, avgY, labels, currentIdx } = useMemo(() => {
     // Get recent trips sorted by date ascending, include current
@@ -58,7 +60,7 @@ export function SpendVelocityChart({ trip }: Props) {
           <h3 className="text-text text-lg font-bold">Spend Velocity</h3>
           <p className="text-text-muted text-sm">
             {hasData
-              ? `Last ${points.length} trips vs. average ($${(points.reduce((s, p) => s + p.spent, 0) / points.length).toFixed(2)})`
+              ? `Last ${points.length} trips vs. average (${formatPrice(points.reduce((s, p) => s + p.spent, 0) / points.length)})`
               : 'No trip data available'}
           </p>
         </div>

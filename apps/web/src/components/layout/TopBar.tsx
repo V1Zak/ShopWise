@@ -3,6 +3,7 @@ import { useListsStore } from '@/store/lists-store';
 import { useAuthStore } from '@/store/auth-store';
 import { useUIStore } from '@/store/ui-store';
 import { listsService } from '@/services/lists.service';
+import { formatPrice } from '@/utils/currency';
 
 function getGreeting(): string {
   const h = new Date().getHours();
@@ -74,7 +75,7 @@ export function TopBar() {
         estimatedPrice: price,
       });
       setQuickAdd('');
-      setToast(`"${name}" added to ${targetList.title}${price ? ` at $${price.toFixed(2)}` : ''}`);
+      setToast(`"${name}" added to ${targetList.title}${price ? ` at ${formatPrice(price)}` : ''}`);
     } catch {
       setToast('Failed to add item');
     }

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import type { ListItem } from '@shopwise/shared';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface BudgetHealthProps {
   budget: number | null | undefined;
@@ -28,6 +29,7 @@ function getBudgetTextColor(percent: number): string {
 }
 
 export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) {
+  const { formatPrice, symbol } = useCurrency();
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -80,7 +82,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
         {isEditing ? (
           <div className="space-y-3">
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">{symbol}</span>
               <input
                 ref={inputRef}
                 type="number"
@@ -149,7 +151,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
           <span className="text-sm text-text-muted">Budget</span>
           {isEditing ? (
             <div className="flex items-center gap-1">
-              <span className="text-text-muted text-sm">$</span>
+              <span className="text-text-muted text-sm">{symbol}</span>
               <input
                 ref={inputRef}
                 type="number"
@@ -174,7 +176,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
               onClick={handleStartEdit}
               className="text-text font-medium hover:text-primary transition-colors flex items-center gap-1"
             >
-              ${budget.toFixed(2)}
+              {formatPrice(budget)}
               <span className="material-symbols-outlined text-text-muted text-sm">edit</span>
             </button>
           )}
@@ -191,12 +193,12 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
         <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border">
           <div>
             <span className="text-xs text-text-muted block">Spent</span>
-            <span className="text-text font-bold">${spent.toFixed(2)}</span>
+            <span className="text-text font-bold">{formatPrice(spent)}</span>
           </div>
           <div className="text-right">
             <span className="text-xs text-text-muted block">Remaining</span>
             <span className={`font-bold ${overBudget ? 'text-red-400' : 'text-primary'}`}>
-              {overBudget ? '-' : ''}${Math.abs(remaining).toFixed(2)}
+              {overBudget ? '-' : ''}{formatPrice(Math.abs(remaining))}
             </span>
           </div>
         </div>
@@ -205,7 +207,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
           <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
             <span className="material-symbols-outlined text-red-400 text-sm">warning</span>
             <span className="text-red-400 text-xs">
-              Over budget by ${(spent - budget).toFixed(2)}
+              Over budget by {formatPrice(spent - budget)}
             </span>
           </div>
         )}

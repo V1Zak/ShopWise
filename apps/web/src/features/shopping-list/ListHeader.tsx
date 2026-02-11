@@ -5,6 +5,7 @@ import { ShareListModal } from '@/components/ShareListModal';
 import { ConfirmDeleteModal } from '@/components/ConfirmDeleteModal';
 import { Icon } from '@/components/ui/Icon';
 import { Dropdown, DropdownItem } from '@/components/ui/Dropdown';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface ListHeaderProps { onScanClick?: () => void; }
 
@@ -19,6 +20,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
   const deleteList = useListsStore((s) => s.deleteList);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { formatPrice } = useCurrency();
 
   const list = lists.find((l) => l.id === activeListId);
   const total = getRunningTotal(activeListId);
@@ -173,10 +175,10 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
             )}
             <div className="text-right hidden sm:block">
               <div className="text-sm text-text-muted font-medium mb-1">Running Total</div>
-              <div className="text-3xl font-bold text-primary tabular-nums">${total.toFixed(2)}</div>
+              <div className="text-3xl font-bold text-primary tabular-nums">{formatPrice(total)}</div>
             </div>
             <div className="text-right sm:hidden">
-              <div className="text-xl font-bold text-primary tabular-nums">${total.toFixed(2)}</div>
+              <div className="text-xl font-bold text-primary tabular-nums">{formatPrice(total)}</div>
             </div>
           </div>
         </div>

@@ -3,12 +3,14 @@ import { useProductsStore } from '@/store/products-store';
 import { useListsStore } from '@/store/lists-store';
 import { listsService } from '@/services/lists.service';
 import { categoryImages } from '@/assets/imageAssets';
+import { useCurrency } from '@/hooks/useCurrency';
 
 export function QuickAddCarousel() {
   const products = useProductsStore((s) => s.products);
   const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
   const [addedIds, setAddedIds] = useState<Set<string>>(new Set());
   const [addingId, setAddingId] = useState<string | null>(null);
+  const { formatPrice } = useCurrency();
 
   // Show top 10 products by price history count (most bought)
   const frequentProducts = [...products]
@@ -78,7 +80,7 @@ export function QuickAddCarousel() {
               </div>
               <div className="p-2">
                 <p className="text-text text-xs font-medium truncate">{product.name}</p>
-                <p className="text-primary text-xs font-bold font-mono">${product.averagePrice.toFixed(2)}</p>
+                <p className="text-primary text-xs font-bold font-mono">{formatPrice(product.averagePrice)}</p>
               </div>
             </button>
           );
