@@ -70,17 +70,17 @@ export function PostShopBriefingPage() {
           onToggleEditing={handleToggleEditing}
           onScrollToReceipt={handleScrollToReceipt}
         />
-        <BriefingKPIs />
+        <BriefingKPIs trip={currentTrip} />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-8">
           <div className="lg:col-span-8 flex flex-col gap-6">
-            <SpendVelocityChart />
+            <SpendVelocityChart trip={currentTrip} />
             <div ref={receiptRef}>
               <ReceiptUploadZone tripId={currentTrip.id} />
             </div>
           </div>
           <div className="lg:col-span-4 flex flex-col gap-6">
             <PriceSpikeAlerts />
-            <BriefingCategoryBreakdown />
+            <BriefingCategoryBreakdown categories={currentTrip.categoryBreakdown} />
           </div>
         </div>
       </div>
