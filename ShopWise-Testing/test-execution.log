@@ -1,0 +1,56 @@
+[2026-02-10T11:01:47.399Z] [START] Starting ShopWise UI Testing
+[2026-02-10T11:01:47.399Z] [INFO] App URL: http://localhost:5173
+[2026-02-10T11:01:47.399Z] [INFO] Test User: slav25.ai@gmail.com
+[2026-02-10T11:01:50.077Z] [INFO] === AUTHENTICATION TESTS ===
+[2026-02-10T11:01:50.077Z] [TEST] Running test: Load login page
+[2026-02-10T11:01:52.249Z] [INFO] Screenshot saved: screenshot-1770721312075-login-page.png
+[2026-02-10T11:01:52.250Z] [PASS] ✓ PASS: Load login page
+[2026-02-10T11:01:52.250Z] [TEST] Running test: Login with valid credentials
+[2026-02-10T11:01:52.464Z] [INFO] Screenshot saved: screenshot-1770721312281-login-filled.png
+[2026-02-10T11:01:55.543Z] [INFO] Screenshot saved: screenshot-1770721315477-after-login.png
+[2026-02-10T11:01:55.543Z] [PASS] ✓ PASS: Login with valid credentials
+[2026-02-10T11:01:55.543Z] [INFO] === DASHBOARD TESTS ===
+[2026-02-10T11:01:55.543Z] [TEST] Running test: Dashboard loads after login
+[2026-02-10T11:01:55.602Z] [INFO] Screenshot saved: screenshot-1770721315544-dashboard.png
+[2026-02-10T11:01:55.602Z] [BUG] BUG FOUND (MAJOR): Not redirected after login
+[2026-02-10T11:01:55.602Z] [FAIL] ✗ FAIL: Dashboard loads after login - Expected to be redirected to dashboard, got http://localhost:5173/auth
+[2026-02-10T11:01:55.602Z] [TEST] Running test: Navigate to Dashboard
+[2026-02-10T11:01:58.064Z] [INFO] Screenshot saved: screenshot-1770721317984-dashboard-main.png
+[2026-02-10T11:01:58.064Z] [PASS] ✓ PASS: Navigate to Dashboard
+[2026-02-10T11:01:58.064Z] [TEST] Running test: Dashboard displays navigation
+[2026-02-10T11:01:58.066Z] [BUG] BUG FOUND (MAJOR): Navigation not found
+[2026-02-10T11:01:58.066Z] [FAIL] ✗ FAIL: Dashboard displays navigation - Navigation not found
+[2026-02-10T11:01:58.066Z] [INFO] === CATALOG TESTS ===
+[2026-02-10T11:01:58.066Z] [TEST] Running test: Navigate to Catalog
+[2026-02-10T11:02:00.560Z] [INFO] Screenshot saved: screenshot-1770721320493-catalog-page.png
+[2026-02-10T11:02:00.561Z] [FAIL] ✗ FAIL: Navigate to Catalog - Expected catalog URL, got http://localhost:5173/auth
+[2026-02-10T11:02:00.561Z] [TEST] Running test: Catalog displays products
+[2026-02-10T11:02:00.566Z] [INFO] Found 10 product cards
+[2026-02-10T11:02:00.566Z] [PASS] ✓ PASS: Catalog displays products
+[2026-02-10T11:02:00.566Z] [TEST] Running test: Search products
+[2026-02-10T11:02:00.566Z] [BUG] BUG FOUND (MINOR): Search input not found
+[2026-02-10T11:02:00.566Z] [PASS] ✓ PASS: Search products
+[2026-02-10T11:02:00.566Z] [INFO] === SHOPPING LIST TESTS ===
+[2026-02-10T11:02:00.566Z] [TEST] Running test: Navigate to Shopping List
+[2026-02-10T11:02:03.054Z] [INFO] Screenshot saved: screenshot-1770721323000-shopping-list.png
+[2026-02-10T11:02:03.054Z] [PASS] ✓ PASS: Navigate to Shopping List
+[2026-02-10T11:02:03.054Z] [INFO] === HISTORY TESTS ===
+[2026-02-10T11:02:03.054Z] [TEST] Running test: Navigate to History
+[2026-02-10T11:02:05.576Z] [INFO] Screenshot saved: screenshot-1770721325507-history-page.png
+[2026-02-10T11:02:05.576Z] [FAIL] ✗ FAIL: Navigate to History - Expected history URL, got http://localhost:5173/auth
+[2026-02-10T11:02:05.576Z] [INFO] === ANALYTICS TESTS ===
+[2026-02-10T11:02:05.576Z] [TEST] Running test: Navigate to Analytics
+[2026-02-10T11:02:08.101Z] [INFO] Screenshot saved: screenshot-1770721328014-analytics-page.png
+[2026-02-10T11:02:08.101Z] [FAIL] ✗ FAIL: Navigate to Analytics - Expected analytics URL, got http://localhost:5173/auth
+[2026-02-10T11:02:08.101Z] [TEST] Running test: Analytics displays charts
+[2026-02-10T11:02:08.104Z] [INFO] Found 0 chart elements
+[2026-02-10T11:02:08.104Z] [BUG] BUG FOUND (MINOR): No charts displayed
+[2026-02-10T11:02:08.104Z] [PASS] ✓ PASS: Analytics displays charts
+[2026-02-10T11:02:08.104Z] [INFO] === TEST SUMMARY ===
+[2026-02-10T11:02:08.104Z] [INFO] Total Tests: 12
+[2026-02-10T11:02:08.104Z] [INFO] Passed: 7
+[2026-02-10T11:02:08.104Z] [INFO] Failed: 5
+[2026-02-10T11:02:08.104Z] [INFO] Bugs Found: 4
+[2026-02-10T11:02:08.104Z] [INFO] Screenshots: 9
+[2026-02-10T11:02:08.104Z] [INFO] Bug report saved to bug-report.json
+[2026-02-10T11:02:08.104Z] [INFO] Test report saved to TEST_REPORT.md

@@ -1,0 +1,58 @@
+{
+  "version": "v2",
+  "improvements": [
+    "Increased wait times for async operations",
+    "Desktop viewport (1920x1080) for sidebar visibility",
+    "Multiple selector attempts",
+    "Explicit data fetch waits"
+  ],
+  "summary": {
+    "totalTests": 10,
+    "passed": 6,
+    "failed": 4,
+    "bugsFound": 4,
+    "testDate": "2026-02-10T11:25:06.183Z",
+    "appUrl": "http://localhost:5173",
+    "tester": "QA Re-test based on Developer Feedback"
+  },
+  "bugs": [
+    {
+      "severity": "VERIFIED",
+      "title": "Issue #61 CONFIRMED",
+      "description": "Still on /auth page after 5s wait. URL: http://localhost:5173/auth",
+      "screenshot": null,
+      "timestamp": "2026-02-10T11:24:34.470Z"
+    },
+    {
+      "severity": "VERIFIED",
+      "title": "Issue #62 CONFIRMED",
+      "description": "No visible navigation element found with any selector at desktop viewport",
+      "screenshot": null,
+      "timestamp": "2026-02-10T11:24:38.377Z"
+    },
+    {
+      "severity": "VERIFIED",
+      "title": "Issue #63 CONFIRMED",
+      "description": "No visible search input found with any selector",
+      "screenshot": null,
+      "timestamp": "2026-02-10T11:24:42.399Z"
+    },
+    {
+      "severity": "VERIFIED",
+      "title": "Issue #64 CONFIRMED",
+      "description": "No chart elements after 5s wait. SVG: 0, Canvas: 0",
+      "screenshot": null,
+      "timestamp": "2026-02-10T11:24:51.475Z"
+    }
+  ],
+  "screenshots": [
+    "v2-login-page",
+    "v2-login-filled",
+    "v2-after-login",
+    "v2-post-login-url-check",
+    "v2-dashboard-full",
+    "v2-catalog-page",
+    "v2-analytics-initial",
+    "v2-analytics-after-wait"
+  ]
+}

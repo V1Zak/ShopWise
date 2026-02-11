@@ -1,0 +1,22 @@
+{
+  "name": "shopwise-testing",
+  "version": "1.0.0",
+  "description": "UI Testing suite for ShopWise app",
+  "type": "module",
+  "scripts": {
+    "test": "chrometester run",
+    "test:watch": "chrometester watch",
+    "test:dashboard": "chrometester dashboard",
+    "test:report": "chrometester report"
+  },
+  "keywords": [
+    "testing",
+    "shopwise",
+    "e2e"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^24.37.2"
+  }
+}

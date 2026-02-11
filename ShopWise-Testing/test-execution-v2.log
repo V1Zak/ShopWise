@@ -1,0 +1,74 @@
+[2026-02-10T11:24:15.218Z] [START] Starting ShopWise UI Testing v2 (With Developer Feedback)
+[2026-02-10T11:24:15.219Z] [INFO] App URL: http://localhost:5173
+[2026-02-10T11:24:15.219Z] [INFO] Test User: slav25.ai@gmail.com
+[2026-02-10T11:24:15.219Z] [INFO] Improvements: Longer waits, desktop viewport, correct selectors
+[2026-02-10T11:24:16.151Z] [INFO] === AUTHENTICATION TESTS (Issue #61) ===
+[2026-02-10T11:24:16.151Z] [TEST] Running test: Load login page
+[2026-02-10T11:24:19.167Z] [INFO] Screenshot saved: v2-screenshot-1770722659097-v2-login-page.png
+[2026-02-10T11:24:19.169Z] [PASS] ✓ PASS: Load login page
+[2026-02-10T11:24:19.169Z] [TEST] Running test: Login with valid credentials
+[2026-02-10T11:24:19.281Z] [INFO] Screenshot saved: v2-screenshot-1770722659217-v2-login-filled.png
+[2026-02-10T11:24:19.298Z] [INFO] Waiting 5 seconds for post-login navigation...
+[2026-02-10T11:24:34.389Z] [INFO] Screenshot saved: v2-screenshot-1770722674301-v2-after-login.png
+[2026-02-10T11:24:34.389Z] [PASS] ✓ PASS: Login with valid credentials
+[2026-02-10T11:24:34.389Z] [TEST] Running test: RETEST Issue #61: Verify redirect after login
+[2026-02-10T11:24:34.389Z] [INFO] Current URL after login: http://localhost:5173/auth
+[2026-02-10T11:24:34.470Z] [INFO] Screenshot saved: v2-screenshot-1770722674389-v2-post-login-url-check.png
+[2026-02-10T11:24:34.470Z] [BUG] BUG FOUND (VERIFIED): Issue #61 CONFIRMED
+[2026-02-10T11:24:34.470Z] [FAIL] ✗ FAIL: RETEST Issue #61: Verify redirect after login - Still on /auth page after login: http://localhost:5173/auth
+[2026-02-10T11:24:34.470Z] [INFO] === NAVIGATION TESTS (Issue #62) ===
+[2026-02-10T11:24:34.470Z] [TEST] Running test: Navigate to Dashboard
+[2026-02-10T11:24:38.373Z] [INFO] Screenshot saved: v2-screenshot-1770722678310-v2-dashboard-full.png
+[2026-02-10T11:24:38.373Z] [PASS] ✓ PASS: Navigate to Dashboard
+[2026-02-10T11:24:38.373Z] [TEST] Running test: RETEST Issue #62: Check for nav element with multiple selectors
+[2026-02-10T11:24:38.373Z] [INFO] Testing viewport size...
+[2026-02-10T11:24:38.373Z] [INFO] Viewport: 1920x1080
+[2026-02-10T11:24:38.376Z] [INFO] Selector "nav": NOT FOUND
+[2026-02-10T11:24:38.376Z] [INFO] Selector "aside nav": NOT FOUND
+[2026-02-10T11:24:38.377Z] [INFO] Selector "aside[class*="sidebar"] nav": NOT FOUND
+[2026-02-10T11:24:38.377Z] [INFO] Selector "[role="navigation"]": NOT FOUND
+[2026-02-10T11:24:38.377Z] [INFO] Selector "aside": NOT FOUND
+[2026-02-10T11:24:38.377Z] [BUG] BUG FOUND (VERIFIED): Issue #62 CONFIRMED
+[2026-02-10T11:24:38.377Z] [FAIL] ✗ FAIL: RETEST Issue #62: Check for nav element with multiple selectors - Navigation not found or not visible
+[2026-02-10T11:24:38.377Z] [INFO] === CATALOG TESTS (Issue #63) ===
+[2026-02-10T11:24:38.377Z] [TEST] Running test: Navigate to Catalog
+[2026-02-10T11:24:42.395Z] [INFO] Screenshot saved: v2-screenshot-1770722682315-v2-catalog-page.png
+[2026-02-10T11:24:42.395Z] [PASS] ✓ PASS: Navigate to Catalog
+[2026-02-10T11:24:42.395Z] [TEST] Running test: RETEST Issue #63: Check for search input with multiple selectors
+[2026-02-10T11:24:42.397Z] [INFO] Selector "input[type="search"]": NOT FOUND
+[2026-02-10T11:24:42.398Z] [INFO] Selector "input[placeholder*="search" i]": NOT FOUND
+[2026-02-10T11:24:42.398Z] [INFO] Selector "input[placeholder*="Search" i]": NOT FOUND
+[2026-02-10T11:24:42.398Z] [INFO] Selector "input[name="search"]": NOT FOUND
+[2026-02-10T11:24:42.398Z] [INFO] Selector "input[aria-label*="search" i]": NOT FOUND
+[2026-02-10T11:24:42.398Z] [INFO] Selector "[class*="SearchInput"] input": NOT FOUND
+[2026-02-10T11:24:42.399Z] [INFO] Selector "[class*="search"] input": NOT FOUND
+[2026-02-10T11:24:42.399Z] [BUG] BUG FOUND (VERIFIED): Issue #63 CONFIRMED
+[2026-02-10T11:24:42.399Z] [FAIL] ✗ FAIL: RETEST Issue #63: Check for search input with multiple selectors - Search input not found or not visible
+[2026-02-10T11:24:42.399Z] [INFO] === ANALYTICS TESTS (Issue #64) ===
+[2026-02-10T11:24:42.399Z] [TEST] Running test: Navigate to Analytics
+[2026-02-10T11:24:46.388Z] [INFO] Screenshot saved: v2-screenshot-1770722686323-v2-analytics-initial.png
+[2026-02-10T11:24:46.389Z] [PASS] ✓ PASS: Navigate to Analytics
+[2026-02-10T11:24:46.389Z] [TEST] Running test: RETEST Issue #64: Wait for async data and check for charts
+[2026-02-10T11:24:46.389Z] [INFO] Waiting 5 seconds for fetchAnalytics() to complete...
+[2026-02-10T11:24:51.469Z] [INFO] Screenshot saved: v2-screenshot-1770722691390-v2-analytics-after-wait.png
+[2026-02-10T11:24:51.475Z] [INFO] Found 0 SVG elements
+[2026-02-10T11:24:51.475Z] [INFO] Found 0 Canvas elements
+[2026-02-10T11:24:51.475Z] [INFO] Found 0 chart containers
+[2026-02-10T11:24:51.475Z] [BUG] BUG FOUND (VERIFIED): Issue #64 CONFIRMED
+[2026-02-10T11:24:51.475Z] [FAIL] ✗ FAIL: RETEST Issue #64: Wait for async data and check for charts - No charts found after waiting for data
+[2026-02-10T11:24:51.475Z] [INFO] === ADDITIONAL VERIFICATION ===
+[2026-02-10T11:24:51.475Z] [TEST] Running test: Check all pages load without errors
+[2026-02-10T11:24:54.398Z] [INFO] Page /dashboard -> http://localhost:5173/auth
+[2026-02-10T11:24:57.087Z] [INFO] Page /catalog -> http://localhost:5173/auth
+[2026-02-10T11:25:00.129Z] [INFO] Page /list -> http://localhost:5173/auth
+[2026-02-10T11:25:03.158Z] [INFO] Page /history -> http://localhost:5173/auth
+[2026-02-10T11:25:06.183Z] [INFO] Page /analytics -> http://localhost:5173/auth
+[2026-02-10T11:25:06.183Z] [PASS] ✓ PASS: Check all pages load without errors
+[2026-02-10T11:25:06.183Z] [INFO] === TEST SUMMARY (v2) ===
+[2026-02-10T11:25:06.183Z] [INFO] Total Tests: 10
+[2026-02-10T11:25:06.183Z] [INFO] Passed: 6
+[2026-02-10T11:25:06.183Z] [INFO] Failed: 4
+[2026-02-10T11:25:06.183Z] [INFO] Bugs Found: 4
+[2026-02-10T11:25:06.183Z] [INFO] Screenshots: 8
+[2026-02-10T11:25:06.183Z] [INFO] Bug report saved to bug-report-v2.json
+[2026-02-10T11:25:06.184Z] [INFO] Test report saved to TEST_REPORT_V2.md

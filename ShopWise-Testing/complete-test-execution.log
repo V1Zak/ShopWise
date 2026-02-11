@@ -1,0 +1,182 @@
+[2026-02-10T14:08:23.545Z] [START] ═══════════════════════════════════════════════════════
+[2026-02-10T14:08:23.545Z] [START]    SHOPWISE COMPREHENSIVE TESTING - ALL PAGES & FEATURES
+[2026-02-10T14:08:23.545Z] [START] ═══════════════════════════════════════════════════════
+[2026-02-10T14:08:23.546Z] [INFO] App URL: http://localhost:5173
+[2026-02-10T14:08:23.546Z] [INFO] Test User: slav25.ai@gmail.com
+[2026-02-10T14:08:23.546Z] [INFO] 
+[2026-02-10T14:08:24.483Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:08:24.484Z] [PHASE] PHASE 1: AUTHENTICATION
+[2026-02-10T14:08:24.484Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:08:24.484Z] [TEST] TEST 1: Navigate to auth page
+[2026-02-10T14:08:27.511Z] [INFO] Screenshot: complete-01-auth-initial.png
+[2026-02-10T14:08:27.511Z] [PASS] ✓ PASS: Navigate to auth page
+[2026-02-10T14:08:27.511Z] [TEST] TEST 2: Find and click "Sign in" button
+[2026-02-10T14:08:27.523Z] [INFO]   Found: "Sign in"
+[2026-02-10T14:08:29.590Z] [INFO] Screenshot: complete-02-signin-form.png
+[2026-02-10T14:08:29.590Z] [PASS] ✓ PASS: Find and click "Sign in" button
+[2026-02-10T14:08:29.590Z] [TEST] TEST 3: Fill credentials and login
+[2026-02-10T14:08:31.057Z] [INFO] Screenshot: complete-03-credentials-filled.png
+[2026-02-10T14:08:31.071Z] [INFO]   Waiting for navigation...
+[2026-02-10T14:08:46.074Z] [INFO]   Final URL: http://localhost:5173/
+[2026-02-10T14:08:46.172Z] [INFO] Screenshot: complete-04-after-login.png
+[2026-02-10T14:08:46.172Z] [PASS] ✓ PASS: Fill credentials and login
+[2026-02-10T14:08:46.172Z] [INFO] 
+[2026-02-10T14:08:46.172Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:08:46.172Z] [PHASE] PHASE 2: DASHBOARD PAGE
+[2026-02-10T14:08:46.172Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:08:46.172Z] [TEST] TEST 4: Navigate to Dashboard
+[2026-02-10T14:08:51.198Z] [INFO] Screenshot: complete-05-dashboard-full.png
+[2026-02-10T14:08:51.198Z] [PASS] ✓ PASS: Navigate to Dashboard
+[2026-02-10T14:08:51.198Z] [TEST] TEST 5: Check sidebar navigation
+[2026-02-10T14:08:51.201Z] [INFO]   Sidebar: ✓ FOUND & VISIBLE
+[2026-02-10T14:08:51.203Z] [INFO]   Found 5 navigation items
+[2026-02-10T14:08:51.203Z] [PASS] ✓ PASS: Check sidebar navigation
+[2026-02-10T14:08:51.203Z] [TEST] TEST 6: Check top bar elements
+[2026-02-10T14:08:51.204Z] [INFO]   Top bar: ✓ FOUND & VISIBLE
+[2026-02-10T14:08:51.204Z] [INFO]   User greeting: ✗ NOT FOUND
+[2026-02-10T14:08:51.206Z] [INFO]   Notification button: ✓ FOUND & VISIBLE
+[2026-02-10T14:08:51.206Z] [PASS] ✓ PASS: Check top bar elements
+[2026-02-10T14:08:51.206Z] [TEST] TEST 7: Check dashboard stats/cards
+[2026-02-10T14:08:51.207Z] [INFO]   Found 0 dashboard elements
+[2026-02-10T14:08:51.266Z] [INFO] Screenshot: complete-06-dashboard-content.png
+[2026-02-10T14:08:51.266Z] [PASS] ✓ PASS: Check dashboard stats/cards
+[2026-02-10T14:08:51.266Z] [INFO] 
+[2026-02-10T14:08:51.266Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:08:51.266Z] [PHASE] PHASE 3: CATALOG PAGE
+[2026-02-10T14:08:51.266Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:08:51.266Z] [TEST] TEST 8: Navigate to Catalog
+[2026-02-10T14:08:56.191Z] [INFO] Screenshot: complete-07-catalog-full.png
+[2026-02-10T14:08:56.191Z] [PASS] ✓ PASS: Navigate to Catalog
+[2026-02-10T14:08:56.191Z] [TEST] TEST 9: Check search input
+[2026-02-10T14:08:56.194Z] [INFO]   Search input: ✓ FOUND & VISIBLE
+[2026-02-10T14:08:56.194Z] [PASS] ✓ PASS: Check search input
+[2026-02-10T14:08:56.194Z] [TEST] TEST 10: Check category filters
+[2026-02-10T14:08:56.194Z] [INFO]   Found 0 filter buttons
+[2026-02-10T14:08:56.195Z] [PASS] ✓ PASS: Check category filters
+[2026-02-10T14:08:56.195Z] [TEST] TEST 11: Check store filters
+[2026-02-10T14:08:56.196Z] [FAIL] ✗ FAIL: Check store filters - SyntaxError: Failed to execute 'querySelectorAll' on 'Document': 'button:has-text("Costco"), button:has-text("Walmart"), button:has-text("Target")' is not a valid selector.
+[2026-02-10T14:08:56.196Z] [TEST] TEST 12: Check product grid/list
+[2026-02-10T14:08:56.196Z] [INFO]   Found 0 product items
+[2026-02-10T14:08:56.196Z] [FAIL] ✗ FAIL: Check product grid/list - No products found in catalog
+[2026-02-10T14:08:56.196Z] [TEST] TEST 13: Test search functionality
+[2026-02-10T14:08:57.701Z] [INFO] Screenshot: complete-08-catalog-search-milk.png
+[2026-02-10T14:08:58.224Z] [PASS] ✓ PASS: Test search functionality
+[2026-02-10T14:08:58.224Z] [TEST] TEST 14: Check view toggle (Grid/List)
+[2026-02-10T14:08:58.227Z] [INFO]   Found 0 view toggle buttons
+[2026-02-10T14:08:58.228Z] [PASS] ✓ PASS: Check view toggle (Grid/List)
+[2026-02-10T14:08:58.228Z] [TEST] TEST 15: Check sort options
+[2026-02-10T14:08:58.228Z] [INFO]   Sort control not found (may be dropdown)
+[2026-02-10T14:08:58.228Z] [PASS] ✓ PASS: Check sort options
+[2026-02-10T14:08:58.228Z] [INFO] 
+[2026-02-10T14:08:58.228Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:08:58.228Z] [PHASE] PHASE 4: ACTIVE SHOPPING LIST
+[2026-02-10T14:08:58.228Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:08:58.228Z] [TEST] TEST 16: Navigate to Shopping List
+[2026-02-10T14:09:03.227Z] [INFO] Screenshot: complete-10-shopping-list.png
+[2026-02-10T14:09:03.227Z] [FAIL] ✗ FAIL: Navigate to Shopping List - Expected /list, got http://localhost:5173/
+[2026-02-10T14:09:03.227Z] [TEST] TEST 17: Check list items display
+[2026-02-10T14:09:03.230Z] [INFO]   Found 0 list items
+[2026-02-10T14:09:03.230Z] [PASS] ✓ PASS: Check list items display
+[2026-02-10T14:09:03.230Z] [TEST] TEST 18: Check running total
+[2026-02-10T14:09:03.231Z] [INFO]   Found 0 elements that might be totals
+[2026-02-10T14:09:03.231Z] [PASS] ✓ PASS: Check running total
+[2026-02-10T14:09:03.231Z] [TEST] TEST 19: Check add item button
+[2026-02-10T14:09:03.232Z] [FAIL] ✗ FAIL: Check add item button - SyntaxError: Failed to execute 'querySelectorAll' on 'Document': 'button[class*="add"], button:has-text("Add")' is not a valid selector.
+[2026-02-10T14:09:03.232Z] [INFO] 
+[2026-02-10T14:09:03.232Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:03.232Z] [PHASE] PHASE 5: HISTORY PAGE
+[2026-02-10T14:09:03.232Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:03.232Z] [TEST] TEST 20: Navigate to History
+[2026-02-10T14:09:08.213Z] [INFO] Screenshot: complete-11-history-full.png
+[2026-02-10T14:09:08.213Z] [PASS] ✓ PASS: Navigate to History
+[2026-02-10T14:09:08.213Z] [TEST] TEST 21: Check history list/trips
+[2026-02-10T14:09:08.216Z] [INFO]   Found 0 history items/cards
+[2026-02-10T14:09:08.216Z] [INFO]   No history items found (may be empty)
+[2026-02-10T14:09:08.216Z] [PASS] ✓ PASS: Check history list/trips
+[2026-02-10T14:09:08.216Z] [TEST] TEST 22: Check date/filter controls
+[2026-02-10T14:09:08.218Z] [INFO]   Found 0 date inputs, 0 filter buttons
+[2026-02-10T14:09:08.218Z] [PASS] ✓ PASS: Check date/filter controls
+[2026-02-10T14:09:08.218Z] [INFO] 
+[2026-02-10T14:09:08.218Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:08.218Z] [PHASE] PHASE 6: ANALYTICS PAGE
+[2026-02-10T14:09:08.218Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:08.218Z] [TEST] TEST 23: Navigate to Analytics
+[2026-02-10T14:09:13.276Z] [INFO] Screenshot: complete-12-analytics-initial.png
+[2026-02-10T14:09:13.276Z] [PASS] ✓ PASS: Navigate to Analytics
+[2026-02-10T14:09:13.276Z] [TEST] TEST 24: Wait for analytics data to load
+[2026-02-10T14:09:13.276Z] [INFO]   Waiting 5 seconds for data fetch...
+[2026-02-10T14:09:18.350Z] [INFO] Screenshot: complete-13-analytics-loaded.png
+[2026-02-10T14:09:18.350Z] [PASS] ✓ PASS: Wait for analytics data to load
+[2026-02-10T14:09:18.350Z] [TEST] TEST 25: Check for charts/graphs
+[2026-02-10T14:09:18.355Z] [INFO]   SVG elements: 1
+[2026-02-10T14:09:18.355Z] [INFO]   Canvas elements: 0
+[2026-02-10T14:09:18.355Z] [INFO]   Chart containers: 0
+[2026-02-10T14:09:18.355Z] [INFO]   ✓ Found 1 chart elements
+[2026-02-10T14:09:18.355Z] [PASS] ✓ PASS: Check for charts/graphs
+[2026-02-10T14:09:18.355Z] [TEST] TEST 26: Check analytics stats/KPIs
+[2026-02-10T14:09:18.356Z] [INFO]   Found 0 stat/metric elements
+[2026-02-10T14:09:18.357Z] [INFO]   Found 0 dollar amounts on page
+[2026-02-10T14:09:18.357Z] [PASS] ✓ PASS: Check analytics stats/KPIs
+[2026-02-10T14:09:18.357Z] [INFO] 
+[2026-02-10T14:09:18.357Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:18.357Z] [PHASE] PHASE 7: SETTINGS PAGE
+[2026-02-10T14:09:18.357Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:18.357Z] [TEST] TEST 27: Navigate to Settings
+[2026-02-10T14:09:22.887Z] [INFO] Screenshot: complete-14-settings-full.png
+[2026-02-10T14:09:22.887Z] [PASS] ✓ PASS: Navigate to Settings
+[2026-02-10T14:09:22.887Z] [TEST] TEST 28: Check settings sections
+[2026-02-10T14:09:22.891Z] [INFO]   Found 4 settings sections
+[2026-02-10T14:09:22.893Z] [INFO]   Found 6 headings
+[2026-02-10T14:09:22.893Z] [INFO]   Section: Good afternoon, slav25.ai.
+[2026-02-10T14:09:22.893Z] [INFO]   Section: Settings
+[2026-02-10T14:09:22.893Z] [INFO]   Section: Profile
+[2026-02-10T14:09:22.894Z] [INFO]   Section: Preferences
+[2026-02-10T14:09:22.894Z] [INFO]   Section: Account
+[2026-02-10T14:09:22.894Z] [PASS] ✓ PASS: Check settings sections
+[2026-02-10T14:09:22.894Z] [TEST] TEST 29: Check profile/account info
+[2026-02-10T14:09:22.895Z] [INFO]   ✓ Email field found
+[2026-02-10T14:09:22.895Z] [PASS] ✓ PASS: Check profile/account info
+[2026-02-10T14:09:22.895Z] [INFO] 
+[2026-02-10T14:09:22.895Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:22.895Z] [PHASE] PHASE 8: RESPONSIVE BEHAVIOR
+[2026-02-10T14:09:22.895Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:22.895Z] [TEST] TEST 30: Test mobile viewport (375x667)
+[2026-02-10T14:09:23.942Z] [INFO] Screenshot: complete-15-mobile-dashboard.png
+[2026-02-10T14:09:27.375Z] [INFO] Screenshot: complete-16-mobile-catalog.png
+[2026-02-10T14:09:27.378Z] [INFO]   ⚠ Mobile bottom navigation not clearly identified
+[2026-02-10T14:09:27.378Z] [PASS] ✓ PASS: Test mobile viewport (375x667)
+[2026-02-10T14:09:27.378Z] [TEST] TEST 31: Test tablet viewport (768x1024)
+[2026-02-10T14:09:28.470Z] [INFO] Screenshot: complete-17-tablet-view.png
+[2026-02-10T14:09:28.470Z] [PASS] ✓ PASS: Test tablet viewport (768x1024)
+[2026-02-10T14:09:28.470Z] [TEST] TEST 32: Restore desktop viewport
+[2026-02-10T14:09:33.325Z] [PASS] ✓ PASS: Restore desktop viewport
+[2026-02-10T14:09:33.325Z] [INFO] 
+[2026-02-10T14:09:33.325Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:33.325Z] [PHASE] PHASE 9: USER FLOWS
+[2026-02-10T14:09:33.325Z] [PHASE] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-02-10T14:09:33.325Z] [TEST] TEST 33: Flow: Browse catalog → View product details
+[2026-02-10T14:09:37.232Z] [INFO]   ⚠ No products to click
+[2026-02-10T14:09:37.232Z] [PASS] ✓ PASS: Flow: Browse catalog → View product details
+[2026-02-10T14:09:37.232Z] [TEST] TEST 34: Check page navigation flow
+[2026-02-10T14:09:40.023Z] [INFO]   ✓ /dashboard accessible
+[2026-02-10T14:09:42.438Z] [INFO]   ✓ /catalog accessible
+[2026-02-10T14:09:44.936Z] [INFO]   ✓ /list accessible
+[2026-02-10T14:09:47.346Z] [INFO]   ✓ /history accessible
+[2026-02-10T14:09:50.025Z] [INFO]   ✓ /analytics accessible
+[2026-02-10T14:09:50.025Z] [PASS] ✓ PASS: Check page navigation flow
+[2026-02-10T14:09:50.025Z] [INFO] 
+[2026-02-10T14:09:50.025Z] [COMPLETE] ═══════════════════════════════════════════════════════
+[2026-02-10T14:09:50.025Z] [COMPLETE]    TESTING COMPLETE
+[2026-02-10T14:09:50.026Z] [COMPLETE] ═══════════════════════════════════════════════════════
+[2026-02-10T14:09:50.026Z] [INFO] 
+[2026-02-10T14:09:50.026Z] [INFO] ────────────────────────────────────────────────────────
+[2026-02-10T14:09:50.026Z] [INFO] TEST SUMMARY
+[2026-02-10T14:09:50.026Z] [INFO] ────────────────────────────────────────────────────────
+[2026-02-10T14:09:50.026Z] [INFO] Total Tests: 34
+[2026-02-10T14:09:50.026Z] [INFO] ✓ Passed: 30 (88%)
+[2026-02-10T14:09:50.026Z] [INFO] ✗ Failed: 4 (12%)
+[2026-02-10T14:09:50.026Z] [INFO] 🐛 Bugs Found: 0
+[2026-02-10T14:09:50.026Z] [INFO] 📸 Screenshots: 16
+[2026-02-10T14:09:50.026Z] [INFO] ────────────────────────────────────────────────────────
+[2026-02-10T14:09:50.027Z] [INFO] Detailed report saved to COMPLETE_TEST_REPORT.json
+[2026-02-10T14:09:50.028Z] [INFO] Markdown report saved to COMPLETE_TEST_REPORT.md

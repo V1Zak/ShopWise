@@ -1,0 +1,653 @@
+{
+  "summary": {
+    "totalTests": 12,
+    "passed": 11,
+    "failed": 1,
+    "duration": 39218,
+    "timestamp": "2026-02-11T01:17:28.053Z"
+  },
+  "tests": [
+    {
+      "name": "Load authentication page",
+      "status": "PASS",
+      "duration": 2175,
+      "details": "",
+      "timestamp": "2026-02-11T01:17:31.046Z"
+    },
+    {
+      "name": "Login successful",
+      "status": "FAIL",
+      "duration": 8142,
+      "details": "Still on auth",
+      "timestamp": "2026-02-11T01:17:39.397Z"
+    },
+    {
+      "name": "Load Dashboard",
+      "status": "PASS",
+      "duration": 3044,
+      "details": "3044ms",
+      "timestamp": "2026-02-11T01:17:42.441Z"
+    },
+    {
+      "name": "Load Catalog",
+      "status": "PASS",
+      "duration": 3029,
+      "details": "3029ms",
+      "timestamp": "2026-02-11T01:17:45.679Z"
+    },
+    {
+      "name": "Load History",
+      "status": "PASS",
+      "duration": 3028,
+      "details": "3028ms",
+      "timestamp": "2026-02-11T01:17:48.922Z"
+    },
+    {
+      "name": "Load Analytics",
+      "status": "PASS",
+      "duration": 3029,
+      "details": "3029ms",
+      "timestamp": "2026-02-11T01:17:52.163Z"
+    },
+    {
+      "name": "Load Settings",
+      "status": "PASS",
+      "duration": 3031,
+      "details": "3031ms",
+      "timestamp": "2026-02-11T01:17:55.410Z"
+    },
+    {
+      "name": "Responsive - Mobile",
+      "status": "PASS",
+      "duration": 2081,
+      "details": "375x667",
+      "timestamp": "2026-02-11T01:17:57.712Z"
+    },
+    {
+      "name": "Responsive - Tablet",
+      "status": "PASS",
+      "duration": 2108,
+      "details": "768x1024",
+      "timestamp": "2026-02-11T01:17:59.820Z"
+    },
+    {
+      "name": "Responsive - Desktop",
+      "status": "PASS",
+      "duration": 2261,
+      "details": "1920x1080",
+      "timestamp": "2026-02-11T01:18:02.082Z"
+    },
+    {
+      "name": "All images load properly",
+      "status": "PASS",
+      "duration": 3031,
+      "details": "",
+      "timestamp": "2026-02-11T01:18:05.114Z"
+    },
+    {
+      "name": "Has page title",
+      "status": "PASS",
+      "duration": 2039,
+      "details": "ShopWise",
+      "timestamp": "2026-02-11T01:18:07.153Z"
+    }
+  ],
+  "siteMap": {
+    "pages": [
+      {
+        "name": "Auth",
+        "url": "https://smartshoppinglist-sand.vercel.app/auth",
+        "buttons": [
+          {
+            "text": "Sign In",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors text-text-muted hover:text-text",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors bg-surface-active text-text shadow-sm",
+            "visible": true
+          },
+          {
+            "text": "Continue with Google",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "Continue with Apple",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "visibility_off",
+            "type": "button",
+            "classes": "absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "mt-1 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-text-inv transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg shadow-[0_0_15px_rgba(var(--color-primary)/0.3)] disabled:opacity-50 disabled:cursor-not-allowed",
+            "visible": true
+          },
+          {
+            "text": "Terms of Service",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Privacy Policy",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          }
+        ],
+        "links": [],
+        "forms": [
+          {
+            "action": "https://smartshoppinglist-sand.vercel.app/auth",
+            "method": "get",
+            "inputs": 2
+          }
+        ],
+        "inputs": [
+          {
+            "type": "email",
+            "placeholder": "name@example.com",
+            "name": "",
+            "required": false
+          },
+          {
+            "type": "password",
+            "placeholder": "Create a password",
+            "name": "",
+            "required": false
+          }
+        ],
+        "images": [
+          {
+            "src": "https://images.unsplash.com/photo-1543362906-acfc16c67564?w=1200&q=80&auto=format&fit=crop",
+            "alt": "Fresh vegetables",
+            "loaded": true
+          }
+        ],
+        "timestamp": "2026-02-11T01:17:31.253Z"
+      },
+      {
+        "name": "Dashboard",
+        "url": "https://smartshoppinglist-sand.vercel.app/auth",
+        "buttons": [
+          {
+            "text": "Sign In",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors text-text-muted hover:text-text",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors bg-surface-active text-text shadow-sm",
+            "visible": true
+          },
+          {
+            "text": "Continue with Google",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "Continue with Apple",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "visibility_off",
+            "type": "button",
+            "classes": "absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "mt-1 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-text-inv transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg shadow-[0_0_15px_rgba(var(--color-primary)/0.3)] disabled:opacity-50 disabled:cursor-not-allowed",
+            "visible": true
+          },
+          {
+            "text": "Terms of Service",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Privacy Policy",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          }
+        ],
+        "links": [],
+        "forms": [
+          {
+            "action": "https://smartshoppinglist-sand.vercel.app/auth",
+            "method": "get",
+            "inputs": 2
+          }
+        ],
+        "inputs": [
+          {
+            "type": "email",
+            "placeholder": "name@example.com",
+            "name": "",
+            "required": false
+          },
+          {
+            "type": "password",
+            "placeholder": "Create a password",
+            "name": "",
+            "required": false
+          }
+        ],
+        "images": [
+          {
+            "src": "https://images.unsplash.com/photo-1543362906-acfc16c67564?w=1200&q=80&auto=format&fit=crop",
+            "alt": "Fresh vegetables",
+            "loaded": true
+          }
+        ],
+        "timestamp": "2026-02-11T01:17:42.648Z"
+      },
+      {
+        "name": "Catalog",
+        "url": "https://smartshoppinglist-sand.vercel.app/auth",
+        "buttons": [
+          {
+            "text": "Sign In",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors text-text-muted hover:text-text",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors bg-surface-active text-text shadow-sm",
+            "visible": true
+          },
+          {
+            "text": "Continue with Google",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "Continue with Apple",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "visibility_off",
+            "type": "button",
+            "classes": "absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "mt-1 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-text-inv transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg shadow-[0_0_15px_rgba(var(--color-primary)/0.3)] disabled:opacity-50 disabled:cursor-not-allowed",
+            "visible": true
+          },
+          {
+            "text": "Terms of Service",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Privacy Policy",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          }
+        ],
+        "links": [],
+        "forms": [
+          {
+            "action": "https://smartshoppinglist-sand.vercel.app/auth",
+            "method": "get",
+            "inputs": 2
+          }
+        ],
+        "inputs": [
+          {
+            "type": "email",
+            "placeholder": "name@example.com",
+            "name": "",
+            "required": false
+          },
+          {
+            "type": "password",
+            "placeholder": "Create a password",
+            "name": "",
+            "required": false
+          }
+        ],
+        "images": [
+          {
+            "src": "https://images.unsplash.com/photo-1543362906-acfc16c67564?w=1200&q=80&auto=format&fit=crop",
+            "alt": "Fresh vegetables",
+            "loaded": true
+          }
+        ],
+        "timestamp": "2026-02-11T01:17:45.892Z"
+      },
+      {
+        "name": "History",
+        "url": "https://smartshoppinglist-sand.vercel.app/auth",
+        "buttons": [
+          {
+            "text": "Sign In",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors text-text-muted hover:text-text",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors bg-surface-active text-text shadow-sm",
+            "visible": true
+          },
+          {
+            "text": "Continue with Google",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "Continue with Apple",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "visibility_off",
+            "type": "button",
+            "classes": "absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "mt-1 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-text-inv transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg shadow-[0_0_15px_rgba(var(--color-primary)/0.3)] disabled:opacity-50 disabled:cursor-not-allowed",
+            "visible": true
+          },
+          {
+            "text": "Terms of Service",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Privacy Policy",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          }
+        ],
+        "links": [],
+        "forms": [
+          {
+            "action": "https://smartshoppinglist-sand.vercel.app/auth",
+            "method": "get",
+            "inputs": 2
+          }
+        ],
+        "inputs": [
+          {
+            "type": "email",
+            "placeholder": "name@example.com",
+            "name": "",
+            "required": false
+          },
+          {
+            "type": "password",
+            "placeholder": "Create a password",
+            "name": "",
+            "required": false
+          }
+        ],
+        "images": [
+          {
+            "src": "https://images.unsplash.com/photo-1543362906-acfc16c67564?w=1200&q=80&auto=format&fit=crop",
+            "alt": "Fresh vegetables",
+            "loaded": true
+          }
+        ],
+        "timestamp": "2026-02-11T01:17:49.133Z"
+      },
+      {
+        "name": "Analytics",
+        "url": "https://smartshoppinglist-sand.vercel.app/auth",
+        "buttons": [
+          {
+            "text": "Sign In",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors text-text-muted hover:text-text",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors bg-surface-active text-text shadow-sm",
+            "visible": true
+          },
+          {
+            "text": "Continue with Google",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "Continue with Apple",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "visibility_off",
+            "type": "button",
+            "classes": "absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "mt-1 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-text-inv transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg shadow-[0_0_15px_rgba(var(--color-primary)/0.3)] disabled:opacity-50 disabled:cursor-not-allowed",
+            "visible": true
+          },
+          {
+            "text": "Terms of Service",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Privacy Policy",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          }
+        ],
+        "links": [],
+        "forms": [
+          {
+            "action": "https://smartshoppinglist-sand.vercel.app/auth",
+            "method": "get",
+            "inputs": 2
+          }
+        ],
+        "inputs": [
+          {
+            "type": "email",
+            "placeholder": "name@example.com",
+            "name": "",
+            "required": false
+          },
+          {
+            "type": "password",
+            "placeholder": "Create a password",
+            "name": "",
+            "required": false
+          }
+        ],
+        "images": [
+          {
+            "src": "https://images.unsplash.com/photo-1543362906-acfc16c67564?w=1200&q=80&auto=format&fit=crop",
+            "alt": "Fresh vegetables",
+            "loaded": true
+          }
+        ],
+        "timestamp": "2026-02-11T01:17:52.377Z"
+      },
+      {
+        "name": "Settings",
+        "url": "https://smartshoppinglist-sand.vercel.app/auth",
+        "buttons": [
+          {
+            "text": "Sign In",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors text-text-muted hover:text-text",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "flex-1 py-2.5 text-sm font-medium rounded-md transition-colors bg-surface-active text-text shadow-sm",
+            "visible": true
+          },
+          {
+            "text": "Continue with Google",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "Continue with Apple",
+            "type": "submit",
+            "classes": "relative flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:bg-surface-active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg",
+            "visible": true
+          },
+          {
+            "text": "visibility_off",
+            "type": "button",
+            "classes": "absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Create Account",
+            "type": "submit",
+            "classes": "mt-1 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-text-inv transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg shadow-[0_0_15px_rgba(var(--color-primary)/0.3)] disabled:opacity-50 disabled:cursor-not-allowed",
+            "visible": true
+          },
+          {
+            "text": "Terms of Service",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          },
+          {
+            "text": "Privacy Policy",
+            "type": "submit",
+            "classes": "underline underline-offset-4 hover:text-primary transition-colors",
+            "visible": true
+          }
+        ],
+        "links": [],
+        "forms": [
+          {
+            "action": "https://smartshoppinglist-sand.vercel.app/auth",
+            "method": "get",
+            "inputs": 2
+          }
+        ],
+        "inputs": [
+          {
+            "type": "email",
+            "placeholder": "name@example.com",
+            "name": "",
+            "required": false
+          },
+          {
+            "type": "password",
+            "placeholder": "Create a password",
+            "name": "",
+            "required": false
+          }
+        ],
+        "images": [
+          {
+            "src": "https://images.unsplash.com/photo-1543362906-acfc16c67564?w=1200&q=80&auto=format&fit=crop",
+            "alt": "Fresh vegetables",
+            "loaded": true
+          }
+        ],
+        "timestamp": "2026-02-11T01:17:55.630Z"
+      }
+    ]
+  },
+  "visualRegression": {
+    "screenshots": [
+      {
+        "name": "01-auth",
+        "path": "/Users/vizak/Projects/ShopWise/ShopWise-Testing/production-screenshots/01-auth.png"
+      },
+      {
+        "name": "03-dashboard",
+        "path": "/Users/vizak/Projects/ShopWise/ShopWise-Testing/production-screenshots/03-dashboard.png"
+      },
+      {
+        "name": "04-catalog",
+        "path": "/Users/vizak/Projects/ShopWise/ShopWise-Testing/production-screenshots/04-catalog.png"
+      },
+      {
+        "name": "05-history",
+        "path": "/Users/vizak/Projects/ShopWise/ShopWise-Testing/production-screenshots/05-history.png"
+      },
+      {
+        "name": "06-analytics",
+        "path": "/Users/vizak/Projects/ShopWise/ShopWise-Testing/production-screenshots/06-analytics.png"
+      },
+      {
+        "name": "07-settings",
+        "path": "/Users/vizak/Projects/ShopWise/ShopWise-Testing/production-screenshots/07-settings.png"
+      },
+      {
+        "name": "responsive-mobile",
+        "path": "/Users/vizak/Projects/ShopWise/ShopWise-Testing/production-screenshots/responsive-mobile.png"
+      },
+      {
+        "name": "responsive-tablet",
+        "path": "/Users/vizak/Projects/ShopWise/ShopWise-Testing/production-screenshots/responsive-tablet.png"
+      },
+      {
+        "name": "responsive-desktop",
+        "path": "/Users/vizak/Projects/ShopWise/ShopWise-Testing/production-screenshots/responsive-desktop.png"
+      }
+    ]
+  },
+  "performance": {
+    "loadTimes": {
+      "dashboard": 3044,
+      "catalog": 3029,
+      "history": 3028,
+      "analytics": 3029,
+      "settings": 3031
+    }
+  },
+  "errors": []
+}

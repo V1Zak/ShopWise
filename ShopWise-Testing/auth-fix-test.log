@@ -1,0 +1,40 @@
+[2026-02-10T13:58:43.018Z] === TESTING PROPER AUTHENTICATION FLOW ===
+[2026-02-10T13:58:43.987Z] Step 1: Navigating to /auth page...
+[2026-02-10T13:58:46.832Z] Screenshot saved: auth-fix-1-initial-auth-page.png
+[2026-02-10T13:58:46.833Z] Step 2: Looking for "Sign in" button...
+[2026-02-10T13:58:46.842Z]   Found clickable element with text: "publicContinue with Google"
+[2026-02-10T13:58:46.842Z]   Found clickable element with text: "smartphoneContinue with Apple"
+[2026-02-10T13:58:46.842Z]   Found clickable element with text: "visibility_off"
+[2026-02-10T13:58:46.843Z]   Found clickable element with text: "Create Account"
+[2026-02-10T13:58:46.843Z]   Found clickable element with text: "Terms of Service"
+[2026-02-10T13:58:46.843Z]   Found clickable element with text: "Privacy Policy"
+[2026-02-10T13:58:46.843Z]   Found clickable element with text: "Sign in"
+[2026-02-10T13:58:46.843Z]   ✓ Found sign-in button/link: "Sign in"
+[2026-02-10T13:58:46.843Z] Step 3: Clicking "Sign in" button...
+[2026-02-10T13:58:48.919Z] Screenshot saved: auth-fix-2-after-clicking-signin.png
+[2026-02-10T13:58:48.919Z] Step 4: Filling in email...
+[2026-02-10T13:58:48.955Z]   ✓ Email filled: slav25.ai@gmail.com
+[2026-02-10T13:58:48.955Z] Step 5: Filling in password...
+[2026-02-10T13:58:48.963Z]   ✓ Password filled
+[2026-02-10T13:58:49.042Z] Screenshot saved: auth-fix-3-credentials-filled.png
+[2026-02-10T13:58:49.042Z] Step 6: Submitting login form...
+[2026-02-10T13:58:49.055Z]   ✓ Submit button clicked
+[2026-02-10T13:58:49.055Z] Step 7: Waiting for post-login navigation...
+[2026-02-10T13:59:04.058Z]   Navigation timeout - checking URL anyway
+[2026-02-10T13:59:04.059Z]   Current URL after login: http://localhost:5173/
+[2026-02-10T13:59:04.366Z] Screenshot saved: auth-fix-4-after-login.png
+[2026-02-10T13:59:04.366Z]   ✓ Successfully redirected to: http://localhost:5173/
+[2026-02-10T13:59:04.366Z] Step 8: Navigating to catalog page...
+[2026-02-10T13:59:09.431Z] Screenshot saved: auth-fix-5-catalog-page.png
+[2026-02-10T13:59:09.431Z]   Current URL: http://localhost:5173/catalog
+[2026-02-10T13:59:09.431Z] Step 9: Finding items on catalog page...
+[2026-02-10T13:59:09.448Z]   Found 66 items with selector: [class*="item"]
+[2026-02-10T13:59:09.448Z]   ✓ Found 66 items on catalog page
+[2026-02-10T13:59:09.448Z] Step 10: Getting details of second item...
+[2026-02-10T13:59:09.448Z]   ===== SECOND ITEM DETAILS =====
+[2026-02-10T13:59:09.448Z]   Text content: shopping_cart
+[2026-02-10T13:59:09.448Z]   HTML preview: <div class="h-10 w-10 rounded-full bg-emerald-900 ring-2 ring-primary/20 flex items-center justify-center"><span class="material-symbols-outlined text-primary text-xl">shopping_cart</span></div>...
+[2026-02-10T13:59:09.448Z]   ==============================
+[2026-02-10T13:59:09.511Z] Screenshot saved: auth-fix-6-catalog-final.png
+[2026-02-10T13:59:09.511Z] 
+=== TEST COMPLETE ===

@@ -1,0 +1,400 @@
+
+ CHROME TESTER  v0.1.0
+ Workers: 4 | Timeout: 30000ms | Headless: false
+
+
+ CHROME TESTER  v0.1.0
+ Workers: 4 | Timeout: 30000ms | Headless: false
+
+ ✗ Authentication Flow > should load login page (993ms)
+   Unknown matcher: toContainText
+ ✗ Authentication Flow > should show signup form (370ms)
+   signupBtn.count is not a function
+ ✗ Authentication Flow > should validate email field (252ms)
+   emailInput.count is not a function
+ ✗ Authentication Flow > should attempt login with test credentials (240ms)
+   emailInput.count is not a function
+ ✗ Authentication Flow > should show password visibility toggle (232ms)
+   visibilityToggle.count is not a function
+ ✗ Dashboard Page > should load dashboard (230ms)
+   page.waitForTimeout is not a function
+ ✗ Dashboard Page > should display sidebar navigation (231ms)
+   page.waitForTimeout is not a function
+ ✗ Dashboard Page > should show active lists section (233ms)
+   page.waitForTimeout is not a function
+ ✗ Dashboard Page > should have create new list button (243ms)
+   page.waitForTimeout is not a function
+ ✗ Dashboard Page > should navigate to catalog from dashboard (251ms)
+   page.waitForTimeout is not a function
+ ✗ Dashboard Page > should navigate to history from dashboard (263ms)
+   page.waitForTimeout is not a function
+ ✗ Dashboard Page > should navigate to analytics from dashboard (266ms)
+   page.waitForTimeout is not a function
+ ✗ Active Shopping List > should load shopping list page (235ms)
+   page.waitForTimeout is not a function
+ ✗ Active Shopping List > should create new shopping list (245ms)
+   page.waitForTimeout is not a function
+ ✗ Active Shopping List > should add item to list (238ms)
+   page.waitForTimeout is not a function
+ ✗ Active Shopping List > should increment item quantity (289ms)
+   page.waitForTimeout is not a function
+ ✗ Active Shopping List > should decrement item quantity (248ms)
+   page.waitForTimeout is not a function
+ ✗ Active Shopping List > should toggle item checked status (234ms)
+   page.waitForTimeout is not a function
+ ✗ Active Shopping List > should show running total (246ms)
+   page.waitForTimeout is not a function
+ ✗ Active Shopping List > should complete shopping trip (234ms)
+   page.waitForTimeout is not a function
+ ✗ Active Shopping List > should delete item from list (247ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should load catalog page (253ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should display product grid (271ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should search for products (241ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should filter by category (245ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should filter by store (247ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should open add product modal (229ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should create new product (234ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should scan barcode (246ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should edit product (254ms)
+   page.waitForTimeout is not a function
+ ✗ Item Catalog > should delete product (260ms)
+   page.waitForTimeout is not a function
+ ✗ Shopping History > should load history page (235ms)
+   page.waitForTimeout is not a function
+ ✗ Shopping History > should display trip history (265ms)
+   page.waitForTimeout is not a function
+ ✗ Shopping History > should filter history by date range (265ms)
+   page.waitForTimeout is not a function
+ ✗ Shopping History > should filter history by store (281ms)
+   page.waitForTimeout is not a function
+ ✗ Shopping History > should expand trip details (248ms)
+   page.waitForTimeout is not a function
+ ✗ Shopping History > should show trip items (227ms)
+   page.waitForTimeout is not a function
+ ✗ Shopping History > should navigate to trip briefing (231ms)
+   page.waitForTimeout is not a function
+ ✗ Spending Analytics > should load analytics page (239ms)
+   page.waitForTimeout is not a function
+ ✗ Spending Analytics > should display spending charts (228ms)
+   page.waitForTimeout is not a function
+ ✗ Spending Analytics > should show total spending (229ms)
+   page.waitForTimeout is not a function
+ ✗ Spending Analytics > should filter analytics by time period (263ms)
+   page.waitForTimeout is not a function
+ ✗ Spending Analytics > should show spending by category (253ms)
+   page.waitForTimeout is not a function
+ ✗ Spending Analytics > should show spending by store (243ms)
+   page.waitForTimeout is not a function
+ ✗ Spending Analytics > should display trends over time (230ms)
+   page.waitForTimeout is not a function
+ ✗ Post-Shop Briefing > should load briefing page (250ms)
+   page.waitForTimeout is not a function
+ ✗ Post-Shop Briefing > should display trip summary (230ms)
+   page.waitForTimeout is not a function
+ ✗ Post-Shop Briefing > should show total spent (265ms)
+   page.waitForTimeout is not a function
+ ✗ Post-Shop Briefing > should display items purchased (237ms)
+   page.waitForTimeout is not a function
+ ✗ Post-Shop Briefing > should show savings information (239ms)
+   page.waitForTimeout is not a function
+ ✗ List Sharing > should open share modal (214ms)
+   page.waitForTimeout is not a function
+ ✗ List Sharing > should generate share link (249ms)
+   page.waitForTimeout is not a function
+ ✗ List Sharing > should copy share link (234ms)
+   page.waitForTimeout is not a function
+ ✗ List Sharing > should set share permissions (263ms)
+   page.waitForTimeout is not a function
+ ✗ Performance Tests > should load dashboard with good performance (272ms)
+   Expected 0 to be greater than 0.5
+ ✗ Performance Tests > should load catalog with good performance (237ms)
+   Expected 0 to be greater than 0.5
+ ✗ Performance Tests > should measure Core Web Vitals (300ms)
+   perf.measureWebVitals is not a function
+ ✗ Accessibility Tests > should pass accessibility audit on dashboard (232ms)
+   page.waitForTimeout is not a function
+ ✗ Accessibility Tests > should pass accessibility audit on catalog (229ms)
+   page.waitForTimeout is not a function
+ ✗ Accessibility Tests > should pass accessibility audit on shopping list (234ms)
+   page.waitForTimeout is not a function
+ ✗ Accessibility Tests > should support keyboard navigation (247ms)
+   page.waitForTimeout is not a function
+ ✗ Accessibility Tests > should have proper ARIA labels (233ms)
+   page.waitForTimeout is not a function
+ ✗ Example Test > should load the homepage (5251ms)
+   Expected page title to match /Home/, got "ShopWise"
+
+ Results:
+   0 passed, 63 failed
+   Duration: 22.92s
+
+ Failed Tests:
+   ✗ Authentication Flow > should load login page
+     Unknown matcher: toContainText
+   ✗ Authentication Flow > should show signup form
+     signupBtn.count is not a function
+   ✗ Authentication Flow > should validate email field
+     emailInput.count is not a function
+   ✗ Authentication Flow > should attempt login with test credentials
+     emailInput.count is not a function
+   ✗ Authentication Flow > should show password visibility toggle
+     visibilityToggle.count is not a function
+   ✗ Dashboard Page > should load dashboard
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should display sidebar navigation
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should show active lists section
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should have create new list button
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should navigate to catalog from dashboard
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should navigate to history from dashboard
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should navigate to analytics from dashboard
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should load shopping list page
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should create new shopping list
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should add item to list
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should increment item quantity
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should decrement item quantity
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should toggle item checked status
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should show running total
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should complete shopping trip
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should delete item from list
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should load catalog page
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should display product grid
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should search for products
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should filter by category
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should filter by store
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should open add product modal
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should create new product
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should scan barcode
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should edit product
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should delete product
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should load history page
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should display trip history
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should filter history by date range
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should filter history by store
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should expand trip details
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should show trip items
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should navigate to trip briefing
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should load analytics page
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should display spending charts
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should show total spending
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should filter analytics by time period
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should show spending by category
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should show spending by store
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should display trends over time
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should load briefing page
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should display trip summary
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should show total spent
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should display items purchased
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should show savings information
+     page.waitForTimeout is not a function
+   ✗ List Sharing > should open share modal
+     page.waitForTimeout is not a function
+   ✗ List Sharing > should generate share link
+     page.waitForTimeout is not a function
+   ✗ List Sharing > should copy share link
+     page.waitForTimeout is not a function
+   ✗ List Sharing > should set share permissions
+     page.waitForTimeout is not a function
+   ✗ Performance Tests > should load dashboard with good performance
+     Expected 0 to be greater than 0.5
+   ✗ Performance Tests > should load catalog with good performance
+     Expected 0 to be greater than 0.5
+   ✗ Performance Tests > should measure Core Web Vitals
+     perf.measureWebVitals is not a function
+   ✗ Accessibility Tests > should pass accessibility audit on dashboard
+     page.waitForTimeout is not a function
+   ✗ Accessibility Tests > should pass accessibility audit on catalog
+     page.waitForTimeout is not a function
+   ✗ Accessibility Tests > should pass accessibility audit on shopping list
+     page.waitForTimeout is not a function
+   ✗ Accessibility Tests > should support keyboard navigation
+     page.waitForTimeout is not a function
+   ✗ Accessibility Tests > should have proper ARIA labels
+     page.waitForTimeout is not a function
+   ✗ Example Test > should load the homepage
+     Expected page title to match /Home/, got "ShopWise"
+
+
+ Results:
+   0 passed, 63 failed
+   Duration: 22.92s
+
+ Failed Tests:
+   ✗ Authentication Flow > should load login page
+     Unknown matcher: toContainText
+   ✗ Authentication Flow > should show signup form
+     signupBtn.count is not a function
+   ✗ Authentication Flow > should validate email field
+     emailInput.count is not a function
+   ✗ Authentication Flow > should attempt login with test credentials
+     emailInput.count is not a function
+   ✗ Authentication Flow > should show password visibility toggle
+     visibilityToggle.count is not a function
+   ✗ Dashboard Page > should load dashboard
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should display sidebar navigation
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should show active lists section
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should have create new list button
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should navigate to catalog from dashboard
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should navigate to history from dashboard
+     page.waitForTimeout is not a function
+   ✗ Dashboard Page > should navigate to analytics from dashboard
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should load shopping list page
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should create new shopping list
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should add item to list
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should increment item quantity
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should decrement item quantity
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should toggle item checked status
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should show running total
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should complete shopping trip
+     page.waitForTimeout is not a function
+   ✗ Active Shopping List > should delete item from list
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should load catalog page
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should display product grid
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should search for products
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should filter by category
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should filter by store
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should open add product modal
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should create new product
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should scan barcode
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should edit product
+     page.waitForTimeout is not a function
+   ✗ Item Catalog > should delete product
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should load history page
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should display trip history
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should filter history by date range
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should filter history by store
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should expand trip details
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should show trip items
+     page.waitForTimeout is not a function
+   ✗ Shopping History > should navigate to trip briefing
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should load analytics page
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should display spending charts
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should show total spending
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should filter analytics by time period
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should show spending by category
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should show spending by store
+     page.waitForTimeout is not a function
+   ✗ Spending Analytics > should display trends over time
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should load briefing page
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should display trip summary
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should show total spent
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should display items purchased
+     page.waitForTimeout is not a function
+   ✗ Post-Shop Briefing > should show savings information
+     page.waitForTimeout is not a function
+   ✗ List Sharing > should open share modal
+     page.waitForTimeout is not a function
+   ✗ List Sharing > should generate share link
+     page.waitForTimeout is not a function
+   ✗ List Sharing > should copy share link
+     page.waitForTimeout is not a function
+   ✗ List Sharing > should set share permissions
+     page.waitForTimeout is not a function
+   ✗ Performance Tests > should load dashboard with good performance
+     Expected 0 to be greater than 0.5
+   ✗ Performance Tests > should load catalog with good performance
+     Expected 0 to be greater than 0.5
+   ✗ Performance Tests > should measure Core Web Vitals
+     perf.measureWebVitals is not a function
+   ✗ Accessibility Tests > should pass accessibility audit on dashboard
+     page.waitForTimeout is not a function
+   ✗ Accessibility Tests > should pass accessibility audit on catalog
+     page.waitForTimeout is not a function
+   ✗ Accessibility Tests > should pass accessibility audit on shopping list
+     page.waitForTimeout is not a function
+   ✗ Accessibility Tests > should support keyboard navigation
+     page.waitForTimeout is not a function
+   ✗ Accessibility Tests > should have proper ARIA labels
+     page.waitForTimeout is not a function
+   ✗ Example Test > should load the homepage
+     Expected page title to match /Home/, got "ShopWise"
+

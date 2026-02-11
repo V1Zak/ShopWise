@@ -1,0 +1,26 @@
+
+ Chrome Tester  — Autonomous Exploration
+
+  URL:        http://localhost:5173
+  Max depth:  2
+  Max pages:  10
+  Output:     /Users/vizak/Projects/ShopWise/ShopWise-Testing/chrometester-tests/generated
+
+  Exploring...
+
+  Exploration Summary
+  ────────────────────────────────────────
+  Pages visited:   undefined
+  Tests generated: undefined
+  Duration:        NaNs
+
+  Tests written to: /Users/vizak/Projects/ShopWise/ShopWise-Testing/chrometester-tests/generated
+
+file:///Users/vizak/Projects/Chrome_tester/packages/cli/dist/bin.js:527
+    await pool.closeAll();
+               ^
+
+TypeError: pool.closeAll is not a function
+    at CAC.exploreCommand (file:///Users/vizak/Projects/Chrome_tester/packages/cli/dist/bin.js:527:16)
+
+Node.js v24.11.1

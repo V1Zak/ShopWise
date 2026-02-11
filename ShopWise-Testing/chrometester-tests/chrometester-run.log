@@ -1,0 +1,3 @@
+Error: Cannot find module '@chrometester/config'
+Require stack:
+- /Users/vizak/Projects/ShopWise/ShopWise-Testing/chrometester-tests/chrometester.config.ts

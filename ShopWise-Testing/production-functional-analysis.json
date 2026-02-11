@@ -1,0 +1,1567 @@
+{
+  "functionalTests": [
+    {
+      "message": "🚀 Starting Comprehensive Functional Analysis\n",
+      "timestamp": "2026-02-11T10:15:46.802Z"
+    },
+    {
+      "message": "Target: https://smartshoppinglist-sand.vercel.app",
+      "timestamp": "2026-02-11T10:15:46.803Z"
+    },
+    {
+      "message": "User: slav25.ai@gmail.com\n",
+      "timestamp": "2026-02-11T10:15:46.803Z"
+    },
+    {
+      "message": "\n🔐 Logging in...",
+      "timestamp": "2026-02-11T10:15:47.808Z"
+    },
+    {
+      "message": "✅ Login successful",
+      "timestamp": "2026-02-11T10:15:54.117Z"
+    },
+    {
+      "message": "\n📋 Analyzing Dashboard...",
+      "timestamp": "2026-02-11T10:15:57.385Z"
+    },
+    {
+      "message": "  Buttons: 11",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "  Inputs: 1",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "  Links: 12",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    1. \"desktop_windowsSystem\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    2. \"Add\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    3. \"desktop_windows\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    4. \"notifications\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    5. \"auto_awesomeTemplate\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    6. \"addNew List\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    7. \"Enable Notifications\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    8. \"Not now\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    9. \"close\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    10. \"more_vert\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    11. \"View All\" (submit)",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "\n  Features:",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    Greeting: ✅",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    Active Lists: ❌",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    Recent Trips: ✅",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    Create Button: ✅",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "    Price displays: 3",
+      "timestamp": "2026-02-11T10:15:57.386Z"
+    },
+    {
+      "message": "\n📋 Analyzing Catalog...",
+      "timestamp": "2026-02-11T10:16:00.534Z"
+    },
+    {
+      "message": "  Buttons: 43",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "  Inputs: 2",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "  Links: 10",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    1. \"desktop_windowsSystem\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    2. \"Add\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    3. \"desktop_windows\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    4. \"notifications\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    5. \"grid_viewGrid\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    6. \"listList\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    7. \"tuneFilters\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    8. \"sortSort: Name A-Z\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    9. \"All Categories\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    10. \"Produce\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    11. \"Dairy & Eggs\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    12. \"Meat & Seafood\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    13. \"Bakery\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    14. \"Pantry Staples\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    15. \"Beverages\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    16. \"Frozen\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    17. \"Household\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    18. \"Snacks\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    19. \"All Stores\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    20. \"Costco\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    21. \"dunns\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    22. \"H-Mart\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    23. \"Safeway\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    24. \"Sprouts\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    25. \"Target\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    26. \"Trader Joe's\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    27. \"Walmart\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    28. \"Whole Foods\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    29. \"edit\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    30. \"compare_arrows\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    31. \"add_shopping_cart\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    32. \"add_shopping_cart\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    33. \"edit\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    34. \"compare_arrows\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    35. \"edit\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    36. \"compare_arrows\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    37. \"add_shopping_cart\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    38. \"add_shopping_cart\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    39. \"edit\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    40. \"compare_arrows\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    41. \"add_shopping_cart\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    42. \"add_shopping_cart\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "    43. \"add_shopping_cart\" (submit)",
+      "timestamp": "2026-02-11T10:16:00.535Z"
+    },
+    {
+      "message": "\n  Features:",
+      "timestamp": "2026-02-11T10:16:00.536Z"
+    },
+    {
+      "message": "    Product Images: 4",
+      "timestamp": "2026-02-11T10:16:00.536Z"
+    },
+    {
+      "message": "    Search: ✅",
+      "timestamp": "2026-02-11T10:16:00.536Z"
+    },
+    {
+      "message": "    Quick Add: ✅",
+      "timestamp": "2026-02-11T10:16:00.536Z"
+    },
+    {
+      "message": "    Cart Buttons: 7",
+      "timestamp": "2026-02-11T10:16:00.536Z"
+    },
+    {
+      "message": "    Products with prices: 11",
+      "timestamp": "2026-02-11T10:16:00.536Z"
+    },
+    {
+      "message": "\n  Testing cart button...",
+      "timestamp": "2026-02-11T10:16:00.536Z"
+    },
+    {
+      "message": "    Cart button shows error ⚠️",
+      "timestamp": "2026-02-11T10:16:02.038Z"
+    },
+    {
+      "message": "\n  Testing search...",
+      "timestamp": "2026-02-11T10:16:02.038Z"
+    },
+    {
+      "message": "    Search functionality: ✅",
+      "timestamp": "2026-02-11T10:16:03.553Z"
+    },
+    {
+      "message": "\n📋 Analyzing History...",
+      "timestamp": "2026-02-11T10:16:06.689Z"
+    },
+    {
+      "message": "  Buttons: 10",
+      "timestamp": "2026-02-11T10:16:06.695Z"
+    },
+    {
+      "message": "  Inputs: 2",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "  Links: 10",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    1. \"desktop_windowsSystem\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    2. \"Add\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    3. \"desktop_windows\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    4. \"notifications\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    5. \"downloadExport CSV\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    6. \"All Timeexpand_more\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    7. \"Store: Allexpand_more\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    8. \"Total Spentexpand_more\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    9. \"Previous\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "    10. \"Next\" (submit)",
+      "timestamp": "2026-02-11T10:16:06.696Z"
+    },
+    {
+      "message": "\n  Features:",
+      "timestamp": "2026-02-11T10:16:06.698Z"
+    },
+    {
+      "message": "    Has trips: ✅",
+      "timestamp": "2026-02-11T10:16:06.698Z"
+    },
+    {
+      "message": "    Shows dates: ❌",
+      "timestamp": "2026-02-11T10:16:06.698Z"
+    },
+    {
+      "message": "    Shows totals: 1 prices",
+      "timestamp": "2026-02-11T10:16:06.698Z"
+    },
+    {
+      "message": "    Shows stores: ✅",
+      "timestamp": "2026-02-11T10:16:06.698Z"
+    },
+    {
+      "message": "\n📋 Analyzing Analytics...",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "  Buttons: 12",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "  Inputs: 1",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "  Links: 10",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    1. \"desktop_windowsSystem\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    2. \"Add\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    3. \"desktop_windows\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    4. \"notifications\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    5. \"Weekly\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    6. \"Monthly\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    7. \"Quarterly\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    8. \"YTD\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    9. \"downloadExport Report\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    10. \"more_horiz\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    11. \"Watchlist (12)\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "    12. \"History\" (submit)",
+      "timestamp": "2026-02-11T10:16:09.827Z"
+    },
+    {
+      "message": "\n  Features:",
+      "timestamp": "2026-02-11T10:16:09.828Z"
+    },
+    {
+      "message": "    Charts: 1",
+      "timestamp": "2026-02-11T10:16:09.828Z"
+    },
+    {
+      "message": "    Spending data: ✅",
+      "timestamp": "2026-02-11T10:16:09.828Z"
+    },
+    {
+      "message": "    Category breakdown: ✅",
+      "timestamp": "2026-02-11T10:16:09.828Z"
+    },
+    {
+      "message": "    Time period selector: ✅",
+      "timestamp": "2026-02-11T10:16:09.828Z"
+    },
+    {
+      "message": "    Price displays: 0",
+      "timestamp": "2026-02-11T10:16:09.828Z"
+    },
+    {
+      "message": "\n📋 Analyzing Settings...",
+      "timestamp": "2026-02-11T10:16:12.932Z"
+    },
+    {
+      "message": "  Buttons: 16",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "  Inputs: 4",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "  Links: 10",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    1. \"desktop_windowsSystem\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    2. \"Add\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    3. \"desktop_windows\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    4. \"notifications\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    5. \"photo_camera\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    6. \"Save Changes\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    7. \"light_modeLight\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    8. \"dark_modeDark\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    9. \"desktop_windowsSystem\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    10. \"<span class=\"inline-block h-4 w-4 transform rounde\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    11. \"<span class=\"inline-block h-4 w-4 transform rounde\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    12. \"<span class=\"inline-block h-4 w-4 transform rounde\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    13. \"<span class=\"inline-block h-4 w-4 transform rounde\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    14. \"lockUpdate\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    15. \"logoutSign Out\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "    16. \"delete_foreverDelete\" (submit)",
+      "timestamp": "2026-02-11T10:16:12.933Z"
+    },
+    {
+      "message": "\n  Features:",
+      "timestamp": "2026-02-11T10:16:12.934Z"
+    },
+    {
+      "message": "    Profile section: ✅",
+      "timestamp": "2026-02-11T10:16:12.934Z"
+    },
+    {
+      "message": "    Theme toggle: ✅",
+      "timestamp": "2026-02-11T10:16:12.934Z"
+    },
+    {
+      "message": "    Logout button: ❌",
+      "timestamp": "2026-02-11T10:16:12.934Z"
+    },
+    {
+      "message": "    Notifications: ✅",
+      "timestamp": "2026-02-11T10:16:12.934Z"
+    }
+  ],
+  "buttonInventory": {
+    "Dashboard": {
+      "buttons": [
+        {
+          "text": "desktop_windowsSystem",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-text-muted hover:bg-surface hover:text-te"
+        },
+        {
+          "text": "Add",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "ml-2 bg-primary hover:bg-emerald-400 text-text-inv text-xs font-bold px-3 py-1.5 rounded transition-"
+        },
+        {
+          "text": "desktop_windows",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors"
+        },
+        {
+          "text": "notifications",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors relative"
+        },
+        {
+          "text": "auto_awesomeTemplate",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-4 py-2 rounded-lg bg-surface border border-border text-text text-sm font-"
+        },
+        {
+          "text": "addNew List",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 bg-primary hover:bg-primary/90 text-text-inv px-5 py-2.5 rounded-lg font-bol"
+        },
+        {
+          "text": "Enable Notifications",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "inline-flex items-center justify-center font-bold transition-colors rounded-lg bg-primary hover:bg-e"
+        },
+        {
+          "text": "Not now",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "inline-flex items-center justify-center font-bold transition-colors rounded-lg text-text-muted hover"
+        },
+        {
+          "text": "close",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex-shrink-0 text-text-muted hover:text-text transition-colors"
+        },
+        {
+          "text": "more_vert",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center justify-center w-8 h-8 rounded-lg text-text-muted hover:text-text hover:bg-surface"
+        },
+        {
+          "text": "View All",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-text-muted text-sm hover:text-text transition-colors"
+        }
+      ],
+      "inputs": [
+        {
+          "type": "text",
+          "placeholder": "Add item to list or track price (e.g. 'Milk $4.50')...",
+          "name": ""
+        }
+      ],
+      "links": [
+        {
+          "text": "dashboardDashboard",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartAnalytics",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        },
+        {
+          "text": "Start Shoppingarrow_forward",
+          "href": "https://smartshoppinglist-sand.vercel.app/list/c4c9baa5-3827-4d2e-9505-8f2cb103ca1e"
+        },
+        {
+          "text": "View all 5 items",
+          "href": "https://smartshoppinglist-sand.vercel.app/list/c4c9baa5-3827-4d2e-9505-8f2cb103ca1e"
+        },
+        {
+          "text": "dashboardHome",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartStats",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        }
+      ]
+    },
+    "Catalog": {
+      "buttons": [
+        {
+          "text": "desktop_windowsSystem",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-text-muted hover:bg-surface hover:text-te"
+        },
+        {
+          "text": "Add",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "ml-2 bg-primary hover:bg-emerald-400 text-text-inv text-xs font-bold px-3 py-1.5 rounded transition-"
+        },
+        {
+          "text": "desktop_windows",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors"
+        },
+        {
+          "text": "notifications",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors relative"
+        },
+        {
+          "text": "grid_viewGrid",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap bg-primary text-b"
+        },
+        {
+          "text": "listList",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap bg-surface border"
+        },
+        {
+          "text": "tuneFilters",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all bg"
+        },
+        {
+          "text": "sortSort: Name A-Z",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-3 py-2 rounded-lg bg-surface border border-border text-text-muted hover:t"
+        },
+        {
+          "text": "All Categories",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-primary/2"
+        },
+        {
+          "text": "Produce",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Dairy & Eggs",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Meat & Seafood",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Bakery",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Pantry Staples",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Beverages",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Frozen",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Household",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Snacks",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "All Stores",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-primary/2"
+        },
+        {
+          "text": "Costco",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "dunns",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "H-Mart",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Safeway",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Sprouts",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Target",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Trader Joe's",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Walmart",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "Whole Foods",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border bg-surface t"
+        },
+        {
+          "text": "edit",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm bg-black/50 hover:bg-primary "
+        },
+        {
+          "text": "compare_arrows",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors bg-black/50"
+        },
+        {
+          "text": "add_shopping_cart",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
+        },
+        {
+          "text": "add_shopping_cart",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
+        },
+        {
+          "text": "edit",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm bg-black/50 hover:bg-primary "
+        },
+        {
+          "text": "compare_arrows",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors bg-black/50"
+        },
+        {
+          "text": "edit",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm bg-black/50 hover:bg-primary "
+        },
+        {
+          "text": "compare_arrows",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors bg-black/50"
+        },
+        {
+          "text": "add_shopping_cart",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
+        },
+        {
+          "text": "add_shopping_cart",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
+        },
+        {
+          "text": "edit",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm bg-black/50 hover:bg-primary "
+        },
+        {
+          "text": "compare_arrows",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors bg-black/50"
+        },
+        {
+          "text": "add_shopping_cart",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
+        },
+        {
+          "text": "add_shopping_cart",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
+        },
+        {
+          "text": "add_shopping_cart",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
+        }
+      ],
+      "inputs": [
+        {
+          "type": "text",
+          "placeholder": "Add item to list or track price (e.g. 'Milk $4.50')...",
+          "name": ""
+        },
+        {
+          "type": "text",
+          "placeholder": "Search by SKU, product name, or tag (e.g. 'Organic Milk')",
+          "name": ""
+        }
+      ],
+      "links": [
+        {
+          "text": "dashboardDashboard",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartAnalytics",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        },
+        {
+          "text": "dashboardHome",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartStats",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        }
+      ]
+    },
+    "History": {
+      "buttons": [
+        {
+          "text": "desktop_windowsSystem",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-text-muted hover:bg-surface hover:text-te"
+        },
+        {
+          "text": "Add",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "ml-2 bg-primary hover:bg-emerald-400 text-text-inv text-xs font-bold px-3 py-1.5 rounded transition-"
+        },
+        {
+          "text": "desktop_windows",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors"
+        },
+        {
+          "text": "notifications",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors relative"
+        },
+        {
+          "text": "downloadExport CSV",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:b"
+        },
+        {
+          "text": "All Timeexpand_more",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-3 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors b"
+        },
+        {
+          "text": "Store: Allexpand_more",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors bg-surface-"
+        },
+        {
+          "text": "Total Spentexpand_more",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors bg-surface-"
+        },
+        {
+          "text": "Previous",
+          "type": "submit",
+          "disabled": true,
+          "visible": true,
+          "classes": "px-3 py-1 text-sm rounded-md bg-surface-active transition-colors text-text-muted cursor-not-allowed "
+        },
+        {
+          "text": "Next",
+          "type": "submit",
+          "disabled": true,
+          "visible": true,
+          "classes": "px-3 py-1 text-sm rounded-md bg-surface-active transition-colors text-text-muted cursor-not-allowed "
+        }
+      ],
+      "inputs": [
+        {
+          "type": "text",
+          "placeholder": "Add item to list or track price (e.g. 'Milk $4.50')...",
+          "name": ""
+        },
+        {
+          "type": "text",
+          "placeholder": "Search items, stores, or dates...",
+          "name": ""
+        }
+      ],
+      "links": [
+        {
+          "text": "dashboardDashboard",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartAnalytics",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        },
+        {
+          "text": "dashboardHome",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartStats",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        }
+      ]
+    },
+    "Analytics": {
+      "buttons": [
+        {
+          "text": "desktop_windowsSystem",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-text-muted hover:bg-surface hover:text-te"
+        },
+        {
+          "text": "Add",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "ml-2 bg-primary hover:bg-emerald-400 text-text-inv text-xs font-bold px-3 py-1.5 rounded transition-"
+        },
+        {
+          "text": "desktop_windows",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors"
+        },
+        {
+          "text": "notifications",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors relative"
+        },
+        {
+          "text": "Weekly",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-3 py-1.5 rounded-md text-xs font-medium transition-colors text-text-muted hover:text-text"
+        },
+        {
+          "text": "Monthly",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-3 py-1.5 rounded-md text-xs font-medium transition-colors bg-surface-active text-text shadow-sm"
+        },
+        {
+          "text": "Quarterly",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-3 py-1.5 rounded-md text-xs font-medium transition-colors text-text-muted hover:text-text"
+        },
+        {
+          "text": "YTD",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "px-3 py-1.5 rounded-md text-xs font-medium transition-colors text-text-muted hover:text-text"
+        },
+        {
+          "text": "downloadExport Report",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 bg-primary hover:bg-primary/90 text-text-inv px-4 py-2 rounded-lg text-sm fo"
+        },
+        {
+          "text": "more_horiz",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-text-muted hover:text-text"
+        },
+        {
+          "text": "Watchlist (12)",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-xs font-medium px-3 py-1.5 rounded-full border border-primary/30 text-primary bg-primary/5 hove"
+        },
+        {
+          "text": "History",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "text-xs font-medium px-3 py-1.5 rounded-full border border-border text-text-muted hover:text-text ho"
+        }
+      ],
+      "inputs": [
+        {
+          "type": "text",
+          "placeholder": "Add item to list or track price (e.g. 'Milk $4.50')...",
+          "name": ""
+        }
+      ],
+      "links": [
+        {
+          "text": "dashboardDashboard",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartAnalytics",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        },
+        {
+          "text": "dashboardHome",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartStats",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        }
+      ]
+    },
+    "Settings": {
+      "buttons": [
+        {
+          "text": "desktop_windowsSystem",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-text-muted hover:bg-surface hover:text-te"
+        },
+        {
+          "text": "Add",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "ml-2 bg-primary hover:bg-emerald-400 text-text-inv text-xs font-bold px-3 py-1.5 rounded transition-"
+        },
+        {
+          "text": "desktop_windows",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors"
+        },
+        {
+          "text": "notifications",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors relative"
+        },
+        {
+          "text": "photo_camera",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justif"
+        },
+        {
+          "text": "Save Changes",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "bg-primary hover:bg-primary/90 text-text-inv px-5 py-2 rounded-lg text-sm font-bold transition-color"
+        },
+        {
+          "text": "light_modeLight",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors bg-surfa"
+        },
+        {
+          "text": "dark_modeDark",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors bg-surfa"
+        },
+        {
+          "text": "desktop_windowsSystem",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors bg-prima"
+        },
+        {
+          "text": "<span class=\"inline-block h-4 w-4 transform rounde",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 bg-primary"
+        },
+        {
+          "text": "<span class=\"inline-block h-4 w-4 transform rounde",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 bg-border"
+        },
+        {
+          "text": "<span class=\"inline-block h-4 w-4 transform rounde",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 bg-primary"
+        },
+        {
+          "text": "<span class=\"inline-block h-4 w-4 transform rounde",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 bg-primary"
+        },
+        {
+          "text": "lockUpdate",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 border border-border hover:border-primary/50 text-text px-4 py-2 rounded-lg "
+        },
+        {
+          "text": "logoutSign Out",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 border border-border hover:border-primary/50 text-text px-4 py-2 rounded-lg "
+        },
+        {
+          "text": "delete_foreverDelete",
+          "type": "submit",
+          "disabled": false,
+          "visible": true,
+          "classes": "flex items-center gap-2 border border-red-900/50 hover:bg-red-900/20 text-red-400 px-4 py-2 rounded-"
+        }
+      ],
+      "inputs": [
+        {
+          "type": "text",
+          "placeholder": "Add item to list or track price (e.g. 'Milk $4.50')...",
+          "name": ""
+        },
+        {
+          "type": "file",
+          "placeholder": "",
+          "name": ""
+        },
+        {
+          "type": "text",
+          "placeholder": "",
+          "name": ""
+        },
+        {
+          "type": "email",
+          "placeholder": "",
+          "name": ""
+        }
+      ],
+      "links": [
+        {
+          "text": "dashboardDashboard",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartAnalytics",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        },
+        {
+          "text": "dashboardHome",
+          "href": "https://smartshoppinglist-sand.vercel.app/"
+        },
+        {
+          "text": "inventory_2Catalog",
+          "href": "https://smartshoppinglist-sand.vercel.app/catalog"
+        },
+        {
+          "text": "historyHistory",
+          "href": "https://smartshoppinglist-sand.vercel.app/history"
+        },
+        {
+          "text": "bar_chartStats",
+          "href": "https://smartshoppinglist-sand.vercel.app/analytics"
+        },
+        {
+          "text": "settingsSettings",
+          "href": "https://smartshoppinglist-sand.vercel.app/settings"
+        }
+      ]
+    }
+  },
+  "redundantButtons": [],
+  "brokenButtons": [
+    {
+      "page": "Catalog",
+      "button": "Cart",
+      "issue": "Shows error message"
+    }
+  ],
+  "workingFeatures": [
+    "Dashboard: User greeting",
+    "Dashboard: Create list button",
+    "Catalog: Search filter",
+    "Analytics: Charts/visualizations",
+    "Analytics: Spending data",
+    "Settings: Theme toggle"
+  ],
+  "summary": {
+    "totalButtons": 92,
+    "workingFeatures": 6,
+    "brokenButtons": 1,
+    "redundantButtons": 0,
+    "pagesAnalyzed": 5
+  }
+}

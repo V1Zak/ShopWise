@@ -1,0 +1,11 @@
+{
+  "name": "shopwise-chrometester-tests",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "chrometester run"
+  },
+  "dependencies": {
+    "chrometester": "file:../../../../Chrome_tester/packages/chrometester"
+  }
+}

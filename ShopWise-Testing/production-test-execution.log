@@ -1,0 +1,62 @@
+[2026-02-10T11:07:11.808Z] [START] Starting ShopWise PRODUCTION Testing
+[2026-02-10T11:07:11.808Z] [INFO] App URL: https://smartshoppinglist-sand.vercel.app
+[2026-02-10T11:07:11.808Z] [INFO] Test User: slav25.ai@gmail.com
+[2026-02-10T11:07:12.678Z] [INFO] === AUTHENTICATION TESTS ===
+[2026-02-10T11:07:12.678Z] [TEST] Running test: Load production login page
+[2026-02-10T11:07:15.578Z] [INFO] Screenshot saved: prod-screenshot-1770721635493-prod-login-page.png
+[2026-02-10T11:07:15.580Z] [INFO] Page title: ShopWise
+[2026-02-10T11:07:15.580Z] [PASS] ✓ PASS: Load production login page
+[2026-02-10T11:07:15.580Z] [TEST] Running test: Login with valid credentials on production
+[2026-02-10T11:07:15.699Z] [INFO] Screenshot saved: prod-screenshot-1770721635623-prod-login-filled.png
+[2026-02-10T11:07:19.800Z] [INFO] Screenshot saved: prod-screenshot-1770721639716-prod-after-login.png
+[2026-02-10T11:07:19.800Z] [PASS] ✓ PASS: Login with valid credentials on production
+[2026-02-10T11:07:19.800Z] [INFO] === DASHBOARD TESTS ===
+[2026-02-10T11:07:19.800Z] [TEST] Running test: Production dashboard loads after login
+[2026-02-10T11:07:19.849Z] [INFO] Screenshot saved: prod-screenshot-1770721639800-prod-dashboard.png
+[2026-02-10T11:07:19.849Z] [INFO] Current URL: https://smartshoppinglist-sand.vercel.app/auth
+[2026-02-10T11:07:19.849Z] [BUG] BUG FOUND (MAJOR): [PROD] Not redirected after login
+[2026-02-10T11:07:19.849Z] [FAIL] ✗ FAIL: Production dashboard loads after login - Expected to be redirected to dashboard, got https://smartshoppinglist-sand.vercel.app/auth
+[2026-02-10T11:07:19.849Z] [TEST] Running test: Navigate to production Dashboard
+[2026-02-10T11:07:22.799Z] [INFO] Screenshot saved: prod-screenshot-1770721642724-prod-dashboard-main.png
+[2026-02-10T11:07:22.799Z] [PASS] ✓ PASS: Navigate to production Dashboard
+[2026-02-10T11:07:22.799Z] [TEST] Running test: Production dashboard displays navigation
+[2026-02-10T11:07:22.802Z] [BUG] BUG FOUND (MAJOR): [PROD] Navigation not found
+[2026-02-10T11:07:22.802Z] [FAIL] ✗ FAIL: Production dashboard displays navigation - Navigation not found
+[2026-02-10T11:07:22.802Z] [INFO] === CATALOG TESTS ===
+[2026-02-10T11:07:22.802Z] [TEST] Running test: Navigate to production Catalog
+[2026-02-10T11:07:25.785Z] [INFO] Screenshot saved: prod-screenshot-1770721645731-prod-catalog-page.png
+[2026-02-10T11:07:25.785Z] [FAIL] ✗ FAIL: Navigate to production Catalog - Expected catalog URL, got https://smartshoppinglist-sand.vercel.app/auth
+[2026-02-10T11:07:25.785Z] [TEST] Running test: Production catalog displays products
+[2026-02-10T11:07:25.791Z] [INFO] Found 10 product cards
+[2026-02-10T11:07:25.791Z] [PASS] ✓ PASS: Production catalog displays products
+[2026-02-10T11:07:25.792Z] [TEST] Running test: Production catalog search
+[2026-02-10T11:07:25.792Z] [BUG] BUG FOUND (MINOR): [PROD] Search input not found
+[2026-02-10T11:07:25.792Z] [PASS] ✓ PASS: Production catalog search
+[2026-02-10T11:07:25.792Z] [INFO] === SHOPPING LIST TESTS ===
+[2026-02-10T11:07:25.792Z] [TEST] Running test: Navigate to production Shopping List
+[2026-02-10T11:07:28.800Z] [INFO] Screenshot saved: prod-screenshot-1770721648736-prod-shopping-list.png
+[2026-02-10T11:07:28.800Z] [PASS] ✓ PASS: Navigate to production Shopping List
+[2026-02-10T11:07:28.800Z] [INFO] === HISTORY TESTS ===
+[2026-02-10T11:07:28.800Z] [TEST] Running test: Navigate to production History
+[2026-02-10T11:07:31.801Z] [INFO] Screenshot saved: prod-screenshot-1770721651742-prod-history-page.png
+[2026-02-10T11:07:31.801Z] [FAIL] ✗ FAIL: Navigate to production History - Expected history URL, got https://smartshoppinglist-sand.vercel.app/auth
+[2026-02-10T11:07:31.801Z] [INFO] === ANALYTICS TESTS ===
+[2026-02-10T11:07:31.801Z] [TEST] Running test: Navigate to production Analytics
+[2026-02-10T11:07:34.801Z] [INFO] Screenshot saved: prod-screenshot-1770721654747-prod-analytics-page.png
+[2026-02-10T11:07:34.801Z] [FAIL] ✗ FAIL: Navigate to production Analytics - Expected analytics URL, got https://smartshoppinglist-sand.vercel.app/auth
+[2026-02-10T11:07:34.801Z] [TEST] Running test: Production analytics displays charts
+[2026-02-10T11:07:34.804Z] [INFO] Found 0 chart elements
+[2026-02-10T11:07:34.804Z] [BUG] BUG FOUND (MINOR): [PROD] No charts displayed
+[2026-02-10T11:07:34.804Z] [PASS] ✓ PASS: Production analytics displays charts
+[2026-02-10T11:07:34.804Z] [INFO] === PERFORMANCE CHECK ===
+[2026-02-10T11:07:34.804Z] [TEST] Running test: Check production page load time
+[2026-02-10T11:07:35.752Z] [INFO] Dashboard load time: 948ms
+[2026-02-10T11:07:35.752Z] [PASS] ✓ PASS: Check production page load time
+[2026-02-10T11:07:35.752Z] [INFO] === PRODUCTION TEST SUMMARY ===
+[2026-02-10T11:07:35.752Z] [INFO] Total Tests: 13
+[2026-02-10T11:07:35.752Z] [INFO] Passed: 8
+[2026-02-10T11:07:35.752Z] [INFO] Failed: 5
+[2026-02-10T11:07:35.752Z] [INFO] Bugs Found: 4
+[2026-02-10T11:07:35.752Z] [INFO] Screenshots: 9
+[2026-02-10T11:07:35.753Z] [INFO] Production bug report saved to production-bug-report.json
+[2026-02-10T11:07:35.753Z] [INFO] Production test report saved to PRODUCTION_TEST_REPORT.md

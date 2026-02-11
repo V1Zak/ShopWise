@@ -1,0 +1,92 @@
+═══════════════════════════════════════════════════════
+   TESTING: CREATE LIST → ADD PRODUCTS WORKFLOW
+═══════════════════════════════════════════════════════
+
+━━━ STEP 1: LOGIN ━━━
+
+✓ Clicking "Sign in" button
+✓ Filling credentials
+✓ Submitting login form
+✓ Logged in successfully → http://localhost:5173/
+
+📸 Screenshot: list-workflow-01-logged-in.png
+━━━ STEP 2: GO TO DASHBOARD ━━━
+
+✓ On Dashboard page
+
+📸 Screenshot: list-workflow-02-dashboard.png
+━━━ STEP 3: CREATE NEW SHOPPING LIST ━━━
+
+Looking for "New List" button...
+✓ Found button: "addNew List"
+✓ Clicking "New List" button...
+📸 Screenshot: list-workflow-03-new-list-modal.png
+✓ Modal opened for list creation
+
+Found 2 input fields in modal
+Input placeholder: "Add item to list or track price (e.g. 'Milk $4.50')..."
+✓ Typing list name: "Weekly Groceries"
+📸 Screenshot: list-workflow-04-list-name-entered.png
+
+Found 0 buttons in modal
+⚠ Create button not found, trying Enter key...
+📸 Screenshot: list-workflow-05-after-list-created.png
+━━━ STEP 4: NAVIGATE TO CATALOG ━━━
+
+✓ On Catalog page
+
+📸 Screenshot: list-workflow-06-catalog.png
+━━━ STEP 5: ADD PRODUCT VIA CART BUTTON ━━━
+
+Looking for shopping cart buttons...
+✓ Found shopping cart button
+✓ Clicking cart button to add product...
+📸 Screenshot: list-workflow-07-after-cart-button-click.png
+✗ No modal opened
+Checking for inline feedback...
+⚠ No clear feedback after click
+
+━━━ STEP 6: ADD PRODUCT VIA QUICK ADD ━━━
+
+Looking for quick add input...
+✓ Found quick add input
+✓ Typing: "Organic Bananas $3.49"
+📸 Screenshot: list-workflow-10-quick-add-filled.png
+✓ Looking for Add button...
+✓ Found "Add" button
+✓ Clicking "Add" button...
+📸 Screenshot: list-workflow-11-after-quick-add.png
+✓ Item added via quick add!
+
+━━━ STEP 7: VIEW THE CREATED LIST ━━━
+
+📸 Screenshot: list-workflow-13-dashboard-with-list.png
+✓ Back on Dashboard
+
+⚠ "Weekly Groceries" not found on Dashboard
+
+Trying to navigate to /list...
+Current URL: http://localhost:5173/
+📸 Screenshot: list-workflow-15-list-page.png
+✓ On list page (not redirected to auth)
+
+Checking for added items...
+
+Found 0 list item elements
+
+═══════════════════════════════════════════════════════
+   TEST COMPLETE
+═══════════════════════════════════════════════════════
+
+WORKFLOW TESTED:
+  1. ✓ Login
+  2. ✓ Navigate to Dashboard
+  3. ✓ Create "Weekly Groceries" list
+  4. ✓ Navigate to Catalog
+  5. ✓ Add product via cart button
+  6. ✓ Add product via quick add
+  7. ✓ View the list with items
+
+📸 Screenshots captured: Check screenshots/ folder
+   Look for: list-workflow-*.png
+

@@ -20,3 +20,7 @@ supabase/.temp/
 
 # E2E tests (local testing only)
 e2e-tests/
+
+# Design mockups (local only)
+stitch*/
+ShopWise-Testing/chrome-tester-fresh/

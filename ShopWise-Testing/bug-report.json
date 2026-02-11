@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "totalTests": 12,
+    "passed": 7,
+    "failed": 5,
+    "bugsFound": 4,
+    "testDate": "2026-02-10T11:02:08.104Z",
+    "appUrl": "http://localhost:5173",
+    "tester": "Claude Code + Puppeteer"
+  },
+  "bugs": [
+    {
+      "severity": "MAJOR",
+      "title": "Not redirected after login",
+      "description": "After login, URL is: http://localhost:5173/auth",
+      "screenshot": null,
+      "timestamp": "2026-02-10T11:01:55.602Z"
+    },
+    {
+      "severity": "MAJOR",
+      "title": "Navigation not found",
+      "description": "No navigation element found on dashboard",
+      "screenshot": null,
+      "timestamp": "2026-02-10T11:01:58.066Z"
+    },
+    {
+      "severity": "MINOR",
+      "title": "Search input not found",
+      "description": "No search input found in catalog",
+      "screenshot": null,
+      "timestamp": "2026-02-10T11:02:00.566Z"
+    },
+    {
+      "severity": "MINOR",
+      "title": "No charts displayed",
+      "description": "Analytics page shows no chart elements",
+      "screenshot": null,
+      "timestamp": "2026-02-10T11:02:08.104Z"
+    }
+  ],
+  "screenshots": [
+    "login-page",
+    "login-filled",
+    "after-login",
+    "dashboard",
+    "dashboard-main",
+    "catalog-page",
+    "shopping-list",
+    "history-page",
+    "analytics-page"
+  ]
+}
