@@ -1,13 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-
-const spikes = [
-  { icon: 'egg', name: 'Org. Brown Eggs', desc: 'Dozen • Vital Farms', price: '$8.99', change: '$1.50' },
-  { icon: 'nutrition', name: 'Avocados (4ct)', desc: 'Bag • Organic', price: '$6.49', change: '$0.50' },
-  { icon: 'local_cafe', name: 'Cold Brew', desc: '48oz • Stok', price: '$5.99', change: '$0.30' },
-];
+import { useAnalyticsStore } from '@/store/analytics-store';
 
 export function PriceSpikeAlerts() {
   const navigate = useNavigate();
+  const priceAlerts = useAnalyticsStore((s) => s.data.priceAlerts);
+
+  const spikes = priceAlerts.filter((a) => a.priceChangePercent > 0);
 
   return (
     <div className="rounded-xl bg-surface border border-border flex flex-col overflow-hidden">
@@ -16,30 +14,42 @@ export function PriceSpikeAlerts() {
           <span className="material-symbols-outlined text-warning">warning</span>
           Price Spike Alerts
         </h3>
-        <span className="bg-warning/20 text-warning text-xs font-bold px-2 py-0.5 rounded">3 Items</span>
+        {spikes.length > 0 && (
+          <span className="bg-warning/20 text-warning text-xs font-bold px-2 py-0.5 rounded">
+            {spikes.length} Item{spikes.length !== 1 ? 's' : ''}
+          </span>
+        )}
       </div>
-      <div className="divide-y divide-border">
-        {spikes.map((item) => (
-          <div key={item.name} className="p-4 hover:bg-surface-active/50 transition-colors flex justify-between items-center">
-            <div className="flex gap-3">
-              <div className="h-10 w-10 rounded bg-bg border border-border flex items-center justify-center shrink-0">
-                <span className="material-symbols-outlined text-text-muted">{item.icon}</span>
+      {spikes.length === 0 ? (
+        <div className="flex flex-col items-center py-8 text-text-muted">
+          <span className="material-symbols-outlined text-[28px] mb-2">check_circle</span>
+          <p className="text-sm">No price spikes detected</p>
+          <p className="text-xs mt-1">Prices are stable across your recent purchases.</p>
+        </div>
+      ) : (
+        <div className="divide-y divide-border">
+          {spikes.map((item) => (
+            <div key={item.id} className="p-4 hover:bg-surface-active/50 transition-colors flex justify-between items-center">
+              <div className="flex gap-3">
+                <div className="h-10 w-10 rounded bg-bg border border-border flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-text-muted">nutrition</span>
+                </div>
+                <div>
+                  <p className="text-text text-sm font-medium">{item.productName}</p>
+                  <p className="text-text-muted text-xs">Last bought: {item.lastBought}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-text text-sm font-medium">{item.name}</p>
-                <p className="text-text-muted text-xs">{item.desc}</p>
+              <div className="text-right">
+                <p className="text-text font-mono font-bold">${item.currentPrice.toFixed(2)}</p>
+                <p className="text-danger text-xs font-bold flex items-center justify-end gap-0.5">
+                  <span className="material-symbols-outlined text-[10px]">arrow_upward</span>
+                  {item.priceChange}
+                </p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-text font-mono font-bold">{item.price}</p>
-              <p className="text-danger text-xs font-bold flex items-center justify-end gap-0.5">
-                <span className="material-symbols-outlined text-[10px]">arrow_upward</span>
-                {item.change}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
       <div className="p-3 bg-surface-alt border-t border-border">
         <button
           onClick={() => navigate('/analytics')}
