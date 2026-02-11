@@ -24,6 +24,7 @@ interface ProductsState {
   sortDirection: SortDirection;
   priceRange: PriceRange;
   editingProductId: string | null;
+  isCreatingProduct: boolean;
   fetchProducts: () => Promise<void>;
   setSearch: (query: string) => void;
   setCategory: (category: CategoryId | 'all') => void;
@@ -35,6 +36,7 @@ interface ProductsState {
   clearPriceFilter: () => void;
   getFilteredProducts: () => Product[];
   setEditingProduct: (id: string | null) => void;
+  setCreatingProduct: (val: boolean) => void;
   updateProduct: (id: string, updates: Partial<Pick<Product, 'name' | 'brand' | 'barcode' | 'categoryId' | 'unit' | 'averagePrice'>>) => Promise<void>;
   deleteProduct: (id: string) => Promise<void>;
 }
@@ -57,6 +59,7 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
   sortDirection: 'asc',
   priceRange: { min: null, max: null },
   editingProductId: null,
+  isCreatingProduct: false,
 
   fetchProducts: async () => {
     set({ isLoading: true });
@@ -120,12 +123,14 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
   clearPriceFilter: () => set({ priceRange: { min: null, max: null } }),
 
   setEditingProduct: (id) => set({ editingProductId: id }),
+  setCreatingProduct: (val) => set({ isCreatingProduct: val }),
 
   updateProduct: async (id, updates) => {
     const product = await productsService.updateProduct(id, updates);
     set((state) => ({
       products: state.products.map((p) => (p.id === id ? product : p)),
       editingProductId: null,
+      isCreatingProduct: false,
     }));
   },
 
@@ -134,6 +139,7 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
     set((state) => ({
       products: state.products.filter((p) => p.id !== id),
       editingProductId: null,
+      isCreatingProduct: false,
       compareList: state.compareList.filter((cid) => cid !== id),
     }));
   },

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useTripsStore } from '@/store/trips-store';
 import { TripRow } from './TripRow';
 import { TripExpandedDetail } from './TripExpandedDetail';
@@ -46,10 +46,10 @@ export function HistoryTable() {
               </tr>
             ) : (
               pageTrips.map((trip) => (
-                <>
-                  <TripRow key={trip.id} trip={trip} isExpanded={expandedTripId === trip.id} />
-                  {expandedTripId === trip.id && <TripExpandedDetail key={`${trip.id}-detail`} trip={trip} />}
-                </>
+                <Fragment key={trip.id}>
+                  <TripRow trip={trip} isExpanded={expandedTripId === trip.id} />
+                  {expandedTripId === trip.id && <TripExpandedDetail trip={trip} />}
+                </Fragment>
               ))
             )}
           </tbody>

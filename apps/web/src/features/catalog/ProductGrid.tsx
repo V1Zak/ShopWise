@@ -8,6 +8,8 @@ export function ProductGrid() {
   const allProducts = useProductsStore((s) => s.products);
   const editingProductId = useProductsStore((s) => s.editingProductId);
   const setEditingProduct = useProductsStore((s) => s.setEditingProduct);
+  const isCreatingProduct = useProductsStore((s) => s.isCreatingProduct);
+  const setCreatingProduct = useProductsStore((s) => s.setCreatingProduct);
   const fetchProducts = useProductsStore((s) => s.fetchProducts);
 
   const editingProduct = editingProductId
@@ -16,6 +18,11 @@ export function ProductGrid() {
 
   const handleEditSave = () => {
     setEditingProduct(null);
+    fetchProducts();
+  };
+
+  const handleCreateSave = () => {
+    setCreatingProduct(false);
     fetchProducts();
   };
 
@@ -33,6 +40,14 @@ export function ProductGrid() {
           product={editingProduct}
           onSave={handleEditSave}
           onClose={() => setEditingProduct(null)}
+        />
+      )}
+
+      {isCreatingProduct && (
+        <ProductForm
+          mode="create"
+          onSave={handleCreateSave}
+          onClose={() => setCreatingProduct(false)}
         />
       )}
     </>
