@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useListsStore } from '@/store/lists-store';
 import { useTripsStore } from '@/store/trips-store';
 
@@ -15,6 +16,7 @@ interface ActivityItem {
   time: string;
   detail?: string;
   price?: string;
+  link?: string;
 }
 
 function timeAgo(dateStr: string): string {
@@ -37,6 +39,7 @@ export function RecentActivityFeed() {
   const items = useListsStore((s) => s.items);
   const trips = useTripsStore((s) => s.trips);
   const [expanded, setExpanded] = useState(false);
+  const navigate = useNavigate();
 
   const activity = useMemo<ActivityItem[]>(() => {
     const result: ActivityItem[] = [];
@@ -53,6 +56,7 @@ export function RecentActivityFeed() {
         boldText: list.title,
         time: list.createdAt,
         detail: `${list.itemCount} items`,
+        link: `/list/${list.id}`,
       });
     }
 
@@ -72,6 +76,7 @@ export function RecentActivityFeed() {
         boldText: item.name,
         time: parentList?.updatedAt ?? parentList?.createdAt ?? '',
         detail: parentList ? `to '${parentList.title}'` : undefined,
+        link: item.listId ? `/list/${item.listId}` : undefined,
       });
     }
 
@@ -88,6 +93,7 @@ export function RecentActivityFeed() {
         time: trip.date,
         price: `$${trip.totalSpent.toFixed(2)}`,
         detail: `${trip.itemCount} items`,
+        link: '/history',
       });
     }
 
@@ -127,7 +133,11 @@ export function RecentActivityFeed() {
             {visibleActivity.map((item) => (
               <div
                 key={item.id}
-                className="flex items-start gap-4 p-4 hover:bg-surface-active/30 transition-colors rounded-lg"
+                role={item.link ? 'button' : undefined}
+                tabIndex={item.link ? 0 : undefined}
+                onClick={item.link ? () => navigate(item.link!) : undefined}
+                onKeyDown={item.link ? (e) => { if (e.key === 'Enter') navigate(item.link!); } : undefined}
+                className={`flex items-center gap-4 p-4 hover:bg-surface-active/30 transition-colors rounded-lg${item.link ? ' cursor-pointer' : ''}`}
               >
                 <div
                   className={`${item.iconBg} ${item.iconColor} p-2 rounded-lg mt-0.5`}
@@ -163,6 +173,11 @@ export function RecentActivityFeed() {
                     )}
                   </div>
                 </div>
+                {item.link && (
+                  <span className="material-symbols-outlined text-[18px] text-text-muted mt-0.5">
+                    chevron_right
+                  </span>
+                )}
               </div>
             ))}
           </div>
