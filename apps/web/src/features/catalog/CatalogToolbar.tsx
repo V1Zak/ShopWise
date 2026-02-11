@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useProductsStore, type SortBy, type SortDirection } from '@/store/products-store';
 import { SearchInput } from '@/components/ui/SearchInput';
 import { Dropdown, DropdownItem } from '@/components/ui/Dropdown';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface SortOption {
   label: string;
@@ -24,6 +25,7 @@ function getSortLabel(sortBy: SortBy, direction: SortDirection): string {
 }
 
 export function CatalogToolbar() {
+  const { symbol } = useCurrency();
   const searchQuery = useProductsStore((s) => s.searchQuery);
   const setSearch = useProductsStore((s) => s.setSearch);
   const viewMode = useProductsStore((s) => s.viewMode);
@@ -63,6 +65,14 @@ export function CatalogToolbar() {
         />
       </div>
       <div className="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 scrollbar-none -mx-2 px-2">
+        <button
+          onClick={() => useProductsStore.getState().setCreatingProduct(true)}
+          className="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary text-black text-sm font-bold whitespace-nowrap hover:bg-primary/90 transition-colors"
+        >
+          <span className="material-symbols-outlined text-[18px]">add_circle</span>
+          Add Product
+        </button>
+        <div className="w-px h-6 bg-border mx-1" />
         <button
           onClick={() => setViewMode('grid')}
           className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap ${
@@ -111,14 +121,14 @@ export function CatalogToolbar() {
             </div>
             <div className="flex items-center gap-2 mb-3">
               <div className="flex-1">
-                <label className="text-[11px] text-text-muted mb-1 block">Min ($)</label>
+                <label className="text-[11px] text-text-muted mb-1 block">Min ({symbol})</label>
                 <input type="number" min="0" step="0.01" placeholder="0.00" value={minInput}
                   onChange={(e) => setMinInput(e.target.value)}
                   className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm text-text placeholder-text-muted outline-none focus:border-primary transition-colors" />
               </div>
               <span className="text-text-muted pt-4">-</span>
               <div className="flex-1">
-                <label className="text-[11px] text-text-muted mb-1 block">Max ($)</label>
+                <label className="text-[11px] text-text-muted mb-1 block">Max ({symbol})</label>
                 <input type="number" min="0" step="0.01" placeholder="999" value={maxInput}
                   onChange={(e) => setMaxInput(e.target.value)}
                   className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm text-text placeholder-text-muted outline-none focus:border-primary transition-colors" />

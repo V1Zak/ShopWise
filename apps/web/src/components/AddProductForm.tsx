@@ -5,6 +5,7 @@ import { productsService } from '@/services/products.service';
 import { storageService } from '@/services/storage.service';
 import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface AddProductFormProps {
   barcode: string;
@@ -13,6 +14,7 @@ interface AddProductFormProps {
 }
 
 export function AddProductForm({ barcode, onProductCreated, onClose }: AddProductFormProps) {
+  const { symbol } = useCurrency();
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [categoryId, setCategoryId] = useState<CategoryId>('other');
@@ -217,7 +219,7 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
               Price <span className="text-red-400">*</span>
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-muted">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-muted">{symbol}</span>
               <input
                 id="product-price"
                 type="number"

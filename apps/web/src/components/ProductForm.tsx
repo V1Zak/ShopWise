@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { ProductImageGallery } from '@/components/ProductImageGallery';
 import { ConfirmDeleteModal } from '@/components/ConfirmDeleteModal';
 import { BarcodeScanner } from '@/components/BarcodeScanner';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface ProductFormProps {
   mode: 'create' | 'edit';
@@ -26,6 +27,7 @@ interface StorePriceEdit {
 }
 
 export function ProductForm({ mode, product, barcode, onSave, onClose }: ProductFormProps) {
+  const { symbol } = useCurrency();
   const [name, setName] = useState(product?.name ?? '');
   const [brand, setBrand] = useState(product?.brand ?? '');
   const [categoryId, setCategoryId] = useState<CategoryId>(product?.categoryId ?? 'other');
@@ -386,7 +388,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
               )}
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-muted">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-muted">{symbol}</span>
               <input
                 id="product-price"
                 type="number"
@@ -417,7 +419,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                   />
                   <span className="text-sm text-text-muted flex-1 truncate">{getStoreName(sp.storeId)}</span>
                   <div className="relative w-24">
-                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-muted">$</span>
+                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-muted">{symbol}</span>
                     <input
                       type="number"
                       step="0.01"
@@ -451,7 +453,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                     ))}
                   </select>
                   <div className="relative w-24">
-                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-muted">$</span>
+                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-muted">{symbol}</span>
                     <input
                       type="number"
                       step="0.01"
