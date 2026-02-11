@@ -22,20 +22,20 @@ export function HistoryStats() {
         label="Total Spend YTD"
         value={`$${totalSpent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
         icon="payments"
-        iconColor="text-white"
+        iconColor="text-text"
       />
       <StatCard
         label="Avg Savings"
         value={`${avgSavingsRate.toFixed(1)}%`}
         icon="savings"
-        iconColor="text-white"
+        iconColor="text-text"
       />
       <StatCard
         label="Top Source"
         value={topStore ? topStore.name : 'N/A'}
         trendLabel={topStore ? `${topStore.count} visits` : undefined}
         icon="storefront"
-        iconColor="text-white"
+        iconColor="text-text"
       />
     </div>
   );

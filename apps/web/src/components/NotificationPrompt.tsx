@@ -33,16 +33,16 @@ export function NotificationPrompt() {
   };
 
   return (
-    <div className="rounded-xl border border-border-dark bg-surface-dark p-4 flex items-start gap-4">
+    <div className="rounded-xl border border-border bg-surface p-4 flex items-start gap-4">
       <div className="flex-shrink-0 mt-0.5 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
         <Icon name="notifications_active" className="text-primary" size={22} />
       </div>
 
       <div className="flex-1 min-w-0">
-        <h3 className="text-sm font-bold text-white">
+        <h3 className="text-sm font-bold text-text">
           Stay updated on shared lists
         </h3>
-        <p className="text-xs text-text-secondary mt-1 leading-relaxed">
+        <p className="text-xs text-text-muted mt-1 leading-relaxed">
           Get notified when someone adds or checks off items on your shared
           shopping lists.
         </p>
@@ -59,7 +59,7 @@ export function NotificationPrompt() {
 
       <button
         onClick={handleDismiss}
-        className="flex-shrink-0 text-text-secondary hover:text-white transition-colors"
+        className="flex-shrink-0 text-text-muted hover:text-text transition-colors"
         aria-label="Dismiss notification prompt"
       >
         <Icon name="close" size={18} />

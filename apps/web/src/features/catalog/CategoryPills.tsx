@@ -7,7 +7,7 @@ export function CategoryPills() {
   const setCategory = useProductsStore((s) => s.setCategory);
 
   return (
-    <div className="px-6 lg:px-10 py-3 flex gap-2 overflow-x-auto border-b border-border-dark">
+    <div className="px-6 lg:px-10 py-3 flex gap-2 overflow-x-auto border-b border-border">
       <FilterChip
         label="All Categories"
         active={activeCategory === 'all'}

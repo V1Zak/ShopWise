@@ -2,6 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Design Tokens (RGB channels for Tailwind alpha support) ── */
+:root {
+  --color-bg: 255 255 255;
+  --color-surface: 248 250 249;
+  --color-surface-alt: 240 242 241;
+  --color-surface-active: 232 245 238;
+  --color-border: 224 229 226;
+  --color-text-muted: 107 124 116;
+  --color-text: 26 26 26;
+  --color-text-inv: 255 255 255;
+  --color-primary: 15 186 102;
+  --color-danger: 220 53 69;
+  --color-warning: 232 144 12;
+}
+
+.dark {
+  --color-bg: 11 34 26;
+  --color-surface: 26 51 42;
+  --color-surface-alt: 13 27 20;
+  --color-surface-active: 35 72 54;
+  --color-border: 35 72 54;
+  --color-text-muted: 146 201 173;
+  --color-text: 255 255 255;
+  --color-text-inv: 17 34 26;
+  --color-primary: 19 236 128;
+  --color-danger: 255 90 95;
+  --color-warning: 255 159 28;
+}
+
 body {
   font-family: 'Inter', sans-serif;
 }
@@ -12,12 +41,12 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #11221a;
+  background: rgb(var(--color-bg));
 }
 ::-webkit-scrollbar-thumb {
-  background: #234836;
+  background: rgb(var(--color-border));
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2f5e46;
+  background: rgb(var(--color-text-muted) / 0.5);
 }

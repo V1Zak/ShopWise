@@ -66,20 +66,20 @@ export function AttentionNeeded() {
   }, [lists, trips]);
 
   return (
-    <div className="bg-surface-dark rounded-xl border border-border-dark p-5">
-      <h3 className="text-white font-bold text-base mb-4 flex items-center gap-2">
+    <div className="bg-surface rounded-xl border border-border p-5">
+      <h3 className="text-text font-bold text-base mb-4 flex items-center gap-2">
         <span className="material-symbols-outlined text-yellow-400">
           warning
         </span>
         Attention Needed
       </h3>
       {alerts.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-6 text-text-secondary">
+        <div className="flex flex-col items-center justify-center py-6 text-text-muted">
           <span className="material-symbols-outlined text-[28px] mb-2 text-primary">
             check_circle
           </span>
           <p className="text-sm text-primary font-medium">All clear!</p>
-          <p className="text-xs text-text-secondary mt-1">
+          <p className="text-xs text-text-muted mt-1">
             No issues need your attention
           </p>
         </div>
@@ -88,14 +88,14 @@ export function AttentionNeeded() {
           {alerts.map((alert, i) => (
             <div
               key={i}
-              className="flex items-start gap-3 bg-background-dark p-3 rounded-lg border border-border-dark/50"
+              className="flex items-start gap-3 bg-bg p-3 rounded-lg border border-border/50"
             >
               <div
                 className={`h-2 w-2 rounded-full ${alert.color} mt-1.5 flex-shrink-0`}
               />
               <div>
-                <p className="text-sm text-white font-medium">{alert.title}</p>
-                <p className="text-xs text-text-secondary">{alert.sub}</p>
+                <p className="text-sm text-text font-medium">{alert.title}</p>
+                <p className="text-xs text-text-muted">{alert.sub}</p>
               </div>
             </div>
           ))}

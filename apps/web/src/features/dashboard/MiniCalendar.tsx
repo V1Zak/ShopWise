@@ -77,24 +77,24 @@ export function MiniCalendar() {
   }
 
   return (
-    <div className="bg-surface-dark rounded-xl border border-border-dark p-5">
+    <div className="bg-surface rounded-xl border border-border p-5">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-white font-bold text-base">Schedule</h3>
-        <span className="text-xs font-mono text-text-secondary">
+        <h3 className="text-text font-bold text-base">Schedule</h3>
+        <span className="text-xs font-mono text-text-muted">
           {monthYear}
         </span>
       </div>
-      <div className="flex justify-between text-center mb-2 text-xs text-text-secondary">
+      <div className="flex justify-between text-center mb-2 text-xs text-text-muted">
         {DAY_LABELS.map((label, i) => (
           <div
             key={label}
-            className={`w-8 ${isSameDay(weekDates[i], today) ? 'text-white font-bold' : ''}`}
+            className={`w-8 ${isSameDay(weekDates[i], today) ? 'text-text font-bold' : ''}`}
           >
             {label}
           </div>
         ))}
       </div>
-      <div className="flex justify-between text-center text-sm font-medium text-white">
+      <div className="flex justify-between text-center text-sm font-medium text-text">
         {weekDates.map((date) => {
           const isToday = isSameDay(date, today);
           const dateHasTrip = hasTrip(date);
@@ -103,8 +103,8 @@ export function MiniCalendar() {
               key={date.toISOString()}
               className={`w-8 py-1 rounded ${
                 isToday
-                  ? 'bg-primary text-background-dark font-bold'
-                  : 'hover:bg-accent-green'
+                  ? 'bg-primary text-text-inv font-bold'
+                  : 'hover:bg-surface-active'
               } ${dateHasTrip && !isToday ? 'relative' : ''}`}
             >
               {date.getDate()}
@@ -115,22 +115,22 @@ export function MiniCalendar() {
           );
         })}
       </div>
-      <div className="mt-4 pt-3 border-t border-border-dark">
+      <div className="mt-4 pt-3 border-t border-border">
         {nextTrip ? (
           <div className="flex items-center gap-3">
             <div className="w-1 h-8 rounded-full bg-primary" />
             <div>
-              <p className="text-sm text-white font-medium">
+              <p className="text-sm text-text font-medium">
                 {nextTrip.storeName} Trip
               </p>
-              <p className="text-xs text-text-secondary">
+              <p className="text-xs text-text-muted">
                 {formatNextTripDate(nextTrip.date)} &bull;{' '}
                 {nextTrip.itemCount} items
               </p>
             </div>
           </div>
         ) : (
-          <p className="text-xs text-text-secondary text-center">
+          <p className="text-xs text-text-muted text-center">
             No upcoming trips
           </p>
         )}

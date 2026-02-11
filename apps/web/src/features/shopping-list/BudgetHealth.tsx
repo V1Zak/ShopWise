@@ -72,15 +72,15 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
 
   if (budget == null) {
     return (
-      <div className="bg-gradient-to-br from-background-dark to-surface-dark rounded-xl p-5 border border-border-dark">
+      <div className="bg-gradient-to-br from-bg to-surface rounded-xl p-5 border border-border">
         <div className="flex items-center gap-2 mb-4">
           <span className="material-symbols-outlined text-primary">account_balance_wallet</span>
-          <h4 className="text-white font-bold">Budget Health</h4>
+          <h4 className="text-text font-bold">Budget Health</h4>
         </div>
         {isEditing ? (
           <div className="space-y-3">
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">$</span>
               <input
                 ref={inputRef}
                 type="number"
@@ -89,20 +89,20 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="w-full bg-surface-dark border border-border-dark rounded-lg py-2 pl-7 pr-3 text-white text-sm focus:outline-none focus:border-primary"
+                className="w-full bg-surface border border-border rounded-lg py-2 pl-7 pr-3 text-text text-sm focus:outline-none focus:border-primary"
                 placeholder="Enter budget amount"
               />
             </div>
             <div className="flex gap-2">
               <button
                 onClick={handleSave}
-                className="flex-1 bg-primary text-background-dark font-medium text-sm py-1.5 rounded-lg hover:bg-primary/90 transition-colors"
+                className="flex-1 bg-primary text-text-inv font-medium text-sm py-1.5 rounded-lg hover:bg-primary/90 transition-colors"
               >
                 Set Budget
               </button>
               <button
                 onClick={() => setIsEditing(false)}
-                className="flex-1 border border-border-dark text-text-secondary text-sm py-1.5 rounded-lg hover:text-white transition-colors"
+                className="flex-1 border border-border text-text-muted text-sm py-1.5 rounded-lg hover:text-text transition-colors"
               >
                 Cancel
               </button>
@@ -111,7 +111,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
         ) : (
           <button
             onClick={handleStartEdit}
-            className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-border-dark rounded-lg text-text-secondary hover:text-primary hover:border-primary transition-colors"
+            className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-border rounded-lg text-text-muted hover:text-primary hover:border-primary transition-colors"
           >
             <span className="material-symbols-outlined text-sm">add</span>
             <span className="text-sm">Set a shopping budget</span>
@@ -129,11 +129,11 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
   const textColor = getBudgetTextColor(percent);
 
   return (
-    <div className="bg-gradient-to-br from-background-dark to-surface-dark rounded-xl p-5 border border-border-dark">
+    <div className="bg-gradient-to-br from-bg to-surface rounded-xl p-5 border border-border">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <span className="material-symbols-outlined text-primary">account_balance_wallet</span>
-          <h4 className="text-white font-bold">Budget Health</h4>
+          <h4 className="text-text font-bold">Budget Health</h4>
         </div>
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
           percent > 90 ? 'bg-red-500/20 text-red-400' :
@@ -146,10 +146,10 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
 
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-text-secondary">Budget</span>
+          <span className="text-sm text-text-muted">Budget</span>
           {isEditing ? (
             <div className="flex items-center gap-1">
-              <span className="text-text-secondary text-sm">$</span>
+              <span className="text-text-muted text-sm">$</span>
               <input
                 ref={inputRef}
                 type="number"
@@ -159,11 +159,11 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyDown}
                 onBlur={handleSave}
-                className="w-24 bg-surface-dark border border-border-dark rounded px-2 py-0.5 text-white text-sm text-right focus:outline-none focus:border-primary"
+                className="w-24 bg-surface border border-border rounded px-2 py-0.5 text-text text-sm text-right focus:outline-none focus:border-primary"
               />
               <button
                 onClick={handleClear}
-                className="ml-1 text-text-secondary hover:text-red-400 transition-colors"
+                className="ml-1 text-text-muted hover:text-red-400 transition-colors"
                 title="Remove budget"
               >
                 <span className="material-symbols-outlined text-sm">close</span>
@@ -172,29 +172,29 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
           ) : (
             <button
               onClick={handleStartEdit}
-              className="text-white font-medium hover:text-primary transition-colors flex items-center gap-1"
+              className="text-text font-medium hover:text-primary transition-colors flex items-center gap-1"
             >
               ${budget.toFixed(2)}
-              <span className="material-symbols-outlined text-text-secondary text-sm">edit</span>
+              <span className="material-symbols-outlined text-text-muted text-sm">edit</span>
             </button>
           )}
         </div>
 
         <div>
           <div className="flex justify-between text-sm mb-1">
-            <span className="text-text-secondary">Budget Used</span>
+            <span className="text-text-muted">Budget Used</span>
             <span className={`font-medium ${textColor}`}>{Math.round(percent)}%</span>
           </div>
           <ProgressBar value={percent} color={color} />
         </div>
 
-        <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border-dark">
+        <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border">
           <div>
-            <span className="text-xs text-text-secondary block">Spent</span>
-            <span className="text-white font-bold">${spent.toFixed(2)}</span>
+            <span className="text-xs text-text-muted block">Spent</span>
+            <span className="text-text font-bold">${spent.toFixed(2)}</span>
           </div>
           <div className="text-right">
-            <span className="text-xs text-text-secondary block">Remaining</span>
+            <span className="text-xs text-text-muted block">Remaining</span>
             <span className={`font-bold ${overBudget ? 'text-red-400' : 'text-primary'}`}>
               {overBudget ? '-' : ''}${Math.abs(remaining).toFixed(2)}
             </span>

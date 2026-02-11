@@ -36,9 +36,9 @@ export function ProductCard({ product }: Props) {
   const [addedToList, setAddedToList] = useState<string | null>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
   const volatilityColor =
-    product.volatility === 'high' ? '#ef4444' : product.volatility === 'low' ? '#13ec80' : '#92c9ad';
+    product.volatility === 'high' ? 'rgb(var(--color-danger))' : product.volatility === 'low' ? 'rgb(var(--color-primary))' : 'rgb(var(--color-text-muted))';
   const volatilityBg =
-    product.volatility === 'high' ? 'text-red-400 bg-red-400/10' : product.volatility === 'low' ? 'text-primary bg-primary/10' : 'text-text-secondary bg-white/5';
+    product.volatility === 'high' ? 'text-red-400 bg-red-400/10' : product.volatility === 'low' ? 'text-primary bg-primary/10' : 'text-text-muted bg-surface-active/10';
 
   // Close picker on click outside
   useEffect(() => {
@@ -77,13 +77,13 @@ export function ProductCard({ product }: Props) {
   };
 
   return (
-    <div className="group bg-surface-dark border border-border-dark rounded-xl overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col">
+    <div className="group bg-surface border border-border rounded-xl overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col">
       {/* Image */}
-      <div className="relative h-48 w-full overflow-hidden bg-white/5">
+      <div className="relative h-48 w-full overflow-hidden bg-surface-active/10">
         {product.imageUrl ? (
           <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent-green/20 to-accent-green/5">
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-active/20 to-surface-active/5">
             <span className="material-symbols-outlined text-5xl text-primary/30">
               {categoryIcon(product.categoryId)}
             </span>
@@ -117,12 +117,12 @@ export function ProductCard({ product }: Props) {
       <div className="p-4 flex flex-col flex-1">
         <div className="flex justify-between items-start mb-2">
           <div>
-            <h3 className="text-white font-bold text-lg leading-tight">{product.name}</h3>
-            <p className="text-text-secondary text-xs">{product.unit} {product.brand ? `• ${product.brand}` : ''}</p>
+            <h3 className="text-text font-bold text-lg leading-tight">{product.name}</h3>
+            <p className="text-text-muted text-xs">{product.unit} {product.brand ? `• ${product.brand}` : ''}</p>
           </div>
           <div className="text-right">
-            <p className="text-white font-mono font-bold">${product.averagePrice.toFixed(2)}</p>
-            <p className="text-text-secondary text-[10px]">Avg Price</p>
+            <p className="text-text font-mono font-bold">${product.averagePrice.toFixed(2)}</p>
+            <p className="text-text-muted text-[10px]">Avg Price</p>
           </div>
         </div>
 
@@ -132,7 +132,7 @@ export function ProductCard({ product }: Props) {
             <Sparkline data={product.priceHistory} color={volatilityColor} className="h-6 w-24" />
           ) : (
             <svg className="h-6 w-24" viewBox="0 0 100 25">
-              <path d="M0 12 L100 12" fill="none" stroke="#92c9ad" strokeWidth="2" strokeDasharray="4" />
+              <path d="M0 12 L100 12" fill="none" stroke="rgb(var(--color-text-muted))" strokeWidth="2" strokeDasharray="4" />
             </svg>
           )}
           <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${volatilityBg}`}>
@@ -141,7 +141,7 @@ export function ProductCard({ product }: Props) {
         </div>
 
         {/* Store Prices */}
-        <div className="mt-auto space-y-2 border-t border-border-dark pt-3">
+        <div className="mt-auto space-y-2 border-t border-border pt-3">
           {[...product.storePrices]
             .sort((a, b) => {
               if (activeStoreId === 'all') return 0;
@@ -157,15 +157,15 @@ export function ProductCard({ product }: Props) {
               <div key={sp.storeId} className={`flex items-center justify-between ${isDimmed ? 'opacity-40' : ''} transition-opacity`}>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: sp.storeColor }} />
-                  <span className={`text-sm ${isSelected ? 'text-white font-medium' : 'text-gray-300'}`}>{sp.storeName}</span>
+                  <span className={`text-sm ${isSelected ? 'text-text font-medium' : 'text-text-muted'}`}>{sp.storeName}</span>
                 </div>
                 <div className="flex items-center gap-3 relative">
-                  <span className={`text-sm font-mono ${isSelected ? 'text-primary font-bold' : isCheapest ? 'text-primary font-bold' : 'text-gray-400'}`}>
+                  <span className={`text-sm font-mono ${isSelected ? 'text-primary font-bold' : isCheapest ? 'text-primary font-bold' : 'text-text-muted'}`}>
                     ${sp.price.toFixed(2)}
                   </span>
                   <button
                     onClick={() => setShowListPicker(true)}
-                    className="text-text-secondary hover:text-white hover:bg-accent-green p-1 rounded transition-colors"
+                    className="text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
                   >
                     <span className="material-symbols-outlined text-[18px]">add_shopping_cart</span>
                   </button>
@@ -177,25 +177,25 @@ export function ProductCard({ product }: Props) {
 
         {/* List Picker Popover */}
         {showListPicker && (
-          <div ref={pickerRef} className="mt-3 rounded-lg border border-border-dark bg-background-dark shadow-xl p-3 space-y-1">
-            <p className="text-xs font-semibold text-text-secondary mb-2">Add to list:</p>
+          <div ref={pickerRef} className="mt-3 rounded-lg border border-border bg-bg shadow-xl p-3 space-y-1">
+            <p className="text-xs font-semibold text-text-muted mb-2">Add to list:</p>
             {lists.length === 0 ? (
-              <p className="text-xs text-text-secondary">No lists yet. Create one first.</p>
+              <p className="text-xs text-text-muted">No lists yet. Create one first.</p>
             ) : (
               lists.map((list) => (
                 <button
                   key={list.id}
                   onClick={() => handleAddToList(list.id)}
                   disabled={addingToList === list.id}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm text-white hover:bg-accent-green transition-colors disabled:opacity-50"
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm text-text hover:bg-surface-active transition-colors disabled:opacity-50"
                 >
                   <span className="truncate">{list.title}</span>
                   {addedToList === list.id ? (
                     <span className="material-symbols-outlined text-primary text-[16px]">check_circle</span>
                   ) : addingToList === list.id ? (
-                    <span className="material-symbols-outlined text-text-secondary text-[16px] animate-spin">progress_activity</span>
+                    <span className="material-symbols-outlined text-text-muted text-[16px] animate-spin">progress_activity</span>
                   ) : (
-                    <span className="material-symbols-outlined text-text-secondary text-[16px]">add</span>
+                    <span className="material-symbols-outlined text-text-muted text-[16px]">add</span>
                   )}
                 </button>
               ))

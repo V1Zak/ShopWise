@@ -15,13 +15,11 @@ export function useNotifications() {
     if (!('permissions' in navigator)) return;
 
     let mounted = true;
-    let permStatus: PermissionStatus | undefined;
 
     navigator.permissions
       .query({ name: 'notifications' as PermissionName })
       .then((status) => {
         if (!mounted) return;
-        permStatus = status as unknown as PermissionStatus;
         const handler = () => {
           if (mounted) {
             setPermissionStatus(notificationsService.getPermissionStatus());

@@ -4,6 +4,7 @@ import { ListHeader } from '@/features/shopping-list/ListHeader';
 import { ListTabs } from '@/features/shopping-list/ListTabs';
 import { ShoppingListContent } from '@/features/shopping-list/ShoppingListContent';
 import { CompleteButton } from '@/features/shopping-list/CompleteButton';
+import { StoreComparisonTable } from '@/features/shopping-list/StoreComparisonTable';
 import { AisleNavigation } from '@/features/shopping-list/AisleNavigation';
 import { ProductIntelligence } from '@/features/shopping-list/ProductIntelligence';
 import { BudgetHealth } from '@/features/shopping-list/BudgetHealth';
@@ -123,7 +124,7 @@ export function ActiveShoppingListPage() {
         />
       )}
 
-      <section className="flex-1 flex flex-col h-full border-r border-border-dark bg-background-dark min-w-0 overflow-hidden">
+      <section className="flex-1 flex flex-col h-full border-r border-border bg-bg min-w-0 overflow-hidden">
         <ListHeader onScanClick={openScanner} />
         <ScanResultBanner
           product={scannedProduct}
@@ -146,8 +147,9 @@ export function ActiveShoppingListPage() {
         <CompleteButton />
       </section>
 
-      <section className="w-[450px] hidden xl:flex flex-col bg-surface-darker border-l border-border-dark">
+      <section className="w-[450px] hidden xl:flex flex-col bg-surface-alt border-l border-border">
         <div className="p-6 flex-1 flex flex-col gap-6 overflow-y-auto">
+          <StoreComparisonTable />
           <AisleNavigation items={listItems} />
           <ProductIntelligence selectedItem={selectedItem} />
           <BudgetHealth

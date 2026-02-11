@@ -29,21 +29,21 @@ export function DashboardStats() {
         {hasBudget ? (
           <>
             <ProgressBar value={Math.min(budgetUsed, 100)} className="mb-2" />
-            <p className="text-xs text-text-secondary text-right">{budgetUsed}% used</p>
+            <p className="text-xs text-text-muted text-right">{budgetUsed}% used</p>
           </>
         ) : (
-          <p className="text-xs text-text-secondary">{totalItems} items across {lists.length} {lists.length === 1 ? 'list' : 'lists'}</p>
+          <p className="text-xs text-text-muted">{totalItems} items across {lists.length} {lists.length === 1 ? 'list' : 'lists'}</p>
         )}
       </StatCard>
 
       <StatCard label="Total Spent" value={`$${totalSpent.toFixed(2)}`} icon="trending_up" iconColor="text-blue-400">
-        <p className="text-xs text-text-secondary">
+        <p className="text-xs text-text-muted">
           {trips.length} shopping {trips.length === 1 ? 'trip' : 'trips'} recorded
         </p>
       </StatCard>
 
       <StatCard label="Products Tracked" value={String(productCount)} icon="inventory" iconColor="text-purple-400">
-        <p className="text-xs text-text-secondary">
+        <p className="text-xs text-text-muted">
           {totalItems} items in your lists
         </p>
       </StatCard>

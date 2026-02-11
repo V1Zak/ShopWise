@@ -45,10 +45,10 @@ export function BarcodeScanner({ onScan, onClose }: BarcodeScannerProps) {
     <div className="fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center">
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 z-10">
-        <h3 className="text-white font-bold text-lg">Scan Barcode</h3>
+        <h3 className="text-text font-bold text-lg">Scan Barcode</h3>
         <button
           onClick={onClose}
-          className="text-white hover:text-primary transition-colors"
+          className="text-text hover:text-primary transition-colors"
         >
           <span className="material-symbols-outlined text-[28px]">close</span>
         </button>
@@ -79,7 +79,7 @@ export function BarcodeScanner({ onScan, onClose }: BarcodeScannerProps) {
         {error ? (
           <p className="text-red-400 text-sm">{error}</p>
         ) : scanning ? (
-          <p className="text-text-secondary text-sm">
+          <p className="text-text-muted text-sm">
             Point your camera at a barcode (EAN-13, UPC-A, Code 128)
           </p>
         ) : (

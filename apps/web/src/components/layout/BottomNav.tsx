@@ -10,7 +10,7 @@ const tabs = [
 
 export function BottomNav() {
   return (
-    <nav className="md:hidden flex items-center justify-around border-t border-border-dark bg-background-dark px-2 py-2 flex-shrink-0">
+    <nav className="md:hidden flex items-center justify-around border-t border-border bg-bg px-2 py-2 flex-shrink-0">
       {tabs.map((tab) => (
         <NavLink
           key={tab.to}
@@ -18,7 +18,7 @@ export function BottomNav() {
           end={tab.to === '/'}
           className={({ isActive }) =>
             `flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg transition-colors ${
-              isActive ? 'text-primary' : 'text-text-secondary'
+              isActive ? 'text-primary' : 'text-text-muted'
             }`
           }
         >

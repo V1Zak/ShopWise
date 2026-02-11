@@ -50,17 +50,17 @@ export function HistoryFilters() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-surface-dark p-2 rounded-xl border border-border-dark">
-      <div className="flex flex-1 w-full md:w-auto items-center gap-2 bg-background-dark rounded-lg px-3 py-2 border border-border-dark focus-within:border-primary transition-colors">
-        <span className="material-symbols-outlined text-slate-400">search</span>
+    <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-surface p-2 rounded-xl border border-border">
+      <div className="flex flex-1 w-full md:w-auto items-center gap-2 bg-bg rounded-lg px-3 py-2 border border-border focus-within:border-primary transition-colors">
+        <span className="material-symbols-outlined text-text-muted">search</span>
         <input type="text" value={searchQuery} onChange={(e) => setSearch(e.target.value)}
-          className="bg-transparent border-none outline-none text-white placeholder-slate-500 w-full text-sm focus:ring-0 p-0"
+          className="bg-transparent border-none outline-none text-text placeholder-text-muted w-full text-sm focus:ring-0 p-0"
           placeholder="Search items, stores, or dates..." />
       </div>
       <div className="flex gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
         <Dropdown
           trigger={
-            <button className="flex items-center gap-2 px-3 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors bg-primary text-background-dark">
+            <button className="flex items-center gap-2 px-3 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors bg-primary text-text-inv">
               {getDateRangeLabel(dateRange)}
               <span className="material-symbols-outlined text-[18px]">expand_more</span>
             </button>
@@ -74,7 +74,7 @@ export function HistoryFilters() {
         <Dropdown
           trigger={
             <button className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors ${
-              storeFilter ? 'bg-primary/15 border border-primary/40 text-primary font-semibold' : 'bg-accent-green hover:bg-[#2d5c45] text-white'
+              storeFilter ? 'bg-primary/15 border border-primary/40 text-primary font-semibold' : 'bg-surface-active hover:bg-surface-active/80 text-text'
             }`}>
               Store: {selectedStoreName}
               <span className="material-symbols-outlined text-[18px]">expand_more</span>
@@ -82,7 +82,7 @@ export function HistoryFilters() {
           }
         >
           <DropdownItem label="All Stores" active={storeFilter === null} onClick={() => setStoreFilter(null)} icon="storefront" />
-          {stores.length > 0 && <div className="border-t border-border-dark my-1" />}
+          {stores.length > 0 && <div className="border-t border-border my-1" />}
           {stores.map((store) => (
             <DropdownItem key={store.id} label={store.name} active={storeFilter === store.id}
               onClick={() => setStoreFilter(store.id)} icon="store" />
@@ -92,7 +92,7 @@ export function HistoryFilters() {
           align="right"
           trigger={
             <button className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors ${
-              hasSpentFilter ? 'bg-primary/15 border border-primary/40 text-primary font-semibold' : 'bg-accent-green hover:bg-[#2d5c45] text-white'
+              hasSpentFilter ? 'bg-primary/15 border border-primary/40 text-primary font-semibold' : 'bg-surface-active hover:bg-surface-active/80 text-text'
             }`}>
               {hasSpentFilter ? `$${spentRange.min ?? 0} - $${spentRange.max ?? '...'}` : 'Total Spent'}
               <span className="material-symbols-outlined text-[18px]">expand_more</span>
@@ -101,24 +101,24 @@ export function HistoryFilters() {
         >
           <div className="p-4 w-[260px]">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Spent Range</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-text-muted">Total Spent Range</span>
               {hasSpentFilter && (
                 <button onClick={handleClearSpent} className="text-xs text-primary hover:underline">Clear</button>
               )}
             </div>
             <div className="flex items-center gap-2 mb-3">
               <div className="flex-1">
-                <label className="text-[11px] text-slate-500 mb-1 block">Min ($)</label>
+                <label className="text-[11px] text-text-muted mb-1 block">Min ($)</label>
                 <input type="number" min="0" step="1" placeholder="0" value={minInput}
                   onChange={(e) => setMinInput(e.target.value)}
-                  className="w-full bg-background-dark border border-border-dark rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 outline-none focus:border-primary transition-colors" />
+                  className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm text-text placeholder-text-muted outline-none focus:border-primary transition-colors" />
               </div>
-              <span className="text-slate-500 pt-4">-</span>
+              <span className="text-text-muted pt-4">-</span>
               <div className="flex-1">
-                <label className="text-[11px] text-slate-500 mb-1 block">Max ($)</label>
+                <label className="text-[11px] text-text-muted mb-1 block">Max ($)</label>
                 <input type="number" min="0" step="1" placeholder="999" value={maxInput}
                   onChange={(e) => setMaxInput(e.target.value)}
-                  className="w-full bg-background-dark border border-border-dark rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 outline-none focus:border-primary transition-colors" />
+                  className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm text-text placeholder-text-muted outline-none focus:border-primary transition-colors" />
               </div>
             </div>
             <button onClick={handleApplySpent}

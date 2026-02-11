@@ -28,16 +28,16 @@ export function ScanResultBanner({ product, notFound, barcode, onAddToList, onAd
           <div>
             {product ? (
               <>
-                <p className="text-white font-medium">{product.name}</p>
-                <p className="text-text-secondary text-sm">
+                <p className="text-text font-medium">{product.name}</p>
+                <p className="text-text-muted text-sm">
                   {product.brand && `${product.brand} · `}
                   {product.unit} · Avg ${product.averagePrice.toFixed(2)}
                 </p>
               </>
             ) : (
               <>
-                <p className="text-white font-medium">Product not found</p>
-                <p className="text-text-secondary text-sm">
+                <p className="text-text font-medium">Product not found</p>
+                <p className="text-text-muted text-sm">
                   Barcode: {barcode}
                 </p>
               </>
@@ -48,7 +48,7 @@ export function ScanResultBanner({ product, notFound, barcode, onAddToList, onAd
           {product && onAddToList && (
             <button
               onClick={() => onAddToList(product)}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-background-dark text-sm font-bold hover:bg-primary/90 transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-text-inv text-sm font-bold hover:bg-primary/90 transition-colors"
             >
               <span className="material-symbols-outlined text-[16px]">add</span>
               Add
@@ -57,13 +57,13 @@ export function ScanResultBanner({ product, notFound, barcode, onAddToList, onAd
           {notFound && onAddNewProduct && (
             <button
               onClick={onAddNewProduct}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-background-dark text-sm font-bold hover:bg-primary/90 transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-text-inv text-sm font-bold hover:bg-primary/90 transition-colors"
             >
               <span className="material-symbols-outlined text-[16px]">add_circle</span>
               Add Product
             </button>
           )}
-          <button onClick={onDismiss} className="text-text-secondary hover:text-white transition-colors">
+          <button onClick={onDismiss} className="text-text-muted hover:text-text transition-colors">
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>

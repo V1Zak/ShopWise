@@ -26,13 +26,14 @@ export const sharingService = {
       .select('id, list_id, user_id, permission, created_at, profiles ( email, name, avatar_url )')
       .eq('list_id', listId).order('created_at', { ascending: true });
     if (error) throw error;
-    return (data ?? []).map((row) => ({
-      id: row.id, listId: row.list_id, userId: row.user_id,
-      permission: row.permission as SharePermission, createdAt: row.created_at,
-      userEmail: (row.profiles as Record<string, string> | null)?.email,
-      userName: (row.profiles as Record<string, string> | null)?.name,
-      userAvatarUrl: (row.profiles as Record<string, string> | null)?.avatar_url,
-    }));
+    return (data ?? []).map((row) => {
+      const profile = row.profiles as unknown as { email: string; name: string; avatar_url: string } | null;
+      return {
+        id: row.id, listId: row.list_id, userId: row.user_id,
+        permission: row.permission as SharePermission, createdAt: row.created_at,
+        userEmail: profile?.email, userName: profile?.name, userAvatarUrl: profile?.avatar_url,
+      };
+    });
   },
 
   async removeShare(shareId: string): Promise<void> {
@@ -56,7 +57,7 @@ export const sharingService = {
       .eq('user_id', user.id);
     if (error) throw error;
     return (data ?? []).map((row) => {
-      const sl = row.shopping_lists as Record<string, unknown>;
+      const sl = row.shopping_lists as unknown as Record<string, unknown>;
       return {
         share: { id: row.id, permission: row.permission as SharePermission, createdAt: row.created_at },
         list: {
