@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 const spikes = [
   { icon: 'egg', name: 'Org. Brown Eggs', desc: 'Dozen • Vital Farms', price: '$8.99', change: '$1.50' },
   { icon: 'nutrition', name: 'Avocados (4ct)', desc: 'Bag • Organic', price: '$6.49', change: '$0.50' },
@@ -5,6 +7,8 @@ const spikes = [
 ];
 
 export function PriceSpikeAlerts() {
+  const navigate = useNavigate();
+
   return (
     <div className="rounded-xl bg-surface border border-border flex flex-col overflow-hidden">
       <div className="p-4 border-b border-border flex justify-between items-center bg-surface-alt">
@@ -37,7 +41,12 @@ export function PriceSpikeAlerts() {
         ))}
       </div>
       <div className="p-3 bg-surface-alt border-t border-border">
-        <button className="w-full text-xs text-text-muted hover:text-text font-medium text-center transition-colors">View all items</button>
+        <button
+          onClick={() => navigate('/analytics')}
+          className="w-full text-xs text-text-muted hover:text-text font-medium text-center transition-colors"
+        >
+          View all items
+        </button>
       </div>
     </div>
   );
