@@ -1,6 +1,8 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useListsStore } from '@/store/lists-store';
 import { useTripsStore } from '@/store/trips-store';
+
+const COLLAPSED_COUNT = 6;
 
 interface ActivityItem {
   id: string;
@@ -34,6 +36,7 @@ export function RecentActivityFeed() {
   const lists = useListsStore((s) => s.lists);
   const items = useListsStore((s) => s.items);
   const trips = useTripsStore((s) => s.trips);
+  const [expanded, setExpanded] = useState(false);
 
   const activity = useMemo<ActivityItem[]>(() => {
     const result: ActivityItem[] = [];
@@ -88,20 +91,28 @@ export function RecentActivityFeed() {
       });
     }
 
-    // Sort by time descending, take top 6
+    // Sort by time descending
     result.sort(
       (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime(),
     );
-    return result.slice(0, 6);
+    return result;
   }, [lists, items, trips]);
+
+  const visibleActivity = expanded ? activity : activity.slice(0, COLLAPSED_COUNT);
+  const hasMore = activity.length > COLLAPSED_COUNT;
 
   return (
     <section>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-text font-bold text-lg">Recent Activity</h3>
-        <button className="text-text-muted text-sm hover:text-text transition-colors">
-          View All
-        </button>
+        {hasMore && (
+          <button
+            onClick={() => setExpanded((v) => !v)}
+            className="text-text-muted text-sm hover:text-text transition-colors"
+          >
+            {expanded ? 'Show Less' : 'View All'}
+          </button>
+        )}
       </div>
       <div className="bg-surface rounded-xl border border-border p-1">
         {activity.length === 0 ? (
@@ -113,7 +124,7 @@ export function RecentActivityFeed() {
           </div>
         ) : (
           <div className="divide-y divide-border">
-            {activity.map((item) => (
+            {visibleActivity.map((item) => (
               <div
                 key={item.id}
                 className="flex items-start gap-4 p-4 hover:bg-surface-active/30 transition-colors rounded-lg"
