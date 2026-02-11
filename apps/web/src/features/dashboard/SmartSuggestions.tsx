@@ -1,10 +1,14 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useTripsStore } from '@/store/trips-store';
 import { useListsStore } from '@/store/lists-store';
+import { listsService } from '@/services/lists.service';
 
 export function SmartSuggestions() {
   const trips = useTripsStore((s) => s.trips);
   const items = useListsStore((s) => s.items);
+  const lists = useListsStore((s) => s.lists);
+  const [addingItem, setAddingItem] = useState<string | null>(null);
+  const [addedItems, setAddedItems] = useState<Set<string>>(new Set());
 
   const suggestions = useMemo<string[]>(() => {
     const itemCounts = new Map<string, number>();
@@ -34,6 +38,29 @@ export function SmartSuggestions() {
       .map(([name]) => name);
   }, [trips, items]);
 
+  const handleAddToList = async (itemName: string) => {
+    const targetList = lists[0];
+    if (!targetList || addingItem || addedItems.has(itemName)) return;
+
+    setAddingItem(itemName);
+    try {
+      await listsService.addItem({
+        listId: targetList.id,
+        name: itemName,
+        categoryId: 'other',
+        quantity: 1,
+        unit: 'each',
+        estimatedPrice: 0,
+      });
+      setAddedItems((prev) => new Set(prev).add(itemName));
+      useListsStore.getState().fetchLists();
+    } catch {
+      // silently fail — item stays clickable
+    } finally {
+      setAddingItem(null);
+    }
+  };
+
   const dayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 
   return (
@@ -57,18 +84,33 @@ export function SmartSuggestions() {
             Based on your {dayName} habits, you often buy:
           </p>
           <div className="flex flex-wrap gap-2 relative z-10">
-            {suggestions.map((item) => (
-              <button
-                key={item}
-                className="flex items-center gap-2 px-3 py-1.5 bg-bg hover:bg-surface border border-border rounded-lg text-xs text-text transition-colors"
-              >
-                <span className="material-symbols-outlined text-[16px]">
-                  add
-                </span>
-                {item}
-              </button>
-            ))}
+            {suggestions.map((item) => {
+              const isAdded = addedItems.has(item);
+              const isAdding = addingItem === item;
+              return (
+                <button
+                  key={item}
+                  onClick={() => handleAddToList(item)}
+                  disabled={isAdding || isAdded || lists.length === 0}
+                  className={`flex items-center gap-2 px-3 py-1.5 border rounded-lg text-xs transition-colors ${
+                    isAdded
+                      ? 'bg-primary/10 border-primary/30 text-primary'
+                      : 'bg-bg hover:bg-surface border-border text-text'
+                  } disabled:opacity-60`}
+                >
+                  <span className="material-symbols-outlined text-[16px]">
+                    {isAdded ? 'check' : 'add'}
+                  </span>
+                  {item}
+                </button>
+              );
+            })}
           </div>
+          {lists.length === 0 && (
+            <p className="text-text-muted text-xs mt-3 relative z-10">
+              Create a list first to add suggestions.
+            </p>
+          )}
         </>
       )}
     </div>
