@@ -6,12 +6,13 @@ import { useTripsStore } from '@/store/trips-store';
 
 export function DashboardStats() {
   const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
+  const items = useListsStore((s) => s.items);
   const products = useProductsStore((s) => s.products);
   const trips = useTripsStore((s) => s.trips);
 
   // Compute real values
   const totalItems = lists.reduce((sum, l) => sum + (l.itemCount ?? 0), 0);
-  const totalEstimated = lists.reduce((sum, l) => sum + (l.estimatedTotal ?? 0), 0);
+  const totalEstimated = items.reduce((sum, item) => sum + (item.estimatedPrice ?? 0) * (item.quantity || 1), 0);
   const totalBudget = lists.reduce((sum, l) => sum + (l.budget ?? 0), 0);
   const hasBudget = totalBudget > 0;
   const budgetUsed = hasBudget ? Math.round((totalEstimated / totalBudget) * 100) : 0;

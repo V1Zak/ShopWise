@@ -21,12 +21,12 @@ export function CompleteButton() {
       const inCartItems = listItems.filter((i) => i.status === 'in_cart');
 
       const totalSpent = inCartItems.reduce(
-        (sum, item) => sum + (item.actualPrice ?? item.estimatedPrice),
+        (sum, item) => sum + (item.actualPrice ?? item.estimatedPrice) * (item.quantity || 1),
         0,
       );
 
       const totalSaved = inCartItems.reduce((sum, item) => {
-        const saved = item.estimatedPrice - (item.actualPrice ?? item.estimatedPrice);
+        const saved = (item.estimatedPrice - (item.actualPrice ?? item.estimatedPrice)) * (item.quantity || 1);
         return sum + Math.max(0, saved);
       }, 0);
 

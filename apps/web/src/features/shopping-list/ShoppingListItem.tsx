@@ -149,7 +149,7 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
               <span className="material-symbols-outlined text-[14px]">add</span>
             </button>
           </div>
-          <span className="text-text-muted text-sm">&bull; Target: ${item.estimatedPrice.toFixed(2)}</span>
+          <span className="text-text-muted text-sm">&bull; Target: ${(item.estimatedPrice * (item.quantity || 1)).toFixed(2)}</span>
         </div>
       </div>
       <div className="flex flex-col items-end gap-1 flex-shrink-0" onClick={(e) => e.stopPropagation()}>

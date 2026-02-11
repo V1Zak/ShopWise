@@ -42,7 +42,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
 
   const spent = items
     .filter((item) => item.status === 'in_cart')
-    .reduce((sum, item) => sum + (item.actualPrice ?? item.estimatedPrice), 0);
+    .reduce((sum, item) => sum + (item.actualPrice ?? item.estimatedPrice) * (item.quantity || 1), 0);
 
   const handleStartEdit = () => {
     setInputValue(budget ? String(budget) : '');
