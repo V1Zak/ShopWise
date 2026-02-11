@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useListsStore } from '@/store/lists-store';
-import { useAuthStore } from '@/store/auth-store';
 import { ShareListModal } from '@/components/ShareListModal';
 import { ConfirmDeleteModal } from '@/components/ConfirmDeleteModal';
 import { Icon } from '@/components/ui/Icon';
@@ -15,7 +14,6 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
   const lists = useListsStore((s) => s.lists);
   const getRunningTotal = useListsStore((s) => s.getRunningTotal);
   const items = useListsStore((s) => s.items);
-  const user = useAuthStore((s) => s.user);
   const saveAsTemplate = useListsStore((s) => s.saveAsTemplate);
   const updateList = useListsStore((s) => s.updateList);
   const deleteList = useListsStore((s) => s.deleteList);
@@ -95,17 +93,17 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
 
   return (
     <>
-      <div className="p-4 sm:p-6 pb-2 border-b border-border-dark">
+      <div className="p-4 sm:p-6 pb-2 border-b border-border">
         <div className="hidden sm:flex flex-wrap gap-2 mb-4">
-          <span className="text-text-secondary text-xs font-medium uppercase tracking-wider">Home</span>
-          <span className="text-text-secondary text-xs font-medium">/</span>
-          <span className="text-text-secondary text-xs font-medium uppercase tracking-wider">{list?.storeName}</span>
-          <span className="text-text-secondary text-xs font-medium">/</span>
+          <span className="text-text-muted text-xs font-medium uppercase tracking-wider">Home</span>
+          <span className="text-text-muted text-xs font-medium">/</span>
+          <span className="text-text-muted text-xs font-medium uppercase tracking-wider">{list?.storeName}</span>
+          <span className="text-text-muted text-xs font-medium">/</span>
           <span className="text-primary text-xs font-medium uppercase tracking-wider">Active List</span>
         </div>
         <div className="flex justify-between items-start sm:items-end gap-3 mb-3 sm:mb-6">
           <div className="min-w-0 flex-1">
-            <h1 className="text-white text-xl sm:text-3xl font-bold leading-tight mb-1">
+            <h1 className="text-text text-xl sm:text-3xl font-bold leading-tight mb-1">
               {isEditingTitle ? (
                 <input
                   ref={titleInputRef}
@@ -114,20 +112,20 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
                   onChange={(e) => setEditTitle(e.target.value)}
                   onBlur={handleSaveTitle}
                   onKeyDown={handleTitleKeyDown}
-                  className="w-full bg-background-dark border border-primary rounded px-2 py-1 text-white text-xl sm:text-3xl font-bold focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full bg-bg border border-primary rounded px-2 py-1 text-text text-xl sm:text-3xl font-bold focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               ) : (
                 <button
                   onClick={handleStartEditTitle}
-                  className="inline-flex items-center gap-1 text-white hover:text-primary transition-colors group text-left"
+                  className="inline-flex items-center gap-1 text-text hover:text-primary transition-colors group text-left"
                   title="Click to edit list title"
                 >
                   <span className="truncate">{list?.title || 'Shopping List'}</span>
-                  <span className="material-symbols-outlined text-[16px] text-text-secondary group-hover:text-primary transition-colors flex-shrink-0">edit</span>
+                  <span className="material-symbols-outlined text-[16px] text-text-muted group-hover:text-primary transition-colors flex-shrink-0">edit</span>
                 </button>
               )}
             </h1>
-            <p className="text-text-secondary text-sm truncate">
+            <p className="text-text-muted text-sm truncate">
               {allItems.length} Items
               {list?.storeName && <> &bull; {list.storeName}</>}
               {list?.sharedPermission && (
@@ -141,7 +139,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
             <Dropdown
               align="right"
               trigger={
-                <button className="flex items-center justify-center w-9 h-9 rounded-lg bg-accent-green text-white hover:bg-[#2d5c45] transition-colors" title="More actions">
+                <button className="flex items-center justify-center w-9 h-9 rounded-lg bg-surface-active text-text hover:bg-surface-active/80 transition-colors" title="More actions">
                   <span className="material-symbols-outlined text-[20px]">more_vert</span>
                 </button>
               }
@@ -160,21 +158,21 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
             {error && (
               <span className="text-red-400 text-sm font-medium">{error}</span>
             )}
-            <button onClick={() => setIsShareModalOpen(true)} className="relative flex items-center justify-center w-9 h-9 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors">
+            <button onClick={() => setIsShareModalOpen(true)} className="relative flex items-center justify-center w-9 h-9 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors">
               <Icon name="share" size={18} />
               <span className="hidden sm:inline">Share</span>
               {collaboratorCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-primary text-background-dark text-[10px] font-bold px-1">{collaboratorCount}</span>
+                <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-primary text-text-inv text-[10px] font-bold px-1">{collaboratorCount}</span>
               )}
             </button>
             {onScanClick && (
-              <button onClick={onScanClick} className="flex items-center justify-center w-9 h-9 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors">
+              <button onClick={onScanClick} className="flex items-center justify-center w-9 h-9 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors">
                 <span className="material-symbols-outlined text-[18px]">qr_code_scanner</span>
                 <span className="hidden sm:inline">Scan</span>
               </button>
             )}
             <div className="text-right hidden sm:block">
-              <div className="text-sm text-text-secondary font-medium mb-1">Running Total</div>
+              <div className="text-sm text-text-muted font-medium mb-1">Running Total</div>
               <div className="text-3xl font-bold text-primary tabular-nums">${total.toFixed(2)}</div>
             </div>
             <div className="text-right sm:hidden">

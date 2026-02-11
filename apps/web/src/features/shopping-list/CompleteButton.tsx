@@ -55,11 +55,11 @@ export function CompleteButton() {
   };
 
   return (
-    <div className="p-6 border-t border-border-dark bg-surface-darker">
+    <div className="p-6 border-t border-border bg-surface-alt">
       <button
         onClick={handleComplete}
         disabled={isCompleting}
-        className="w-full bg-primary hover:bg-[#10c96d] text-background-dark font-bold text-lg h-14 rounded-lg flex items-center justify-center gap-3 transition-colors shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
+        className="w-full bg-primary hover:bg-primary/90 text-text-inv font-bold text-lg h-14 rounded-lg flex items-center justify-center gap-3 transition-colors shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
       >
         <span className="material-symbols-outlined">
           {isCompleting ? 'progress_activity' : 'shopping_bag'}

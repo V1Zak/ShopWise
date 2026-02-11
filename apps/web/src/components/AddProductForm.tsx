@@ -76,20 +76,20 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
   }
 
   const inputClasses =
-    'w-full rounded-lg border border-border-dark bg-surface-dark px-3 py-2 text-sm text-white placeholder-text-secondary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50 transition-colors';
+    'w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text placeholder-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50 transition-colors';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="w-full max-w-md mx-4 rounded-xl border border-border-dark bg-background-dark shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div className="w-full max-w-md mx-4 rounded-xl border border-border bg-bg shadow-2xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border-dark px-5 py-4 sticky top-0 bg-background-dark z-10">
+        <div className="flex items-center justify-between border-b border-border px-5 py-4 sticky top-0 bg-bg z-10">
           <div className="flex items-center gap-2">
             <Icon name="add_circle" className="text-primary" size={22} />
-            <h2 className="text-lg font-bold text-white">Add New Product</h2>
+            <h2 className="text-lg font-bold text-text">Add New Product</h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-full p-1 text-text-secondary hover:bg-accent-green hover:text-white transition-colors"
+            className="rounded-full p-1 text-text-muted hover:bg-surface-active hover:text-text transition-colors"
           >
             <Icon name="close" size={20} />
           </button>
@@ -99,19 +99,19 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           {/* Barcode (read-only) */}
           <div>
-            <label className="mb-1 block text-xs font-medium text-text-secondary">Barcode</label>
-            <div className="flex items-center gap-2 rounded-lg border border-border-dark bg-surface-dark/50 px-3 py-2">
-              <Icon name="barcode" className="text-text-secondary" size={18} />
-              <span className="text-sm text-text-secondary font-mono">{barcode}</span>
+            <label className="mb-1 block text-xs font-medium text-text-muted">Barcode</label>
+            <div className="flex items-center gap-2 rounded-lg border border-border bg-surface/50 px-3 py-2">
+              <Icon name="barcode" className="text-text-muted" size={18} />
+              <span className="text-sm text-text-muted font-mono">{barcode}</span>
             </div>
           </div>
 
           {/* Photo */}
           <div>
-            <label className="mb-1 block text-xs font-medium text-text-secondary">Photo (optional)</label>
+            <label className="mb-1 block text-xs font-medium text-text-muted">Photo (optional)</label>
             <div
               onClick={() => fileRef.current?.click()}
-              className="relative group cursor-pointer w-full h-32 rounded-lg border-2 border-dashed border-border-dark hover:border-primary/50 transition-colors bg-surface-dark overflow-hidden flex items-center justify-center"
+              className="relative group cursor-pointer w-full h-32 rounded-lg border-2 border-dashed border-border hover:border-primary/50 transition-colors bg-surface overflow-hidden flex items-center justify-center"
             >
               {imagePreview ? (
                 <>
@@ -121,7 +121,7 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
                   </div>
                 </>
               ) : (
-                <div className="flex flex-col items-center gap-1 text-text-secondary">
+                <div className="flex flex-col items-center gap-1 text-text-muted">
                   <span className="material-symbols-outlined text-[28px]">add_a_photo</span>
                   <span className="text-xs font-medium">Tap to add photo</span>
                 </div>
@@ -139,7 +139,7 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
 
           {/* Name */}
           <div>
-            <label htmlFor="product-name" className="mb-1 block text-xs font-medium text-text-secondary">
+            <label htmlFor="product-name" className="mb-1 block text-xs font-medium text-text-muted">
               Product Name <span className="text-red-400">*</span>
             </label>
             <input
@@ -155,7 +155,7 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
 
           {/* Brand */}
           <div>
-            <label htmlFor="product-brand" className="mb-1 block text-xs font-medium text-text-secondary">
+            <label htmlFor="product-brand" className="mb-1 block text-xs font-medium text-text-muted">
               Brand
             </label>
             <input
@@ -171,7 +171,7 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
           {/* Category + Unit row */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="product-category" className="mb-1 block text-xs font-medium text-text-secondary">
+              <label htmlFor="product-category" className="mb-1 block text-xs font-medium text-text-muted">
                 Category
               </label>
               <select
@@ -188,7 +188,7 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
               </select>
             </div>
             <div>
-              <label htmlFor="product-unit" className="mb-1 block text-xs font-medium text-text-secondary">
+              <label htmlFor="product-unit" className="mb-1 block text-xs font-medium text-text-muted">
                 Unit
               </label>
               <select
@@ -213,11 +213,11 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
 
           {/* Price */}
           <div>
-            <label htmlFor="product-price" className="mb-1 block text-xs font-medium text-text-secondary">
+            <label htmlFor="product-price" className="mb-1 block text-xs font-medium text-text-muted">
               Price <span className="text-red-400">*</span>
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-secondary">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-muted">$</span>
               <input
                 id="product-price"
                 type="number"

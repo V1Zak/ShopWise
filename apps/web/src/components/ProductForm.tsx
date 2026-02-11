@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { CATEGORIES } from '@shopwise/shared';
-import type { CategoryId, Product, StorePrice } from '@shopwise/shared';
+import type { CategoryId, Product } from '@shopwise/shared';
 import { productsService } from '@/services/products.service';
 import { storageService } from '@/services/storage.service';
 import { useStoresStore } from '@/store/stores-store';
@@ -151,7 +151,6 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
         });
 
         // Sync store prices
-        const originalIds = new Set(product.storePrices.map((sp) => sp.storeId));
         const currentIds = new Set(storePrices.map((sp) => sp.storeId));
 
         // Removed prices
@@ -199,22 +198,22 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
   };
 
   const inputClasses =
-    'w-full rounded-lg border border-border-dark bg-surface-dark px-3 py-2 text-sm text-white placeholder-text-secondary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50 transition-colors';
+    'w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text placeholder-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50 transition-colors';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="w-full max-w-md mx-4 rounded-xl border border-border-dark bg-background-dark shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div className="w-full max-w-md mx-4 rounded-xl border border-border bg-bg shadow-2xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border-dark px-5 py-4 sticky top-0 bg-background-dark z-10">
+        <div className="flex items-center justify-between border-b border-border px-5 py-4 sticky top-0 bg-bg z-10">
           <div className="flex items-center gap-2">
             <Icon name={mode === 'create' ? 'add_circle' : 'edit'} className="text-primary" size={22} />
-            <h2 className="text-lg font-bold text-white">
+            <h2 className="text-lg font-bold text-text">
               {mode === 'create' ? 'Add New Product' : 'Edit Product'}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-full p-1 text-text-secondary hover:bg-accent-green hover:text-white transition-colors"
+            className="rounded-full p-1 text-text-muted hover:bg-surface-active hover:text-text transition-colors"
           >
             <Icon name="close" size={20} />
           </button>
@@ -225,18 +224,18 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
           {/* Barcode */}
           {mode === 'create' && barcode && !barcodeEditable ? (
             <div>
-              <label className="mb-1 block text-xs font-medium text-text-secondary">Barcode</label>
-              <div className="flex items-center gap-2 rounded-lg border border-border-dark bg-surface-dark/50 px-3 py-2">
-                <Icon name="barcode" className="text-text-secondary" size={18} />
-                <span className="text-sm text-text-secondary font-mono">{barcode}</span>
+              <label className="mb-1 block text-xs font-medium text-text-muted">Barcode</label>
+              <div className="flex items-center gap-2 rounded-lg border border-border bg-surface/50 px-3 py-2">
+                <Icon name="barcode" className="text-text-muted" size={18} />
+                <span className="text-sm text-text-muted font-mono">{barcode}</span>
               </div>
             </div>
           ) : barcodeEditable ? (
             <div>
-              <label htmlFor="product-barcode" className="mb-1 block text-xs font-medium text-text-secondary">Barcode</label>
+              <label htmlFor="product-barcode" className="mb-1 block text-xs font-medium text-text-muted">Barcode</label>
               <div className="flex items-center gap-2">
                 <div className="relative flex-1">
-                  <Icon name="barcode" className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary" size={18} />
+                  <Icon name="barcode" className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={18} />
                   <input
                     id="product-barcode"
                     type="text"
@@ -249,7 +248,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                 <button
                   type="button"
                   onClick={() => setShowScanner(true)}
-                  className="flex items-center justify-center rounded-lg border border-border-dark bg-surface-dark px-3 py-2 text-text-secondary hover:border-primary hover:text-primary transition-colors"
+                  className="flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-2 text-text-muted hover:border-primary hover:text-primary transition-colors"
                   title="Scan barcode"
                 >
                   <Icon name="qr_code_scanner" size={20} />
@@ -258,7 +257,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                   <button
                     type="button"
                     onClick={() => setBarcodeValue('')}
-                    className="flex items-center justify-center rounded-lg border border-border-dark bg-surface-dark px-2 py-2 text-text-secondary hover:border-red-400 hover:text-red-400 transition-colors"
+                    className="flex items-center justify-center rounded-lg border border-border bg-surface px-2 py-2 text-text-muted hover:border-red-400 hover:text-red-400 transition-colors"
                     title="Clear barcode"
                   >
                     <Icon name="close" size={20} />
@@ -271,10 +270,10 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
           {/* Photo (create mode) / Image Gallery (edit mode) */}
           {mode === 'create' ? (
             <div>
-              <label className="mb-1 block text-xs font-medium text-text-secondary">Photo (optional)</label>
+              <label className="mb-1 block text-xs font-medium text-text-muted">Photo (optional)</label>
               <div
                 onClick={() => fileRef.current?.click()}
-                className="relative group cursor-pointer w-full h-32 rounded-lg border-2 border-dashed border-border-dark hover:border-primary/50 transition-colors bg-surface-dark overflow-hidden flex items-center justify-center"
+                className="relative group cursor-pointer w-full h-32 rounded-lg border-2 border-dashed border-border hover:border-primary/50 transition-colors bg-surface overflow-hidden flex items-center justify-center"
               >
                 {imagePreview ? (
                   <>
@@ -284,7 +283,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                     </div>
                   </>
                 ) : (
-                  <div className="flex flex-col items-center gap-1 text-text-secondary">
+                  <div className="flex flex-col items-center gap-1 text-text-muted">
                     <span className="material-symbols-outlined text-[28px]">add_a_photo</span>
                     <span className="text-xs font-medium">Tap to add photo</span>
                   </div>
@@ -305,7 +304,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
 
           {/* Name */}
           <div>
-            <label htmlFor="product-name" className="mb-1 block text-xs font-medium text-text-secondary">
+            <label htmlFor="product-name" className="mb-1 block text-xs font-medium text-text-muted">
               Product Name <span className="text-red-400">*</span>
             </label>
             <input
@@ -321,7 +320,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
 
           {/* Brand */}
           <div>
-            <label htmlFor="product-brand" className="mb-1 block text-xs font-medium text-text-secondary">
+            <label htmlFor="product-brand" className="mb-1 block text-xs font-medium text-text-muted">
               Brand
             </label>
             <input
@@ -337,7 +336,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
           {/* Category + Unit row */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="product-category" className="mb-1 block text-xs font-medium text-text-secondary">
+              <label htmlFor="product-category" className="mb-1 block text-xs font-medium text-text-muted">
                 Category
               </label>
               <select
@@ -354,7 +353,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
               </select>
             </div>
             <div>
-              <label htmlFor="product-unit" className="mb-1 block text-xs font-medium text-text-secondary">
+              <label htmlFor="product-unit" className="mb-1 block text-xs font-medium text-text-muted">
                 Unit
               </label>
               <select
@@ -379,7 +378,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
 
           {/* Price (create mode shows required, edit shows as average) */}
           <div>
-            <label htmlFor="product-price" className="mb-1 block text-xs font-medium text-text-secondary">
+            <label htmlFor="product-price" className="mb-1 block text-xs font-medium text-text-muted">
               {mode === 'create' ? (
                 <>Price <span className="text-red-400">*</span></>
               ) : (
@@ -387,7 +386,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
               )}
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-secondary">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-muted">$</span>
               <input
                 id="product-price"
                 type="number"
@@ -404,10 +403,10 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
           {/* Store Prices (edit mode only) */}
           {mode === 'edit' && product && (
             <div className="space-y-3">
-              <label className="block text-xs font-medium text-text-secondary">Store Prices</label>
+              <label className="block text-xs font-medium text-text-muted">Store Prices</label>
 
               {storePrices.length === 0 && (
-                <p className="text-xs text-text-secondary/60 italic">No store prices set</p>
+                <p className="text-xs text-text-muted/60 italic">No store prices set</p>
               )}
 
               {storePrices.map((sp) => (
@@ -416,22 +415,22 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                     className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                     style={{ backgroundColor: getStoreColor(sp.storeId) }}
                   />
-                  <span className="text-sm text-gray-300 flex-1 truncate">{getStoreName(sp.storeId)}</span>
+                  <span className="text-sm text-text-muted flex-1 truncate">{getStoreName(sp.storeId)}</span>
                   <div className="relative w-24">
-                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-secondary">$</span>
+                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-muted">$</span>
                     <input
                       type="number"
                       step="0.01"
                       min="0.01"
                       value={sp.price}
                       onChange={(e) => handleUpdateStorePriceValue(sp.storeId, e.target.value)}
-                      className="w-full rounded-lg border border-border-dark bg-surface-dark px-2 py-1.5 pl-5 text-xs text-white font-mono focus:border-primary focus:outline-none"
+                      className="w-full rounded-lg border border-border bg-surface px-2 py-1.5 pl-5 text-xs text-text font-mono focus:border-primary focus:outline-none"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveStorePrice(sp.storeId)}
-                    className="p-1 rounded text-text-secondary hover:text-red-400 hover:bg-red-400/10 transition-colors"
+                    className="p-1 rounded text-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors"
                   >
                     <Icon name="close" size={16} />
                   </button>
@@ -444,7 +443,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                   <select
                     value={newStoreId}
                     onChange={(e) => setNewStoreId(e.target.value)}
-                    className="flex-1 rounded-lg border border-border-dark bg-surface-dark px-2 py-1.5 text-xs text-white focus:border-primary focus:outline-none"
+                    className="flex-1 rounded-lg border border-border bg-surface px-2 py-1.5 text-xs text-text focus:border-primary focus:outline-none"
                   >
                     <option value="">Add store...</option>
                     {availableStores.map((s) => (
@@ -452,7 +451,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                     ))}
                   </select>
                   <div className="relative w-24">
-                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-secondary">$</span>
+                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-muted">$</span>
                     <input
                       type="number"
                       step="0.01"
@@ -460,7 +459,7 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
                       value={newStorePrice}
                       onChange={(e) => setNewStorePrice(e.target.value)}
                       placeholder="0.00"
-                      className="w-full rounded-lg border border-border-dark bg-surface-dark px-2 py-1.5 pl-5 text-xs text-white font-mono focus:border-primary focus:outline-none"
+                      className="w-full rounded-lg border border-border bg-surface px-2 py-1.5 pl-5 text-xs text-text font-mono focus:border-primary focus:outline-none"
                     />
                   </div>
                   <button

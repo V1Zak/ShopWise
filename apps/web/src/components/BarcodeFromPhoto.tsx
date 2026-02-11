@@ -65,8 +65,8 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
     <div className="fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-6">
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 z-10">
-        <h3 className="text-white font-bold text-lg">Scan from Photo</h3>
-        <button onClick={onClose} className="text-white hover:text-primary transition-colors">
+        <h3 className="text-text font-bold text-lg">Scan from Photo</h3>
+        <button onClick={onClose} className="text-text hover:text-primary transition-colors">
           <span className="material-symbols-outlined text-[28px]">close</span>
         </button>
       </div>
@@ -74,13 +74,13 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
       <div className="w-full max-w-md flex flex-col items-center gap-6 mt-16">
         {/* Preview area */}
         {preview ? (
-          <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border-2 border-border-dark">
-            <img src={preview} alt="Scanned" className="w-full h-full object-contain bg-surface-dark" />
+          <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border-2 border-border">
+            <img src={preview} alt="Scanned" className="w-full h-full object-contain bg-surface" />
             {scanning && (
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-                  <p className="text-white text-sm">Scanning for barcodes...</p>
+                  <p className="text-text text-sm">Scanning for barcodes...</p>
                 </div>
               </div>
             )}
@@ -88,12 +88,12 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
         ) : (
           <button
             onClick={() => fileRef.current?.click()}
-            className="w-full aspect-[4/3] rounded-xl border-2 border-dashed border-border-dark hover:border-primary/50 transition-colors bg-surface-dark flex flex-col items-center justify-center gap-4"
+            className="w-full aspect-[4/3] rounded-xl border-2 border-dashed border-border hover:border-primary/50 transition-colors bg-surface flex flex-col items-center justify-center gap-4"
           >
-            <span className="material-symbols-outlined text-text-secondary text-[48px]">add_photo_alternate</span>
+            <span className="material-symbols-outlined text-text-muted text-[48px]">add_photo_alternate</span>
             <div className="text-center">
-              <p className="text-white font-medium">Select a photo</p>
-              <p className="text-text-secondary text-sm">Choose an image containing a barcode</p>
+              <p className="text-text font-medium">Select a photo</p>
+              <p className="text-text-muted text-sm">Choose an image containing a barcode</p>
             </div>
           </button>
         )}
@@ -108,13 +108,13 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
               <div className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary text-[24px]">qr_code</span>
                 <div>
-                  <p className="text-white font-medium">Barcode detected</p>
-                  <p className="text-text-secondary text-sm font-mono">{detected}</p>
+                  <p className="text-text font-medium">Barcode detected</p>
+                  <p className="text-text-muted text-sm font-mono">{detected}</p>
                 </div>
               </div>
               <button
                 onClick={() => onDetected(detected)}
-                className="flex items-center gap-1 px-4 py-2 rounded-lg bg-primary text-background-dark text-sm font-bold hover:bg-primary/90 transition-colors"
+                className="flex items-center gap-1 px-4 py-2 rounded-lg bg-primary text-text-inv text-sm font-bold hover:bg-primary/90 transition-colors"
               >
                 Look up
               </button>
@@ -135,7 +135,7 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
         <div className="flex gap-3">
           <button
             onClick={() => fileRef.current?.click()}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors"
           >
             <span className="material-symbols-outlined text-[18px]">photo_library</span>
             {preview ? 'Try another photo' : 'Choose photo'}

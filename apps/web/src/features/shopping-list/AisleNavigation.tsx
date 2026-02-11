@@ -55,8 +55,8 @@ export function AisleNavigation({ items }: Props) {
 
   if (sections.length === 0) {
     return (
-      <div className="bg-background-dark rounded-xl p-5 border border-border-dark">
-        <div className="flex items-center gap-2 text-text-secondary">
+      <div className="bg-bg rounded-xl p-5 border border-border">
+        <div className="flex items-center gap-2 text-text-muted">
           <span className="material-symbols-outlined">map</span>
           <span className="text-sm">Add items to see your shopping route</span>
         </div>
@@ -65,18 +65,18 @@ export function AisleNavigation({ items }: Props) {
   }
 
   return (
-    <div className="bg-background-dark rounded-xl overflow-hidden border border-border-dark shadow-lg">
-      <div className="relative h-56 bg-surface-dark">
-        <div className="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent" />
+    <div className="bg-bg rounded-xl overflow-hidden border border-border shadow-lg">
+      <div className="relative h-56 bg-surface">
+        <div className="absolute inset-0 bg-gradient-to-t from-bg to-transparent" />
         <div className="absolute bottom-4 left-4">
-          <div className="text-white text-lg font-bold flex items-center gap-2">
+          <div className="text-text text-lg font-bold flex items-center gap-2">
             <span className="material-symbols-outlined text-primary">location_on</span>
             {activeSection?.aisle
               ? `Aisle ${activeSection.aisle}: ${activeSection.label}`
               : activeSection?.label ?? 'Shopping Route'}
           </div>
           {nextSection && (
-            <div className="text-text-secondary text-sm mt-1">
+            <div className="text-text-muted text-sm mt-1">
               Next: {nextSection.aisle ? `Aisle ${nextSection.aisle}` : ''} ({nextSection.label})
             </div>
           )}
@@ -87,45 +87,45 @@ export function AisleNavigation({ items }: Props) {
       </div>
       <div className="p-4">
         <div className="flex justify-between items-center mb-4">
-          <h4 className="text-white font-semibold">Shopping Route</h4>
+          <h4 className="text-text font-semibold">Shopping Route</h4>
           <span className="text-xs text-primary font-medium">
             {completedSections}/{sections.length} sections done
           </span>
         </div>
         <div className="space-y-4 relative">
-          <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-border-dark" />
+          <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-border" />
           {sections.map((section) => {
             const isActive = section.categoryId === activeSectionId;
             const isDone = section.completed === section.items.length;
             return (
               <div key={section.categoryId} className="relative flex gap-3 items-start z-10">
                 <div
-                  className={`w-6 h-6 rounded-full border-4 border-background-dark shrink-0 flex items-center justify-center ${
+                  className={`w-6 h-6 rounded-full border-4 border-bg shrink-0 flex items-center justify-center ${
                     isDone
                       ? 'bg-primary'
                       : isActive
                         ? 'bg-primary animate-pulse'
-                        : 'bg-accent-green'
+                        : 'bg-surface-active'
                   }`}
                 >
                   {isDone && (
-                    <span className="material-symbols-outlined text-background-dark text-xs font-bold">
+                    <span className="material-symbols-outlined text-text-inv text-xs font-bold">
                       check
                     </span>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-center">
-                    <div className={`text-sm font-medium ${isActive ? 'text-white' : isDone ? 'text-primary' : 'text-text-secondary'}`}>
+                    <div className={`text-sm font-medium ${isActive ? 'text-text' : isDone ? 'text-primary' : 'text-text-muted'}`}>
                       <span className="material-symbols-outlined text-xs mr-1 align-middle">{section.icon}</span>
                       {section.label}
                       {section.aisle ? ` (Aisle ${section.aisle})` : ''}
                     </div>
-                    <span className={`text-xs ${isDone ? 'text-primary' : 'text-text-secondary'}`}>
+                    <span className={`text-xs ${isDone ? 'text-primary' : 'text-text-muted'}`}>
                       {section.completed}/{section.items.length}
                     </span>
                   </div>
-                  <div className={`text-xs truncate ${isActive ? 'text-text-secondary' : 'text-[#517d66]'}`}>
+                  <div className={`text-xs truncate ${isActive ? 'text-text-muted' : 'text-text-muted'}`}>
                     {section.items.map((i) => i.name).join(', ')}
                   </div>
                 </div>

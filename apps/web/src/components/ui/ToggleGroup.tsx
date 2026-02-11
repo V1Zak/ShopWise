@@ -6,15 +6,15 @@ interface ToggleGroupProps {
 
 export function ToggleGroup({ options, value, onChange }: ToggleGroupProps) {
   return (
-    <div className="flex items-center bg-surface-dark rounded-lg p-1 border border-border-dark">
+    <div className="flex items-center bg-surface rounded-lg p-1 border border-border">
       {options.map((opt) => (
         <button
           key={opt}
           onClick={() => onChange(opt)}
           className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
             value === opt
-              ? 'bg-accent-green text-white shadow-sm'
-              : 'text-text-secondary hover:text-white'
+              ? 'bg-surface-active text-text shadow-sm'
+              : 'text-text-muted hover:text-text'
           }`}
         >
           {opt}

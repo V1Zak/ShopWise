@@ -44,7 +44,7 @@ export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCa
       {/* Preview */}
       <div
         onClick={() => fileRef.current?.click()}
-        className="relative group cursor-pointer w-full aspect-square max-w-[200px] rounded-xl border-2 border-dashed border-border-dark hover:border-primary/50 transition-colors bg-surface-dark overflow-hidden flex items-center justify-center"
+        className="relative group cursor-pointer w-full aspect-square max-w-[200px] rounded-xl border-2 border-dashed border-border hover:border-primary/50 transition-colors bg-surface overflow-hidden flex items-center justify-center"
       >
         {preview ? (
           <>
@@ -54,7 +54,7 @@ export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCa
             </div>
           </>
         ) : (
-          <div className="flex flex-col items-center gap-2 text-text-secondary">
+          <div className="flex flex-col items-center gap-2 text-text-muted">
             <span className="material-symbols-outlined text-[36px]">add_a_photo</span>
             <span className="text-xs font-medium">Add Photo</span>
           </div>
@@ -81,7 +81,7 @@ export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCa
         <button
           onClick={() => fileRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent-green text-white text-xs font-medium hover:bg-[#2d5c45] transition-colors disabled:opacity-50"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-active text-text text-xs font-medium hover:bg-surface-active/80 transition-colors disabled:opacity-50"
         >
           <span className="material-symbols-outlined text-[16px]">photo_camera</span>
           {preview ? 'Change' : 'Camera'}

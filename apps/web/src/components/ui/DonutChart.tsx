@@ -20,7 +20,7 @@ export function DonutChart({ segments, centerLabel, centerValue, size = 192 }: D
       <div className="relative" style={{ width: size, height: size }}>
         <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
           <path
-            className="text-accent-green"
+            className="text-surface-active"
             d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
             fill="none"
             stroke="currentColor"
@@ -44,8 +44,8 @@ export function DonutChart({ segments, centerLabel, centerValue, size = 192 }: D
           })}
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className="text-3xl font-bold text-white">{centerValue}</span>
-          <span className="text-xs text-text-secondary uppercase tracking-wide">{centerLabel}</span>
+          <span className="text-3xl font-bold text-text">{centerValue}</span>
+          <span className="text-xs text-text-muted uppercase tracking-wide">{centerLabel}</span>
         </div>
       </div>
 
@@ -55,9 +55,9 @@ export function DonutChart({ segments, centerLabel, centerValue, size = 192 }: D
           <div key={seg.label} className="flex items-center justify-between text-sm">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full" style={{ backgroundColor: seg.color }} />
-              <span className="text-slate-300">{seg.label}</span>
+              <span className="text-text-muted">{seg.label}</span>
             </div>
-            <span className="font-bold text-white">${seg.value}</span>
+            <span className="font-bold text-text">${seg.value}</span>
           </div>
         ))}
       </div>

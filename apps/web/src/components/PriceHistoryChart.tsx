@@ -33,7 +33,7 @@ export function PriceHistoryChart({
 
   if (entries.length < 2) {
     return (
-      <div className={`flex items-center justify-center text-text-secondary text-sm ${className}`} style={{ height }}>
+      <div className={`flex items-center justify-center text-text-muted text-sm ${className}`} style={{ height }}>
         Not enough data to chart
       </div>
     );
@@ -71,14 +71,14 @@ export function PriceHistoryChart({
   return (
     <div className={className}>
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-text-secondary text-xs uppercase font-medium tracking-wide">Price Trend</span>
+        <span className="text-text-muted text-xs uppercase font-medium tracking-wide">Price Trend</span>
         <span
           className={`inline-flex items-center gap-0.5 text-xs font-semibold px-2 py-0.5 rounded ${
             trend.direction === 'up'
               ? 'text-red-400 bg-red-400/10'
               : trend.direction === 'down'
                 ? 'text-primary bg-primary/10'
-                : 'text-text-secondary bg-white/5'
+                : 'text-text-muted bg-surface-active/10'
           }`}
         >
           <span className="material-symbols-outlined text-sm">
@@ -91,8 +91,8 @@ export function PriceHistoryChart({
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="overflow-visible">
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#13ec80" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#13ec80" stopOpacity="0" />
+            <stop offset="0%" stopColor="rgb(var(--color-primary))" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="rgb(var(--color-primary))" stopOpacity="0" />
           </linearGradient>
         </defs>
 
@@ -100,8 +100,8 @@ export function PriceHistoryChart({
           const y = padding.top + chartH - ((tick - min) / range) * chartH;
           return (
             <g key={tick}>
-              <line x1={padding.left} y1={y} x2={padding.left + chartW} y2={y} stroke="#2a4a3a" strokeDasharray="4 4" strokeWidth="1" />
-              <text x={padding.left - 6} y={y + 4} textAnchor="end" className="fill-gray-500 text-[10px] font-mono">
+              <line x1={padding.left} y1={y} x2={padding.left + chartW} y2={y} stroke="rgb(var(--color-border))" strokeDasharray="4 4" strokeWidth="1" />
+              <text x={padding.left - 6} y={y + 4} textAnchor="end" className="fill-text-muted text-[10px] font-mono">
                 ${tick.toFixed(2)}
               </text>
             </g>
@@ -109,17 +109,17 @@ export function PriceHistoryChart({
         })}
 
         <path d={areaPath} fill={`url(#${gradientId})`} />
-        <path d={linePath} fill="none" stroke="#13ec80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={linePath} fill="none" stroke="rgb(var(--color-primary))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
 
         {points.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r={i === points.length - 1 ? 5 : 3} fill={i === points.length - 1 ? '#11221a' : '#13ec80'} stroke="#13ec80" strokeWidth={i === points.length - 1 ? 2.5 : 0} />
+          <circle key={i} cx={p.x} cy={p.y} r={i === points.length - 1 ? 5 : 3} fill={i === points.length - 1 ? 'rgb(var(--color-bg))' : 'rgb(var(--color-primary))'} stroke="rgb(var(--color-primary))" strokeWidth={i === points.length - 1 ? 2.5 : 0} />
         ))}
 
         {xLabelIndices.map((idx) => {
           const p = points[idx];
           if (!p) return null;
           return (
-            <text key={idx} x={p.x} y={padding.top + chartH + 16} textAnchor="middle" className="fill-gray-500 text-[10px]">
+            <text key={idx} x={p.x} y={padding.top + chartH + 16} textAnchor="middle" className="fill-text-muted text-[10px]">
               {p.date}
             </text>
           );

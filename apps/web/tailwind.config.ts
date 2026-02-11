@@ -6,15 +6,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#13ec80',
-        'background-dark': '#11221a',
-        'surface-dark': '#1a332a',
-        'surface-darker': '#0d1b14',
-        'accent-green': '#234836',
-        'border-dark': '#234836',
-        'text-secondary': '#92c9ad',
-        danger: '#ff5a5f',
-        warning: '#ff9f1c',
+        // Semantic tokens (CSS custom properties)
+        bg: 'rgb(var(--color-bg) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        'surface-alt': 'rgb(var(--color-surface-alt) / <alpha-value>)',
+        'surface-active': 'rgb(var(--color-surface-active) / <alpha-value>)',
+        border: 'rgb(var(--color-border) / <alpha-value>)',
+        'text-muted': 'rgb(var(--color-text-muted) / <alpha-value>)',
+        text: 'rgb(var(--color-text) / <alpha-value>)',
+        'text-inv': 'rgb(var(--color-text-inv) / <alpha-value>)',
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        danger: 'rgb(var(--color-danger) / <alpha-value>)',
+        warning: 'rgb(var(--color-warning) / <alpha-value>)',
       },
       fontFamily: {
         display: ['Inter', 'sans-serif'],

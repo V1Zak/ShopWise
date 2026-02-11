@@ -11,10 +11,10 @@ export function CategoryDonut() {
   const top = data.categorySpending[0];
 
   return (
-    <div className="bg-surface-dark rounded-xl border border-border-dark p-6 shadow-sm">
+    <div className="bg-surface rounded-xl border border-border p-6 shadow-sm">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-white">Spending by Category</h3>
-        <button className="text-text-secondary hover:text-white">
+        <h3 className="text-lg font-bold text-text">Spending by Category</h3>
+        <button className="text-text-muted hover:text-text">
           <span className="material-symbols-outlined text-[20px]">more_horiz</span>
         </button>
       </div>

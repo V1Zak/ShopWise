@@ -30,18 +30,18 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 backdrop-blur-sm overflow-y-auto">
-      <div className="w-full max-w-5xl mx-4 my-8 bg-surface-dark border border-border-dark rounded-2xl shadow-2xl shadow-primary/5">
+      <div className="w-full max-w-5xl mx-4 my-8 bg-surface border border-border rounded-2xl shadow-2xl shadow-primary/5">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-border-dark">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <div className="flex items-center gap-3">
             <Icon name="compare_arrows" className="text-primary" size={24} />
-            <h2 className="text-white text-lg font-bold">
+            <h2 className="text-text text-lg font-bold">
               Comparing {products.length} Product{products.length > 1 ? 's' : ''}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="h-9 w-9 rounded-full flex items-center justify-center text-text-secondary hover:text-white hover:bg-accent-green transition-colors"
+            className="h-9 w-9 rounded-full flex items-center justify-center text-text-muted hover:text-text hover:bg-surface-active transition-colors"
           >
             <Icon name="close" size={22} />
           </button>
@@ -64,7 +64,7 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
                   className={`relative flex flex-col rounded-xl border transition-all ${
                     isCheapestOverall
                       ? 'border-primary/60 shadow-lg shadow-primary/10 bg-primary/5'
-                      : 'border-border-dark bg-background-dark'
+                      : 'border-border bg-bg'
                   }`}
                 >
                   {isCheapestOverall && (
@@ -75,30 +75,30 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
 
                   <button
                     onClick={() => onRemove(product.id)}
-                    className="absolute top-2 right-2 h-7 w-7 rounded-full flex items-center justify-center text-text-secondary hover:text-red-400 hover:bg-red-400/10 transition-colors"
+                    className="absolute top-2 right-2 h-7 w-7 rounded-full flex items-center justify-center text-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors"
                     title="Remove from comparison"
                   >
                     <Icon name="close" size={16} />
                   </button>
 
                   <div className="p-4 pt-5 flex flex-col flex-1">
-                    <div className="h-28 w-full rounded-lg bg-white/5 flex items-center justify-center mb-3">
-                      <Icon name="image" className="text-text-secondary/30" size={40} />
+                    <div className="h-28 w-full rounded-lg bg-surface-active/10 flex items-center justify-center mb-3">
+                      <Icon name="image" className="text-text-muted/30" size={40} />
                     </div>
 
-                    <h3 className="text-white font-bold text-base leading-tight mb-1">{product.name}</h3>
+                    <h3 className="text-text font-bold text-base leading-tight mb-1">{product.name}</h3>
                     {product.brand && (
-                      <p className="text-text-secondary text-xs mb-1">{product.brand}</p>
+                      <p className="text-text-muted text-xs mb-1">{product.brand}</p>
                     )}
-                    <p className="text-text-secondary text-xs mb-3">
+                    <p className="text-text-muted text-xs mb-3">
                       {product.categoryId} &middot; {product.unit}
                     </p>
 
                     <div className="flex items-baseline gap-2 mb-1">
-                      <span className={`font-mono font-bold text-xl ${isCheapestOverall ? 'text-primary' : 'text-white'}`}>
+                      <span className={`font-mono font-bold text-xl ${isCheapestOverall ? 'text-primary' : 'text-text'}`}>
                         ${product.averagePrice.toFixed(2)}
                       </span>
-                      <span className="text-text-secondary text-[10px]">avg</span>
+                      <span className="text-text-muted text-[10px]">avg</span>
                     </div>
 
                     {!isCheapestOverall && products.length > 1 && (
@@ -110,8 +110,8 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
                       <p className="text-primary text-xs font-medium mb-3">Cheapest option</p>
                     )}
 
-                    <div className="mt-auto border-t border-border-dark pt-3 space-y-2">
-                      <p className="text-text-secondary text-[10px] uppercase tracking-wider font-medium mb-1">Store Prices</p>
+                    <div className="mt-auto border-t border-border pt-3 space-y-2">
+                      <p className="text-text-muted text-[10px] uppercase tracking-wider font-medium mb-1">Store Prices</p>
                       {product.storePrices.length > 0 ? (
                         product.storePrices.map((sp) => {
                           const isCheapestStore =
@@ -123,11 +123,11 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
                                   className="w-2 h-2 rounded-full shrink-0"
                                   style={{ backgroundColor: sp.storeColor }}
                                 />
-                                <span className="text-sm text-gray-300 truncate">{sp.storeName}</span>
+                                <span className="text-sm text-text-muted truncate">{sp.storeName}</span>
                               </div>
                               <span
                                 className={`text-sm font-mono ${
-                                  isCheapestStore ? 'text-primary font-bold' : 'text-gray-400'
+                                  isCheapestStore ? 'text-primary font-bold' : 'text-text-muted'
                                 }`}
                               >
                                 ${sp.price.toFixed(2)}
@@ -136,7 +136,7 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
                           );
                         })
                       ) : (
-                        <p className="text-text-secondary text-xs italic">No store prices</p>
+                        <p className="text-text-muted text-xs italic">No store prices</p>
                       )}
                     </div>
                   </div>
@@ -147,17 +147,17 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
 
           {allStoreNames.length > 0 && products.length > 1 && (
             <div className="mt-8">
-              <h3 className="text-white font-bold text-sm mb-3 flex items-center gap-2">
+              <h3 className="text-text font-bold text-sm mb-3 flex items-center gap-2">
                 <Icon name="storefront" className="text-primary" size={18} />
                 Price Comparison by Store
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-border-dark">
-                      <th className="text-left text-text-secondary text-xs font-medium py-2 pr-4">Store</th>
+                    <tr className="border-b border-border">
+                      <th className="text-left text-text-muted text-xs font-medium py-2 pr-4">Store</th>
                       {products.map((p) => (
-                        <th key={p.id} className="text-right text-text-secondary text-xs font-medium py-2 px-3">
+                        <th key={p.id} className="text-right text-text-muted text-xs font-medium py-2 px-3">
                           {p.name}
                         </th>
                       ))}
@@ -170,8 +170,8 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
                       const minStorePrice = validPrices.length > 0 ? Math.min(...validPrices) : null;
 
                       return (
-                        <tr key={storeName} className="border-b border-border-dark/50">
-                          <td className="py-2 pr-4 text-gray-300">{storeName}</td>
+                        <tr key={storeName} className="border-b border-border/50">
+                          <td className="py-2 pr-4 text-text-muted">{storeName}</td>
                           {prices.map((price, idx) => (
                             <td key={products[idx].id} className="text-right py-2 px-3">
                               {price !== null ? (
@@ -179,13 +179,13 @@ export function ProductComparisonModal({ products, onClose, onRemove }: ProductC
                                   className={`font-mono ${
                                     price === minStorePrice && validPrices.length > 1
                                       ? 'text-primary font-bold'
-                                      : 'text-gray-400'
+                                      : 'text-text-muted'
                                   }`}
                                 >
                                   ${price.toFixed(2)}
                                 </span>
                               ) : (
-                                <span className="text-text-secondary/50">&mdash;</span>
+                                <span className="text-text-muted/50">&mdash;</span>
                               )}
                             </td>
                           ))}

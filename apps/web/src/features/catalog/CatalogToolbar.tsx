@@ -54,7 +54,7 @@ export function CatalogToolbar() {
   }
 
   return (
-    <div className="px-6 lg:px-10 py-4 border-b border-border-dark flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+    <div className="px-6 lg:px-10 py-4 border-b border-border flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
       <div className="w-full md:w-auto md:flex-1 md:max-w-xl">
         <SearchInput
           value={searchQuery}
@@ -68,7 +68,7 @@ export function CatalogToolbar() {
           className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap ${
             viewMode === 'grid'
               ? 'bg-primary text-black font-bold'
-              : 'bg-surface-dark border border-border-dark text-text-secondary hover:text-white'
+              : 'bg-surface border border-border text-text-muted hover:text-text'
           }`}
         >
           <span className="material-symbols-outlined text-[18px]">grid_view</span>
@@ -79,13 +79,13 @@ export function CatalogToolbar() {
           className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap ${
             viewMode === 'list'
               ? 'bg-primary text-black font-bold'
-              : 'bg-surface-dark border border-border-dark text-text-secondary hover:text-white'
+              : 'bg-surface border border-border text-text-muted hover:text-text'
           }`}
         >
           <span className="material-symbols-outlined text-[18px]">list</span>
           List
         </button>
-        <div className="w-px h-6 bg-border-dark mx-1" />
+        <div className="w-px h-6 bg-border mx-1" />
         <Dropdown
           align="right"
           trigger={
@@ -93,7 +93,7 @@ export function CatalogToolbar() {
               className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                 hasPriceFilter
                   ? 'bg-primary/15 border border-primary/40 text-primary'
-                  : 'bg-surface-dark border border-border-dark text-text-secondary hover:text-white'
+                  : 'bg-surface border border-border text-text-muted hover:text-text'
               }`}
             >
               <span className="material-symbols-outlined text-[18px]">tune</span>
@@ -104,24 +104,24 @@ export function CatalogToolbar() {
         >
           <div className="p-4 w-[260px]">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Price Range</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-text-muted">Price Range</span>
               {hasPriceFilter && (
                 <button onClick={handleClearPrice} className="text-xs text-primary hover:underline">Clear</button>
               )}
             </div>
             <div className="flex items-center gap-2 mb-3">
               <div className="flex-1">
-                <label className="text-[11px] text-slate-500 mb-1 block">Min ($)</label>
+                <label className="text-[11px] text-text-muted mb-1 block">Min ($)</label>
                 <input type="number" min="0" step="0.01" placeholder="0.00" value={minInput}
                   onChange={(e) => setMinInput(e.target.value)}
-                  className="w-full bg-background-dark border border-border-dark rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 outline-none focus:border-primary transition-colors" />
+                  className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm text-text placeholder-text-muted outline-none focus:border-primary transition-colors" />
               </div>
-              <span className="text-slate-500 pt-4">-</span>
+              <span className="text-text-muted pt-4">-</span>
               <div className="flex-1">
-                <label className="text-[11px] text-slate-500 mb-1 block">Max ($)</label>
+                <label className="text-[11px] text-text-muted mb-1 block">Max ($)</label>
                 <input type="number" min="0" step="0.01" placeholder="999" value={maxInput}
                   onChange={(e) => setMaxInput(e.target.value)}
-                  className="w-full bg-background-dark border border-border-dark rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 outline-none focus:border-primary transition-colors" />
+                  className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm text-text placeholder-text-muted outline-none focus:border-primary transition-colors" />
               </div>
             </div>
             <button onClick={handleApplyPrice}
@@ -133,7 +133,7 @@ export function CatalogToolbar() {
         <Dropdown
           align="right"
           trigger={
-            <button className="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-dark border border-border-dark text-text-secondary hover:text-white transition-all text-sm font-medium whitespace-nowrap">
+            <button className="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface border border-border text-text-muted hover:text-text transition-all text-sm font-medium whitespace-nowrap">
               <span className="material-symbols-outlined text-[18px]">sort</span>
               Sort: {getSortLabel(sortBy, sortDirection)}
             </button>

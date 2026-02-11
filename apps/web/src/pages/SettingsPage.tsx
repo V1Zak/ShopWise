@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuthStore } from '@/store/auth-store';
+import { useUIStore } from '@/store/ui-store';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 
@@ -8,6 +9,8 @@ const currencies = ['USD ($)', 'EUR (€)', 'GBP (£)', 'CAD (C$)', 'AUD (A$)'];
 export function SettingsPage() {
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
+  const theme = useUIStore((s) => s.theme);
+  const setTheme = useUIStore((s) => s.setTheme);
   const navigate = useNavigate();
 
   const [currency, setCurrency] = useState(() => {
@@ -125,23 +128,23 @@ export function SettingsPage() {
   return (
     <div className="flex flex-col h-full overflow-y-auto">
       {/* Sub-header */}
-      <div className="sticky top-0 z-10 bg-background-dark/90 backdrop-blur-md border-b border-border-dark px-6 py-4">
-        <h2 className="text-2xl font-bold text-white tracking-tight">Settings</h2>
-        <p className="text-sm text-text-secondary hidden sm:block">
+      <div className="sticky top-0 z-10 bg-bg/90 backdrop-blur-md border-b border-border px-6 py-4">
+        <h2 className="text-2xl font-bold text-text tracking-tight">Settings</h2>
+        <p className="text-sm text-text-muted hidden sm:block">
           Manage your profile, preferences, and account
         </p>
       </div>
 
       <div className="p-6 max-w-3xl mx-auto w-full flex flex-col gap-6">
         {/* Profile Section */}
-        <section className="bg-surface-dark rounded-xl border border-border-dark overflow-hidden">
-          <div className="px-6 py-4 border-b border-border-dark">
-            <h3 className="text-lg font-semibold text-white">Profile</h3>
+        <section className="bg-surface rounded-xl border border-border overflow-hidden">
+          <div className="px-6 py-4 border-b border-border">
+            <h3 className="text-lg font-semibold text-text">Profile</h3>
           </div>
           <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-6">
             {/* Avatar */}
             <div className="relative group">
-              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center text-background-dark font-bold text-xl flex-shrink-0 overflow-hidden">
+              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center text-text-inv font-bold text-xl flex-shrink-0 overflow-hidden">
                 {avatarUrl ? (
                   <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                 ) : (
@@ -171,27 +174,27 @@ export function SettingsPage() {
             {/* Name & Email */}
             <div className="flex flex-col gap-4 flex-1 w-full">
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1.5">
+                <label className="block text-sm font-medium text-text-muted mb-1.5">
                   Display Name
                 </label>
                 <input
                   type="text"
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="w-full bg-surface-darker border border-border-dark rounded-lg px-4 py-2.5 text-white text-sm placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                  className="w-full bg-surface-alt border border-border rounded-lg px-4 py-2.5 text-text text-sm placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1.5">
+                <label className="block text-sm font-medium text-text-muted mb-1.5">
                   Email Address
                 </label>
                 <input
                   type="email"
                   value={displayEmail}
                   readOnly
-                  className="w-full bg-surface-darker border border-border-dark rounded-lg px-4 py-2.5 text-text-secondary text-sm cursor-not-allowed"
+                  className="w-full bg-surface-alt border border-border rounded-lg px-4 py-2.5 text-text-muted text-sm cursor-not-allowed"
                 />
-                <p className="text-xs text-text-secondary mt-1">
+                <p className="text-xs text-text-muted mt-1">
                   Email is managed through your authentication provider
                 </p>
               </div>
@@ -201,7 +204,7 @@ export function SettingsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="bg-primary hover:bg-primary/90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
+              className="bg-primary hover:bg-primary/90 text-text-inv px-5 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
             >
               {saved ? 'Saved!' : saving ? 'Saving...' : 'Save Changes'}
             </button>
@@ -209,20 +212,20 @@ export function SettingsPage() {
         </section>
 
         {/* Preferences Section */}
-        <section className="bg-surface-dark rounded-xl border border-border-dark overflow-hidden">
-          <div className="px-6 py-4 border-b border-border-dark">
-            <h3 className="text-lg font-semibold text-white">Preferences</h3>
+        <section className="bg-surface rounded-xl border border-border overflow-hidden">
+          <div className="px-6 py-4 border-b border-border">
+            <h3 className="text-lg font-semibold text-text">Preferences</h3>
           </div>
           <div className="p-6 flex flex-col gap-6">
             {/* Currency */}
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-1.5">
+              <label className="block text-sm font-medium text-text-muted mb-1.5">
                 Default Currency
               </label>
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="w-full sm:w-64 bg-surface-darker border border-border-dark rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors appearance-none cursor-pointer"
+                className="w-full sm:w-64 bg-surface-alt border border-border rounded-lg px-4 py-2.5 text-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors appearance-none cursor-pointer"
               >
                 {currencies.map((c) => (
                   <option key={c} value={c}>
@@ -232,9 +235,32 @@ export function SettingsPage() {
               </select>
             </div>
 
+            {/* Theme */}
+            <div>
+              <label className="block text-sm font-medium text-text-muted mb-2">
+                Appearance
+              </label>
+              <div className="flex gap-2">
+                {([['light', 'light_mode', 'Light'], ['dark', 'dark_mode', 'Dark'], ['system', 'desktop_windows', 'System']] as const).map(([val, icon, label]) => (
+                  <button
+                    key={val}
+                    onClick={() => setTheme(val)}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors ${
+                      theme === val
+                        ? 'bg-primary/10 border-primary text-primary'
+                        : 'bg-surface-alt border-border text-text-muted hover:text-text hover:border-border'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[18px]">{icon}</span>
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Notification Toggles */}
             <div className="flex flex-col gap-1">
-              <h4 className="text-sm font-medium text-white mb-3">Notifications</h4>
+              <h4 className="text-sm font-medium text-text mb-3">Notifications</h4>
 
               <ToggleRow
                 label="Push Notifications"
@@ -265,22 +291,22 @@ export function SettingsPage() {
         </section>
 
         {/* Account Section */}
-        <section className="bg-surface-dark rounded-xl border border-border-dark overflow-hidden">
-          <div className="px-6 py-4 border-b border-border-dark">
-            <h3 className="text-lg font-semibold text-white">Account</h3>
+        <section className="bg-surface rounded-xl border border-border overflow-hidden">
+          <div className="px-6 py-4 border-b border-border">
+            <h3 className="text-lg font-semibold text-text">Account</h3>
           </div>
           <div className="p-6 flex flex-col gap-6">
             {/* Change Password */}
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-white">Change Password</p>
-                <p className="text-xs text-text-secondary mt-0.5">
+                <p className="text-sm font-medium text-text">Change Password</p>
+                <p className="text-xs text-text-muted mt-0.5">
                   Update your password to keep your account secure
                 </p>
               </div>
               <button
                 onClick={() => setShowPasswordModal(true)}
-                className="flex items-center gap-2 border border-border-dark hover:border-primary/50 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                className="flex items-center gap-2 border border-border hover:border-primary/50 text-text px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
                 <span className="material-symbols-outlined text-[18px]">lock</span>
                 Update
@@ -290,14 +316,14 @@ export function SettingsPage() {
             {/* Sign Out */}
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-white">Sign Out</p>
-                <p className="text-xs text-text-secondary mt-0.5">
+                <p className="text-sm font-medium text-text">Sign Out</p>
+                <p className="text-xs text-text-muted mt-0.5">
                   Sign out of your account on this device
                 </p>
               </div>
               <button
                 onClick={handleSignOut}
-                className="flex items-center gap-2 border border-border-dark hover:border-primary/50 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                className="flex items-center gap-2 border border-border hover:border-primary/50 text-text px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
                 <span className="material-symbols-outlined text-[18px]">logout</span>
                 Sign Out
@@ -307,15 +333,15 @@ export function SettingsPage() {
         </section>
 
         {/* Danger Zone */}
-        <section className="bg-surface-dark rounded-xl border border-red-900/50 overflow-hidden">
+        <section className="bg-surface rounded-xl border border-red-900/50 overflow-hidden">
           <div className="px-6 py-4 border-b border-red-900/50">
             <h3 className="text-lg font-semibold text-red-400">Danger Zone</h3>
           </div>
           <div className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-white">Delete Account</p>
-                <p className="text-xs text-text-secondary mt-0.5">
+                <p className="text-sm font-medium text-text">Delete Account</p>
+                <p className="text-xs text-text-muted mt-0.5">
                   Permanently remove your account and all data. This action cannot be undone.
                 </p>
               </div>
@@ -331,7 +357,7 @@ export function SettingsPage() {
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <button
                     onClick={() => setShowDeleteConfirm(false)}
-                    className="border border-border-dark text-text-secondary hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+                    className="border border-border text-text-muted hover:text-text px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
                     Cancel
                   </button>
@@ -394,32 +420,32 @@ function ChangePasswordModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="w-full max-w-sm mx-4 rounded-xl border border-border-dark bg-background-dark shadow-2xl">
-        <div className="flex items-center justify-between border-b border-border-dark px-5 py-4">
-          <h2 className="text-lg font-bold text-white">Change Password</h2>
-          <button onClick={onClose} className="rounded-full p-1 text-text-secondary hover:bg-accent-green hover:text-white transition-colors">
+      <div className="w-full max-w-sm mx-4 rounded-xl border border-border bg-bg shadow-2xl">
+        <div className="flex items-center justify-between border-b border-border px-5 py-4">
+          <h2 className="text-lg font-bold text-text">Change Password</h2>
+          <button onClick={onClose} className="rounded-full p-1 text-text-muted hover:bg-surface-active hover:text-text transition-colors">
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className="mb-1 block text-xs font-medium text-text-secondary">New Password</label>
+            <label className="mb-1 block text-xs font-medium text-text-muted">New Password</label>
             <input
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full rounded-lg border border-border-dark bg-surface-dark px-3 py-2 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50"
+              className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50"
               placeholder="At least 8 characters"
               autoFocus
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-text-secondary">Confirm Password</label>
+            <label className="mb-1 block text-xs font-medium text-text-muted">Confirm Password</label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full rounded-lg border border-border-dark bg-surface-dark px-3 py-2 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50"
+              className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50"
               placeholder="Repeat your password"
             />
           </div>
@@ -430,13 +456,13 @@ function ChangePasswordModal({ onClose }: { onClose: () => void }) {
             <p className="text-sm text-primary">Password updated successfully!</p>
           )}
           <div className="flex justify-end gap-3 pt-2">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-text-secondary hover:text-white transition-colors">
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-text-muted hover:text-text transition-colors">
               Cancel
             </button>
             <button
               type="submit"
               disabled={saving || success}
-              className="bg-primary hover:bg-primary/90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
+              className="bg-primary hover:bg-primary/90 text-text-inv px-5 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
             >
               {saving ? 'Updating...' : 'Update Password'}
             </button>
@@ -461,10 +487,10 @@ function ToggleRow({
   onChange: (val: boolean) => void;
 }) {
   return (
-    <div className="flex items-center justify-between py-3 border-b border-border-dark last:border-b-0">
+    <div className="flex items-center justify-between py-3 border-b border-border last:border-b-0">
       <div className="pr-4">
-        <p className="text-sm font-medium text-white">{label}</p>
-        <p className="text-xs text-text-secondary mt-0.5">{description}</p>
+        <p className="text-sm font-medium text-text">{label}</p>
+        <p className="text-xs text-text-muted mt-0.5">{description}</p>
       </div>
       <button
         role="switch"
@@ -472,7 +498,7 @@ function ToggleRow({
         aria-label={label}
         onClick={() => onChange(!checked)}
         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
-          checked ? 'bg-primary' : 'bg-border-dark'
+          checked ? 'bg-primary' : 'bg-border'
         }`}
       >
         <span

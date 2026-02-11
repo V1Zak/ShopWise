@@ -37,7 +37,7 @@ export function Dropdown({ trigger, children, align = 'left' }: DropdownProps) {
           onKeyDown={(e) => {
             if (e.key === 'Escape') setOpen(false);
           }}
-          className={`absolute top-full mt-2 z-50 min-w-[200px] rounded-xl border border-border-dark bg-surface-dark shadow-2xl py-1 ${
+          className={`absolute top-full mt-2 z-50 min-w-[200px] rounded-xl border border-border bg-surface shadow-2xl py-1 ${
             align === 'right' ? 'right-0' : 'left-0'
           }`}
         >
@@ -63,7 +63,7 @@ export function DropdownItem({ label, active, onClick, icon }: DropdownItemProps
       className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left transition-colors ${
         active
           ? 'bg-primary/15 text-primary font-semibold'
-          : 'text-text-secondary hover:bg-background-dark hover:text-white'
+          : 'text-text-muted hover:bg-bg hover:text-text'
       }`}
     >
       {icon && (

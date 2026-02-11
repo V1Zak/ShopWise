@@ -8,7 +8,7 @@ const colorMap = {
   danger: 'text-danger bg-danger/10 border-danger/20',
   warning: 'text-warning bg-warning/10 border-warning/20',
   info: 'text-blue-400 bg-blue-400/10 border-blue-400/20',
-  default: 'text-text-secondary bg-background-dark border-border-dark',
+  default: 'text-text-muted bg-bg border-border',
 };
 
 export function Badge({ children, color = 'default' }: BadgeProps) {

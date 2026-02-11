@@ -25,17 +25,17 @@ export function SpendingAnalyticsPage() {
   return (
     <div className="flex flex-col h-full overflow-y-auto">
       {/* Sub-header */}
-      <div className="sticky top-0 z-10 bg-background-dark/90 backdrop-blur-md border-b border-border-dark px-6 py-4 flex items-center justify-between">
+      <div className="sticky top-0 z-10 bg-bg/90 backdrop-blur-md border-b border-border px-6 py-4 flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white tracking-tight">Spending Analytics</h2>
-          <p className="text-sm text-text-secondary hidden sm:block">Track expenses and savings in real-time</p>
+          <h2 className="text-2xl font-bold text-text tracking-tight">Spending Analytics</h2>
+          <p className="text-sm text-text-muted hidden sm:block">Track expenses and savings in real-time</p>
         </div>
         <div className="flex items-center gap-3">
           {/* Mobile: dropdown select */}
           <select
             value={period}
             onChange={(e) => setPeriod(e.target.value as AnalyticsPeriod)}
-            className="sm:hidden bg-surface-dark text-white border border-border-dark rounded-lg px-3 py-2 text-sm"
+            className="sm:hidden bg-surface text-text border border-border rounded-lg px-3 py-2 text-sm"
           >
             <option value="Weekly">Weekly</option>
             <option value="Monthly">Monthly</option>
@@ -52,7 +52,7 @@ export function SpendingAnalyticsPage() {
           </div>
           <button
             onClick={handleExportReport}
-            className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-background-dark px-4 py-2 rounded-lg text-sm font-bold transition-colors"
+            className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-text-inv px-4 py-2 rounded-lg text-sm font-bold transition-colors"
           >
             <span className="material-symbols-outlined text-[18px]">download</span>
             <span className="hidden sm:inline">Export Report</span>

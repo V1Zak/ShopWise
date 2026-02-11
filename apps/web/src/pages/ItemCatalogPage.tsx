@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CatalogToolbar } from '@/features/catalog/CatalogToolbar';
+import { CatalogHeroBanner } from '@/features/catalog/CatalogHeroBanner';
 import { CategoryPills } from '@/features/catalog/CategoryPills';
 import { StorePills } from '@/features/catalog/StorePills';
 import { ProductGrid } from '@/features/catalog/ProductGrid';
@@ -41,6 +42,7 @@ export function ItemCatalogPage() {
 
   return (
     <div className="flex flex-col h-full">
+      <CatalogHeroBanner />
       <CatalogToolbar />
       <CategoryPills />
       <StorePills />

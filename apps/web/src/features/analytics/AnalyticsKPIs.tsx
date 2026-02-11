@@ -8,10 +8,10 @@ export function AnalyticsKPIs() {
 
   if (isEmpty) {
     return (
-      <div className="rounded-xl border border-border-dark bg-surface-dark p-12 text-center">
-        <span className="material-symbols-outlined text-5xl text-text-secondary/30 mb-3 block">analytics</span>
-        <p className="text-white font-semibold text-lg mb-1">No analytics data yet</p>
-        <p className="text-text-secondary text-sm max-w-md mx-auto">
+      <div className="rounded-xl border border-border bg-surface p-12 text-center">
+        <span className="material-symbols-outlined text-5xl text-text-muted/30 mb-3 block">analytics</span>
+        <p className="text-text font-semibold text-lg mb-1">No analytics data yet</p>
+        <p className="text-text-muted text-sm max-w-md mx-auto">
           Complete your first shopping trip to start tracking spending patterns, savings, and category breakdowns.
         </p>
       </div>

@@ -19,7 +19,7 @@ export function BarChart({ data, maxValue, highlightIndex }: BarChartProps) {
         const isHighlight = highlightIndex === i;
         return (
           <div key={bar.label} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
-            <div className="relative w-full bg-accent-green/30 rounded-t-sm h-48 flex items-end justify-center overflow-hidden">
+            <div className="relative w-full bg-surface-active/30 rounded-t-sm h-48 flex items-end justify-center overflow-hidden">
               <div
                 className={`w-full rounded-t-sm transition-all duration-300 ${
                   isHighlight
@@ -28,11 +28,11 @@ export function BarChart({ data, maxValue, highlightIndex }: BarChartProps) {
                 }`}
                 style={{ height: `${heightPercent}%` }}
               />
-              <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-800 text-white text-xs py-1 px-2 rounded pointer-events-none whitespace-nowrap z-10 font-mono">
+              <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity bg-text text-text-inv text-xs py-1 px-2 rounded pointer-events-none whitespace-nowrap z-10 font-mono">
                 ${bar.value}
               </div>
             </div>
-            <span className={`text-xs font-medium transition-colors ${isHighlight ? 'text-primary font-bold' : 'text-text-secondary group-hover:text-primary'}`}>
+            <span className={`text-xs font-medium transition-colors ${isHighlight ? 'text-primary font-bold' : 'text-text-muted group-hover:text-primary'}`}>
               {bar.label}
             </span>
           </div>

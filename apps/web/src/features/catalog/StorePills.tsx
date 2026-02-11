@@ -16,7 +16,7 @@ export function StorePills() {
   if (stores.length === 0) return null;
 
   return (
-    <div className="px-6 lg:px-10 py-3 flex gap-2 overflow-x-auto border-b border-border-dark">
+    <div className="px-6 lg:px-10 py-3 flex gap-2 overflow-x-auto border-b border-border">
       <FilterChip
         label="All Stores"
         active={activeStoreId === 'all'}

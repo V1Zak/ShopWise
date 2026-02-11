@@ -98,25 +98,25 @@ export function RecentActivityFeed() {
   return (
     <section>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-white font-bold text-lg">Recent Activity</h3>
-        <button className="text-text-secondary text-sm hover:text-white transition-colors">
+        <h3 className="text-text font-bold text-lg">Recent Activity</h3>
+        <button className="text-text-muted text-sm hover:text-text transition-colors">
           View All
         </button>
       </div>
-      <div className="bg-surface-dark rounded-xl border border-border-dark p-1">
+      <div className="bg-surface rounded-xl border border-border p-1">
         {activity.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-10 text-text-secondary">
+          <div className="flex flex-col items-center justify-center py-10 text-text-muted">
             <span className="material-symbols-outlined text-[32px] mb-2">
               history
             </span>
             <p className="text-sm">No recent activity</p>
           </div>
         ) : (
-          <div className="divide-y divide-border-dark">
+          <div className="divide-y divide-border">
             {activity.map((item) => (
               <div
                 key={item.id}
-                className="flex items-start gap-4 p-4 hover:bg-accent-green/30 transition-colors rounded-lg"
+                className="flex items-start gap-4 p-4 hover:bg-surface-active/30 transition-colors rounded-lg"
               >
                 <div
                   className={`${item.iconBg} ${item.iconColor} p-2 rounded-lg mt-0.5`}
@@ -126,26 +126,26 @@ export function RecentActivityFeed() {
                   </span>
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-white">
+                  <p className="text-sm text-text">
                     {item.text}{' '}
-                    <span className="font-bold text-white">
+                    <span className="font-bold text-text">
                       {item.boldText}
                     </span>
                     {item.detail && (
-                      <span className="text-text-secondary">
+                      <span className="text-text-muted">
                         {' '}
                         {item.detail}
                       </span>
                     )}
                   </p>
                   <div className="flex items-center gap-2 mt-1 text-xs">
-                    <span className="text-text-secondary">
+                    <span className="text-text-muted">
                       {timeAgo(item.time)}
                     </span>
                     {item.price && (
                       <>
-                        <span className="w-1 h-1 rounded-full bg-text-secondary" />
-                        <span className="font-mono text-white">
+                        <span className="w-1 h-1 rounded-full bg-text-muted" />
+                        <span className="font-mono text-text">
                           {item.price}
                         </span>
                       </>

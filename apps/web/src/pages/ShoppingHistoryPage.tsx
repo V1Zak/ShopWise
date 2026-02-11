@@ -24,12 +24,12 @@ export function ShoppingHistoryPage() {
         <div className="flex flex-col gap-6">
           <div className="flex flex-wrap justify-between items-end gap-4">
             <div className="flex flex-col gap-2">
-              <h1 className="text-4xl font-black leading-tight tracking-tight text-white">Shopping Audit Log</h1>
-              <p className="text-text-secondary text-base">Chronological history of your procurement sessions.</p>
+              <h1 className="text-4xl font-black leading-tight tracking-tight text-text">Shopping Audit Log</h1>
+              <p className="text-text-muted text-base">Chronological history of your procurement sessions.</p>
             </div>
             <button
               onClick={handleExportCSV}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-[#2d5c45] transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors"
             >
               <span className="material-symbols-outlined text-[18px]">download</span>
               Export CSV
