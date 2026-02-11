@@ -256,7 +256,7 @@ export const useListsStore = create<ListsState>((set, get) => ({
 
   getRunningTotal: (listId) => {
     const items = get().items.filter((i) => i.listId === listId && i.status === 'in_cart');
-    return items.reduce((sum, item) => sum + (item.actualPrice ?? item.estimatedPrice), 0);
+    return items.reduce((sum, item) => sum + (item.actualPrice ?? item.estimatedPrice) * (item.quantity || 1), 0);
   },
 
   fetchTemplates: async () => {
