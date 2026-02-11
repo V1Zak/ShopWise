@@ -11,7 +11,6 @@ import { TemplatePickerModal } from '@/components/TemplatePickerModal';
 import { NewListDialog } from '@/components/NewListDialog';
 import { NotificationPrompt } from '@/components/NotificationPrompt';
 import { Icon } from '@/components/ui/Icon';
-import { useListsStore } from '@/store/lists-store';
 import { useTripsStore } from '@/store/trips-store';
 import { useAuthStore } from '@/store/auth-store';
 
@@ -27,22 +26,13 @@ function getDateString(): string {
 }
 
 export function DashboardPage() {
-  const fetchLists = useListsStore((s) => s.fetchLists);
   const fetchTrips = useTripsStore((s) => s.fetchTrips);
   const user = useAuthStore((s) => s.user);
   const [templateModalOpen, setTemplateModalOpen] = useState(false);
   const [showNewList, setShowNewList] = useState(false);
-  const hasFetchedLists = useRef(false);
   const hasFetchedTrips = useRef(false);
 
   const firstName = user?.name?.split(' ')[0] || user?.email?.split('@')[0] || 'there';
-
-  useEffect(() => {
-    if (!hasFetchedLists.current) {
-      hasFetchedLists.current = true;
-      fetchLists();
-    }
-  }, [fetchLists]);
 
   useEffect(() => {
     if (!hasFetchedTrips.current) {
