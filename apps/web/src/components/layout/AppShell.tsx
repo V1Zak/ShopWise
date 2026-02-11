@@ -1,11 +1,18 @@
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useRealtimeNotifications } from '@/hooks/useRealtimeNotifications';
+import { useListsStore } from '@/store/lists-store';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import { BottomNav } from './BottomNav';
 
 export function AppShell() {
   useRealtimeNotifications();
+  const fetchLists = useListsStore((s) => s.fetchLists);
+
+  useEffect(() => {
+    fetchLists();
+  }, [fetchLists]);
 
   return (
     <div className="flex h-screen w-full overflow-hidden">
