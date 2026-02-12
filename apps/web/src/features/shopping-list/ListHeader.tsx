@@ -6,6 +6,7 @@ import { ConfirmDeleteModal } from '@/components/ConfirmDeleteModal';
 import { Icon } from '@/components/ui/Icon';
 import { Dropdown, DropdownItem } from '@/components/ui/Dropdown';
 import { useCurrency } from '@/hooks/useCurrency';
+import { useListPermission } from '@/hooks/useListPermission';
 
 interface ListHeaderProps { onScanClick?: () => void; }
 
@@ -21,6 +22,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { formatPrice } = useCurrency();
+  const { canEdit } = useListPermission();
 
   const list = lists.find((l) => l.id === activeListId);
   const total = getRunningTotal(activeListId);
@@ -106,7 +108,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
         <div className="flex justify-between items-start sm:items-end gap-3 mb-3 sm:mb-6">
           <div className="min-w-0 flex-1">
             <h1 className="text-text text-xl sm:text-3xl font-bold leading-tight mb-1">
-              {isEditingTitle ? (
+              {isEditingTitle && canEdit ? (
                 <input
                   ref={titleInputRef}
                   type="text"
@@ -116,7 +118,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
                   onKeyDown={handleTitleKeyDown}
                   className="w-full bg-bg border border-primary rounded px-2 py-1 text-text text-xl sm:text-3xl font-bold focus:outline-none focus:ring-1 focus:ring-primary"
                 />
-              ) : (
+              ) : canEdit ? (
                 <button
                   onClick={handleStartEditTitle}
                   className="inline-flex items-center gap-1 text-text hover:text-primary transition-colors group text-left"
@@ -125,6 +127,8 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
                   <span className="truncate">{list?.title || 'Shopping List'}</span>
                   <span className="material-symbols-outlined text-[16px] text-text-muted group-hover:text-primary transition-colors flex-shrink-0">edit</span>
                 </button>
+              ) : (
+                <span className="truncate">{list?.title || 'Shopping List'}</span>
               )}
             </h1>
             <p className="text-text-muted text-sm truncate">
@@ -138,25 +142,27 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
             </p>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
-            <Dropdown
-              align="right"
-              trigger={
-                <button className="flex items-center justify-center w-9 h-9 rounded-lg bg-surface-active text-text hover:bg-surface-active/80 transition-colors" title="More actions">
-                  <span className="material-symbols-outlined text-[20px]">more_vert</span>
-                </button>
-              }
-            >
-              <DropdownItem
-                label={saving ? 'Saving...' : saved ? 'Saved as Template' : 'Save as Template'}
-                icon={saved ? 'bookmark_added' : 'bookmark'}
-                onClick={handleSaveAsTemplate}
-              />
-              <DropdownItem
-                label="Delete List"
-                icon="delete"
-                onClick={() => setIsDeleteModalOpen(true)}
-              />
-            </Dropdown>
+            {canEdit && (
+              <Dropdown
+                align="right"
+                trigger={
+                  <button className="flex items-center justify-center w-9 h-9 rounded-lg bg-surface-active text-text hover:bg-surface-active/80 transition-colors" title="More actions">
+                    <span className="material-symbols-outlined text-[20px]">more_vert</span>
+                  </button>
+                }
+              >
+                <DropdownItem
+                  label={saving ? 'Saving...' : saved ? 'Saved as Template' : 'Save as Template'}
+                  icon={saved ? 'bookmark_added' : 'bookmark'}
+                  onClick={handleSaveAsTemplate}
+                />
+                <DropdownItem
+                  label="Delete List"
+                  icon="delete"
+                  onClick={() => setIsDeleteModalOpen(true)}
+                />
+              </Dropdown>
+            )}
             {error && (
               <span className="text-red-400 text-sm font-medium">{error}</span>
             )}
@@ -167,7 +173,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
                 <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-primary text-text-inv text-[10px] font-bold px-1">{collaboratorCount}</span>
               )}
             </button>
-            {onScanClick && (
+            {onScanClick && canEdit && (
               <button onClick={onScanClick} className="flex items-center justify-center w-9 h-9 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors">
                 <span className="material-symbols-outlined text-[18px]">qr_code_scanner</span>
                 <span className="hidden sm:inline">Scan</span>
