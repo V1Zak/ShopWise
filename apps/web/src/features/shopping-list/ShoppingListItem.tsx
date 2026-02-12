@@ -124,6 +124,7 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
           checked={isChecked}
           onChange={() => !readOnly && toggleItemStatus(item.id)}
           disabled={readOnly}
+          aria-label={`Mark ${item.name} as ${isChecked ? 'not in cart' : 'in cart'}`}
           className={`peer h-6 w-6 appearance-none rounded-md border border-border bg-bg checked:border-primary checked:bg-primary transition-all ${readOnly ? 'cursor-default opacity-60' : 'cursor-pointer'}`}
         />
         <span className="absolute text-text-inv opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none material-symbols-outlined text-lg font-bold">
@@ -164,6 +165,7 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
               <button
                 onClick={(e) => handleQuantityChange(-1, e)}
                 disabled={item.quantity <= 1}
+                aria-label={`Decrease quantity of ${item.name}`}
                 className="h-5 w-5 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-text hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 <span className="material-symbols-outlined text-[14px]">remove</span>
@@ -175,6 +177,7 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
             {!readOnly && (
               <button
                 onClick={(e) => handleQuantityChange(1, e)}
+                aria-label={`Increase quantity of ${item.name}`}
                 className="h-5 w-5 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-text hover:border-primary transition-colors"
               >
                 <span className="material-symbols-outlined text-[14px]">add</span>

@@ -4,6 +4,7 @@ import { ShoppingListItem } from './ShoppingListItem';
 import { CATEGORY_MAP } from '@shopwise/shared';
 import type { ListItem, ListItemStatus } from '@shopwise/shared';
 import { useListPermission } from '@/hooks/useListPermission';
+import { useCurrency } from '@/hooks/useCurrency';
 
 interface Props {
   activeTab: ListItemStatus;
@@ -17,6 +18,7 @@ export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }:
   const addItem = useListsStore((s) => s.addItem);
   const [inlineInput, setInlineInput] = useState('');
   const { canEdit } = useListPermission();
+  const { symbol } = useCurrency();
 
   const filteredItems = items.filter((i) => i.listId === activeListId && i.status === activeTab);
 
@@ -32,10 +34,20 @@ export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }:
     const text = inlineInput.trim();
     if (!text || !activeListId) return;
 
-    // Parse: "Milk $4.50" -> name: "Milk", price: 4.50
-    const priceMatch = text.match(/\$(\d+(?:\.\d+)?)/);
+    // Parse: "Milk $4.50" or "Milk 4.50" -> name: "Milk", price: 4.50
+    // Supports the user's configured currency symbol (e.g. $, €, £, C$, A$)
+    const escaped = symbol.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const symbolPattern = new RegExp(`${escaped}\\s*(\\d+(?:\\.\\d+)?)`);
+    const trailingPattern = /(\d+(?:\.\d+)?)\s*$/;
+    const symbolMatch = text.match(symbolPattern);
+    const priceMatch = symbolMatch || text.match(trailingPattern);
     const price = priceMatch ? parseFloat(priceMatch[1]) : 0;
-    const name = text.replace(/\$\d+(?:\.\d+)?/, '').trim();
+    const name = (symbolMatch
+      ? text.replace(symbolPattern, '')
+      : priceMatch
+        ? text.replace(trailingPattern, '')
+        : text
+    ).trim();
 
     if (!name) return;
 
@@ -128,7 +140,7 @@ export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }:
               value={inlineInput}
               onChange={(e) => setInlineInput(e.target.value)}
               onKeyDown={handleInlineKeyDown}
-              placeholder="Add item... (e.g. 'Milk $4.50')"
+              placeholder={`Add item... (e.g. 'Milk ${symbol}4.50')`}
               className="w-full bg-surface text-text border border-border rounded-lg py-2.5 pl-10 pr-20 focus:ring-2 focus:ring-primary focus:border-transparent placeholder:text-text-muted/50 transition-all text-sm"
             />
             {inlineInput.trim() && (

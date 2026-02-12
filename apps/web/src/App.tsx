@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { AppShell } from './components/layout/AppShell';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthPage } from './pages/AuthPage';
@@ -21,21 +22,23 @@ export default function App() {
   }, [initialize]);
 
   return (
-    <Routes>
-      <Route path="/auth" element={<AuthPage />} />
-      <Route path="/auth/callback" element={<AuthCallbackPage />} />
-      <Route element={<ProtectedRoute />}>
-        <Route element={<AppShell />}>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/list/:id" element={<ActiveShoppingListPage />} />
-          <Route path="/catalog" element={<ItemCatalogPage />} />
-          <Route path="/history" element={<ShoppingHistoryPage />} />
-          <Route path="/analytics" element={<SpendingAnalyticsPage />} />
-          <Route path="/briefing/:id" element={<PostShopBriefingPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+    <ErrorBoundary>
+      <Routes>
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/auth/callback" element={<AuthCallbackPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AppShell />}>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/list/:id" element={<ActiveShoppingListPage />} />
+            <Route path="/catalog" element={<ItemCatalogPage />} />
+            <Route path="/history" element={<ShoppingHistoryPage />} />
+            <Route path="/analytics" element={<SpendingAnalyticsPage />} />
+            <Route path="/briefing/:id" element={<PostShopBriefingPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+          </Route>
         </Route>
-      </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </ErrorBoundary>
   );
 }

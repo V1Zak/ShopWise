@@ -4,21 +4,7 @@ import { Sparkline } from '@/components/ui/Sparkline';
 import { useProductsStore } from '@/store/products-store';
 import { useListsStore } from '@/store/lists-store';
 import { useCurrency } from '@/hooks/useCurrency';
-
-function categoryIcon(categoryId: string): string {
-  const icons: Record<string, string> = {
-    produce: 'nutrition',
-    dairy: 'egg_alt',
-    meat: 'set_meal',
-    bakery: 'bakery_dining',
-    pantry: 'kitchen',
-    beverages: 'local_cafe',
-    frozen: 'ac_unit',
-    household: 'cleaning_services',
-    snacks: 'cookie',
-  };
-  return icons[categoryId] ?? 'shopping_bag';
-}
+import { categoryIcon } from '@/utils/categoryIcon';
 
 interface Props {
   product: Product;
