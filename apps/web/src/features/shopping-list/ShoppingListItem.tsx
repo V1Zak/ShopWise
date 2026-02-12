@@ -24,6 +24,7 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
 
   const [isEditingName, setIsEditingName] = useState(false);
   const [editName, setEditName] = useState(item.name);
+  const [editPrice, setEditPrice] = useState(item.actualPrice?.toString() ?? '');
   const nameInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -59,6 +60,28 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
       setIsEditingName(false);
     }
   };
+
+  const handlePriceSave = () => {
+    const val = parseFloat(editPrice);
+    if (!isNaN(val) && val >= 0 && val !== (item.actualPrice ?? undefined)) {
+      updateItemPrice(item.id, val);
+    } else if (editPrice.trim() === '') {
+      // User cleared the field — reset to no actual price
+      setEditPrice(item.actualPrice?.toString() ?? '');
+    }
+  };
+
+  const handlePriceKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      (e.target as HTMLInputElement).blur();
+    }
+  };
+
+  // Sync local editPrice when item.actualPrice changes from outside (e.g. real-time)
+  useEffect(() => {
+    setEditPrice(item.actualPrice?.toString() ?? '');
+  }, [item.actualPrice]);
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -168,11 +191,13 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
           <input
             type="number"
             step="0.01"
-            value={item.actualPrice ?? ''}
+            value={editPrice}
             placeholder={item.estimatedPrice.toFixed(2)}
-            onChange={(e) => !readOnly && updateItemPrice(item.id, parseFloat(e.target.value) || 0)}
+            onChange={(e) => setEditPrice(e.target.value)}
+            onBlur={handlePriceSave}
+            onKeyDown={handlePriceKeyDown}
             readOnly={readOnly}
-            className={`w-full bg-bg border border-border rounded text-text text-right text-sm py-1.5 px-2 focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-[#2d5c45] ${readOnly ? 'cursor-default opacity-60' : ''}`}
+            className={`w-full bg-bg border border-border rounded text-text text-right text-sm py-1.5 px-2 focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-text-muted/50 ${readOnly ? 'cursor-default opacity-60' : ''}`}
           />
         </div>
       </div>
