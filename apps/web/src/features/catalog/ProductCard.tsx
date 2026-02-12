@@ -3,7 +3,6 @@ import type { Product } from '@shopwise/shared';
 import { Sparkline } from '@/components/ui/Sparkline';
 import { useProductsStore } from '@/store/products-store';
 import { useListsStore } from '@/store/lists-store';
-import { listsService } from '@/services/lists.service';
 import { useCurrency } from '@/hooks/useCurrency';
 
 function categoryIcon(categoryId: string): string {
@@ -31,10 +30,10 @@ export function ProductCard({ product }: Props) {
   const activeStoreId = useProductsStore((s) => s.activeStoreId);
   const setEditingProduct = useProductsStore((s) => s.setEditingProduct);
   const isComparing = compareList.includes(product.id);
+  const addItem = useListsStore((s) => s.addItem);
   const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
   const { formatPrice } = useCurrency();
   const [showListPicker, setShowListPicker] = useState(false);
-  const [addingToList, setAddingToList] = useState<string | null>(null);
   const [addedToList, setAddedToList] = useState<string | null>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
   const volatilityColor =
@@ -54,28 +53,24 @@ export function ProductCard({ product }: Props) {
     return () => document.removeEventListener('mousedown', handler);
   }, [showListPicker]);
 
-  const handleAddToList = async (listId: string) => {
-    setAddingToList(listId);
-    try {
-      await listsService.addItem({
-        listId,
-        name: product.name,
-        categoryId: product.categoryId,
-        quantity: 1,
-        unit: product.unit,
-        estimatedPrice: product.averagePrice,
-        productId: product.id,
-      });
-      setAddedToList(listId);
-      setTimeout(() => {
-        setShowListPicker(false);
-        setAddedToList(null);
-      }, 800);
-    } catch (err) {
-      console.error('Failed to add item to list:', err);
-    } finally {
-      setAddingToList(null);
-    }
+  const handleAddToList = (listId: string) => {
+    addItem({
+      id: `temp-${Date.now()}-${product.id}`,
+      listId,
+      name: product.name,
+      categoryId: product.categoryId,
+      quantity: 1,
+      unit: product.unit,
+      estimatedPrice: product.averagePrice,
+      productId: product.id,
+      status: 'to_buy',
+      sortOrder: 0,
+    });
+    setAddedToList(listId);
+    setTimeout(() => {
+      setShowListPicker(false);
+      setAddedToList(null);
+    }, 800);
   };
 
   return (
@@ -188,14 +183,12 @@ export function ProductCard({ product }: Props) {
                 <button
                   key={list.id}
                   onClick={() => handleAddToList(list.id)}
-                  disabled={addingToList === list.id}
+                  disabled={addedToList === list.id}
                   className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm text-text hover:bg-surface-active transition-colors disabled:opacity-50"
                 >
                   <span className="truncate">{list.title}</span>
                   {addedToList === list.id ? (
                     <span className="material-symbols-outlined text-primary text-[16px]">check_circle</span>
-                  ) : addingToList === list.id ? (
-                    <span className="material-symbols-outlined text-text-muted text-[16px] animate-spin">progress_activity</span>
                   ) : (
                     <span className="material-symbols-outlined text-text-muted text-[16px]">add</span>
                   )}

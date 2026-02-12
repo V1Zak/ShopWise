@@ -87,12 +87,12 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
   const handleDeleteList = async () => {
     try {
       await deleteList(activeListId);
+      setIsDeleteModalOpen(false);
       navigate('/');
     } catch {
       setError('Failed to delete list');
       setTimeout(() => setError(null), 4000);
     }
-    setIsDeleteModalOpen(false);
   };
 
   return (

@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { useProductsStore } from '@/store/products-store';
 import { useListsStore } from '@/store/lists-store';
-import { listsService } from '@/services/lists.service';
 import { categoryImages } from '@/assets/imageAssets';
 import { useCurrency } from '@/hooks/useCurrency';
 
 export function QuickAddCarousel() {
   const products = useProductsStore((s) => s.products);
+  const addItem = useListsStore((s) => s.addItem);
   const lists = useListsStore((s) => s.lists).filter((l) => !l.isTemplate);
   const [addedIds, setAddedIds] = useState<Set<string>>(new Set());
-  const [addingId, setAddingId] = useState<string | null>(null);
   const { formatPrice } = useCurrency();
 
   // Show top 10 products by price history count (most bought)
@@ -17,28 +16,24 @@ export function QuickAddCarousel() {
     .sort((a, b) => b.priceHistory.length - a.priceHistory.length)
     .slice(0, 10);
 
-  const handleQuickAdd = async (productId: string) => {
+  const handleQuickAdd = (productId: string) => {
     const product = products.find((p) => p.id === productId);
     const targetList = lists[0];
     if (!product || !targetList) return;
 
-    setAddingId(productId);
-    try {
-      await listsService.addItem({
-        listId: targetList.id,
-        name: product.name,
-        categoryId: product.categoryId,
-        quantity: 1,
-        unit: product.unit,
-        estimatedPrice: product.averagePrice,
-        productId: product.id,
-      });
-      setAddedIds((prev) => new Set(prev).add(productId));
-    } catch (err) {
-      console.error('Failed to quick-add:', err);
-    } finally {
-      setAddingId(null);
-    }
+    addItem({
+      id: `temp-${Date.now()}-${productId}`,
+      listId: targetList.id,
+      name: product.name,
+      categoryId: product.categoryId,
+      quantity: 1,
+      unit: product.unit,
+      estimatedPrice: product.averagePrice,
+      productId: product.id,
+      status: 'to_buy',
+      sortOrder: 0,
+    });
+    setAddedIds((prev) => new Set(prev).add(productId));
   };
 
   if (frequentProducts.length === 0) return null;
@@ -55,13 +50,12 @@ export function QuickAddCarousel() {
         {frequentProducts.map((product) => {
           const imgUrl = product.imageUrl || categoryImages[product.categoryId];
           const isAdded = addedIds.has(product.id);
-          const isAdding = addingId === product.id;
 
           return (
             <button
               key={product.id}
               onClick={() => handleQuickAdd(product.id)}
-              disabled={isAdding || isAdded || lists.length === 0}
+              disabled={isAdded || lists.length === 0}
               className="flex-shrink-0 w-32 rounded-xl border border-border bg-surface overflow-hidden hover:border-primary/50 transition-all group disabled:opacity-70"
             >
               <div className="h-20 w-full overflow-hidden bg-surface-active/20 relative">

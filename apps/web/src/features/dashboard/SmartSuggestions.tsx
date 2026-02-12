@@ -1,13 +1,12 @@
 import { useMemo, useState } from 'react';
 import { useTripsStore } from '@/store/trips-store';
 import { useListsStore } from '@/store/lists-store';
-import { listsService } from '@/services/lists.service';
 
 export function SmartSuggestions() {
   const trips = useTripsStore((s) => s.trips);
   const items = useListsStore((s) => s.items);
   const lists = useListsStore((s) => s.lists);
-  const [addingItem, setAddingItem] = useState<string | null>(null);
+  const addItem = useListsStore((s) => s.addItem);
   const [addedItems, setAddedItems] = useState<Set<string>>(new Set());
 
   const suggestions = useMemo<string[]>(() => {
@@ -38,27 +37,22 @@ export function SmartSuggestions() {
       .map(([name]) => name);
   }, [trips, items]);
 
-  const handleAddToList = async (itemName: string) => {
+  const handleAddToList = (itemName: string) => {
     const targetList = lists[0];
-    if (!targetList || addingItem || addedItems.has(itemName)) return;
+    if (!targetList || addedItems.has(itemName)) return;
 
-    setAddingItem(itemName);
-    try {
-      await listsService.addItem({
-        listId: targetList.id,
-        name: itemName,
-        categoryId: 'other',
-        quantity: 1,
-        unit: 'each',
-        estimatedPrice: 0,
-      });
-      setAddedItems((prev) => new Set(prev).add(itemName));
-      useListsStore.getState().fetchLists();
-    } catch {
-      // silently fail — item stays clickable
-    } finally {
-      setAddingItem(null);
-    }
+    addItem({
+      id: `temp-${Date.now()}-${itemName}`,
+      listId: targetList.id,
+      name: itemName,
+      categoryId: 'other',
+      quantity: 1,
+      unit: 'each',
+      estimatedPrice: 0,
+      status: 'to_buy',
+      sortOrder: 0,
+    });
+    setAddedItems((prev) => new Set(prev).add(itemName));
   };
 
   const dayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
@@ -86,12 +80,11 @@ export function SmartSuggestions() {
           <div className="flex flex-wrap gap-2 relative z-10">
             {suggestions.map((item) => {
               const isAdded = addedItems.has(item);
-              const isAdding = addingItem === item;
               return (
                 <button
                   key={item}
                   onClick={() => handleAddToList(item)}
-                  disabled={isAdding || isAdded || lists.length === 0}
+                  disabled={isAdded || lists.length === 0}
                   className={`flex items-center gap-2 px-3 py-1.5 border rounded-lg text-xs transition-colors ${
                     isAdded
                       ? 'bg-primary/10 border-primary/30 text-primary'

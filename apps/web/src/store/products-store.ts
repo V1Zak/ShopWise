@@ -4,6 +4,9 @@ import { productsService } from '@/services/products.service';
 
 let searchTimeout: ReturnType<typeof setTimeout> | null = null;
 
+// Memoization cache for getFilteredProducts
+let _filteredCache: { key: string; result: Product[] } | null = null;
+
 export type SortBy = 'name' | 'price' | 'volatility';
 export type SortDirection = 'asc' | 'desc';
 
@@ -146,6 +149,8 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
 
   getFilteredProducts: () => {
     const { products, searchQuery, activeCategory, activeStoreId, sortBy, sortDirection, priceRange } = get();
+    const cacheKey = `${products.length}|${searchQuery}|${activeCategory}|${activeStoreId}|${sortBy}|${sortDirection}|${priceRange.min}|${priceRange.max}`;
+    if (_filteredCache && _filteredCache.key === cacheKey) return _filteredCache.result;
     let filtered = products.filter((p) => {
       const matchesSearch =
         !searchQuery ||
@@ -173,6 +178,7 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
       }
       return sortDirection === 'asc' ? cmp : -cmp;
     });
+    _filteredCache = { key: cacheKey, result: filtered };
     return filtered;
   },
 }));

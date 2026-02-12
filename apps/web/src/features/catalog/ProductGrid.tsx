@@ -20,7 +20,6 @@ export function ProductGrid() {
 
   const handleEditSave = () => {
     setEditingProduct(null);
-    fetchProducts();
   };
 
   const handleCreateSave = () => {
@@ -30,7 +29,15 @@ export function ProductGrid() {
 
   return (
     <>
-      {viewMode === 'grid' ? (
+      {products.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-16 text-center">
+          <span className="material-symbols-outlined text-5xl text-text-muted/30 mb-4">inventory_2</span>
+          <h3 className="text-text font-semibold text-lg mb-1">No products found</h3>
+          <p className="text-text-muted text-sm max-w-xs">
+            Try adjusting your filters or search query, or add a new product.
+          </p>
+        </div>
+      ) : viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />

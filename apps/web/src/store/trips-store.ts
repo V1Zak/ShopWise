@@ -40,6 +40,9 @@ interface TripsState {
   getUniqueStores: () => { id: string; name: string }[];
 }
 
+// Memoization cache for getFilteredTrips
+let _tripsFilteredCache: { key: string; result: ShoppingTrip[] } | null = null;
+
 function parseTripDate(dateStr: string): Date {
   return new Date(dateStr);
 }
@@ -129,8 +132,10 @@ export const useTripsStore = create<TripsState>((set, get) => ({
 
   getFilteredTrips: () => {
     const { trips, searchQuery, dateRange, storeFilter, spentRange } = get();
+    const cacheKey = `${trips.length}|${searchQuery}|${dateRange}|${storeFilter}|${spentRange.min}|${spentRange.max}`;
+    if (_tripsFilteredCache && _tripsFilteredCache.key === cacheKey) return _tripsFilteredCache.result;
     const dateCutoff = getDateCutoff(dateRange);
-    return trips.filter((t) => {
+    const filtered = trips.filter((t) => {
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         if (!t.storeName.toLowerCase().includes(q) && !t.date.toLowerCase().includes(q)) return false;
@@ -144,6 +149,8 @@ export const useTripsStore = create<TripsState>((set, get) => ({
       if (spentRange.max !== null && t.totalSpent > spentRange.max) return false;
       return true;
     });
+    _tripsFilteredCache = { key: cacheKey, result: filtered };
+    return filtered;
   },
 
   getUniqueStores: () => {
