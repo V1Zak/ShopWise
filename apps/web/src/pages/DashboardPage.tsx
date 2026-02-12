@@ -55,13 +55,13 @@ export function DashboardPage() {
           <div className="flex items-center gap-3 flex-shrink-0">
             <button
               onClick={() => setTemplateModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface border border-border text-text text-sm font-medium hover:border-primary/50 transition-colors"
+              className="flex items-center gap-2 px-4 min-h-[44px] rounded-lg bg-surface border border-border text-text text-sm font-medium hover:border-primary/50 transition-colors"
             >
               <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
               <span className="hidden sm:inline">Template</span>
             </button>
             <button onClick={() => setShowNewList(true)}
-              className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-text-inv px-5 py-2.5 rounded-lg font-bold text-sm transition-colors shadow-[0_0_15px_rgba(var(--color-primary)/0.3)]">
+              className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-text-inv px-5 min-h-[44px] rounded-lg font-bold text-sm transition-colors shadow-[0_0_15px_rgba(var(--color-primary)/0.3)]">
               <Icon name="add" size={18} />
               New List
             </button>

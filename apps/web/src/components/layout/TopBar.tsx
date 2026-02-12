@@ -119,7 +119,7 @@ export function TopBar() {
             </kbd>
             <button
               onClick={handleQuickAdd}
-              className="ml-2 bg-primary hover:bg-emerald-400 text-text-inv text-xs font-bold px-3 py-1.5 rounded transition-colors"
+              className="ml-2 bg-primary hover:bg-emerald-400 text-text-inv text-xs font-bold px-3 min-h-[44px] rounded transition-colors"
             >
               Add
             </button>
@@ -131,7 +131,7 @@ export function TopBar() {
           <button
             onClick={() => setShowNotifications((v) => !v)}
             aria-label="Notifications"
-            className="p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors relative"
+            className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors relative"
           >
             <span className="material-symbols-outlined">notifications</span>
             <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary ring-2 ring-bg"></span>
@@ -177,7 +177,7 @@ function TopBarThemeToggle() {
     <button
       onClick={() => setTheme(next)}
       aria-label={`Theme: ${theme}`}
-      className="p-2 text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors"
+      className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors"
     >
       <span className="material-symbols-outlined">{icon}</span>
     </button>

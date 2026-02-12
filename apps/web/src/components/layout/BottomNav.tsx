@@ -17,7 +17,7 @@ export function BottomNav() {
           to={tab.to}
           end={tab.to === '/'}
           className={({ isActive }) =>
-            `flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg transition-colors ${
+            `flex flex-col items-center justify-center gap-0.5 px-3 min-w-[44px] min-h-[44px] rounded-lg transition-colors ${
               isActive ? 'text-primary' : 'text-text-muted'
             }`
           }

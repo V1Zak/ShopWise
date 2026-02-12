@@ -45,7 +45,7 @@ export function ActiveListWidget() {
             <Dropdown
               align="right"
               trigger={
-                <button className="flex items-center justify-center w-8 h-8 rounded-lg text-text-muted hover:text-text hover:bg-surface-active transition-colors" title="More actions">
+                <button className="flex items-center justify-center w-11 h-11 rounded-lg text-text-muted hover:text-text hover:bg-surface-active transition-colors" title="More actions">
                   <span className="material-symbols-outlined text-[20px]">more_vert</span>
                 </button>
               }
