@@ -12,6 +12,7 @@ import { ShoppingHistoryPage } from './pages/ShoppingHistoryPage';
 import { SpendingAnalyticsPage } from './pages/SpendingAnalyticsPage';
 import { PostShopBriefingPage } from './pages/PostShopBriefingPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { AllListsPage } from './pages/AllListsPage';
 import { useAuthStore } from './store/auth-store';
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
           <Route element={<AppShell />}>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/list/:id" element={<ActiveShoppingListPage />} />
+            <Route path="/lists" element={<AllListsPage />} />
             <Route path="/catalog" element={<ItemCatalogPage />} />
             <Route path="/history" element={<ShoppingHistoryPage />} />
             <Route path="/analytics" element={<SpendingAnalyticsPage />} />

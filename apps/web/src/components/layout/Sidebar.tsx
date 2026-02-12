@@ -4,6 +4,7 @@ import { useUIStore } from '@/store/ui-store';
 
 const navItems = [
   { to: '/', icon: 'dashboard', label: 'Dashboard' },
+  { to: '/lists', icon: 'list_alt', label: 'Lists' },
   { to: '/catalog', icon: 'inventory_2', label: 'Catalog' },
   { to: '/history', icon: 'history', label: 'History' },
   { to: '/analytics', icon: 'bar_chart', label: 'Analytics' },

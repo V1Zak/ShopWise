@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useListsStore } from '@/store/lists-store';
 import { useAuthStore } from '@/store/auth-store';
 import { useUIStore } from '@/store/ui-store';
+import { Link } from 'react-router-dom';
 import { listsService } from '@/services/lists.service';
 import { formatPrice } from '@/utils/currency';
 
@@ -94,7 +95,7 @@ export function TopBar() {
         <div className="flex flex-col">
           <h2 className="text-text text-xl font-bold">{getGreeting()}, {firstName}.</h2>
           <p className="text-text-muted text-sm">
-            You have <span className="text-primary font-medium">{lists.length} active {lists.length === 1 ? 'list' : 'lists'}</span> this month.
+            You have <Link to="/lists" className="text-primary font-medium hover:underline">{lists.length} active {lists.length === 1 ? 'list' : 'lists'}</Link> this month.
           </p>
         </div>
 
