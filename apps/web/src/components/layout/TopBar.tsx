@@ -126,7 +126,7 @@ export function TopBar() {
           </div>
         </div>
 
-        <div className="hidden md:flex items-center gap-4 pl-4 relative" ref={notifRef}>
+        <div className="invisible absolute -z-10 md:visible md:relative md:z-auto flex items-center gap-4 pl-4" ref={notifRef}>
           <TopBarThemeToggle />
           <button
             onClick={() => setShowNotifications((v) => !v)}

@@ -160,7 +160,7 @@ export function ProductCard({ product }: Props) {
 
         {/* List Picker Popover */}
         {showListPicker && (
-          <div ref={pickerRef} className="mt-3 rounded-lg border border-border bg-bg shadow-xl p-3 space-y-1">
+          <div ref={pickerRef} role="dialog" aria-label="Add to list" className="mt-3 rounded-lg border border-border bg-bg shadow-xl p-3 space-y-1">
             <p className="text-xs font-semibold text-text-muted mb-2">Add to list:</p>
             {lists.length === 0 ? (
               <p className="text-xs text-text-muted">No lists yet. Create one first.</p>

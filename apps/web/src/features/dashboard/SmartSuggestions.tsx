@@ -85,7 +85,7 @@ export function SmartSuggestions() {
                   key={item}
                   onClick={() => handleAddToList(item)}
                   disabled={isAdded || lists.length === 0}
-                  className={`flex items-center gap-2 px-3 py-1.5 border rounded-lg text-xs transition-colors ${
+                  className={`flex items-center gap-2 px-3 min-h-[44px] border rounded-lg text-xs transition-colors ${
                     isAdded
                       ? 'bg-primary/10 border-primary/30 text-primary'
                       : 'bg-bg hover:bg-surface border-border text-text'
