@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useListsStore } from '@/store/lists-store';
 import { useTripsStore } from '@/store/trips-store';
+import { useListPermission } from '@/hooks/useListPermission';
 
 export function CompleteButton() {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ export function CompleteButton() {
   const lists = useListsStore((s) => s.lists);
   const items = useListsStore((s) => s.items);
   const createTrip = useTripsStore((s) => s.createTrip);
+  const { canEdit } = useListPermission();
   const [isCompleting, setIsCompleting] = useState(false);
 
   const handleComplete = async () => {
@@ -53,6 +55,8 @@ export function CompleteButton() {
       setIsCompleting(false);
     }
   };
+
+  if (!canEdit) return null;
 
   return (
     <div className="p-6 border-t border-border bg-surface-alt">

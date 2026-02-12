@@ -7,9 +7,10 @@ interface Props {
   item: ListItem;
   isSelected?: boolean;
   onSelect?: (item: ListItem) => void;
+  readOnly?: boolean;
 }
 
-export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
+export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props) {
   const toggleItemStatus = useListsStore((s) => s.toggleItemStatus);
   const updateItemPrice = useListsStore((s) => s.updateItemPrice);
   const deleteItem = useListsStore((s) => s.deleteItem);
@@ -34,6 +35,7 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
 
   const handleNameDoubleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (readOnly) return;
     setEditName(item.name);
     setIsEditingName(true);
   };
@@ -93,12 +95,13 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
           : 'border-transparent hover:border-border'
       }`}
     >
-      <label className="relative flex items-center p-2 rounded-full cursor-pointer" onClick={(e) => e.stopPropagation()}>
+      <label className={`relative flex items-center p-2 rounded-full ${readOnly ? 'cursor-default' : 'cursor-pointer'}`} onClick={(e) => e.stopPropagation()}>
         <input
           type="checkbox"
           checked={isChecked}
-          onChange={() => toggleItemStatus(item.id)}
-          className="peer h-6 w-6 cursor-pointer appearance-none rounded-md border border-border bg-bg checked:border-primary checked:bg-primary transition-all"
+          onChange={() => !readOnly && toggleItemStatus(item.id)}
+          disabled={readOnly}
+          className={`peer h-6 w-6 appearance-none rounded-md border border-border bg-bg checked:border-primary checked:bg-primary transition-all ${readOnly ? 'cursor-default opacity-60' : 'cursor-pointer'}`}
         />
         <span className="absolute text-text-inv opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none material-symbols-outlined text-lg font-bold">
           check
@@ -134,22 +137,26 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
         </div>
         <div className="flex items-center gap-2 mt-0.5">
           <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={(e) => handleQuantityChange(-1, e)}
-              disabled={item.quantity <= 1}
-              className="h-5 w-5 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-text hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-            >
-              <span className="material-symbols-outlined text-[14px]">remove</span>
-            </button>
+            {!readOnly && (
+              <button
+                onClick={(e) => handleQuantityChange(-1, e)}
+                disabled={item.quantity <= 1}
+                className="h-5 w-5 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-text hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              >
+                <span className="material-symbols-outlined text-[14px]">remove</span>
+              </button>
+            )}
             <span className="text-text-muted text-sm min-w-[3rem] text-center">
               {item.quantity} {item.unit}
             </span>
-            <button
-              onClick={(e) => handleQuantityChange(1, e)}
-              className="h-5 w-5 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-text hover:border-primary transition-colors"
-            >
-              <span className="material-symbols-outlined text-[14px]">add</span>
-            </button>
+            {!readOnly && (
+              <button
+                onClick={(e) => handleQuantityChange(1, e)}
+                className="h-5 w-5 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-text hover:border-primary transition-colors"
+              >
+                <span className="material-symbols-outlined text-[14px]">add</span>
+              </button>
+            )}
           </div>
           <span className="text-text-muted text-sm">&bull; Target: {formatPrice(item.estimatedPrice * (item.quantity || 1))}</span>
         </div>
@@ -163,31 +170,34 @@ export function ShoppingListItem({ item, isSelected, onSelect }: Props) {
             step="0.01"
             value={item.actualPrice ?? ''}
             placeholder={item.estimatedPrice.toFixed(2)}
-            onChange={(e) => updateItemPrice(item.id, parseFloat(e.target.value) || 0)}
-            className="w-full bg-bg border border-border rounded text-text text-right text-sm py-1.5 px-2 focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-[#2d5c45]"
+            onChange={(e) => !readOnly && updateItemPrice(item.id, parseFloat(e.target.value) || 0)}
+            readOnly={readOnly}
+            className={`w-full bg-bg border border-border rounded text-text text-right text-sm py-1.5 px-2 focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-[#2d5c45] ${readOnly ? 'cursor-default opacity-60' : ''}`}
           />
         </div>
       </div>
-      <div className="flex flex-col gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex-shrink-0" onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={handleSkip}
-          title={isSkipped ? 'Unskip item' : 'Skip item'}
-          className={`h-7 w-7 flex items-center justify-center rounded transition-colors ${
-            isSkipped
-              ? 'bg-orange-400/20 text-orange-400 hover:bg-orange-400/30'
-              : 'bg-bg border border-border text-text-muted hover:text-orange-400 hover:border-orange-400'
-          }`}
-        >
-          <span className="material-symbols-outlined text-[16px]">skip_next</span>
-        </button>
-        <button
-          onClick={handleDelete}
-          title="Delete item"
-          className="h-7 w-7 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-red-400 hover:border-red-400 transition-colors"
-        >
-          <span className="material-symbols-outlined text-[16px]">delete</span>
-        </button>
-      </div>
+      {!readOnly && (
+        <div className="flex flex-col gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex-shrink-0" onClick={(e) => e.stopPropagation()}>
+          <button
+            onClick={handleSkip}
+            title={isSkipped ? 'Unskip item' : 'Skip item'}
+            className={`h-7 w-7 flex items-center justify-center rounded transition-colors ${
+              isSkipped
+                ? 'bg-orange-400/20 text-orange-400 hover:bg-orange-400/30'
+                : 'bg-bg border border-border text-text-muted hover:text-orange-400 hover:border-orange-400'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[16px]">skip_next</span>
+          </button>
+          <button
+            onClick={handleDelete}
+            title="Delete item"
+            className="h-7 w-7 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-red-400 hover:border-red-400 transition-colors"
+          >
+            <span className="material-symbols-outlined text-[16px]">delete</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

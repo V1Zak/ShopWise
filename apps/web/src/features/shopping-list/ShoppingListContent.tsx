@@ -3,6 +3,7 @@ import { useListsStore } from '@/store/lists-store';
 import { ShoppingListItem } from './ShoppingListItem';
 import { CATEGORY_MAP } from '@shopwise/shared';
 import type { ListItem, ListItemStatus } from '@shopwise/shared';
+import { useListPermission } from '@/hooks/useListPermission';
 
 interface Props {
   activeTab: ListItemStatus;
@@ -15,6 +16,7 @@ export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }:
   const items = useListsStore((s) => s.items);
   const addItem = useListsStore((s) => s.addItem);
   const [inlineInput, setInlineInput] = useState('');
+  const { canEdit } = useListPermission();
 
   const filteredItems = items.filter((i) => i.listId === activeListId && i.status === activeTab);
 
@@ -97,6 +99,7 @@ export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }:
                   item={item}
                   isSelected={selectedItemId === item.id}
                   onSelect={onSelectItem}
+                  readOnly={!canEdit}
                 />
               ))}
             </div>
@@ -112,7 +115,7 @@ export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }:
         )}
       </div>
 
-      {activeTab === 'to_buy' && activeListId && (
+      {activeTab === 'to_buy' && activeListId && canEdit && (
         <div className="sticky bottom-0 pt-4 pb-2 bg-bg border-t border-border -mx-6 px-6">
           <div className="relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
