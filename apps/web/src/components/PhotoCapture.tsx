@@ -8,7 +8,8 @@ interface PhotoCaptureProps {
 }
 
 export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCaptureProps) {
-  const fileRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
+  const galleryRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(currentImageUrl ?? null);
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +44,7 @@ export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCa
     <div className="flex flex-col gap-3">
       {/* Preview */}
       <div
-        onClick={() => fileRef.current?.click()}
+        onClick={() => galleryRef.current?.click()}
         className="relative group cursor-pointer w-full aspect-square max-w-[200px] rounded-xl border-2 border-dashed border-border hover:border-primary/50 transition-colors bg-surface overflow-hidden flex items-center justify-center"
       >
         {preview ? (
@@ -66,12 +67,19 @@ export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCa
         )}
       </div>
 
-      {/* Hidden file input */}
+      {/* Hidden file inputs: one for camera, one for gallery */}
       <input
-        ref={fileRef}
+        ref={cameraRef}
         type="file"
         accept="image/*"
         capture="environment"
+        onChange={handleInputChange}
+        className="hidden"
+      />
+      <input
+        ref={galleryRef}
+        type="file"
+        accept="image/*"
         onChange={handleInputChange}
         className="hidden"
       />
@@ -79,12 +87,20 @@ export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCa
       {/* Action buttons */}
       <div className="flex gap-2">
         <button
-          onClick={() => fileRef.current?.click()}
+          onClick={() => cameraRef.current?.click()}
           disabled={uploading}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-active text-text text-xs font-medium hover:bg-surface-active/80 transition-colors disabled:opacity-50"
         >
           <span className="material-symbols-outlined text-[16px]">photo_camera</span>
-          {preview ? 'Change' : 'Camera'}
+          Camera
+        </button>
+        <button
+          onClick={() => galleryRef.current?.click()}
+          disabled={uploading}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-active text-text text-xs font-medium hover:bg-surface-active/80 transition-colors disabled:opacity-50"
+        >
+          <span className="material-symbols-outlined text-[16px]">photo_library</span>
+          Gallery
         </button>
       </div>
 

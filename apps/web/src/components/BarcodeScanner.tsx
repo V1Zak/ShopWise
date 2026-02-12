@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
+import { BarcodeFromPhoto } from './BarcodeFromPhoto';
 
 interface BarcodeScannerProps {
   onScan: (barcode: string) => void;
@@ -11,8 +12,11 @@ export function BarcodeScanner({ onScan, onClose }: BarcodeScannerProps) {
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [scanning, setScanning] = useState(true);
+  const [showFromPhoto, setShowFromPhoto] = useState(false);
 
   useEffect(() => {
+    if (showFromPhoto) return;
+
     const reader = new BrowserMultiFormatReader();
     readerRef.current = reader;
 
@@ -39,7 +43,19 @@ export function BarcodeScanner({ onScan, onClose }: BarcodeScannerProps) {
     return () => {
       reader.reset();
     };
-  }, [onScan]);
+  }, [onScan, showFromPhoto]);
+
+  if (showFromPhoto) {
+    return (
+      <BarcodeFromPhoto
+        onDetected={(code) => {
+          setShowFromPhoto(false);
+          onScan(code);
+        }}
+        onClose={() => setShowFromPhoto(false)}
+      />
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center">
@@ -88,6 +104,17 @@ export function BarcodeScanner({ onScan, onClose }: BarcodeScannerProps) {
             <span className="font-medium">Barcode detected!</span>
           </div>
         )}
+      </div>
+
+      {/* Scan from photo button */}
+      <div className="mt-6">
+        <button
+          onClick={() => setShowFromPhoto(true)}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors"
+        >
+          <span className="material-symbols-outlined text-[18px]">photo_library</span>
+          Scan from Photo
+        </button>
       </div>
     </div>
   );

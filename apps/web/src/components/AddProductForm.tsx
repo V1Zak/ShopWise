@@ -24,7 +24,8 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
   const [error, setError] = useState<string | null>(null);
 
   // Image state
-  const fileRef = useRef<HTMLInputElement>(null);
+  const cameraFileRef = useRef<HTMLInputElement>(null);
+  const galleryFileRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
@@ -112,7 +113,7 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
           <div>
             <label className="mb-1 block text-xs font-medium text-text-muted">Photo (optional)</label>
             <div
-              onClick={() => fileRef.current?.click()}
+              onClick={() => galleryFileRef.current?.click()}
               className="relative group cursor-pointer w-full h-32 rounded-lg border-2 border-dashed border-border hover:border-primary/50 transition-colors bg-surface overflow-hidden flex items-center justify-center"
             >
               {imagePreview ? (
@@ -129,11 +130,36 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
                 </div>
               )}
             </div>
+            <div className="flex gap-2 mt-2">
+              <button
+                type="button"
+                onClick={() => cameraFileRef.current?.click()}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-active text-text text-xs font-medium hover:bg-surface-active/80 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[16px]">photo_camera</span>
+                Camera
+              </button>
+              <button
+                type="button"
+                onClick={() => galleryFileRef.current?.click()}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-active text-text text-xs font-medium hover:bg-surface-active/80 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[16px]">photo_library</span>
+                Gallery
+              </button>
+            </div>
             <input
-              ref={fileRef}
+              ref={cameraFileRef}
               type="file"
               accept="image/*"
               capture="environment"
+              onChange={handleImageSelect}
+              className="hidden"
+            />
+            <input
+              ref={galleryFileRef}
+              type="file"
+              accept="image/*"
               onChange={handleImageSelect}
               className="hidden"
             />
