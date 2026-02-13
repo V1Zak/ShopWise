@@ -171,7 +171,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
             {error && (
               <span className="text-red-400 text-sm font-medium">{error}</span>
             )}
-            <button onClick={() => setIsShareModalOpen(true)} className="relative flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors">
+            <button onClick={() => setIsShareModalOpen(true)} aria-label="Share" className="relative flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors">
               <Icon name="share" size={18} />
               <span className="hidden sm:inline">Share</span>
               {collaboratorCount > 0 && (
@@ -179,7 +179,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
               )}
             </button>
             {onScanClick && canEdit && (
-              <button onClick={onScanClick} className="flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors">
+              <button onClick={onScanClick} aria-label="Scan barcode" className="flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors">
                 <span aria-hidden="true" className="material-symbols-outlined text-[18px]">qr_code_scanner</span>
                 <span className="hidden sm:inline">Scan</span>
               </button>
