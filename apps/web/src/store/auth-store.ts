@@ -11,7 +11,7 @@ interface AuthState {
   login: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
-  loginWithApple: () => Promise<void>;
+  loginWithGitHub: () => Promise<void>;
   logout: () => Promise<void>;
   clearError: () => void;
 }
@@ -69,10 +69,10 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
 
-  loginWithApple: async () => {
+  loginWithGitHub: async () => {
     set({ error: null });
     try {
-      await authService.signInWithApple();
+      await authService.signInWithGitHub();
     } catch (err) {
       set({ error: (err as Error).message });
       throw err;

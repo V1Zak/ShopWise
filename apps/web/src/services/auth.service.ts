@@ -30,9 +30,9 @@ export const authService = {
     return data;
   },
 
-  async signInWithApple() {
+  async signInWithGitHub() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'apple',
+      provider: 'github',
       options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
     if (error) throw error;
