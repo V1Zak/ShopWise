@@ -117,7 +117,7 @@ export function AuthPage() {
           <div className="flex rounded-lg bg-surface border border-border p-1">
             <button
               onClick={() => { setActiveTab('signin'); clearError(); }}
-              className={`flex-1 py-2.5 text-sm font-medium rounded-md transition-colors ${
+              className={`flex-1 py-2.5 min-h-[44px] text-sm font-medium rounded-md transition-colors ${
                 activeTab === 'signin'
                   ? 'bg-surface-active text-text shadow-sm'
                   : 'text-text-muted hover:text-text'
@@ -127,7 +127,7 @@ export function AuthPage() {
             </button>
             <button
               onClick={() => { setActiveTab('signup'); clearError(); }}
-              className={`flex-1 py-2.5 text-sm font-medium rounded-md transition-colors ${
+              className={`flex-1 py-2.5 min-h-[44px] text-sm font-medium rounded-md transition-colors ${
                 activeTab === 'signup'
                   ? 'bg-surface-active text-text shadow-sm'
                   : 'text-text-muted hover:text-text'
