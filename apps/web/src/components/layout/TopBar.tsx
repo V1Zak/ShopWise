@@ -108,6 +108,7 @@ export function TopBar() {
           </div>
           <input
             type="text"
+            name="quickAdd"
             value={quickAdd}
             onChange={(e) => setQuickAdd(e.target.value)}
             onKeyDown={handleKeyDown}

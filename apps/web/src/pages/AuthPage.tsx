@@ -218,7 +218,7 @@ export function AuthPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                 >
                   <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
                     {showPassword ? 'visibility' : 'visibility_off'}
@@ -242,7 +242,7 @@ export function AuthPage() {
                   />
                   <span className="text-sm text-text-muted">Remember me</span>
                 </label>
-                <button type="button" className="text-sm text-primary hover:text-primary/80 font-medium">
+                <button type="button" className="text-sm text-primary hover:text-primary/80 font-medium min-h-[44px]">
                   Forgot password?
                 </button>
               </div>
@@ -260,9 +260,9 @@ export function AuthPage() {
           {/* Terms */}
           <p className="text-center text-sm text-text-muted">
             By clicking continue, you agree to our{' '}
-            <button onClick={() => setPolicyModal('terms')} className="underline underline-offset-4 hover:text-primary transition-colors">Terms of Service</button>
+            <button onClick={() => setPolicyModal('terms')} className="underline underline-offset-4 hover:text-primary transition-colors inline-flex items-center min-h-[44px]">Terms of Service</button>
             {' '}and{' '}
-            <button onClick={() => setPolicyModal('privacy')} className="underline underline-offset-4 hover:text-primary transition-colors">Privacy Policy</button>.
+            <button onClick={() => setPolicyModal('privacy')} className="underline underline-offset-4 hover:text-primary transition-colors inline-flex items-center min-h-[44px]">Privacy Policy</button>.
           </p>
         </div>
       </div>

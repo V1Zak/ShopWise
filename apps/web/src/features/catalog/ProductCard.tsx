@@ -80,13 +80,13 @@ export function ProductCard({ product }: Props) {
         <div className="absolute top-3 right-3 flex gap-1.5">
           <button
             onClick={() => setEditingProduct(product.id)}
-            className="h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm bg-black/50 hover:bg-primary hover:text-black text-white transition-colors opacity-0 group-hover:opacity-100"
+            className="h-11 w-11 rounded-full flex items-center justify-center backdrop-blur-sm bg-black/50 hover:bg-primary hover:text-black text-white transition-colors opacity-0 group-hover:opacity-100"
           >
             <span aria-hidden="true" className="material-symbols-outlined text-[18px]">edit</span>
           </button>
           <button
             onClick={() => toggleCompare(product.id)}
-            className={`h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors ${
+            className={`h-11 w-11 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors ${
               isComparing
                 ? 'bg-primary text-black'
                 : 'bg-black/50 hover:bg-primary hover:text-black text-white'
@@ -148,7 +148,7 @@ export function ProductCard({ product }: Props) {
                   </span>
                   <button
                     onClick={() => setShowListPicker(true)}
-                    className="text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
+                    className="text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                   >
                     <span aria-hidden="true" className="material-symbols-outlined text-[18px]">add_shopping_cart</span>
                   </button>

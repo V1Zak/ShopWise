@@ -12,6 +12,7 @@ export function SearchInput({ value, onChange, placeholder = 'Search...' }: Sear
       </div>
       <input
         type="text"
+        name="search"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="block w-full rounded-lg bg-surface border border-border py-2.5 pl-10 pr-3 text-sm placeholder-text-muted focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all text-text"

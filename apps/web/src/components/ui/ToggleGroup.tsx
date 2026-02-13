@@ -11,7 +11,7 @@ export function ToggleGroup({ options, value, onChange }: ToggleGroupProps) {
         <button
           key={opt}
           onClick={() => onChange(opt)}
-          className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+          className={`px-3 py-1.5 min-h-[44px] rounded-md text-xs font-medium transition-colors ${
             value === opt
               ? 'bg-surface-active text-text shadow-sm'
               : 'text-text-muted hover:text-text'

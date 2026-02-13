@@ -67,7 +67,7 @@ export function CatalogToolbar() {
       <div className="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 scrollbar-none -mx-2 px-2">
         <button
           onClick={() => useProductsStore.getState().setCreatingProduct(true)}
-          className="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary text-black text-sm font-bold whitespace-nowrap hover:bg-primary/90 transition-colors"
+          className="flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg bg-primary text-black text-sm font-bold whitespace-nowrap hover:bg-primary/90 transition-colors"
         >
           <span aria-hidden="true" className="material-symbols-outlined text-[18px]">add_circle</span>
           Add Product
@@ -75,7 +75,7 @@ export function CatalogToolbar() {
         <div className="w-px h-6 bg-border mx-1" />
         <button
           onClick={() => setViewMode('grid')}
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap ${
+          className={`flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg text-sm font-medium whitespace-nowrap ${
             viewMode === 'grid'
               ? 'bg-primary text-black font-bold'
               : 'bg-surface border border-border text-text-muted hover:text-text'
@@ -86,7 +86,7 @@ export function CatalogToolbar() {
         </button>
         <button
           onClick={() => setViewMode('list')}
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap ${
+          className={`flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg text-sm font-medium whitespace-nowrap ${
             viewMode === 'list'
               ? 'bg-primary text-black font-bold'
               : 'bg-surface border border-border text-text-muted hover:text-text'
@@ -100,7 +100,7 @@ export function CatalogToolbar() {
           align="right"
           trigger={
             <button
-              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+              className={`flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                 hasPriceFilter
                   ? 'bg-primary/15 border border-primary/40 text-primary'
                   : 'bg-surface border border-border text-text-muted hover:text-text'
@@ -143,7 +143,7 @@ export function CatalogToolbar() {
         <Dropdown
           align="right"
           trigger={
-            <button className="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface border border-border text-text-muted hover:text-text transition-all text-sm font-medium whitespace-nowrap">
+            <button className="flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg bg-surface border border-border text-text-muted hover:text-text transition-all text-sm font-medium whitespace-nowrap">
               <span aria-hidden="true" className="material-symbols-outlined text-[18px]">sort</span>
               Sort: {getSortLabel(sortBy, sortDirection)}
             </button>

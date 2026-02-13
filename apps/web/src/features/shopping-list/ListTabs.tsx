@@ -19,7 +19,7 @@ export function ListTabs({ activeTab, onTabChange, counts }: ListTabsProps) {
         <button
           key={tab.key}
           onClick={() => onTabChange(tab.key)}
-          className={`pb-3 border-b-2 font-medium text-sm px-1 transition-colors ${
+          className={`pb-3 min-h-[44px] border-b-2 font-medium text-sm px-1 transition-colors ${
             activeTab === tab.key
               ? 'border-primary text-text'
               : 'border-transparent text-text-muted hover:text-text'

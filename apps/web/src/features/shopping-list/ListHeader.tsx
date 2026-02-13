@@ -125,8 +125,9 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
               ) : canEdit ? (
                 <button
                   onClick={handleStartEditTitle}
-                  className="inline-flex items-center gap-1 text-text hover:text-primary transition-colors group text-left"
+                  className="inline-flex items-center gap-1 text-text hover:text-primary transition-colors group text-left min-h-[44px]"
                   title="Click to edit list title"
+                  aria-label={`Edit list title: ${list?.title || 'Shopping List'}`}
                 >
                   <span className="truncate">{list?.title || 'Shopping List'}</span>
                   <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-text-muted group-hover:text-primary transition-colors flex-shrink-0">edit</span>

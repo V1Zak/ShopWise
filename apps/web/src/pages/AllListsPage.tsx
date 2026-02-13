@@ -78,7 +78,7 @@ function ListCard({
           </Link>
           <button
             onClick={() => onDelete(list.id)}
-            className="text-text-muted hover:text-danger p-1.5 rounded-lg hover:bg-surface-active transition-colors"
+            className="text-text-muted hover:text-danger p-1.5 rounded-lg hover:bg-surface-active transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label={`Delete ${list.title}`}
           >
             <span aria-hidden="true" className="material-symbols-outlined text-[18px]">delete</span>

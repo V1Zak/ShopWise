@@ -121,6 +121,7 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
       <label className={`relative flex items-center p-2 rounded-full ${readOnly ? 'cursor-default' : 'cursor-pointer'}`} onClick={(e) => e.stopPropagation()}>
         <input
           type="checkbox"
+          name="itemChecked"
           checked={isChecked}
           onChange={() => !readOnly && toggleItemStatus(item.id)}
           disabled={readOnly}
@@ -193,6 +194,7 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
           <span className="absolute left-2 top-1/2 -translate-y-1/2 text-text-muted text-sm">{symbol}</span>
           <input
             type="number"
+            name="actualPrice"
             step="0.01"
             min="0"
             value={editPrice}

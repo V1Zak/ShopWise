@@ -201,7 +201,7 @@ export function SettingsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="bg-primary hover:bg-primary/90 text-text-inv px-5 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
+              className="bg-primary hover:bg-primary/90 text-text-inv px-5 py-2 min-h-[44px] rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
             >
               {saved ? 'Saved!' : saving ? 'Saving...' : 'Save Changes'}
             </button>
@@ -242,7 +242,7 @@ export function SettingsPage() {
                   <button
                     key={val}
                     onClick={() => setTheme(val)}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors ${
+                    className={`flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg text-sm font-medium border transition-colors ${
                       theme === val
                         ? 'bg-primary/10 border-primary text-primary'
                         : 'bg-surface-alt border-border text-text-muted hover:text-text hover:border-border'
@@ -459,7 +459,7 @@ function ChangePasswordModal({ onClose }: { onClose: () => void }) {
             <button
               type="submit"
               disabled={saving || success}
-              className="bg-primary hover:bg-primary/90 text-text-inv px-5 py-2 rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
+              className="bg-primary hover:bg-primary/90 text-text-inv px-5 py-2 min-h-[44px] rounded-lg text-sm font-bold transition-colors disabled:opacity-50"
             >
               {saving ? 'Updating...' : 'Update Password'}
             </button>
