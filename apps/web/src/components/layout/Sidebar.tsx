@@ -50,6 +50,7 @@ export function Sidebar() {
               {({ isActive }) => (
                 <>
                   <span
+                    aria-hidden="true"
                     className={`material-symbols-outlined transition-colors ${
                       isActive ? 'text-primary' : 'group-hover:text-primary'
                     }`}

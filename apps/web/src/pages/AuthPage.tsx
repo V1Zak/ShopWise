@@ -64,7 +64,7 @@ export function AuthPage() {
           <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-white/15 backdrop-blur-sm text-white">
             <span aria-hidden="true" className="material-symbols-outlined text-[28px]">nutrition</span>
           </div>
-          <h2 className="text-white text-xl font-bold tracking-tight">ShopWise</h2>
+          <span className="text-white text-xl font-bold tracking-tight">ShopWise</span>
         </div>
 
         {/* Bottom content */}
@@ -98,7 +98,7 @@ export function AuthPage() {
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center gap-2 mb-2 self-center">
             <span aria-hidden="true" className="material-symbols-outlined text-primary text-3xl">nutrition</span>
-            <h2 className="text-text text-xl font-bold">ShopWise</h2>
+            <span className="text-text text-xl font-bold">ShopWise</span>
           </div>
 
           {/* Header */}
@@ -208,7 +208,7 @@ export function AuthPage() {
                   type={showPassword ? 'text' : 'password'}
                   required
                   autoComplete={activeTab === 'signup' ? 'new-password' : 'current-password'}
-                  minLength={8}
+                  minLength={activeTab === 'signup' ? 8 : undefined}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="flex h-11 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all pr-10"
