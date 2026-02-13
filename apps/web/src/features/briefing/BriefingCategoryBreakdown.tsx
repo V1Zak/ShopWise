@@ -13,7 +13,7 @@ export function BriefingCategoryBreakdown({ categories }: Props) {
       <h3 className="text-text font-bold text-sm mb-4">Spend by Category</h3>
       {categories.length === 0 ? (
         <div className="flex flex-col items-center py-6 text-text-muted">
-          <span className="material-symbols-outlined text-[28px] mb-2">category</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[28px] mb-2">category</span>
           <p className="text-sm">No category data for this trip</p>
         </div>
       ) : (

@@ -3,7 +3,8 @@ import { useTripsStore } from '@/store/trips-store';
 import { useCurrency } from '@/hooks/useCurrency';
 
 export function HistoryStats() {
-  const trips = useTripsStore((s) => s.trips);
+  const getFilteredTrips = useTripsStore((s) => s.getFilteredTrips);
+  const trips = getFilteredTrips();
   const { formatPrice } = useCurrency();
 
   const totalSpent = trips.reduce((sum, t) => sum + t.totalSpent, 0);

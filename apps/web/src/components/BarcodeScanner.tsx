@@ -66,7 +66,7 @@ export function BarcodeScanner({ onScan, onClose }: BarcodeScannerProps) {
           onClick={onClose}
           className="text-text hover:text-primary transition-colors"
         >
-          <span className="material-symbols-outlined text-[28px]">close</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[28px]">close</span>
         </button>
       </div>
 
@@ -100,7 +100,7 @@ export function BarcodeScanner({ onScan, onClose }: BarcodeScannerProps) {
           </p>
         ) : (
           <div className="flex items-center gap-2 text-primary">
-            <span className="material-symbols-outlined">check_circle</span>
+            <span aria-hidden="true" className="material-symbols-outlined">check_circle</span>
             <span className="font-medium">Barcode detected!</span>
           </div>
         )}
@@ -112,7 +112,7 @@ export function BarcodeScanner({ onScan, onClose }: BarcodeScannerProps) {
           onClick={() => setShowFromPhoto(true)}
           className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors"
         >
-          <span className="material-symbols-outlined text-[18px]">photo_library</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[18px]">photo_library</span>
           Scan from Photo
         </button>
       </div>

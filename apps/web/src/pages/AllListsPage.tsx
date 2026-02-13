@@ -58,7 +58,7 @@ function ListCard({
 
           {(list.collaboratorCount ?? 0) > 0 && (
             <div className="mt-2 flex items-center gap-1 text-xs text-text-muted">
-              <span className="material-symbols-outlined text-[16px]">group</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[16px]">group</span>
               <span>{list.collaboratorCount} collaborator{list.collaboratorCount === 1 ? '' : 's'}</span>
             </div>
           )}
@@ -74,14 +74,14 @@ function ListCard({
             className="bg-primary hover:bg-emerald-400 text-text-inv px-3 py-2 rounded-lg font-bold text-xs transition-colors flex items-center gap-1.5 whitespace-nowrap"
           >
             Start Shopping
-            <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px]">arrow_forward</span>
           </Link>
           <button
             onClick={() => onDelete(list.id)}
             className="text-text-muted hover:text-danger p-1.5 rounded-lg hover:bg-surface-active transition-colors"
             aria-label={`Delete ${list.title}`}
           >
-            <span className="material-symbols-outlined text-[18px]">delete</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">delete</span>
           </button>
         </div>
       </div>
@@ -134,14 +134,14 @@ export function AllListsPage() {
             onClick={() => setShowNewList(true)}
             className="bg-primary hover:bg-emerald-400 text-text-inv px-4 py-2.5 rounded-lg font-bold text-sm transition-colors flex items-center gap-2"
           >
-            <span className="material-symbols-outlined text-[18px]">add</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">add</span>
             New List
           </button>
         </div>
 
         {isEmpty ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <span className="material-symbols-outlined text-5xl text-text-muted/30 mb-4">
+            <span aria-hidden="true" className="material-symbols-outlined text-5xl text-text-muted/30 mb-4">
               playlist_add
             </span>
             <h2 className="text-text text-lg font-semibold mb-2">No lists yet</h2>
@@ -152,7 +152,7 @@ export function AllListsPage() {
               onClick={() => setShowNewList(true)}
               className="bg-primary hover:bg-emerald-400 text-text-inv px-5 py-2.5 rounded-lg font-bold text-sm transition-colors flex items-center gap-2"
             >
-              <span className="material-symbols-outlined text-[18px]">add</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">add</span>
               Create Your First List
             </button>
           </div>
@@ -161,7 +161,7 @@ export function AllListsPage() {
             {ownedLists.length > 0 && (
               <section>
                 <h2 className="text-text font-semibold text-sm uppercase tracking-wider mb-4 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[18px] text-primary">person</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px] text-primary">person</span>
                   My Lists
                   <span className="text-text-muted font-normal normal-case text-xs">({ownedLists.length})</span>
                 </h2>
@@ -181,7 +181,7 @@ export function AllListsPage() {
             {sharedLists.length > 0 && (
               <section>
                 <h2 className="text-text font-semibold text-sm uppercase tracking-wider mb-4 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[18px] text-primary">group</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px] text-primary">group</span>
                   Shared with Me
                   <span className="text-text-muted font-normal normal-case text-xs">({sharedLists.length})</span>
                 </h2>

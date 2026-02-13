@@ -83,7 +83,7 @@ export function PriceHistoryChart({
                 : 'text-text-muted bg-surface-active/10'
           }`}
         >
-          <span className="material-symbols-outlined text-sm">
+          <span aria-hidden="true" className="material-symbols-outlined text-sm">
             {trend.direction === 'up' ? 'trending_up' : trend.direction === 'down' ? 'trending_down' : 'trending_flat'}
           </span>
           {trend.percent > 0 ? `${trend.percent.toFixed(1)}%` : 'Stable'}

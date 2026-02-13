@@ -9,6 +9,7 @@ export function Icon({ name, className = '', size }: IconProps) {
     <span
       className={`material-symbols-outlined ${className}`}
       style={size ? { fontSize: size } : undefined}
+      aria-hidden="true"
     >
       {name}
     </span>

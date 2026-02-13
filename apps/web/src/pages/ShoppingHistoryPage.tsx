@@ -31,7 +31,7 @@ export function ShoppingHistoryPage() {
               onClick={handleExportCSV}
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors"
             >
-              <span className="material-symbols-outlined text-[18px]">download</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">download</span>
               Export CSV
             </button>
           </div>

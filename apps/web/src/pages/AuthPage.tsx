@@ -62,7 +62,7 @@ export function AuthPage() {
         {/* Logo */}
         <div className="relative z-20 p-12 flex items-center gap-3">
           <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-white/15 backdrop-blur-sm text-white">
-            <span className="material-symbols-outlined text-[28px]">nutrition</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[28px]">nutrition</span>
           </div>
           <h2 className="text-white text-xl font-bold tracking-tight">ShopWise</h2>
         </div>
@@ -71,7 +71,7 @@ export function AuthPage() {
         <div className="relative z-20 p-12 max-w-lg">
           {/* Trust badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-medium mb-6">
-            <span className="material-symbols-outlined text-[16px] text-primary">verified</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-primary">verified</span>
             Farm to Table Guarantee
           </div>
 
@@ -81,7 +81,7 @@ export function AuthPage() {
             </p>
             <footer className="flex items-center gap-4">
               <div className="h-10 w-10 rounded-full bg-white/15 flex items-center justify-center">
-                <span className="material-symbols-outlined text-primary text-xl">person</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-primary text-xl">person</span>
               </div>
               <div>
                 <div className="font-semibold text-white">Alex Chen</div>
@@ -97,7 +97,7 @@ export function AuthPage() {
         <div className="w-full max-w-[440px] flex flex-col gap-6">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center gap-2 mb-2 self-center">
-            <span className="material-symbols-outlined text-primary text-3xl">nutrition</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-primary text-3xl">nutrition</span>
             <h2 className="text-text text-xl font-bold">ShopWise</h2>
           </div>
 
@@ -175,10 +175,10 @@ export function AuthPage() {
           {/* Error */}
           {error && (
             <div className="flex items-center gap-2 rounded-lg border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
-              <span className="material-symbols-outlined text-[18px]">error</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">error</span>
               <span>{error}</span>
               <button onClick={clearError} className="ml-auto text-danger hover:text-danger/80">
-                <span className="material-symbols-outlined text-[18px]">close</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px]">close</span>
               </button>
             </div>
           )}
@@ -189,7 +189,10 @@ export function AuthPage() {
               <label className="text-sm font-medium text-text" htmlFor="email">Email address</label>
               <input
                 id="email"
+                name="email"
                 type="email"
+                required
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex h-11 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
@@ -201,7 +204,11 @@ export function AuthPage() {
               <div className="relative">
                 <input
                   id="password"
+                  name="password"
                   type={showPassword ? 'text' : 'password'}
+                  required
+                  autoComplete={activeTab === 'signup' ? 'new-password' : 'current-password'}
+                  minLength={8}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="flex h-11 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all pr-10"
@@ -210,9 +217,10 @@ export function AuthPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors"
                 >
-                  <span className="material-symbols-outlined text-[20px]">
+                  <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
                     {showPassword ? 'visibility' : 'visibility_off'}
                   </span>
                 </button>
@@ -279,7 +287,7 @@ function PolicyModal({ type, onClose }: { type: 'terms' | 'privacy'; onClose: ()
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <h2 className="text-lg font-bold text-text">{title}</h2>
           <button onClick={onClose} className="rounded-full p-1 text-text-muted hover:bg-surface-active hover:text-text transition-colors">
-            <span className="material-symbols-outlined text-[20px]">close</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
         <div className="p-5">

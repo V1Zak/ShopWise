@@ -33,7 +33,7 @@ export function BottomSheet({ isOpen, onClose, title, children }: BottomSheetPro
         <div className="flex items-center justify-between px-5 py-3 border-b border-border">
           <h3 className="text-text font-bold text-lg">{title}</h3>
           <button onClick={onClose} className="p-1.5 rounded-full text-text-muted hover:text-text hover:bg-surface-active transition-colors">
-            <span className="material-symbols-outlined text-[20px]">close</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
         {/* Content */}

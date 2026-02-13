@@ -52,7 +52,7 @@ export function HistoryFilters() {
   return (
     <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-surface p-2 rounded-xl border border-border">
       <div className="flex flex-1 w-full md:w-auto items-center gap-2 bg-bg rounded-lg px-3 py-2 border border-border focus-within:border-primary transition-colors">
-        <span className="material-symbols-outlined text-text-muted">search</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-text-muted">search</span>
         <input type="text" value={searchQuery} onChange={(e) => setSearch(e.target.value)}
           className="bg-transparent border-none outline-none text-text placeholder-text-muted w-full text-sm focus:ring-0 p-0"
           placeholder="Search items, stores, or dates..." />
@@ -62,7 +62,7 @@ export function HistoryFilters() {
           trigger={
             <button className="flex items-center gap-2 px-3 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors bg-primary text-text-inv">
               {getDateRangeLabel(dateRange)}
-              <span className="material-symbols-outlined text-[18px]">expand_more</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">expand_more</span>
             </button>
           }
         >
@@ -77,7 +77,7 @@ export function HistoryFilters() {
               storeFilter ? 'bg-primary/15 border border-primary/40 text-primary font-semibold' : 'bg-surface-active hover:bg-surface-active/80 text-text'
             }`}>
               Store: {selectedStoreName}
-              <span className="material-symbols-outlined text-[18px]">expand_more</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">expand_more</span>
             </button>
           }
         >
@@ -95,7 +95,7 @@ export function HistoryFilters() {
               hasSpentFilter ? 'bg-primary/15 border border-primary/40 text-primary font-semibold' : 'bg-surface-active hover:bg-surface-active/80 text-text'
             }`}>
               {hasSpentFilter ? `$${spentRange.min ?? 0} - $${spentRange.max ?? '...'}` : 'Total Spent'}
-              <span className="material-symbols-outlined text-[18px]">expand_more</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">expand_more</span>
             </button>
           }
         >

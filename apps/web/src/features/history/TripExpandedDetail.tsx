@@ -17,14 +17,14 @@ export function TripExpandedDetail({ trip }: Props) {
                 <div className="bg-bg p-3 rounded-lg border border-border">
                   <span className="text-xs text-text-muted block mb-1">Top Category</span>
                   <span className="text-text font-semibold flex items-center gap-1">
-                    <span className="material-symbols-outlined text-orange-400 text-sm">nutrition</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-orange-400 text-sm">nutrition</span>
                     {trip.topCategory || 'N/A'} {trip.topCategoryPercentage ? `(${trip.topCategoryPercentage}%)` : ''}
                   </span>
                 </div>
                 <div className="bg-bg p-3 rounded-lg border border-border">
                   <span className="text-xs text-text-muted block mb-1">Variance</span>
                   <span className="text-danger font-semibold flex items-center gap-1">
-                    <span className="material-symbols-outlined text-sm">trending_up</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-sm">trending_up</span>
                     {trip.variance || 'N/A'}
                   </span>
                 </div>
@@ -71,7 +71,7 @@ export function TripExpandedDetail({ trip }: Props) {
                 <div className="mt-6 flex justify-end">
                   <button className="text-xs text-primary hover:text-text font-medium flex items-center gap-1 transition-colors">
                     View Full Receipt
-                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-sm">arrow_forward</span>
                   </button>
                 </div>
               </div>

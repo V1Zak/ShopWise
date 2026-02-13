@@ -13,7 +13,7 @@ export function ProductIntelligence({ selectedItem }: Props) {
     return (
       <div className="bg-bg rounded-xl p-5 border border-border">
         <div className="flex flex-col items-center justify-center py-6 text-center">
-          <span className="material-symbols-outlined text-3xl text-text-muted mb-3">touch_app</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-3xl text-text-muted mb-3">touch_app</span>
           <p className="text-text-muted text-sm">Tap an item for details</p>
           <p className="text-[#517d66] text-xs mt-1">
             See pricing tips, purchase history, and product info
@@ -35,7 +35,7 @@ export function ProductIntelligence({ selectedItem }: Props) {
     <div className="bg-bg rounded-xl p-5 border border-border">
       <div className="flex items-start gap-4 mb-4">
         <div className="h-16 w-16 bg-surface-active/10 rounded-lg flex items-center justify-center border border-border">
-          <span className="material-symbols-outlined text-3xl text-text-muted">
+          <span aria-hidden="true" className="material-symbols-outlined text-3xl text-text-muted">
             {category?.icon || 'category'}
           </span>
         </div>
@@ -95,7 +95,7 @@ export function ProductIntelligence({ selectedItem }: Props) {
       {hasBestPriceTip && (
         <div className="bg-red-400/10 border border-red-400/20 rounded-lg p-3 mb-3">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-red-400 text-sm">trending_up</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-red-400 text-sm">trending_up</span>
             <span className="text-red-400 text-xs font-medium">
               {formatPrice(priceDiff!)} above estimated price
             </span>
@@ -109,7 +109,7 @@ export function ProductIntelligence({ selectedItem }: Props) {
       {hasActualPrice && priceDiff !== null && priceDiff < 0 && (
         <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-3">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary text-sm">savings</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-primary text-sm">savings</span>
             <span className="text-primary text-xs font-medium">
               Saving {formatPrice(Math.abs(priceDiff))} vs estimate
             </span>
@@ -119,7 +119,7 @@ export function ProductIntelligence({ selectedItem }: Props) {
 
       {selectedItem.tags?.includes('On Sale') && (
         <div className="text-text-muted text-xs leading-relaxed">
-          <span className="material-symbols-outlined text-primary text-xs align-middle mr-1">local_offer</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-primary text-xs align-middle mr-1">local_offer</span>
           This item is currently on sale. Great time to stock up!
         </div>
       )}

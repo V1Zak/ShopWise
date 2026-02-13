@@ -91,7 +91,7 @@ export function ProductImageGallery({ productId, onPrimaryChanged }: ProductImag
           disabled={uploading}
           className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-active text-text text-xs font-medium hover:bg-primary hover:text-text-inv transition-colors disabled:opacity-50"
         >
-          <span className="material-symbols-outlined text-[16px]">add_photo_alternate</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[16px]">add_photo_alternate</span>
           {uploading ? 'Uploading...' : 'Add Image'}
         </button>
         <input
@@ -105,7 +105,7 @@ export function ProductImageGallery({ productId, onPrimaryChanged }: ProductImag
 
       {images.length === 0 ? (
         <div className="rounded-lg border border-dashed border-border bg-surface/50 p-6 text-center">
-          <span className="material-symbols-outlined text-3xl text-text-muted/40">photo_library</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-3xl text-text-muted/40">photo_library</span>
           <p className="text-xs text-text-muted mt-2">No images yet</p>
         </div>
       ) : (
@@ -130,7 +130,7 @@ export function ProductImageGallery({ productId, onPrimaryChanged }: ProductImag
                     className="p-1.5 rounded-full bg-white/20 hover:bg-primary hover:text-text-inv text-white transition-colors"
                     title="Set as primary"
                   >
-                    <span className="material-symbols-outlined text-[16px]">star</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-[16px]">star</span>
                   </button>
                 )}
                 <button
@@ -138,7 +138,7 @@ export function ProductImageGallery({ productId, onPrimaryChanged }: ProductImag
                   className="p-1.5 rounded-full bg-white/20 hover:bg-red-600 text-white transition-colors"
                   title="Delete"
                 >
-                  <span className="material-symbols-outlined text-[16px]">delete</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[16px]">delete</span>
                 </button>
               </div>
             </div>
@@ -158,7 +158,7 @@ export function ProductImageGallery({ productId, onPrimaryChanged }: ProductImag
               onClick={() => setLightboxUrl(null)}
               className="absolute -top-3 -right-3 h-8 w-8 rounded-full bg-surface border border-border flex items-center justify-center text-text hover:bg-surface-active transition-colors"
             >
-              <span className="material-symbols-outlined text-[18px]">close</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">close</span>
             </button>
           </div>
         </div>

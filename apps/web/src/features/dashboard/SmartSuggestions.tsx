@@ -91,7 +91,7 @@ export function SmartSuggestions() {
                       : 'bg-bg hover:bg-surface border-border text-text'
                   } disabled:opacity-60`}
                 >
-                  <span className="material-symbols-outlined text-[16px]">
+                  <span aria-hidden="true" className="material-symbols-outlined text-[16px]">
                     {isAdded ? 'check' : 'add'}
                   </span>
                   {item}

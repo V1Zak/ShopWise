@@ -31,7 +31,7 @@ export function ProductGrid() {
     <>
       {products.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <span className="material-symbols-outlined text-5xl text-text-muted/30 mb-4">inventory_2</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-5xl text-text-muted/30 mb-4">inventory_2</span>
           <h3 className="text-text font-semibold text-lg mb-1">No products found</h3>
           <p className="text-text-muted text-sm max-w-xs">
             Try adjusting your filters or search query, or add a new product.

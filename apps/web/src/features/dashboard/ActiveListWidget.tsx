@@ -32,7 +32,7 @@ export function ActiveListWidget() {
         <div className="p-5 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-primary/20 p-2 rounded-lg text-primary">
-              <span className="material-symbols-outlined">shopping_cart</span>
+              <span aria-hidden="true" className="material-symbols-outlined">shopping_cart</span>
             </div>
             <div>
               <h3 className="text-text font-bold text-lg">{activeList.title}</h3>
@@ -46,7 +46,7 @@ export function ActiveListWidget() {
               align="right"
               trigger={
                 <button className="flex items-center justify-center w-11 h-11 rounded-lg text-text-muted hover:text-text hover:bg-surface-active transition-colors" title="More actions">
-                  <span className="material-symbols-outlined text-[20px]">more_vert</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[20px]">more_vert</span>
                 </button>
               }
             >
@@ -61,7 +61,7 @@ export function ActiveListWidget() {
               className="bg-primary hover:bg-emerald-400 text-text-inv px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-2"
             >
               <span>Start Shopping</span>
-              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">arrow_forward</span>
             </Link>
           </div>
         </div>

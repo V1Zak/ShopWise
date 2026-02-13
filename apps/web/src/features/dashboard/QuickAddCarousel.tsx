@@ -63,12 +63,12 @@ export function QuickAddCarousel() {
                   <img src={imgUrl} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" loading="lazy" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="material-symbols-outlined text-3xl text-primary/30">shopping_bag</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-3xl text-primary/30">shopping_bag</span>
                   </div>
                 )}
                 {isAdded && (
                   <div className="absolute inset-0 bg-primary/80 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-white text-xl">check</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-white text-xl">check</span>
                   </div>
                 )}
               </div>

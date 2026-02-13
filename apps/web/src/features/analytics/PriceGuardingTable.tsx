@@ -28,7 +28,7 @@ export function PriceGuardingTable() {
       <div className="p-6 border-b border-border flex flex-wrap items-center justify-between gap-4">
         <div>
           <h3 className="text-lg font-bold text-text flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary">shield_lock</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-primary">shield_lock</span>
             Price Guarding & Alerts
           </h3>
           <p className="text-xs text-text-muted">Real-time tracking of volatile items in your frequent purchases.</p>
@@ -85,7 +85,7 @@ export function PriceGuardingTable() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-surface-active flex items-center justify-center">
-                          <span className="material-symbols-outlined text-text-muted">nutrition</span>
+                          <span aria-hidden="true" className="material-symbols-outlined text-text-muted">nutrition</span>
                         </div>
                         <div>
                           <p className="text-sm font-bold text-text">{alert.productName}</p>
@@ -129,7 +129,7 @@ export function PriceGuardingTable() {
                             : 'text-primary hover:text-primary/80 hover:bg-primary/10'
                         }`}
                       >
-                        <span className="material-symbols-outlined text-[20px]">
+                        <span aria-hidden="true" className="material-symbols-outlined text-[20px]">
                           {isMuted ? 'notifications_off' : 'notifications_active'}
                         </span>
                       </button>

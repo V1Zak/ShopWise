@@ -69,7 +69,7 @@ export function CatalogToolbar() {
           onClick={() => useProductsStore.getState().setCreatingProduct(true)}
           className="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary text-black text-sm font-bold whitespace-nowrap hover:bg-primary/90 transition-colors"
         >
-          <span className="material-symbols-outlined text-[18px]">add_circle</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[18px]">add_circle</span>
           Add Product
         </button>
         <div className="w-px h-6 bg-border mx-1" />
@@ -81,7 +81,7 @@ export function CatalogToolbar() {
               : 'bg-surface border border-border text-text-muted hover:text-text'
           }`}
         >
-          <span className="material-symbols-outlined text-[18px]">grid_view</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[18px]">grid_view</span>
           Grid
         </button>
         <button
@@ -92,7 +92,7 @@ export function CatalogToolbar() {
               : 'bg-surface border border-border text-text-muted hover:text-text'
           }`}
         >
-          <span className="material-symbols-outlined text-[18px]">list</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[18px]">list</span>
           List
         </button>
         <div className="w-px h-6 bg-border mx-1" />
@@ -106,7 +106,7 @@ export function CatalogToolbar() {
                   : 'bg-surface border border-border text-text-muted hover:text-text'
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">tune</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">tune</span>
               Filters
               {hasPriceFilter && <span className="ml-1 w-2 h-2 rounded-full bg-primary" />}
             </button>
@@ -144,7 +144,7 @@ export function CatalogToolbar() {
           align="right"
           trigger={
             <button className="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface border border-border text-text-muted hover:text-text transition-all text-sm font-medium whitespace-nowrap">
-              <span className="material-symbols-outlined text-[18px]">sort</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">sort</span>
               Sort: {getSortLabel(sortBy, sortDirection)}
             </button>
           }

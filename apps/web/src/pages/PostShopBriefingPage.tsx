@@ -36,7 +36,7 @@ export function PostShopBriefingPage() {
       <div className="p-6 md:p-8 overflow-y-auto">
         <div className="max-w-[1440px] mx-auto flex items-center justify-center min-h-[400px]">
           <div className="flex flex-col items-center gap-3">
-            <span className="material-symbols-outlined text-4xl text-primary animate-spin">progress_activity</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-4xl text-primary animate-spin">progress_activity</span>
             <p className="text-text-muted">Loading briefing...</p>
           </div>
         </div>
@@ -49,7 +49,7 @@ export function PostShopBriefingPage() {
       <div className="p-6 md:p-8 overflow-y-auto">
         <div className="max-w-[1440px] mx-auto flex items-center justify-center min-h-[400px]">
           <div className="flex flex-col items-center gap-3">
-            <span className="material-symbols-outlined text-4xl text-text-muted">error_outline</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-4xl text-text-muted">error_outline</span>
             <p className="text-text-muted">Trip not found</p>
           </div>
         </div>

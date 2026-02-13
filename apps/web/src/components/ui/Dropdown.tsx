@@ -67,11 +67,11 @@ export function DropdownItem({ label, active, onClick, icon }: DropdownItemProps
       }`}
     >
       {icon && (
-        <span className="material-symbols-outlined text-[18px]">{icon}</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{icon}</span>
       )}
       <span className="flex-1">{label}</span>
       {active && (
-        <span className="material-symbols-outlined text-[18px] text-primary">check</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-[18px] text-primary">check</span>
       )}
     </button>
   );

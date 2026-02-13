@@ -57,7 +57,7 @@ export function RecentActivityFeed() {
         text: 'Created list',
         boldText: list.title,
         time: list.createdAt,
-        detail: `${list.itemCount} items`,
+        detail: `${list.itemCount} ${list.itemCount === 1 ? 'item' : 'items'}`,
         link: `/list/${list.id}`,
       });
     }
@@ -94,7 +94,7 @@ export function RecentActivityFeed() {
         boldText: trip.storeName,
         time: trip.date,
         price: formatPrice(trip.totalSpent),
-        detail: `${trip.itemCount} items`,
+        detail: `${trip.itemCount} ${trip.itemCount === 1 ? 'item' : 'items'}`,
         link: '/history',
       });
     }
@@ -125,7 +125,7 @@ export function RecentActivityFeed() {
       <div className="bg-surface rounded-xl border border-border p-1">
         {activity.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-10 text-text-muted">
-            <span className="material-symbols-outlined text-[32px] mb-2">
+            <span aria-hidden="true" className="material-symbols-outlined text-[32px] mb-2">
               history
             </span>
             <p className="text-sm">No recent activity</p>
@@ -144,7 +144,7 @@ export function RecentActivityFeed() {
                 <div
                   className={`${item.iconBg} ${item.iconColor} p-2 rounded-lg mt-0.5`}
                 >
-                  <span className="material-symbols-outlined text-[20px]">
+                  <span aria-hidden="true" className="material-symbols-outlined text-[20px]">
                     {item.icon}
                   </span>
                 </div>
@@ -176,7 +176,7 @@ export function RecentActivityFeed() {
                   </div>
                 </div>
                 {item.link && (
-                  <span className="material-symbols-outlined text-[18px] text-text-muted mt-0.5">
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px] text-text-muted mt-0.5">
                     chevron_right
                   </span>
                 )}

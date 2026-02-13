@@ -57,7 +57,7 @@ export function AisleNavigation({ items }: Props) {
     return (
       <div className="bg-bg rounded-xl p-5 border border-border">
         <div className="flex items-center gap-2 text-text-muted">
-          <span className="material-symbols-outlined">map</span>
+          <span aria-hidden="true" className="material-symbols-outlined">map</span>
           <span className="text-sm">Add items to see your shopping route</span>
         </div>
       </div>
@@ -70,7 +70,7 @@ export function AisleNavigation({ items }: Props) {
         <div className="absolute inset-0 bg-gradient-to-t from-bg to-transparent" />
         <div className="absolute bottom-4 left-4">
           <div className="text-text text-lg font-bold flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary">location_on</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-primary">location_on</span>
             {activeSection?.aisle
               ? `Aisle ${activeSection.aisle}: ${activeSection.label}`
               : activeSection?.label ?? 'Shopping Route'}
@@ -109,7 +109,7 @@ export function AisleNavigation({ items }: Props) {
                   }`}
                 >
                   {isDone && (
-                    <span className="material-symbols-outlined text-text-inv text-xs font-bold">
+                    <span aria-hidden="true" className="material-symbols-outlined text-text-inv text-xs font-bold">
                       check
                     </span>
                   )}
@@ -117,7 +117,7 @@ export function AisleNavigation({ items }: Props) {
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-center">
                     <div className={`text-sm font-medium ${isActive ? 'text-text' : isDone ? 'text-primary' : 'text-text-muted'}`}>
-                      <span className="material-symbols-outlined text-xs mr-1 align-middle">{section.icon}</span>
+                      <span aria-hidden="true" className="material-symbols-outlined text-xs mr-1 align-middle">{section.icon}</span>
                       {section.label}
                       {section.aisle ? ` (Aisle ${section.aisle})` : ''}
                     </div>

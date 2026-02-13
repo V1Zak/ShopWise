@@ -29,16 +29,16 @@ function ShareLinkSection({ listId }: { listId: string }) {
       <div className="flex gap-2">
         <div className="flex-1 px-3 py-2 rounded-lg bg-bg border border-border text-text-muted text-sm truncate">{shareUrl}</div>
         <button onClick={handleCopy} className="px-3 py-2 rounded-lg border border-border text-text-muted hover:text-text hover:border-primary/50 transition-colors text-sm">
-          <span className="material-symbols-outlined text-[18px]">{copied ? 'check' : 'content_copy'}</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{copied ? 'check' : 'content_copy'}</span>
         </button>
         {typeof navigator.share === 'function' && (
           <button onClick={handleNativeShare} className="px-3 py-2 rounded-lg border border-border text-text-muted hover:text-text hover:border-primary/50 transition-colors text-sm">
-            <span className="material-symbols-outlined text-[18px]">share</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">share</span>
           </button>
         )}
       </div>
       <p className="text-text-muted text-xs mt-2">
-        <span className="material-symbols-outlined text-[14px] align-middle mr-1">info</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-[14px] align-middle mr-1">info</span>
         Editors can add and remove items. Viewers can only see the list.
       </p>
     </div>

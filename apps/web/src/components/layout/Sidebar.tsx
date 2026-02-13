@@ -24,10 +24,10 @@ export function Sidebar() {
         {/* Brand */}
         <div className="flex items-center gap-3 mb-8">
           <div className="h-10 w-10 rounded-full bg-emerald-900 ring-2 ring-primary/20 flex items-center justify-center">
-            <span className="material-symbols-outlined text-primary text-xl">shopping_cart</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-primary text-xl">shopping_cart</span>
           </div>
           <div className="flex flex-col">
-            <h1 className="text-text text-lg font-bold tracking-tight">ShopWise</h1>
+            <span className="text-text text-lg font-bold tracking-tight">ShopWise</span>
             <p className="text-text-muted text-xs font-medium">Smart Shopping</p>
           </div>
         </div>
@@ -94,7 +94,7 @@ function ThemeToggleButton() {
       className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-text-muted hover:bg-surface hover:text-text transition-colors"
       title={`Theme: ${label}. Click to switch.`}
     >
-      <span className="material-symbols-outlined text-[20px]">{icon}</span>
+      <span aria-hidden="true" className="material-symbols-outlined text-[20px]">{icon}</span>
       <span className="text-sm font-medium">{label}</span>
     </button>
   );

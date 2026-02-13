@@ -57,7 +57,7 @@ export function DashboardPage() {
               onClick={() => setTemplateModalOpen(true)}
               className="flex items-center gap-2 px-4 min-h-[44px] rounded-lg bg-surface border border-border text-text text-sm font-medium hover:border-primary/50 transition-colors"
             >
-              <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">auto_awesome</span>
               <span className="hidden sm:inline">Template</span>
             </button>
             <button onClick={() => setShowNewList(true)}

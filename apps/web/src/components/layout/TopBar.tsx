@@ -102,7 +102,7 @@ export function TopBar() {
         {/* Quick Add Bar */}
         <div className="flex-1 max-w-2xl w-full mx-auto md:mx-0 md:ml-12 relative group">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span className="material-symbols-outlined text-text-muted group-focus-within:text-primary transition-colors">
+            <span aria-hidden="true" className="material-symbols-outlined text-text-muted group-focus-within:text-primary transition-colors">
               add_circle
             </span>
           </div>
@@ -134,7 +134,7 @@ export function TopBar() {
             aria-label="Notifications"
             className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors relative"
           >
-            <span className="material-symbols-outlined">notifications</span>
+            <span aria-hidden="true" className="material-symbols-outlined">notifications</span>
             <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary ring-2 ring-bg"></span>
           </button>
 
@@ -146,7 +146,7 @@ export function TopBar() {
                 <span className="text-xs text-text-muted">All caught up</span>
               </div>
               <div className="p-6 text-center">
-                <span className="material-symbols-outlined text-3xl text-text-muted/30 mb-2 block">notifications_none</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-3xl text-text-muted/30 mb-2 block">notifications_none</span>
                 <p className="text-text-muted text-sm">No new notifications</p>
                 <p className="text-text-muted/60 text-xs mt-1">
                   Price alerts, shared list updates, and reminders will appear here.
@@ -160,7 +160,7 @@ export function TopBar() {
       {/* Toast */}
       {toast && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-surface border border-border rounded-lg px-4 py-3 shadow-2xl flex items-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-300">
-          <span className="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-primary text-[18px]">check_circle</span>
           <span className="text-sm text-text">{toast}</span>
         </div>
       )}
@@ -180,7 +180,7 @@ function TopBarThemeToggle() {
       aria-label={`Theme: ${theme}`}
       className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-text-muted hover:text-text hover:bg-surface-active rounded-full transition-colors"
     >
-      <span className="material-symbols-outlined">{icon}</span>
+      <span aria-hidden="true" className="material-symbols-outlined">{icon}</span>
     </button>
   );
 }

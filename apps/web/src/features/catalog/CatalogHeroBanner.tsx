@@ -12,7 +12,7 @@ export function CatalogHeroBanner() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
       <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-8">
         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-[10px] font-bold uppercase tracking-wider mb-2 w-fit">
-          <span className="material-symbols-outlined text-[14px]">eco</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[14px]">eco</span>
           Fresh This Season
         </span>
         <h2 className="text-white text-xl sm:text-2xl font-bold">Product Catalog</h2>

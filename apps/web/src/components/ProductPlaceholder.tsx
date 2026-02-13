@@ -36,7 +36,7 @@ export function ProductPlaceholder({ categoryId = 'other', className = '' }: Pro
         </>
       ) : (
         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-active/20 to-surface-active/5">
-          <span className="material-symbols-outlined text-5xl text-primary/30">{icon}</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-5xl text-primary/30">{icon}</span>
         </div>
       )}
       <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface/80 backdrop-blur-sm text-text-muted text-[10px] font-medium uppercase tracking-wider">

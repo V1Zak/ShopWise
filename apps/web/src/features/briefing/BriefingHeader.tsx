@@ -65,7 +65,7 @@ export function BriefingHeader({
         <div className="bg-primary/10 border border-primary/20 rounded-xl px-6 py-5 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-              <span className="material-symbols-outlined text-primary text-2xl">savings</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-primary text-2xl">savings</span>
             </div>
             <div>
               <p className="text-text-muted text-sm">You saved today</p>
@@ -76,7 +76,7 @@ export function BriefingHeader({
             onClick={handleShare}
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-text-inv text-sm font-bold hover:bg-primary/90 transition-colors"
           >
-            <span className="material-symbols-outlined text-[18px]">share</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">share</span>
             Share Summary
           </button>
         </div>
@@ -85,7 +85,7 @@ export function BriefingHeader({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-primary text-sm font-bold uppercase tracking-wider mb-1">
-            <span className="material-symbols-outlined text-sm">verified</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-sm">verified</span>
             Session Complete
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-text tracking-tight">Post-Shop Briefing</h1>
@@ -102,14 +102,14 @@ export function BriefingHeader({
                 : 'bg-surface border border-border hover:border-primary/50 text-text'
             }`}
           >
-            <span className="material-symbols-outlined text-[18px] mr-2">{isEditing ? 'check' : 'edit'}</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px] mr-2">{isEditing ? 'check' : 'edit'}</span>
             {isEditing ? 'Done Editing' : 'Edit Prices'}
           </button>
           <button
             onClick={onScrollToReceipt}
             className="flex items-center justify-center h-10 px-5 rounded-lg bg-primary hover:bg-primary/90 text-text-inv text-sm font-bold transition-colors"
           >
-            <span className="material-symbols-outlined text-[20px] mr-2">upload_file</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px] mr-2">upload_file</span>
             Verify Receipt
           </button>
         </div>

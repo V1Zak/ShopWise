@@ -70,7 +70,7 @@ export function CompleteButton() {
         disabled={isCompleting || !hasItems}
         className="w-full bg-primary hover:bg-primary/90 text-text-inv font-bold text-lg h-14 rounded-lg flex items-center justify-center gap-3 transition-colors shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
       >
-        <span className="material-symbols-outlined">
+        <span aria-hidden="true" className="material-symbols-outlined">
           {isCompleting ? 'progress_activity' : 'shopping_bag'}
         </span>
         {isCompleting ? 'Completing...' : !hasItems ? 'Check off items to complete' : 'Complete Shopping Trip'}

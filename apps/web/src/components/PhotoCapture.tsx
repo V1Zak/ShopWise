@@ -51,12 +51,12 @@ export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCa
           <>
             <img src={preview} alt="Product" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <span className="material-symbols-outlined text-white text-[32px]">photo_camera</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-white text-[32px]">photo_camera</span>
             </div>
           </>
         ) : (
           <div className="flex flex-col items-center gap-2 text-text-muted">
-            <span className="material-symbols-outlined text-[36px]">add_a_photo</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[36px]">add_a_photo</span>
             <span className="text-xs font-medium">Add Photo</span>
           </div>
         )}
@@ -91,7 +91,7 @@ export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCa
           disabled={uploading}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-active text-text text-xs font-medium hover:bg-surface-active/80 transition-colors disabled:opacity-50"
         >
-          <span className="material-symbols-outlined text-[16px]">photo_camera</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[16px]">photo_camera</span>
           Camera
         </button>
         <button
@@ -99,7 +99,7 @@ export function PhotoCapture({ productId, currentImageUrl, onUploaded }: PhotoCa
           disabled={uploading}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-active text-text text-xs font-medium hover:bg-surface-active/80 transition-colors disabled:opacity-50"
         >
-          <span className="material-symbols-outlined text-[16px]">photo_library</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[16px]">photo_library</span>
           Gallery
         </button>
       </div>

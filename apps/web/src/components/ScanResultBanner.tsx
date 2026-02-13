@@ -53,7 +53,7 @@ export function ScanResultBanner({ product, notFound, barcode, onAddToList, onAd
               onClick={() => onAddToList(product)}
               className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-text-inv text-sm font-bold hover:bg-primary/90 transition-colors"
             >
-              <span className="material-symbols-outlined text-[16px]">add</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[16px]">add</span>
               Add
             </button>
           )}
@@ -62,12 +62,12 @@ export function ScanResultBanner({ product, notFound, barcode, onAddToList, onAd
               onClick={onAddNewProduct}
               className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-text-inv text-sm font-bold hover:bg-primary/90 transition-colors"
             >
-              <span className="material-symbols-outlined text-[16px]">add_circle</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[16px]">add_circle</span>
               Add Product
             </button>
           )}
           <button onClick={onDismiss} className="text-text-muted hover:text-text transition-colors">
-            <span className="material-symbols-outlined text-[20px]">close</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
       </div>

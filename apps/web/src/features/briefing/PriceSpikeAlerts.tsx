@@ -13,7 +13,7 @@ export function PriceSpikeAlerts() {
     <div className="rounded-xl bg-surface border border-border flex flex-col overflow-hidden">
       <div className="p-4 border-b border-border flex justify-between items-center bg-surface-alt">
         <h3 className="text-text font-bold flex items-center gap-2">
-          <span className="material-symbols-outlined text-warning">warning</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-warning">warning</span>
           Price Spike Alerts
         </h3>
         {spikes.length > 0 && (
@@ -24,7 +24,7 @@ export function PriceSpikeAlerts() {
       </div>
       {spikes.length === 0 ? (
         <div className="flex flex-col items-center py-8 text-text-muted">
-          <span className="material-symbols-outlined text-[28px] mb-2">check_circle</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[28px] mb-2">check_circle</span>
           <p className="text-sm">No price spikes detected</p>
           <p className="text-xs mt-1">Prices are stable across your recent purchases.</p>
         </div>
@@ -34,7 +34,7 @@ export function PriceSpikeAlerts() {
             <div key={item.id} className="p-4 hover:bg-surface-active/50 transition-colors flex justify-between items-center">
               <div className="flex gap-3">
                 <div className="h-10 w-10 rounded bg-bg border border-border flex items-center justify-center shrink-0">
-                  <span className="material-symbols-outlined text-text-muted">nutrition</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-text-muted">nutrition</span>
                 </div>
                 <div>
                   <p className="text-text text-sm font-medium">{item.productName}</p>
@@ -44,7 +44,7 @@ export function PriceSpikeAlerts() {
               <div className="text-right">
                 <p className="text-text font-mono font-bold">{formatPrice(item.currentPrice)}</p>
                 <p className="text-danger text-xs font-bold flex items-center justify-end gap-0.5">
-                  <span className="material-symbols-outlined text-[10px]">arrow_upward</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[10px]">arrow_upward</span>
                   {item.priceChange}
                 </p>
               </div>

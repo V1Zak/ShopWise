@@ -83,7 +83,7 @@ export function ProductListItem({ product }: Props) {
             <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <span className="material-symbols-outlined text-2xl text-primary/30">
+              <span aria-hidden="true" className="material-symbols-outlined text-2xl text-primary/30">
                 {categoryIcon(product.categoryId)}
               </span>
             </div>
@@ -120,7 +120,7 @@ export function ProductListItem({ product }: Props) {
             className="h-7 w-7 rounded flex items-center justify-center text-text-muted hover:text-primary hover:bg-surface-active transition-colors"
             title="Edit product"
           >
-            <span className="material-symbols-outlined text-[16px]">edit</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px]">edit</span>
           </button>
           <button
             onClick={() => toggleCompare(product.id)}
@@ -131,7 +131,7 @@ export function ProductListItem({ product }: Props) {
             }`}
             title="Compare"
           >
-            <span className="material-symbols-outlined text-[16px]">compare_arrows</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px]">compare_arrows</span>
           </button>
         </div>
 
@@ -182,7 +182,7 @@ export function ProductListItem({ product }: Props) {
                         className="text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
                         title={`Add at ${formatPrice(sp.price)}`}
                       >
-                        <span className="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                        <span aria-hidden="true" className="material-symbols-outlined text-[16px]">add_shopping_cart</span>
                       </button>
                     </div>
                   </div>
@@ -207,9 +207,9 @@ export function ProductListItem({ product }: Props) {
                   >
                     <span className="truncate">{list.title}</span>
                     {addedToList === list.id ? (
-                      <span className="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+                      <span aria-hidden="true" className="material-symbols-outlined text-primary text-[16px]">check_circle</span>
                     ) : (
-                      <span className="material-symbols-outlined text-text-muted text-[16px]">add</span>
+                      <span aria-hidden="true" className="material-symbols-outlined text-text-muted text-[16px]">add</span>
                     )}
                   </button>
                 ))

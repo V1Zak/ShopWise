@@ -23,7 +23,7 @@ export function BottomNav() {
             }`
           }
         >
-          <span className="material-symbols-outlined text-[22px]">{tab.icon}</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[22px]">{tab.icon}</span>
           <span className="text-[10px] font-medium">{tab.label}</span>
         </NavLink>
       ))}

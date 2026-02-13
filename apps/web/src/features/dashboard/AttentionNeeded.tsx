@@ -70,14 +70,14 @@ export function AttentionNeeded() {
   return (
     <div className="bg-surface rounded-xl border border-border p-5">
       <h3 className="text-text font-bold text-base mb-4 flex items-center gap-2">
-        <span className="material-symbols-outlined text-yellow-400">
+        <span aria-hidden="true" className="material-symbols-outlined text-yellow-400">
           warning
         </span>
         Attention Needed
       </h3>
       {alerts.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-6 text-text-muted">
-          <span className="material-symbols-outlined text-[28px] mb-2 text-primary">
+          <span aria-hidden="true" className="material-symbols-outlined text-[28px] mb-2 text-primary">
             check_circle
           </span>
           <p className="text-sm text-primary font-medium">All clear!</p>

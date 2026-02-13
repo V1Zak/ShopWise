@@ -102,7 +102,7 @@ export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }:
           return (
             <div key={catId} className="mb-6">
               <h3 className="text-text-muted text-xs font-bold uppercase tracking-wider mb-3 ml-2 flex items-center gap-2">
-                <span className="material-symbols-outlined text-sm">{category?.icon || 'category'}</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-sm">{category?.icon || 'category'}</span>
                 {category?.name || catId} {category?.aisle ? `(Aisle ${category.aisle})` : ''}
               </h3>
               {catItems.map((item) => (
@@ -119,7 +119,7 @@ export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }:
         })}
         {filteredItems.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <span className="material-symbols-outlined text-4xl text-text-muted mb-2">
+            <span aria-hidden="true" className="material-symbols-outlined text-4xl text-text-muted mb-2">
               {activeTab === 'in_cart' ? 'shopping_cart' : activeTab === 'skipped' ? 'remove_shopping_cart' : 'checklist'}
             </span>
             <p className="text-text-muted">No items in this tab</p>
@@ -131,7 +131,7 @@ export function ShoppingListContent({ activeTab, selectedItemId, onSelectItem }:
         <div className="sticky bottom-0 pt-4 pb-2 bg-bg border-t border-border -mx-6 px-6">
           <div className="relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="material-symbols-outlined text-text-muted group-focus-within:text-primary transition-colors text-[20px]">
+              <span aria-hidden="true" className="material-symbols-outlined text-text-muted group-focus-within:text-primary transition-colors text-[20px]">
                 add_circle
               </span>
             </div>

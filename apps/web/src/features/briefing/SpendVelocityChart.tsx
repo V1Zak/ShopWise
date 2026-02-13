@@ -72,7 +72,7 @@ export function SpendVelocityChart({ trip }: Props) {
       <div className="w-full h-64 relative mt-8">
         {!hasData ? (
           <div className="flex flex-col items-center justify-center h-full text-text-muted">
-            <span className="material-symbols-outlined text-[32px] mb-2">show_chart</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[32px] mb-2">show_chart</span>
             <p className="text-sm">Complete more trips to see your spending trend</p>
           </div>
         ) : (

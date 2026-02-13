@@ -67,7 +67,7 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
       <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 z-10">
         <h3 className="text-text font-bold text-lg">Scan from Photo</h3>
         <button onClick={onClose} className="text-text hover:text-primary transition-colors">
-          <span className="material-symbols-outlined text-[28px]">close</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[28px]">close</span>
         </button>
       </div>
 
@@ -90,7 +90,7 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
             onClick={() => fileRef.current?.click()}
             className="w-full aspect-[4/3] rounded-xl border-2 border-dashed border-border hover:border-primary/50 transition-colors bg-surface flex flex-col items-center justify-center gap-4"
           >
-            <span className="material-symbols-outlined text-text-muted text-[48px]">add_photo_alternate</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-text-muted text-[48px]">add_photo_alternate</span>
             <div className="text-center">
               <p className="text-text font-medium">Select a photo</p>
               <p className="text-text-muted text-sm">Choose an image containing a barcode</p>
@@ -106,7 +106,7 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
           <div className="w-full rounded-lg border border-primary/30 bg-primary/10 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-primary text-[24px]">qr_code</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-primary text-[24px]">qr_code</span>
                 <div>
                   <p className="text-text font-medium">Barcode detected</p>
                   <p className="text-text-muted text-sm font-mono">{detected}</p>
@@ -125,7 +125,7 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
         {error && (
           <div className="w-full rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4">
             <div className="flex items-center gap-3">
-              <span className="material-symbols-outlined text-yellow-400 text-[24px]">warning</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-yellow-400 text-[24px]">warning</span>
               <p className="text-yellow-200 text-sm">{error}</p>
             </div>
           </div>
@@ -137,7 +137,7 @@ export function BarcodeFromPhoto({ onDetected, onClose }: BarcodeFromPhotoProps)
             onClick={() => fileRef.current?.click()}
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors"
           >
-            <span className="material-symbols-outlined text-[18px]">photo_library</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">photo_library</span>
             {preview ? 'Try another photo' : 'Choose photo'}
           </button>
         </div>

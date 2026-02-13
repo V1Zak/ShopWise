@@ -100,8 +100,12 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
       <div className="p-4 sm:p-6 pb-2 border-b border-border">
         <div className="hidden sm:flex flex-wrap gap-2 mb-4">
           <span className="text-text-muted text-xs font-medium uppercase tracking-wider">Home</span>
-          <span className="text-text-muted text-xs font-medium">/</span>
-          <span className="text-text-muted text-xs font-medium uppercase tracking-wider">{list?.storeName}</span>
+          {list?.storeName && (
+            <>
+              <span className="text-text-muted text-xs font-medium">/</span>
+              <span className="text-text-muted text-xs font-medium uppercase tracking-wider">{list.storeName}</span>
+            </>
+          )}
           <span className="text-text-muted text-xs font-medium">/</span>
           <span className="text-primary text-xs font-medium uppercase tracking-wider">Active List</span>
         </div>
@@ -125,14 +129,14 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
                   title="Click to edit list title"
                 >
                   <span className="truncate">{list?.title || 'Shopping List'}</span>
-                  <span className="material-symbols-outlined text-[16px] text-text-muted group-hover:text-primary transition-colors flex-shrink-0">edit</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-text-muted group-hover:text-primary transition-colors flex-shrink-0">edit</span>
                 </button>
               ) : (
                 <span className="truncate">{list?.title || 'Shopping List'}</span>
               )}
             </h1>
             <p className="text-text-muted text-sm truncate">
-              {allItems.length} Items
+              {allItems.length} {allItems.length === 1 ? 'Item' : 'Items'}
               {list?.storeName && <> &bull; {list.storeName}</>}
               {list?.sharedPermission && (
                 <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-400/10 text-blue-400 border border-blue-400/20">
@@ -147,7 +151,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
                 align="right"
                 trigger={
                   <button className="flex items-center justify-center w-11 h-11 rounded-lg bg-surface-active text-text hover:bg-surface-active/80 transition-colors" title="More actions">
-                    <span className="material-symbols-outlined text-[20px]">more_vert</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-[20px]">more_vert</span>
                   </button>
                 }
               >
@@ -175,7 +179,7 @@ export function ListHeader({ onScanClick }: ListHeaderProps) {
             </button>
             {onScanClick && canEdit && (
               <button onClick={onScanClick} className="flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-lg bg-surface-active text-text text-sm font-medium hover:bg-surface-active/80 transition-colors">
-                <span className="material-symbols-outlined text-[18px]">qr_code_scanner</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px]">qr_code_scanner</span>
                 <span className="hidden sm:inline">Scan</span>
               </button>
             )}

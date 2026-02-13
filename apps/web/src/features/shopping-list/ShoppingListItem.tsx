@@ -168,7 +168,7 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
                 aria-label={`Decrease quantity of ${item.name}`}
                 className="h-5 w-5 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-text hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
-                <span className="material-symbols-outlined text-[14px]">remove</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[14px]">remove</span>
               </button>
             )}
             <span className="text-text-muted text-sm min-w-[3rem] text-center">
@@ -180,7 +180,7 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
                 aria-label={`Increase quantity of ${item.name}`}
                 className="h-5 w-5 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-text hover:border-primary transition-colors"
               >
-                <span className="material-symbols-outlined text-[14px]">add</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[14px]">add</span>
               </button>
             )}
           </div>
@@ -194,6 +194,7 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
           <input
             type="number"
             step="0.01"
+            min="0"
             value={editPrice}
             placeholder={item.estimatedPrice.toFixed(2)}
             onChange={(e) => setEditPrice(e.target.value)}
@@ -215,14 +216,14 @@ export function ShoppingListItem({ item, isSelected, onSelect, readOnly }: Props
                 : 'bg-bg border border-border text-text-muted hover:text-orange-400 hover:border-orange-400'
             }`}
           >
-            <span className="material-symbols-outlined text-[16px]">skip_next</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px]">skip_next</span>
           </button>
           <button
             onClick={handleDelete}
             title="Delete item"
             className="h-7 w-7 flex items-center justify-center rounded bg-bg border border-border text-text-muted hover:text-red-400 hover:border-red-400 transition-colors"
           >
-            <span className="material-symbols-outlined text-[16px]">delete</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px]">delete</span>
           </button>
         </div>
       )}

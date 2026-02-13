@@ -76,7 +76,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
     return (
       <div className="bg-gradient-to-br from-bg to-surface rounded-xl p-5 border border-border">
         <div className="flex items-center gap-2 mb-4">
-          <span className="material-symbols-outlined text-primary">account_balance_wallet</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-primary">account_balance_wallet</span>
           <h4 className="text-text font-bold">Budget Health</h4>
         </div>
         {isEditing ? (
@@ -115,7 +115,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
             onClick={handleStartEdit}
             className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-border rounded-lg text-text-muted hover:text-primary hover:border-primary transition-colors"
           >
-            <span className="material-symbols-outlined text-sm">add</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-sm">add</span>
             <span className="text-sm">Set a shopping budget</span>
           </button>
         )}
@@ -134,7 +134,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
     <div className="bg-gradient-to-br from-bg to-surface rounded-xl p-5 border border-border">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-primary">account_balance_wallet</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-primary">account_balance_wallet</span>
           <h4 className="text-text font-bold">Budget Health</h4>
         </div>
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
@@ -168,7 +168,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
                 className="ml-1 text-text-muted hover:text-red-400 transition-colors"
                 title="Remove budget"
               >
-                <span className="material-symbols-outlined text-sm">close</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-sm">close</span>
               </button>
             </div>
           ) : (
@@ -177,7 +177,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
               className="text-text font-medium hover:text-primary transition-colors flex items-center gap-1"
             >
               {formatPrice(budget)}
-              <span className="material-symbols-outlined text-text-muted text-sm">edit</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-text-muted text-sm">edit</span>
             </button>
           )}
         </div>
@@ -205,7 +205,7 @@ export function BudgetHealth({ budget, items, onSetBudget }: BudgetHealthProps) 
 
         {overBudget && (
           <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
-            <span className="material-symbols-outlined text-red-400 text-sm">warning</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-red-400 text-sm">warning</span>
             <span className="text-red-400 text-xs">
               Over budget by {formatPrice(spent - budget)}
             </span>

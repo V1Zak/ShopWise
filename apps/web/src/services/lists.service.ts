@@ -8,7 +8,7 @@ export const listsService = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let data: any[] | null = null;
     const { data: fullData, error } = await supabase.from('shopping_lists')
-      .select('*, stores ( name ), list_items ( id )')
+      .select('*, stores ( name ), list_items ( id, estimated_price, quantity )')
       .order('updated_at', { ascending: false });
 
     if (!error) {
@@ -43,7 +43,9 @@ export const listsService = {
       isTemplate: row.is_template,
       budget: row.budget ? Number(row.budget) : null,
       itemCount: Array.isArray(row.list_items) ? row.list_items.length : 0,
-      estimatedTotal: 0,
+      estimatedTotal: Array.isArray(row.list_items)
+        ? row.list_items.reduce((sum: number, li: any) => sum + (Number(li.estimated_price) || 0) * (li.quantity || 1), 0)
+        : 0,
       createdAt: row.created_at,
       updatedAt: row.updated_at,
       collaboratorCount: shareCounts[row.id] ?? 0,

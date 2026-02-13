@@ -67,7 +67,7 @@ export function ProductCard({ product }: Props) {
           <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-active/20 to-surface-active/5">
-            <span className="material-symbols-outlined text-5xl text-primary/30">
+            <span aria-hidden="true" className="material-symbols-outlined text-5xl text-primary/30">
               {categoryIcon(product.categoryId)}
             </span>
           </div>
@@ -82,7 +82,7 @@ export function ProductCard({ product }: Props) {
             onClick={() => setEditingProduct(product.id)}
             className="h-8 w-8 rounded-full flex items-center justify-center backdrop-blur-sm bg-black/50 hover:bg-primary hover:text-black text-white transition-colors opacity-0 group-hover:opacity-100"
           >
-            <span className="material-symbols-outlined text-[18px]">edit</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">edit</span>
           </button>
           <button
             onClick={() => toggleCompare(product.id)}
@@ -92,7 +92,7 @@ export function ProductCard({ product }: Props) {
                 : 'bg-black/50 hover:bg-primary hover:text-black text-white'
             }`}
           >
-            <span className="material-symbols-outlined text-[18px]">compare_arrows</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">compare_arrows</span>
           </button>
         </div>
       </div>
@@ -150,7 +150,7 @@ export function ProductCard({ product }: Props) {
                     onClick={() => setShowListPicker(true)}
                     className="text-text-muted hover:text-text hover:bg-surface-active p-1 rounded transition-colors"
                   >
-                    <span className="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-[18px]">add_shopping_cart</span>
                   </button>
                 </div>
               </div>
@@ -174,9 +174,9 @@ export function ProductCard({ product }: Props) {
                 >
                   <span className="truncate">{list.title}</span>
                   {addedToList === list.id ? (
-                    <span className="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-primary text-[16px]">check_circle</span>
                   ) : (
-                    <span className="material-symbols-outlined text-text-muted text-[16px]">add</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-text-muted text-[16px]">add</span>
                   )}
                 </button>
               ))

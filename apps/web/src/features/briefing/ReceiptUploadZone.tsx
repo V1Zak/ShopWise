@@ -164,12 +164,12 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
       <div className="rounded-xl bg-surface border border-border overflow-hidden">
         <div className="p-4 border-b border-border flex justify-between items-center bg-surface-alt">
           <h3 className="text-text font-bold flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary">receipt_long</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-primary">receipt_long</span>
             Receipt Uploaded
             {isUploading && <span className="text-text-muted text-sm font-normal ml-2">Uploading...</span>}
           </h3>
           <button onClick={handleRemove} className="text-text-muted hover:text-text text-sm flex items-center gap-1 transition-colors">
-            <span className="material-symbols-outlined text-[16px]">close</span> Remove
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px]">close</span> Remove
           </button>
         </div>
         <div className="p-4 flex flex-col md:flex-row gap-4">
@@ -181,7 +181,7 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
             {ocrStatus === 'processing' && (
               <div className="rounded-lg bg-bg border border-border p-4">
                 <h4 className="text-text font-bold text-sm mb-3 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary text-[18px] animate-spin">progress_activity</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-primary text-[18px] animate-spin">progress_activity</span>
                   Scanning receipt...
                 </h4>
                 <div className="w-full bg-surface-alt rounded-full h-2 overflow-hidden">
@@ -199,7 +199,7 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
               <div className="rounded-lg bg-bg border border-border p-4">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-text font-bold text-sm flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary text-[18px]">list_alt</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-primary text-[18px]">list_alt</span>
                     Extracted Items
                   </h4>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-warning/20 text-warning px-2 py-0.5 rounded-full">
@@ -224,7 +224,7 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
                   onClick={() => setShowRawText((v) => !v)}
                   className="mt-2 text-text-muted hover:text-text text-xs flex items-center gap-1 transition-colors"
                 >
-                  <span className="material-symbols-outlined text-[14px]">
+                  <span aria-hidden="true" className="material-symbols-outlined text-[14px]">
                     {showRawText ? 'expand_less' : 'expand_more'}
                   </span>
                   {showRawText ? 'Hide' : 'Show'} raw OCR text
@@ -242,7 +242,7 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
               <div className="rounded-lg bg-bg border border-border p-4">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="text-text font-bold text-sm flex items-center gap-2">
-                    <span className="material-symbols-outlined text-warning text-[18px]">search_off</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-warning text-[18px]">search_off</span>
                     No Items Detected
                   </h4>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-warning/20 text-warning px-2 py-0.5 rounded-full">
@@ -263,7 +263,7 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
                       onClick={() => setShowRawText((v) => !v)}
                       className="mt-3 text-text-muted hover:text-text text-xs flex items-center gap-1 transition-colors"
                     >
-                      <span className="material-symbols-outlined text-[14px]">
+                      <span aria-hidden="true" className="material-symbols-outlined text-[14px]">
                         {showRawText ? 'expand_less' : 'expand_more'}
                       </span>
                       {showRawText ? 'Hide' : 'Show'} raw OCR text
@@ -282,7 +282,7 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
             {ocrStatus === 'error' && (
               <div className="rounded-lg bg-danger/10 border border-danger/30 p-4">
                 <h4 className="text-danger font-bold text-sm mb-2 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[18px]">error</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">error</span>
                   OCR Processing Failed
                 </h4>
                 <p className="text-text-muted text-sm mb-3">
@@ -292,7 +292,7 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
                   onClick={handleRetryOcr}
                   className="text-sm font-medium text-primary hover:text-primary/80 flex items-center gap-1 transition-colors"
                 >
-                  <span className="material-symbols-outlined text-[16px]">refresh</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[16px]">refresh</span>
                   Try again
                 </button>
               </div>
@@ -302,7 +302,7 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
             {ocrStatus === 'idle' && (
               <div className="rounded-lg bg-bg border border-border p-4">
                 <h4 className="text-text font-bold text-sm mb-2 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary text-[18px]">compare</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-primary text-[18px]">compare</span>
                   Verification Status
                 </h4>
                 <p className="text-text-muted text-sm">Receipt image captured. Preparing OCR scan...</p>
@@ -312,14 +312,14 @@ export function ReceiptUploadZone({ tripId }: ReceiptUploadZoneProps) {
             {uploadError && (
               <div className="rounded-lg bg-warning/10 border border-warning/30 p-3">
                 <p className="text-warning text-sm flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[16px]">info</span> {uploadError}
+                  <span aria-hidden="true" className="material-symbols-outlined text-[16px]">info</span> {uploadError}
                 </p>
               </div>
             )}
             {ocrStatus !== 'error' && (
               <div className="rounded-lg bg-primary/10 border border-primary/30 p-3">
                 <p className="text-primary/80 text-sm flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[16px]">check_circle</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[16px]">check_circle</span>
                   {ocrStatus === 'done' ? 'Receipt scanned and ready' : 'Receipt ready for verification'}
                 </p>
               </div>

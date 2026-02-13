@@ -40,7 +40,7 @@ export function TripRow({ trip, isExpanded }: Props) {
       </td>
       <td className="py-4 px-6 text-right">
         <button className="text-text-muted hover:text-text">
-          <span className="material-symbols-outlined">
+          <span aria-hidden="true" className="material-symbols-outlined">
             {isExpanded ? 'expand_less' : 'expand_more'}
           </span>
         </button>

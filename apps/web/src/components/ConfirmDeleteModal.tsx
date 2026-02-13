@@ -18,7 +18,7 @@ export function ConfirmDeleteModal({ isOpen, title, message, onConfirm, onCancel
         <div className="flex items-center justify-between p-5 border-b border-border">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center">
-              <span className="material-symbols-outlined text-red-400 text-[22px]">warning</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-red-400 text-[22px]">warning</span>
             </div>
             <h2 className="text-text text-lg font-bold">{title}</h2>
           </div>

@@ -126,7 +126,7 @@ export function SettingsPage() {
     <div className="flex flex-col h-full overflow-y-auto">
       {/* Sub-header */}
       <div className="sticky top-0 z-10 bg-bg/90 backdrop-blur-md border-b border-border px-6 py-4">
-        <h2 className="text-2xl font-bold text-text tracking-tight">Settings</h2>
+        <h1 className="text-2xl font-bold text-text tracking-tight">Settings</h1>
         <p className="text-sm text-text-muted hidden sm:block">
           Manage your profile, preferences, and account
         </p>
@@ -154,9 +154,9 @@ export function SettingsPage() {
                 className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity"
               >
                 {uploadingAvatar ? (
-                  <span className="material-symbols-outlined text-white text-xl animate-spin">progress_activity</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-white text-xl animate-spin">progress_activity</span>
                 ) : (
-                  <span className="material-symbols-outlined text-white text-xl">photo_camera</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-white text-xl">photo_camera</span>
                 )}
               </button>
               <input
@@ -248,7 +248,7 @@ export function SettingsPage() {
                         : 'bg-surface-alt border-border text-text-muted hover:text-text hover:border-border'
                     }`}
                   >
-                    <span className="material-symbols-outlined text-[18px]">{icon}</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{icon}</span>
                     {label}
                   </button>
                 ))}
@@ -305,7 +305,7 @@ export function SettingsPage() {
                 onClick={() => setShowPasswordModal(true)}
                 className="flex items-center gap-2 border border-border hover:border-primary/50 text-text px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
-                <span className="material-symbols-outlined text-[18px]">lock</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px]">lock</span>
                 Update
               </button>
             </div>
@@ -322,7 +322,7 @@ export function SettingsPage() {
                 onClick={handleSignOut}
                 className="flex items-center gap-2 border border-border hover:border-primary/50 text-text px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
-                <span className="material-symbols-outlined text-[18px]">logout</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px]">logout</span>
                 Sign Out
               </button>
             </div>
@@ -347,7 +347,7 @@ export function SettingsPage() {
                   onClick={() => setShowDeleteConfirm(true)}
                   className="flex items-center gap-2 border border-red-900/50 hover:bg-red-900/20 text-red-400 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex-shrink-0"
                 >
-                  <span className="material-symbols-outlined text-[18px]">delete_forever</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">delete_forever</span>
                   Delete
                 </button>
               ) : (
@@ -421,7 +421,7 @@ function ChangePasswordModal({ onClose }: { onClose: () => void }) {
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <h2 className="text-lg font-bold text-text">Change Password</h2>
           <button onClick={onClose} className="rounded-full p-1 text-text-muted hover:bg-surface-active hover:text-text transition-colors">
-            <span className="material-symbols-outlined text-[20px]">close</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
         <form onSubmit={handleSubmit} className="p-5 space-y-4">

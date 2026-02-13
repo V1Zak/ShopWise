@@ -101,7 +101,7 @@ export function StoreComparisonTable() {
         className="w-full flex items-center justify-between px-5 py-4 hover:bg-surface-active/30 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <span className="material-symbols-outlined text-primary">compare_arrows</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-primary">compare_arrows</span>
           <div className="text-left">
             <h3 className="text-text font-bold text-sm">Store Price Comparison</h3>
             <p className="text-text-muted text-xs">{stores.length} stores compared</p>

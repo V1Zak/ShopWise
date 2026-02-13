@@ -15,7 +15,7 @@ export function CategoryDonut() {
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-text">Spending by Category</h3>
         <button className="text-text-muted hover:text-text">
-          <span className="material-symbols-outlined text-[20px]">more_horiz</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[20px]">more_horiz</span>
         </button>
       </div>
       <DonutChart

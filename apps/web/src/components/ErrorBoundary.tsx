@@ -28,7 +28,7 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-screen flex items-center justify-center bg-bg p-6">
           <div className="text-center max-w-sm">
-            <span className="material-symbols-outlined text-5xl text-danger mb-4 block">error</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-5xl text-danger mb-4 block">error</span>
             <h1 className="text-text text-xl font-bold mb-2">Something went wrong</h1>
             <p className="text-text-muted text-sm mb-6">
               An unexpected error occurred. Please refresh the page to continue.

@@ -23,7 +23,7 @@ export function SavingsBreakdownTable({ items }: Props) {
   return (
     <div className="bg-surface rounded-xl border border-border overflow-hidden">
       <div className="px-5 py-4 border-b border-border flex items-center gap-3">
-        <span className="material-symbols-outlined text-primary">savings</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-primary">savings</span>
         <h3 className="text-text font-bold">Savings Breakdown</h3>
       </div>
       <div className="overflow-x-auto">

@@ -45,9 +45,9 @@ export function DashboardStats() {
         </p>
       </StatCard>
 
-      <StatCard label="Products Tracked" value={String(productCount)} icon="inventory" iconColor="text-purple-400">
+      <StatCard label="Items Tracked" value={String(totalItems)} icon="inventory" iconColor="text-purple-400">
         <p className="text-xs text-text-muted">
-          {totalItems} items in your lists
+          {productCount} {productCount === 1 ? 'product' : 'products'} in catalog
         </p>
       </StatCard>
     </div>

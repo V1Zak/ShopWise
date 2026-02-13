@@ -21,7 +21,7 @@ export function RecentTripsCards() {
       <section>
         <h3 className="text-text font-bold text-lg mb-4">Recent Trips</h3>
         <div className="bg-surface rounded-xl border border-border p-8 flex flex-col items-center text-center">
-          <span className="material-symbols-outlined text-3xl text-text-muted/30 mb-2">local_mall</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-3xl text-text-muted/30 mb-2">local_mall</span>
           <p className="text-text-muted text-sm">No shopping trips yet</p>
           <p className="text-text-muted/60 text-xs mt-1">Complete a shopping session to see trip summaries here.</p>
         </div>
@@ -49,7 +49,7 @@ export function RecentTripsCards() {
             {/* Store header */}
             <div className="px-4 py-3 border-b border-border flex items-center gap-3">
               <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="material-symbols-outlined text-primary text-[20px]">store</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-primary text-[20px]">store</span>
               </div>
               <div className="min-w-0">
                 <p className="text-text font-semibold text-sm truncate">{trip.storeName}</p>
@@ -60,7 +60,7 @@ export function RecentTripsCards() {
             <div className="p-4 flex items-center justify-between">
               <div>
                 <p className="text-2xl font-bold text-text font-mono">{formatPrice(trip.totalSpent)}</p>
-                <p className="text-text-muted text-xs">{trip.itemCount} items</p>
+                <p className="text-text-muted text-xs">{trip.itemCount} {trip.itemCount === 1 ? 'item' : 'items'}</p>
               </div>
               {trip.totalSaved > 0 && (
                 <div className="text-right">

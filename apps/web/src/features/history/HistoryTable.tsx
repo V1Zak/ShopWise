@@ -38,7 +38,7 @@ export function HistoryTable() {
               <tr>
                 <td colSpan={6} className="py-16 text-center">
                   <div className="flex flex-col items-center gap-3">
-                    <span className="material-symbols-outlined text-4xl text-text-muted/40">receipt_long</span>
+                    <span aria-hidden="true" className="material-symbols-outlined text-4xl text-text-muted/40">receipt_long</span>
                     <p className="text-text-muted font-medium">No shopping trips yet</p>
                     <p className="text-text-muted/70 text-xs max-w-xs">Complete your first shopping trip to start tracking your purchase history and savings.</p>
                   </div>

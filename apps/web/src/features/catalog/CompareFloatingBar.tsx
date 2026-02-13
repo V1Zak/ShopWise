@@ -15,7 +15,7 @@ export function CompareFloatingBar({ onCompare }: CompareFloatingBarProps) {
         onClick={onCompare}
         className="bg-primary hover:bg-primary/90 text-black font-bold py-3 px-6 rounded-full shadow-lg shadow-primary/20 cursor-pointer flex items-center gap-3 transition-all transform hover:scale-105"
       >
-        <span className="material-symbols-outlined">compare_arrows</span>
+        <span aria-hidden="true" className="material-symbols-outlined">compare_arrows</span>
         <span>Compare ({compareList.length} Items)</span>
       </button>
     </div>
