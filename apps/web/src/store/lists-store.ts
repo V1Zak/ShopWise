@@ -100,6 +100,7 @@ export const useListsStore = create<ListsState>((set, get) => ({
   },
 
   fetchListItems: async (listId) => {
+    if (!listId || listId.length !== 36) return;
     set({ isLoading: true });
     try {
       const items = await listsService.getListItems(listId);
@@ -109,7 +110,7 @@ export const useListsStore = create<ListsState>((set, get) => ({
     }
   },
 
-  setActiveList: (id) => set({ activeListId: id }),
+  setActiveList: (id) => { if (id && id.length === 36) set({ activeListId: id }); },
   getActiveList: () => { const state = get(); return state.lists.find((l) => l.id === state.activeListId); },
   getOwnedLists: () => get().lists.filter((l) => !l.sharedPermission),
   getSharedLists: () => get().lists.filter((l) => !!l.sharedPermission),

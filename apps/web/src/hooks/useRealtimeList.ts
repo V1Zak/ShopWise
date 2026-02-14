@@ -6,7 +6,7 @@ export function useRealtimeList(listId: string | undefined) {
   const fetchListItems = useListsStore((s) => s.fetchListItems);
 
   useEffect(() => {
-    if (!listId) return;
+    if (!listId || listId.length !== 36) return;
 
     const channel = realtimeService.subscribeToListItems(listId, () => {
       fetchListItems(listId);

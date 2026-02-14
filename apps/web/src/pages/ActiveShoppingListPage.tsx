@@ -28,7 +28,8 @@ export function ActiveShoppingListPage() {
   const getActiveList = useListsStore((s) => s.getActiveList);
   const setListBudget = useListsStore((s) => s.setListBudget);
 
-  const listId = id || activeListId;
+  const validId = id && id.length === 36 ? id : undefined;
+  const listId = validId || activeListId;
 
   useEffect(() => {
     if (listId) {
