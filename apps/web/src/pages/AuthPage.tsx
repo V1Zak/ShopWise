@@ -233,9 +233,10 @@ export function AuthPage() {
             {/* Remember me / Forgot password */}
             {activeTab === 'signin' && (
               <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className="flex items-center gap-2 cursor-pointer min-h-[44px]">
                   <input
                     type="checkbox"
+                    name="rememberMe"
                     checked={remember}
                     onChange={(e) => setRemember(e.target.checked)}
                     className="h-4 w-4 rounded border-border text-primary focus:ring-primary accent-primary"
