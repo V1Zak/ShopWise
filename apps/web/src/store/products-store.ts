@@ -132,8 +132,6 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
     const product = await productsService.updateProduct(id, updates);
     set((state) => ({
       products: state.products.map((p) => (p.id === id ? product : p)),
-      editingProductId: null,
-      isCreatingProduct: false,
     }));
   },
 
