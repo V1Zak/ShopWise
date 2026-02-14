@@ -87,6 +87,7 @@ export function ProductImageGallery({ productId, onPrimaryChanged }: ProductImag
       <div className="flex items-center justify-between">
         <h4 className="text-sm font-semibold text-text">Product Images</h4>
         <button
+          type="button"
           onClick={() => fileRef.current?.click()}
           disabled={uploading}
           className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-active text-text text-xs font-medium hover:bg-primary hover:text-text-inv transition-colors disabled:opacity-50"
@@ -126,6 +127,7 @@ export function ProductImageGallery({ productId, onPrimaryChanged }: ProductImag
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 {!image.isPrimary && (
                   <button
+                    type="button"
                     onClick={() => handleSetPrimary(image)}
                     className="p-1.5 rounded-full bg-white/20 hover:bg-primary hover:text-text-inv text-white transition-colors"
                     title="Set as primary"
@@ -134,6 +136,7 @@ export function ProductImageGallery({ productId, onPrimaryChanged }: ProductImag
                   </button>
                 )}
                 <button
+                  type="button"
                   onClick={() => handleDelete(image)}
                   className="p-1.5 rounded-full bg-white/20 hover:bg-red-600 text-white transition-colors"
                   title="Delete"
@@ -155,6 +158,7 @@ export function ProductImageGallery({ productId, onPrimaryChanged }: ProductImag
           <div className="relative max-w-[90vw] max-h-[90vh]">
             <img src={lightboxUrl} alt="Product" className="max-w-full max-h-[85vh] object-contain rounded-lg" />
             <button
+              type="button"
               onClick={() => setLightboxUrl(null)}
               className="absolute -top-3 -right-3 h-8 w-8 rounded-full bg-surface border border-border flex items-center justify-center text-text hover:bg-surface-active transition-colors"
             >
