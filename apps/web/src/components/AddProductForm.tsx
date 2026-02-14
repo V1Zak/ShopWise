@@ -60,8 +60,8 @@ export function AddProductForm({ barcode, onProductCreated, onClose }: AddProduc
         try {
           const url = await storageService.uploadProductImage(product.id, imageFile);
           await storageService.updateProductImageUrl(product.id, url);
-          // Also add to product_images table
-          await storageService.addProductImage(product.id, imageFile).catch(() => {
+          // Also add to product_images table (uses already-uploaded URL, no re-upload)
+          await storageService.recordProductImage(product.id, url).catch(() => {
             // Table may not exist yet, silently skip
           });
           product.imageUrl = url;

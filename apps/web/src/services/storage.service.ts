@@ -87,7 +87,11 @@ export const storageService = {
 
   async addProductImage(productId: string, file: File): Promise<ProductImage> {
     const url = await storageService.uploadProductImage(productId, file);
+    return storageService.recordProductImage(productId, url);
+  },
 
+  /** Insert a product_images record for an already-uploaded URL (no re-upload). */
+  async recordProductImage(productId: string, url: string): Promise<ProductImage> {
     // Check if this is the first image (make it primary)
     const { count } = await supabase
       .from('product_images')

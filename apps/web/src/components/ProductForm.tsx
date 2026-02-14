@@ -134,7 +134,8 @@ export function ProductForm({ mode, product, barcode, onSave, onClose }: Product
           try {
             const url = await storageService.uploadProductImage(created.id, imageFile);
             await storageService.updateProductImageUrl(created.id, url);
-            await storageService.addProductImage(created.id, imageFile).catch(() => {});
+            // Record in product_images table (uses already-uploaded URL, no re-upload)
+            await storageService.recordProductImage(created.id, url).catch(() => {});
             created.imageUrl = url;
           } catch (imgErr) {
             console.warn('[ProductForm] Image upload failed (product still created):', imgErr);
